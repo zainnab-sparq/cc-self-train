@@ -1,5 +1,6 @@
 nul
 .claude/settings.local.json
+.claude/onboarding-state.json
 __pycache__/
 workspace/
 CLAUDE.local.md

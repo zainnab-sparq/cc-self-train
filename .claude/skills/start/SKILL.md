@@ -94,34 +94,124 @@ Tailor the Local option description to mention the specific dependency manager f
 
 Remember their choice — it affects the verify and scaffold steps below.
 
-## Step 4: Verify Their Environment
+**After collecting all choices (Steps 1-3)**, save them to `.claude/onboarding-state.json` in the cc-self-train root directory (this file is gitignored):
 
-**If the user chose Canvas**, the verification is simple — just check:
+```json
+{
+  "project": "<project>",
+  "language": "<language>",
+  "os": "<detected-os>",
+  "environment": "<env-choice>",
+  "experienceLevel": "<level>",
+  "currentStep": 4,
+  "packageManager": null
+}
+```
+
+Update `currentStep` as you complete each major step (4, 5, 6). Delete this file at the end of Step 6.8 — once CLAUDE.local.md exists, it's no longer needed.
+
+## Step 3b: Check for Existing Progress
+
+**Run this check BEFORE Steps 1-3.** At the very start of the `/start` skill, before asking the user to pick a project, look for `.claude/onboarding-state.json` in the cc-self-train root.
+
+If the file exists and contains valid data:
+- Tell the user: "Welcome back! I see you were setting up **[project]** with **[language]**. Let me pick up where we left off."
+- Load all saved choices (project, language, OS, environment, experience level, package manager)
+- Skip to the step recorded in `currentStep`
+- Re-detect the package manager in Phase A (it may now be available after a restart)
+
+If the file doesn't exist or is invalid, continue with Step 1 normally.
+
+## Step 4: Verify and Install Their Environment
+
+Before running any checks, set the stage: "Let me check your system to make sure everything's ready. I'll run a few commands — you'll see exactly what I'm doing. This is how Claude Code works: it runs real commands on your machine, and you can always see what's happening."
+
+### Phase A — Detect Package Manager (silent)
+
+Before checking tools, silently detect the user's available package manager. Do NOT ask the user — just run the checks:
+
+- **macOS:** Run `brew --version`. If Homebrew is missing, install it:
+  ```bash
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  ```
+  Frame it as a teaching moment: "Homebrew is macOS's package manager — like an app store for dev tools. Almost every macOS developer uses it. I'll install it now so we can easily add anything else you need."
+  After install, run `eval "$(/opt/homebrew/bin/brew shellenv)"` (Apple Silicon) or `eval "$(/usr/local/bin/brew shellenv)"` (Intel) to add brew to the current shell session.
+
+- **Windows:** Check `winget --version`, then `choco --version`. Use whichever is available. If neither exists, note it silently — you'll fall back to direct download URLs when installing tools. Do NOT try to install a package manager on Windows.
+
+- **Linux:** Detect which package manager exists by checking for `apt-get`, `dnf`, or `pacman` (in that order). One will exist on any standard Linux distribution.
+
+Remember which package manager is available — you'll use it in Phase C.
+
+### Phase B — Run All Version Checks
+
+Run all required version checks in a single batch, then present a checklist to the user.
+
+**Always required:**
 - `git --version`
-- Confirm they have a web browser (they almost certainly do — just mention they'll open HTML files in it)
 
-That's it for Canvas. No language toolchain, no package managers, no extra tools.
-
-**For all other projects**, check that their toolchain is ready. Run the appropriate version check commands:
-
-- **Python:** `python3 --version` on macOS/Linux or `python --version` on Windows (need 3.10+), check for pip/conda/uv
-- **TypeScript/Node:** `node --version` (need 18+), `npm --version`
+**Per-language (based on Step 2 choice):**
+- **Python:** `python3 --version` (macOS/Linux) or `python --version` (Windows) — need 3.10+. If the command returns Python 2.x, treat it as missing. On Linux, also try `python3` if `python` returns 2.x.
+- **TypeScript/Node:** `node --version` (need 18+) and `npm --version`. On some Linux distros, the command is `nodejs` instead of `node` — check both.
 - **Go:** `go version` (need 1.21+)
-- **Rust:** `rustc --version`, `cargo --version`
+- **Rust:** `rustc --version` and `cargo --version`
 
-Also verify:
-- `git --version`
-- `claude --version` (they're already running CC, so this will pass)
-
-If they chose an environment in Step 3, also verify:
-- **venv:** `python -m venv --help` works
+**Per-environment (based on Step 3 choice):**
+- **venv:** `python -m venv --help` (just confirm the module exists)
 - **conda:** `conda --version`
 - **Docker:** `docker --version`
 
-If anything is missing, help them install it. Refer to the detailed setup instructions in the project's README under "Set Up Your Dev Environment" for comprehensive installation guides.
+**Per-project:**
+- **Nexus:** `sqlite3 --version`
+- **Sentinel:** Mention they'll need a coverage tool for their language (they can install it later — don't block on this)
 
-For Nexus, also check: `sqlite3 --version`
-For Sentinel, also mention they will need a coverage tool for their language (they can install it later).
+**Canvas is simpler** — only check `git --version` and confirm they have a web browser (they almost certainly do — just mention they'll open HTML files in it). Skip everything else.
+
+Present the results as a clean checklist:
+
+```
+Here's what I found:
+  ✓ git 2.43.0
+  ✓ python 3.12.1
+  ✗ sqlite3 — not found
+```
+
+If everything passes, say so and move to Step 5.
+
+### Phase C — Install Missing Tools
+
+If anything is missing, install each one. For each missing tool:
+
+1. **Announce** what you're installing and why (one sentence)
+2. **Show** the command you're about to run
+3. **Run** it
+4. **Re-verify** with the version check command
+5. **If it fails** → show the error, provide a direct download URL, and give step-by-step manual install instructions
+
+**Install commands by tool and platform:**
+
+| Tool | macOS (brew) | Windows (winget) | Windows (choco) | Windows (no pkg mgr) | Linux (apt) | Linux (dnf) | Linux (pacman) |
+|------|-------------|-------------------|------------------|----------------------|-------------|-------------|----------------|
+| git | `brew install git` | `winget install Git.Git` | `choco install git` | [git-scm.com/download/win](https://git-scm.com/download/win) | `sudo apt-get install -y git` | `sudo dnf install -y git` | `sudo pacman -S --noconfirm git` |
+| python | `brew install python@3.12` | `winget install Python.Python.3.12` | `choco install python` | [python.org/downloads](https://www.python.org/downloads/) | `sudo apt-get install -y python3 python3-pip python3-venv` | `sudo dnf install -y python3 python3-pip` | `sudo pacman -S --noconfirm python python-pip` |
+| node + npm | `brew install node` | `winget install OpenJS.NodeJS.LTS` | `choco install nodejs-lts` | [nodejs.org/download](https://nodejs.org/en/download/) | `sudo apt-get install -y nodejs npm` | `sudo dnf install -y nodejs npm` | `sudo pacman -S --noconfirm nodejs npm` |
+| go | `brew install go` | `winget install GoLang.Go` | `choco install golang` | [go.dev/dl](https://go.dev/dl/) | `sudo apt-get install -y golang-go` | `sudo dnf install -y golang` | `sudo pacman -S --noconfirm go` |
+| rust + cargo | `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs \| sh -s -- -y` | `winget install Rustlang.Rustup` | `winget install Rustlang.Rustup` | [rustup.rs](https://rustup.rs/) | `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs \| sh -s -- -y` | `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs \| sh -s -- -y` | `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs \| sh -s -- -y` |
+| sqlite3 | `brew install sqlite` | `winget install SQLite.SQLite` | `choco install sqlite` | [sqlite.org/download](https://www.sqlite.org/download.html) | `sudo apt-get install -y sqlite3` | `sudo dnf install -y sqlite` | `sudo pacman -S --noconfirm sqlite` |
+| conda | `brew install miniconda` | `winget install Anaconda.Miniconda3` | `choco install miniconda3` | [Miniconda download](https://docs.anaconda.com/miniconda/) | Silent installer (see below) | Silent installer (see below) | Silent installer (see below) |
+| docker | `brew install --cask docker` | `winget install Docker.DockerDesktop` | `choco install docker-desktop` | [Docker Desktop](https://www.docker.com/products/docker-desktop/) | `curl -fsSL https://get.docker.com \| sudo sh` | `curl -fsSL https://get.docker.com \| sudo sh` | `curl -fsSL https://get.docker.com \| sudo sh` |
+
+**Special cases:**
+
+- **Rust:** Always use rustup, never a system package manager. On macOS/Linux: `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y` then `source $HOME/.cargo/env`. On Windows: `winget install Rustlang.Rustup`.
+- **conda (Miniconda):** Auto-install using the platform's package manager when available. On macOS: `brew install miniconda`. On Windows: `winget install Anaconda.Miniconda3` (or `choco install miniconda3`). On Linux: download and run the silent installer — `mkdir -p ~/miniconda3 && curl -fsSL https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -o /tmp/miniconda.sh && bash /tmp/miniconda.sh -b -u -p ~/miniconda3 && rm /tmp/miniconda.sh`. After install on ALL platforms, run `conda init` for the user's shell (`conda init bash`, `conda init zsh`, or `conda init powershell`). Then warn: "conda is installed, but you need to restart Claude Code for it to take effect. Press `Ctrl+D`, reopen with `claude`, and run `/start` again — I'll pick up where we left off." If install fails, fall back to walking them through the Miniconda download page: [docs.anaconda.com/miniconda/](https://docs.anaconda.com/miniconda/).
+- **Docker:** Auto-install using the platform's package manager when available. On macOS: `brew install --cask docker` then `open /Applications/Docker.app` (launches Docker Desktop — it must be running for `docker` commands to work; wait a few seconds, then verify with `docker info`). On Windows: `winget install Docker.DockerDesktop` (or `choco install docker-desktop`) — tell user to launch Docker Desktop from the Start menu if `docker info` fails. On Linux: `curl -fsSL https://get.docker.com | sudo sh` then `sudo usermod -aG docker $USER` — warn: "Docker is installed. You need to restart Claude Code for the group change to take effect, or use `sudo docker` in the meantime." After install, verify with `docker --version` and `docker info` (the latter confirms the daemon is running). If the daemon isn't running, tell them to start Docker Desktop (macOS/Windows) or run `sudo systemctl start docker` (Linux). If install fails, fall back to the Docker Desktop download page: [docker.com/products/docker-desktop](https://www.docker.com/products/docker-desktop/).
+- **Linux `sudo`:** Before running any `sudo` command, warn the user: "This next command needs admin access — you may see a password prompt."
+- **Windows PATH issues:** After installing a tool on Windows, the current shell may not see it. If a version check still fails after install, tell the user: "The tool was installed but this shell can't see it yet. Close Claude Code (`Ctrl+D`), reopen it (`claude`), then run `/start` again — I'll pick up where we left off."
+- **Python 2 vs 3:** If `python --version` returns 2.x on Linux/macOS, use `python3` instead. If `python3` is also missing, install it.
+- **`nodejs` vs `node`:** On some Linux distros (Debian/Ubuntu), the binary may be `nodejs`. Check both and use whichever works.
+
+**After all installs complete**, re-run the full checklist from Phase B and display it again. Do NOT proceed to Step 5 until every required tool shows ✓.
 
 ## Step 5: Scaffold the Project
 
@@ -145,12 +235,12 @@ Suggested directory names by project:
 - `scripts/main.js` — Empty file with a comment: `// Canvas — main JavaScript file`
 - `.gitignore` — Minimal: `.DS_Store`, `Thumbs.db`, `*.swp`
 
-That's all Canvas needs. No package.json, no build config, no dependencies. Tell the user to open `index.html` in their browser using the OS-appropriate command:
+That's all Canvas needs. No package.json, no build config, no dependencies. Open the site in their browser — actually run the OS-appropriate command, don't just tell them about it:
 - **macOS:** `open index.html`
 - **Windows:** `start index.html`
 - **Linux:** `xdg-open index.html`
 
-Only show the command for their detected OS — don't list all three.
+Only run the command for their detected OS. If the command fails (e.g., headless server, WSL without GUI access), fall back gracefully: "I couldn't open the browser automatically — navigate to the project folder and double-click `index.html` to open it."
 
 After scaffolding, **list every file you created with a one-line description of each** (the Write tool truncates previews, so the user may not have seen the full contents). For Canvas, also show how to open the site in their browser using the OS-appropriate command. Do NOT immediately continue into Module 1 — wait for the user to respond first.
 
@@ -175,7 +265,7 @@ Based on the environment choice from Step 3, also scaffold environment files:
   dependencies:
     - python=3.12
   ```
-- Run `conda env create -f environment.yml` or tell the user to run it
+- Run `conda env create -f environment.yml` in the project directory. If the environment already exists, run `conda env update -f environment.yml --prune` instead.
 - Tell them how to activate: `conda activate <project-name>`
 
 **If they chose Docker:**
@@ -309,7 +399,14 @@ Explain git briefly for users who may be less familiar:
 - "A **commit** is a save point with a description of what changed."
 - "Claude Code has built-in git support — you don't need to leave the conversation to use it."
 
-Make the initial commit inside `workspace/<project>/`:
+Before committing, check that git knows who the user is:
+
+- Run `git config user.name` and `git config user.email` inside `workspace/<project>/`
+- If either is empty, explain: "Git tags every commit with your name and email so you can tell who made which change. This stays local — it's not sent anywhere."
+- Ask the user for their name and email using AskUserQuestion (the free-text "Other" option works fine for this)
+- Run `git config user.name "Their Name"` and `git config user.email "their@email.com"` in the project directory
+
+Then make the initial commit inside `workspace/<project>/`:
 
 ```
 cd workspace/<project>
@@ -399,3 +496,6 @@ Recap what they learned (concepts, not steps):
 - **OS-aware commands:** Always use the detected OS from Step 1b. Never show commands for all three operating systems — only show the one that matches the user's system. This includes paths (forward vs backslash), file-opening commands (`open`/`start`/`xdg-open`), shell syntax, activation scripts, and the Python executable name (`python` vs `python3`).
 - Be encouraging. This is their first time with Claude Code for many users.
 - If they already have a project in mind that doesn't match the 4 listed, that's fine — help them pick the project guide that teaches the CC features most relevant to what they want to build.
+- **Module completion pattern:** Every module delivery (not just Module 1) must end with a "next module" prompt and a progress update. When delivering Modules 2-10 from `projects/<name>/modules/`, always append after the checkpoint:
+  > When you're ready, say **"next module"** or **"let's do Module [N+1]"**. Next up: **[Module N+1 title]** — [one-sentence preview of what they'll learn].
+  Then update `Current Module` in CLAUDE.local.md to the completed module number. For Module 10, replace the "next module" prompt with a course completion message.
