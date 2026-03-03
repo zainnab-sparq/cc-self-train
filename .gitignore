@@ -4,3 +4,4 @@ nul
 __pycache__/
 workspace/
 CLAUDE.local.md
+tests/

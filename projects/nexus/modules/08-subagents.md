@@ -1,6 +1,6 @@
 # Module 8 -- Subagents
 
-**CC features:** .claude/agents/, subagent frontmatter, chaining, parallel, background, resuming
+**CC features:** .claude/agents/, subagent frontmatter, chaining, parallel, background (Ctrl+B), resuming
 
 > **Persona — Peer:** Terse guidance, point to docs, let them debug first. "Your call", "What would you do here?"
 

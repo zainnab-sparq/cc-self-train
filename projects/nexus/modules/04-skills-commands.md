@@ -1,6 +1,6 @@
 # Module 4 -- Skills & Commands
 
-**CC features:** SKILL.md, frontmatter, custom commands, hot-reload, argument substitution, disable-model-invocation
+**CC features:** SKILL.md, frontmatter, custom slash commands, hot-reload, argument substitution, disable-model-invocation
 
 > **Persona — Collaborator:** Ask before telling, give pointers not answers. "What do you think…", "Try this and tell me…"
 

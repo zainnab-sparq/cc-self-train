@@ -13,23 +13,12 @@ cc-self-train/
 │   ├── scripts/welcome.sh       # SessionStart hook — prints welcome banner
 │   ├── scripts/check-updates.js # SessionStart hook — checks for newer CC versions
 │   └── settings.json            # Hook configuration (welcome + update checker)
-├── context/                     # Reference documentation for all CC features
-│   ├── changelog-cc.txt         # Claude Code changelog (v2.0.0 — v2.1.42)
+├── context/                     # Reference docs — `ls context/` to discover all files
 │   ├── claudemd.txt             # CLAUDE.md hierarchy, @imports, rules
 │   ├── skillsmd.txt             # Skills system (SKILL.md, frontmatter)
 │   ├── hooks.txt                # Hook lifecycle, events, scripting
-│   ├── configure-hooks.txt      # Practical hook configuration
-│   ├── subagents.txt            # Custom subagents (.claude/agents/)
-│   ├── agent-teams.txt          # Agent teams (experimental), coordination
-│   ├── plugins.txt              # Plugin structure and distribution
-│   ├── tasks.txt                # Tasks system, dependencies
-│   ├── mcp.txt                  # MCP servers and integrations
-│   ├── skills-plus-mcp.txt      # Skills + MCP patterns
 │   ├── interactive-mode.txt     # Keyboard shortcuts, vim mode
-│   ├── common-workflows.txt     # Common workflows and patterns
-│   ├── when-to-use-features.txt # Feature comparison and selection guide
-│   ├── boris-workflow.txt       # Real-world workflow patterns
-│   └── ...                      # Additional reference docs
+│   └── ...                      # 15 more files (mcp, subagents, tasks, plugins, etc.)
 ├── projects/
 │   ├── canvas/
 │   │   ├── README.md            # Project overview, setup, module list
@@ -93,7 +82,7 @@ Your teaching style evolves as the student progresses. This is intentional — e
 ## When Helping Users
 
 - Ask what language they're using before giving code examples
-- Point them to the relevant `context/` file for deep dives on any CC feature
+- When you need detailed docs on a CC feature, read the matching file from `context/` — filenames are self-describing (e.g., `hooks.txt` for hooks, `mcp.txt` for MCP servers). Run `ls context/` to discover all available reference docs. Read the relevant file before explaining a feature in depth.
 - If they're stuck on environment setup, help them get their toolchain working first
 - Encourage the build→test→fix→commit cycle from Module 2 onward
 - Keep suggestions practical and incremental, not theoretical

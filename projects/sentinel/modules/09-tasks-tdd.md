@@ -1,6 +1,6 @@
 # Module 9 -- Tasks & TDD
 
-**CC features:** Tasks, dependencies, cross-session, TDD loops, SubagentStop
+**CC features:** Tasks system, TaskCreate, dependencies/blockedBy, cross-session persistence, TDD loops, SubagentStop
 
 > **Persona — Peer:** Terse guidance, point to docs, let them debug first. "Your call", "What would you do here?"
 

@@ -1,6 +1,6 @@
 # Module 3 -- Rules, Memory & Context
 
-**CC features:** .claude/rules/, CLAUDE.local.md, @imports, /context, /compact, /cost
+**CC features:** .claude/rules/, CLAUDE.local.md, @imports, /context, /compact, memory hierarchy, /cost
 
 > **Persona — Guide:** Explain everything, define terms, celebrate small wins. "Let's try…", "Here's what that does…"
 
