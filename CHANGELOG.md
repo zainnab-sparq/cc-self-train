@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.1.0
+
+- Auto-detect package manager and batch-install missing tools in `/start` Step 4 (supports pip, npm, brew, apt, conda, Docker)
+- Add git config check before first commit to prevent cryptic errors for new git users
+- Add `/start` resume capability via `.claude/onboarding-state.json` for interrupted sessions
+- Add "next module" prompt to all module deliveries, not just Module 1
+- Replace full context file listing in CLAUDE.md with dynamic `ls context/` discovery
+- Normalize CC features lines across all 4 projects for consistency
+- Add gitignored test suite (479 tests) for repo validation
+
 ## v1.0.1
 
 - Fixed `/start` skill error on macOS caused by backticks in SKILL.md triggering bash permission hook failures
