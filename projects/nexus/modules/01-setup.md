@@ -57,6 +57,19 @@ Practice each shortcut in the table below. Do not skip this -- muscle memory wit
 | `Ctrl+O` | Toggle verbose output | See detailed tool usage |
 | `Ctrl+R` | Reverse search command history | Search through previous inputs |
 
+### Step 5b: Slash Commands
+
+The `/` shortcut from the table above opens Claude Code's built-in commands. You used `/init` already -- here are a few more to know about:
+
+| Command | What It Does |
+|---------|-------------|
+| `/memory` | Opens your memory files (CLAUDE.md) in your editor -- view and manage what Claude remembers across sessions |
+| `/copy` | Interactive picker to select and copy specific code blocks from the conversation into your clipboard |
+| `/simplify` | Asks Claude to simplify complex code or explanations -- useful when a response is more detailed than you need |
+| `/batch` | Runs commands in batch mode for non-interactive automation |
+
+Try typing `/` and pressing `Tab` to see the full list. Tab completion works here just like it does for file paths -- it is the fastest way to discover commands you did not know existed.
+
 ### Step 6: Explore /memory
 
 Type `/memory` to open CLAUDE.md in your system editor. Add a project overview, placeholder commands (start server, run tests, check health), and an architecture section to be filled in Module 2. Save and close -- Claude now has this context in every future session.

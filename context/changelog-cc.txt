@@ -1,4 +1,46 @@
 Changelog
+2.1.68
+Opus 4.6 now defaults to medium effort on Max and Team plans
+"ultrathink" keyword re-introduced for extended thinking
+Opus 4 and 4.1 models removed
+2.1.63
+/simplify bundled slash command — simplifies complex code or explanations
+/batch bundled slash command — runs commands in batch mode
+/clear now resets cached skills
+HTTP hooks — new hook type: "type": "http" with "url" and "headers" fields; POSTs JSON to URL, expects JSON response
+Auto-memory and project configs now shared across git worktrees of the same repo
+2.1.59
+Auto-memory system — Claude automatically saves useful context across sessions to ~/.claude/ directory
+/memory command — view and manage auto-memory entries
+/copy command — interactive picker to select and copy specific code blocks
+2.1.51
+claude remote-control subcommand for external tool integration
+Plugins: custom npm registry support and version pinning for npm plugin sources
+Plugins: CLAUDE_CODE_PLUGIN_GIT_TIMEOUT_MS env var for marketplace git timeout
+Managed settings via macOS plist / Windows Registry
+2.1.50
+WorktreeCreate hook event — fires when a worktree is created; use for VCS setup
+WorktreeRemove hook event — fires when a worktree is removed; use for cleanup
+claude agents CLI command — lists all configured agents from the command line
+isolation: worktree in agent definitions — runs agent in isolated git worktree
+CLAUDE_CODE_SIMPLE env var expanded scope
+2.1.49
+ConfigChange hook event — fires when configuration files change
+background: true in agent definitions — agent always runs in background
+--worktree (-w) CLI flag — launch Claude Code in an isolated git worktree
+Ctrl+F keybinding — kill background agents (two-press confirmation)
+Plugin settings.json — plugins can ship default configuration
+Sonnet 4.5 (1M) removed from Max plan
+last_assistant_message field added to Stop and SubagentStop hook inputs
+2.1.47
+Shift+Down keybinding — navigate to teammate output
+chat:newline keybinding action — configurable multi-line input
+2.1.45
+Sonnet 4.6 model added
+Agent Teams now works on Bedrock, Vertex, and Foundry API providers
+enabledPlugins and extraKnownMarketplaces from --add-dir directories
+2.1.43
+Minor improvements and fixes (first release after v2.1.42 baseline)
 2.1.42
 Improved startup performance by deferring Zod schema construction
 Improved prompt cache hit rates by moving date out of system prompt

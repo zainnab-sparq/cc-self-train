@@ -90,6 +90,19 @@ Try these now:
 4. Type a long prompt using `Shift+Enter` for multiple lines
 5. Press `Ctrl+L` to clear the screen
 
+## 1.5b Slash Commands
+
+That `/` shortcut opens Claude Code's built-in commands. You already know `/init` -- here are a few more that are useful right away:
+
+| Command | What It Does |
+|---------|-------------|
+| `/memory` | Opens your memory files (CLAUDE.md) in your editor so you can view and manage what Claude remembers across sessions |
+| `/copy` | Opens an interactive picker to select and copy specific code blocks from the conversation -- great for grabbing a snippet Claude generated |
+| `/simplify` | Asks Claude to simplify complex code or explanations -- helpful when a response has more detail than you need |
+| `/batch` | Runs commands in batch mode for non-interactive automation |
+
+Try typing `/` and then pressing `Tab` to see the full list of available commands. This is worth doing -- there are more commands than the ones listed here, and Tab completion is the fastest way to discover them.
+
 ## 1.6 Explore /memory
 
 Type:

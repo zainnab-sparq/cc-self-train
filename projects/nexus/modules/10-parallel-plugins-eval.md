@@ -8,12 +8,18 @@
 
 ### Step 1: Git Worktrees for Parallel Development
 
-Git worktrees give you multiple working directories for the same repo, enabling two Claude Code instances on different features simultaneously. Create two worktrees:
+Git worktrees give you multiple working directories for the same repo, enabling two Claude Code instances on different features simultaneously. Create two worktrees manually or use the `--worktree` (`-w`) shortcut:
 
 ```
+# Manual approach:
 ! git worktree add ../nexus-gateway-metrics feature/metrics
 ! git worktree add ../nexus-gateway-websocket feature/websocket
+
+# Or the shortcut -- launches Claude in a new worktree automatically:
+claude -w
 ```
+
+Hook into `WorktreeCreate` and `WorktreeRemove` events to automate setup and teardown (installing deps, copying env files, cleaning up).
 
 ### Step 2: Multiple CC Instances with Shared Tasks
 
@@ -51,7 +57,9 @@ Tell Claude to create a team:
 
 > "Create an agent team for the gateway. One teammate builds a health dashboard endpoint, another adds request logging middleware, and a third writes load tests. They share a task list and coordinate."
 
-Watch the team work: Claude spawns teammates, assigns tasks, and they message each other directly. This automates the manual `CLAUDE_CODE_TASK_LIST_ID` pattern from Step 2.
+Watch the team work: Claude spawns teammates, assigns tasks, and they message each other directly. This automates the manual `CLAUDE_CODE_TASK_LIST_ID` pattern from Step 2. Use `Shift+Down` to navigate between teammates.
+
+Agent Teams also works on Bedrock, Vertex, and Foundry API providers -- not just the direct Anthropic API.
 
 **Subagents vs agent teams:** Subagents report back to you only. Agent teams communicate peer-to-peer through shared tasks and direct messages. Use subagents for focused delegation, agent teams for collaborative parallel work.
 
@@ -65,7 +73,7 @@ Ask Claude to bundle your skills, agents, and hooks into a distributable plugin.
 
 > "Package all my skills, agents, and hooks into a plugin called gateway-plugin. Create the plugin directory structure with a plugin.json, copy the skills and agents from .claude/, and include the hook configuration. Version 1.0.0."
 
-Claude will create the plugin structure with `.claude-plugin/plugin.json`, a `skills/` directory, an `agents/` directory, and a `hooks/hooks.json` file.
+Claude will create the plugin structure with `.claude-plugin/plugin.json`, a `skills/` directory, an `agents/` directory, and a `hooks/hooks.json` file. Plugins can also ship a `settings.json` for default configuration and can be distributed via the npm registry.
 
 Test: `claude --plugin-dir ./gateway-plugin`, then try `/gateway-plugin:add-route` and `/gateway-plugin:status-report`. Skills appear with the namespace prefix.
 
@@ -111,7 +119,7 @@ Shall we capture what you learned in your project knowledge layer?
 
 Update CLAUDE.md with architecture decisions, common commands, known issues, coding conventions, and performance characteristics. Also update `.claude/rules/` with new rules from your work.
 
-The key insight: CLAUDE.md + rules + skills + agents + hooks form a complete "knowledge layer" that makes Claude more effective over time.
+The key insight: CLAUDE.md + rules + skills + agents + hooks form a complete "knowledge layer" that makes Claude more effective over time. Claude also saves useful context automatically across sessions via **auto-memory** -- use `/memory` to review what has been captured. Auto-memory complements CLAUDE.md by catching things you might forget to write down.
 
 ### Checkpoint
 

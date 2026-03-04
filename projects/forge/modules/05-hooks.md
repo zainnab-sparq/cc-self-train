@@ -64,6 +64,12 @@ This hook runs the test suite after Claude finishes to verify nothing is broken.
 
 Claude will ask about your test command if it is not obvious. It will also need to figure out the right way to detect re-entrancy for your setup.
 
+## 5.4b What the Stop Hook Receives
+
+One thing to notice: the Stop hook input includes a `last_assistant_message` field containing the last message Claude sent before the hook fired. Think about what you could do with that -- you could scan it for unfinished TODOs, verify that Claude actually did what it said it did, or log it for review. SubagentStop hooks get the same field.
+
+While you are here -- hooks are not limited to local scripts. You can also use `"type": "http"` with a `"url"` field to POST hook events to a remote endpoint instead of running a command. Useful if you want to send hook data to a logging service or a CI system. See `context/hooks.txt` for the format.
+
 ## 5.5 Matchers, Timeouts, and Scripting
 
 Matchers filter which tools trigger a hook. Key patterns:

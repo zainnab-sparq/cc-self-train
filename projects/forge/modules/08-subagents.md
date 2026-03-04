@@ -1,7 +1,7 @@
 # Module 8 -- Subagents
 
 **CC features:** `.claude/agents/`, subagent frontmatter, chaining, parallel,
-background (`Ctrl+B`), resuming
+background (`Ctrl+B`), resuming, `claude agents` CLI
 
 > **Persona — Peer:** Terse guidance, point to docs, let them debug first. "Your call", "What would you do here?"
 
@@ -73,6 +73,10 @@ Note `permissionMode: plan` -- this agent can only read and analyze, never modif
 | `maxTurns` | No | Maximum number of agentic turns before the subagent stops |
 | `mcpServers` | No | MCP servers available to this subagent (named reference or inline config) |
 | `memory` | No | Persistent memory scope: `user`, `project`, or `local`. Enables cross-session learning |
+| `isolation` | No | Set to `worktree` to run the agent in its own git worktree. Changes stay isolated from your working tree |
+| `background` | No | Set to `true` to always run the agent in the background. Good for long-running tasks that should not block |
+
+To verify your agents from the command line without starting a session, run `claude agents`. It lists all configured agents and their metadata.
 
 > **What about agents that talk to each other?** Subagents report back to your main conversation only -- they cannot communicate with each other. In Module 10 you will learn about **agent teams**, where multiple Claude instances share a task list and message each other directly. Subagents are for focused delegation; agent teams are for collaborative parallel work.
 
@@ -110,7 +114,7 @@ While it runs, press `Ctrl+B`, then:
 
 > "Use the format-agent to export all bookmarks as HTML"
 
-Both agents work simultaneously.
+Both agents work simultaneously. To kill background agents, press `Ctrl+F` (press twice to confirm).
 
 **Resuming:** After an agent completes, continue its work:
 

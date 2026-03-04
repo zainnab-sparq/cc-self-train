@@ -899,6 +899,55 @@ Claude has built-in access to its documentation and can answer questions about i
 
 ***
 
+## Use auto-memory
+
+Claude automatically saves useful context across sessions. Instead of relying solely on CLAUDE.md for persistent knowledge, Claude remembers patterns, preferences, and insights discovered during conversations.
+
+* Use `/memory` to view and manage saved entries
+* Auto-memory complements CLAUDE.md — it captures session-specific insights that would be too granular for CLAUDE.md
+* Memory is scoped to the project (based on the git repository root)
+* Since v2.1.63, auto-memory is shared across git worktrees of the same repo
+* Available since v2.1.59
+
+***
+
+## Launch Claude Code in a worktree
+
+The `--worktree` (`-w`) flag launches Claude Code in an isolated git worktree. This is useful for parallel development — work on a feature without affecting the main branch.
+
+```bash  theme={null}
+claude --worktree
+```
+
+* Project configs (CLAUDE.md, settings, skills) are shared across worktrees
+* Each worktree has its own independent file state
+* Available since v2.1.49
+
+***
+
+## Use bundled commands
+
+Claude Code ships with built-in commands for common workflows:
+
+* `/simplify` — simplifies complex code or explanations
+* `/batch` — runs commands in batch mode
+
+Both available since v2.1.63.
+
+***
+
+## Use remote control
+
+The `claude remote-control` subcommand allows external tools to interact with a running Claude Code session. This is useful for building integrations, IDE extensions, or custom tooling that drives Claude Code programmatically.
+
+```bash  theme={null}
+claude remote-control
+```
+
+Available since v2.1.51.
+
+***
+
 ## Next steps
 
 <CardGroup cols={2}>

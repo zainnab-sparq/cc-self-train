@@ -12,12 +12,18 @@ PermissionRequest hooks, continuous learning
 Git worktrees let you work on multiple branches simultaneously without
 switching. Each worktree is a separate directory pointing to the same repo.
 
-Create two worktrees for parallel feature development:
+Create two worktrees for parallel feature development. You can use the manual approach or the `--worktree` (`-w`) shortcut that launches Claude Code directly in an isolated worktree:
 
 ```
+# Manual approach:
 ! git worktree add ../canvas-dark feature/dark-mode
 ! git worktree add ../canvas-blog feature/blog-engine
+
+# Or the shortcut -- launches Claude in a new worktree automatically:
+claude -w
 ```
+
+You can hook into worktree lifecycle with `WorktreeCreate` and `WorktreeRemove` hook events -- use them to automate setup (installing deps, copying env files) and teardown (cleaning up temp files).
 
 Now you have three directories:
 - `canvas-site/` -- main branch
@@ -82,7 +88,9 @@ Now tell Claude to create a team for a multi-agent task:
 
 > "Create an agent team to polish the portfolio. One teammate audits accessibility across all pages, another reviews CSS consistency, and a third checks content quality. They should share findings and coordinate fixes."
 
-Watch what happens: Claude creates a team, spawns teammates, assigns tasks, and the teammates message each other directly. You can observe the task list updating and messages flowing between agents.
+Watch what happens: Claude creates a team, spawns teammates, assigns tasks, and the teammates message each other directly. You can observe the task list updating and messages flowing between agents. Use `Shift+Down` to navigate between teammates.
+
+Agent Teams also works on Bedrock, Vertex, and Foundry API providers -- not just the direct Anthropic API.
 
 **Subagents vs agent teams:** Subagents report back to your main conversation only -- they cannot talk to each other. Agent teams communicate peer-to-peer through a shared task list and direct messages. Use subagents for focused delegation ("scan these files"), agent teams for collaborative work ("three specialists coordinating a review").
 
@@ -109,6 +117,8 @@ web-dev-plugin/
   agents/
   hooks/hooks.json
 ```
+
+Plugins can also ship a `settings.json` for default configuration (hooks, permissions, etc.) and can be distributed via the npm registry for easy sharing.
 
 ### 10.7 Test the Plugin
 
@@ -169,6 +179,8 @@ Reflect on the full project and update your configuration. Ask Claude to help yo
 This is a conversation about your own tooling. Tell Claude what surprised you, what felt clunky, and what you would do differently. Then update the configuration together.
 
 This is the continuous learning cycle: build, reflect, refine, repeat.
+
+Claude also saves useful context automatically across sessions via **auto-memory**. Use `/memory` to review what has been saved and verify it matches your understanding. Auto-memory complements CLAUDE.md -- it captures things you might forget to write down.
 
 > **STOP -- What you just did:** You completed the full loop: build tools, use them, evaluate them, then refine them based on what you learned. This is the most important pattern in all of Claude Code -- your CLAUDE.md, rules, skills, agents, and hooks are living documents. Every project teaches you something, and updating your configuration captures that knowledge for future sessions. The best Claude Code users are the ones who continuously refine their setup.
 

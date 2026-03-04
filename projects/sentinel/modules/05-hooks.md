@@ -100,6 +100,12 @@ This hook checks whether tests were updated when code changes were made. Ask Cla
 
 The hook uses `"type": "prompt"` instead of `"type": "command"`. Claude Code sends the prompt to a fast LLM (Haiku) which returns a JSON decision.
 
+### Step 4b: What the Stop Hook Receives
+
+The Stop hook input includes a `last_assistant_message` field -- the last message Claude sent before the hook fired. Think about how you could use that in Sentinel: you could check whether Claude's response actually references the test file it claimed to update, or scan for unfinished TODOs. SubagentStop hooks get the same field.
+
+Also worth noting: hooks are not limited to local scripts. You can use `"type": "http"` with a `"url"` field to POST hook events to a remote URL. This is an alternative to command hooks -- useful if you want an external service (a CI server, a logging endpoint) to react to hook events. See `context/hooks.txt` for the format details.
+
 ### Step 5: Test your hooks
 
 Restart Claude Code (to load the hooks). Then:

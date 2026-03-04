@@ -249,6 +249,14 @@ Hooks in settings.json	Hooks in hooks/hooks.json
 Must manually copy to share	Install with /plugin install
 After migrating, you can remove the original files from .claude/ to avoid duplicates. The plugin version will take precedence when loaded.
 ​
+Recent improvements
+
+* **Plugin settings**: Plugins can now ship a `settings.json` file with default configuration. This allows plugin authors to provide sensible defaults that users can override. Available since v2.1.49.
+* **npm registry support**: Custom npm registry support and version pinning for npm plugin sources. Configurable via plugin source configuration. Available since v2.1.51.
+* **Directory-based plugins**: `enabledPlugins` and `extraKnownMarketplaces` can be specified from `--add-dir` directories. Available since v2.1.45.
+* **Marketplace timeout**: `CLAUDE_CODE_PLUGIN_GIT_TIMEOUT_MS` environment variable to configure marketplace git timeout. Useful for slow networks. Available since v2.1.51.
+
+​
 Next steps
 Now that you understand Claude Code’s plugin system, here are suggested paths for different goals:
 ​

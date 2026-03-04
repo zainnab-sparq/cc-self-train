@@ -22,6 +22,9 @@ Stop	Claude finishes responding
 PreCompact	Before context compaction
 SessionEnd	Session terminates
 Notification	Claude Code sends notifications
+WorktreeCreate	When a worktree is created (use for VCS setup, installing deps, copying configs). Available since v2.1.50.
+WorktreeRemove	When a worktree is removed (use for cleanup). Available since v2.1.50.
+ConfigChange	When configuration files change (use for validation/sync). Available since v2.1.49.
 ​
 Configuration
 Claude Code hooks are configured in your settings files:
@@ -53,10 +56,36 @@ Simple strings match exactly: Write matches only the Write tool
 Supports regex: Edit|Write or Notebook.*
 Use * to match all tools. You can also use empty string ("") or leave matcher blank.
 hooks: Array of hooks to execute when the pattern matches
-type: Hook execution type - "command" for bash commands or "prompt" for LLM-based evaluation
+type: Hook execution type - "command" for bash commands, "prompt" for LLM-based evaluation, or "http" for HTTP webhook calls
 command: (For type: "command") The bash command to execute (can use $CLAUDE_PROJECT_DIR environment variable)
 prompt: (For type: "prompt") The prompt to send to the LLM for evaluation
 timeout: (Optional) How long a hook should run, in seconds, before canceling that specific hook
+​
+HTTP Hooks
+In addition to "command" and "prompt" hooks, Claude Code supports HTTP hooks (type: "http") that POST hook input as JSON to a remote URL and expect a JSON response back. Available since v2.1.63.
+Configuration:
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "http",
+            "url": "https://my-server.example.com/hook",
+            "headers": { "Authorization": "Bearer $MY_TOKEN" }
+          }
+        ]
+      }
+    ]
+  }
+}
+Fields:
+type: Must be "http"
+url: The endpoint URL to POST hook input JSON to
+headers: (Optional) HTTP headers to include in the request. Environment variables are expanded (e.g., $MY_TOKEN).
+The HTTP hook sends the same JSON input that command hooks receive via stdin. The response must be JSON in the same format as command hook JSON output.
+​
 For events like UserPromptSubmit, Stop, SubagentStop, and Setup that don’t use matchers, you can omit the matcher field:
 {
   "hooks": {
@@ -525,8 +554,10 @@ stop_hook_active is true when Claude Code is already continuing as a result of a
   "cwd": "/Users/...",
   "permission_mode": "default",
   "hook_event_name": "Stop",
-  "stop_hook_active": true
+  "stop_hook_active": true,
+  "last_assistant_message": "string"
 }
+The last_assistant_message field contains the last message Claude sent before stopping. Available since v2.1.49.
 ​
 SubagentStop Input
 Triggered when a subagent finishes. The transcript_path is the main session’s transcript, while agent_transcript_path is the subagent’s own transcript stored in a nested subagents/ folder.
@@ -538,8 +569,10 @@ Triggered when a subagent finishes. The transcript_path is the main session’s 
   "hook_event_name": "SubagentStop",
   "stop_hook_active": false,
   "agent_id": "def456",
-  "agent_transcript_path": "~/.claude/projects/.../abc123/subagents/agent-def456.jsonl"
+  "agent_transcript_path": "~/.claude/projects/.../abc123/subagents/agent-def456.jsonl",
+  "last_assistant_message": "string"
 }
+The last_assistant_message field contains the last message the subagent sent before stopping. Available since v2.1.49.
 ​
 PreCompact Input
 For manual, custom_instructions comes from what the user passes into /compact. For auto, custom_instructions is empty.

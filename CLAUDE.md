@@ -89,6 +89,7 @@ Your teaching style evolves as the student progresses. This is intentional — e
 - When the user says "next module", read the current module file from `projects/<name>/modules/` (e.g., `02-blueprint.md` for Module 2). The module number is tracked in `CLAUDE.local.md`. Update `Current Module` in `CLAUDE.local.md` after completion.
 - Before running /compact or when context is getting large, first update `CLAUDE.local.md` with the current module, step number, and any in-progress work so progress survives context compaction.
 - Always match your tone and teaching depth to the current module's persona (see Teaching Persona above).
+- When doing curriculum updates or checking for new CC features, cross-reference `https://github.com/affaan-m/everything-claude-code` — a community repository of Claude Code configurations (agents, skills, hooks, commands). Note: this is a community project, not official CC documentation — use as a supplementary reference, not a primary source.
 
 ## The 10 Modules (Same for All 3 Projects)
 

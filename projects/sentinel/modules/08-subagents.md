@@ -1,6 +1,6 @@
 # Module 8 -- Subagents
 
-**CC features:** .claude/agents/, subagent frontmatter, chaining, parallel, background (Ctrl+B), resuming
+**CC features:** .claude/agents/, subagent frontmatter, chaining, parallel, background (Ctrl+B), resuming, `claude agents` CLI
 
 > **Persona — Peer:** Terse guidance, point to docs, let them debug first. "Your call", "What would you do here?"
 
@@ -51,6 +51,8 @@ Ask Claude to walk you through all the available frontmatter fields for subagent
 
 > "What frontmatter fields can I use in subagent files? Walk me through name, description, tools, disallowedTools, model, permissionMode, skills, hooks, maxTurns, mcpServers, and memory."
 
+Two additional frontmatter fields worth knowing: `isolation: worktree` runs the agent in its own git worktree so its changes stay isolated from your working tree, and `background: true` always runs the agent in the background (useful for long-running tasks that should not block). You can verify your agents from the command line with `claude agents` -- it lists all configured agents and their metadata.
+
 > **What about agents that talk to each other?** Subagents report back to your main conversation only -- they cannot communicate with each other. In Module 10 you will learn about **agent teams**, where multiple Claude instances share a task list and message each other directly. Subagents are for focused delegation; agent teams are for collaborative parallel work.
 
 ### Step 6: Chain agents
@@ -73,7 +75,7 @@ Ask Claude to fan out analysis across multiple directories using parallel subage
 
 > "In parallel, use separate subagents to analyze src/scanner/, src/rules/, and src/reporters/ for code quality. Run them in the background so I can keep working."
 
-Press `Ctrl+B` if Claude starts a foreground agent and you want to move it to the background. Use `/tasks` to see running background tasks.
+Press `Ctrl+B` if Claude starts a foreground agent and you want to move it to the background. Press `Ctrl+F` to kill background agents (press twice to confirm). Use `/tasks` to see running background tasks.
 
 > **STOP -- What you just did:** You ran three subagents in parallel, each analyzing a different directory simultaneously. This is the key advantage of subagents for large codebases -- instead of analyzing directories one by one, you fan out the work. Background mode (`Ctrl+B`) lets you continue working in your main conversation while agents crunch away. You will use this pattern whenever you have independent tasks that can run concurrently.
 

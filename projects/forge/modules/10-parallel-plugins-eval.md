@@ -12,12 +12,18 @@ PermissionRequest hooks, continuous learning
 Git worktrees let you work on multiple branches simultaneously without
 switching. Each worktree is a separate directory pointing to the same repo.
 
-Create two worktrees for parallel feature development:
+Create two worktrees for parallel feature development. You can use the manual approach or the `--worktree` (`-w`) shortcut:
 
 ```
+# Manual approach:
 ! git worktree add ../forge-api feature/api
 ! git worktree add ../forge-export feature/export
+
+# Or the shortcut -- launches Claude in a new worktree automatically:
+claude -w
 ```
+
+Hook into `WorktreeCreate` and `WorktreeRemove` events to automate setup and teardown (installing deps, copying env files, cleaning up).
 
 Now you have three directories:
 - `forge-toolkit/` -- main branch
@@ -64,7 +70,9 @@ Tell Claude to create a team:
 
 > "Create an agent team to improve the forge toolkit. One teammate reviews the search system for edge cases, another adds missing export formats, and a third writes integration tests. They should coordinate through shared tasks."
 
-Observe the team in action: Claude creates teammates, they pick up tasks, message each other, and report back. You can watch via the task list and message notifications.
+Observe the team in action: Claude creates teammates, they pick up tasks, message each other, and report back. You can watch via the task list and message notifications. Use `Shift+Down` to navigate between teammates.
+
+Agent Teams also works on Bedrock, Vertex, and Foundry API providers -- not just the direct Anthropic API.
 
 **Subagents vs agent teams:** Subagents report back to you only -- they cannot communicate with each other. Agent teams message peer-to-peer and share a task list. Use subagents for focused delegation, agent teams for collaborative work requiring coordination.
 
@@ -77,6 +85,8 @@ Observe the team in action: Claude creates teammates, they pick up tasks, messag
 Package everything you have built into a reusable plugin. Describe to Claude what you want to include and let it figure out the plugin structure.
 
 > "Package my forge toolkit into a reusable plugin called knowledge-base-plugin. Include the add-item, search, daily-summary, and backup skills, the search, format, and review agents, and extract the relevant hooks into plugin format. Create a plugin.json manifest with name and version."
+
+Plugins can also ship a `settings.json` for default configuration (hooks, permissions, etc.) and can be distributed via the npm registry for easy sharing.
 
 Claude may ask about which hooks to include or how to handle project-specific paths. The directory layout must be:
 
@@ -147,6 +157,8 @@ Reflect on the full project and have a conversation with Claude about what you h
 > "Review our CLAUDE.md, rules, skills, agents, and hooks. What patterns worked well? What should we refine? Are there edge cases we missed or descriptions that could be clearer? Help me update everything based on what we've learned building this project."
 
 This is the continuous learning cycle: build, reflect, refine, repeat.
+
+Claude also saves useful context automatically across sessions via **auto-memory**. Use `/memory` to review what has been saved and verify it matches your understanding. Auto-memory complements CLAUDE.md -- it captures things you might forget to write down.
 
 > **STOP -- What you just did:** You completed the full learning loop. Over 10 modules, you built a personal dev toolkit while systematically learning every major Claude Code feature. This final step -- reviewing and refining your configuration -- is what separates people who use Claude Code from people who master it. Your CLAUDE.md, rules, skills, agents, and hooks are a living system that gets better with every session. Keep updating them.
 

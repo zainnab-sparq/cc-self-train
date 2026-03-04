@@ -10,12 +10,18 @@ In this final module you learn advanced patterns for scaling your workflow.
 
 > **Why this step:** Git worktrees let you have multiple working copies of the same repo *without cloning it again*. Each worktree shares the same git history but has its own working directory and branch. Combined with Claude Code, this means you can have two or three Claude instances building different features in parallel on the same project -- true concurrent development.
 
-Git worktrees let you have multiple working copies of the same repo. Each worktree can have its own Claude Code session working on a different feature simultaneously.
+Git worktrees let you have multiple working copies of the same repo. Each worktree can have its own Claude Code session working on a different feature simultaneously. Use the manual approach or the `--worktree` (`-w`) shortcut:
 
 ```
+# Manual approach:
 ! git worktree add ../sentinel-coverage-html feature/coverage-html
 ! git worktree add ../sentinel-rule-import feature/rule-import
+
+# Or the shortcut -- launches Claude in a new worktree automatically:
+claude -w
 ```
+
+Hook into `WorktreeCreate` and `WorktreeRemove` events to automate setup and teardown (installing deps, copying env files, cleaning up).
 
 Now you have three working copies:
 - `sentinel/` -- main development
@@ -69,7 +75,9 @@ Tell Claude to create a team:
 
 > "Create an agent team to harden Sentinel. One teammate adds new analysis rules for common vulnerabilities, another writes test fixtures with planted bugs, and a third improves the HTML report output. They share findings and coordinate."
 
-Observe: Claude spawns teammates, assigns tasks, and they message each other directly. This automates the manual `CLAUDE_CODE_TASK_LIST_ID` coordination from Step 2.
+Observe: Claude spawns teammates, assigns tasks, and they message each other directly. This automates the manual `CLAUDE_CODE_TASK_LIST_ID` coordination from Step 2. Use `Shift+Down` to navigate between teammates.
+
+Agent Teams also works on Bedrock, Vertex, and Foundry API providers -- not just the direct Anthropic API.
 
 **Subagents vs agent teams:** Subagents report back to you only. Agent teams communicate peer-to-peer through shared tasks and direct messages. Use subagents for focused delegation, agent teams for collaborative parallel work.
 
@@ -81,7 +89,7 @@ Ask Claude to bundle everything you have built into a distributable plugin. Desc
 
 > "Create a plugin called 'quality-tools' that packages all our skills, agents, hooks, and the SQLite MCP config into a single distributable directory. It needs a manifest at .claude-plugin/plugin.json with name, description, and version."
 
-Claude will create the plugin structure:
+Claude will create the plugin structure. Plugins can also ship a `settings.json` for default configuration and can be distributed via the npm registry.
 
 ```
 quality-tools/
@@ -149,6 +157,8 @@ Ask Claude to build a feedback loop where eval results drive improvements. Descr
 > "Create a continuous learning loop: log false positives and negatives from the eval to eval/learning/misclassifications.jsonl. Add a SessionStart hook that loads recent misclassifications into context. After fixing one, re-run the eval to confirm and check for regressions. Then update CLAUDE.md with the lesson learned."
 
 > **STOP -- What you just did:** You closed the loop: eval finds problems, you fix them, eval confirms the fix, and CLAUDE.md records the lesson. This means every future session starts with the accumulated knowledge of past mistakes. Over time, Sentinel gets more accurate and Claude gets better at working with it. This continuous learning pattern is the most sophisticated workflow in the entire curriculum -- it combines hooks (SessionStart), memory (CLAUDE.md), evaluation (scoring framework), and iterative improvement into a single self-reinforcing system.
+
+Claude also saves useful context automatically across sessions via **auto-memory**. Use `/memory` to review what has been captured. Auto-memory complements CLAUDE.md by catching things you might forget to write down.
 
 Ready to clean up the worktrees and wrap up?
 

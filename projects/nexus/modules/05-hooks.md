@@ -62,6 +62,12 @@ Claude will ask what your test command is (pytest, npm test, cargo test, etc.) a
 
 Want to dig into hook configuration details?
 
+### Step 4b: What the Stop Hook Receives
+
+The Stop hook input includes a `last_assistant_message` field -- the last thing Claude said before the hook fired. What could you do with that? You might scan it to verify Claude actually addressed the issue it claimed to fix, or check whether the response mentioned creating a route that does not exist yet. SubagentStop hooks get the same field.
+
+One more thing: hooks can also POST to URLs instead of running local commands. Use `"type": "http"` with a `"url"` field in place of `"type": "command"`. This is handy if you want hook events sent to an external service -- a logging endpoint, a CI trigger, or a monitoring dashboard. See `context/hooks.txt` for the full format.
+
 ### Step 5: Understand Hook Configuration Details
 
 Key points about hooks:

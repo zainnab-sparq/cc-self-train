@@ -70,6 +70,12 @@ The key difference from PostToolUse: a Stop hook with exit code 2 is *blocking* 
 
 Want to learn about matchers and hook scripting?
 
+### 5.4b What the Stop Hook Receives
+
+The Stop hook input includes a `last_assistant_message` field -- this is the last message Claude sent before the hook fired. What could you do with that? You could inspect it to check whether Claude mentioned creating a file it did not actually create, or whether the response included a TODO it forgot to address. The same field is available in SubagentStop hooks.
+
+Also worth knowing: hooks are not limited to running local scripts. You can use `"type": "http"` with a `"url"` field to POST hook events to a remote URL instead. This is useful if you want an external service to process hook events -- a CI server, a logging endpoint, or a webhook receiver. Check `context/hooks.txt` for the full format.
+
 ### 5.5 Matchers, Timeouts, and Scripting
 
 Matchers filter which tools trigger a hook. Key patterns:

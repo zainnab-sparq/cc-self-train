@@ -359,6 +359,13 @@ tmux ls
 tmux kill-session -t <session-name>
 ```
 
+## Recent improvements
+
+* **Teammate navigation**: `Shift+Down` keybinding for navigating to teammate output. Replaces prior binding. Available since v2.1.47.
+* **Provider support**: Agent Teams now works on Bedrock, Vertex, and Foundry API providers — not just direct Anthropic API. Available since v2.1.45.
+* **Auto-memory in teams**: Auto-memory improvements benefit multi-agent sessions — context saved by one session is available to future sessions. Available since v2.1.59.
+* **Memory leak fixes**: Memory leak fixes for long-running teammates improve stability of extended team sessions.
+
 ## Limitations
 
 Agent teams are experimental. Current limitations to be aware of:

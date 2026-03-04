@@ -1,0 +1,42 @@
+# Auto-Memory
+
+## What It Is
+
+Auto-memory is a system where Claude automatically saves useful context across sessions. Instead of relying solely on CLAUDE.md for persistent knowledge, Claude can now remember patterns, preferences, and insights discovered during conversations.
+
+## How It Works
+
+- Claude saves memory entries to the `~/.claude/` directory automatically
+- Entries persist across sessions and are loaded into future conversations
+- Memory is scoped to the project (based on the git repository root)
+- Since v2.1.63, auto-memory is shared across git worktrees of the same repo
+
+## Managing Auto-Memory
+
+Use the `/memory` command to:
+- View all saved memory entries
+- Delete entries that are no longer relevant
+- Understand what Claude has learned about your project
+
+## Relationship to Other Persistence
+
+| Mechanism | Purpose | Managed By |
+|-----------|---------|------------|
+| `CLAUDE.md` | Project-wide rules and conventions | User (checked into git) |
+| `CLAUDE.local.md` | Local/private project state | User (gitignored) |
+| Auto-memory | Session-learned patterns and preferences | Claude (automatic) |
+| `.claude/rules/` | Modular rule files | User (checked into git) |
+
+Auto-memory complements these other mechanisms — it captures insights that are too granular or session-specific for CLAUDE.md but too useful to forget.
+
+## Best Practices
+
+- Review auto-memory periodically with `/memory` to prune outdated entries
+- If Claude keeps remembering something incorrectly, delete the entry and add the correct information to CLAUDE.md instead
+- Auto-memory works best for: coding style preferences, project-specific patterns, debugging insights, and workflow habits
+- For explicit rules and requirements, prefer CLAUDE.md — auto-memory is for organic learning
+
+## Version History
+
+- v2.1.59: Auto-memory system introduced, `/memory` command added
+- v2.1.63: Auto-memory shared across git worktrees of the same repo

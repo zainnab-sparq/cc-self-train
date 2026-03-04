@@ -1,6 +1,6 @@
 # Module 8 -- Subagents
 
-**CC features:** .claude/agents/, subagent frontmatter, chaining, parallel, background (Ctrl+B), resuming
+**CC features:** .claude/agents/, subagent frontmatter, chaining, parallel, background (Ctrl+B), resuming, `claude agents` CLI
 
 > **Persona — Peer:** Terse guidance, point to docs, let them debug first. "Your call", "What would you do here?"
 
@@ -59,6 +59,10 @@ Review the key frontmatter fields:
 | `maxTurns` | No | Maximum number of agentic turns before the subagent stops |
 | `mcpServers` | No | MCP servers available to this subagent (named reference or inline config) |
 | `memory` | No | Persistent memory scope: `user`, `project`, or `local`. Enables cross-session learning |
+| `isolation` | No | Set to `worktree` to run the agent in its own git worktree. Changes stay isolated from your working tree |
+| `background` | No | Set to `true` to always run the agent in the background. Good for long-running tasks that should not block |
+
+To verify your agents from the command line without starting a session, run `claude agents`. It lists all configured agents and their metadata.
 
 > **What about agents that talk to each other?** Subagents report back to your main conversation only -- they cannot communicate with each other. In Module 10 you will learn about **agent teams**, where multiple Claude instances share a task list and message each other directly. Subagents are for focused delegation; agent teams are for collaborative parallel work.
 
@@ -82,7 +86,7 @@ Review the key frontmatter fields:
 
 > **Why this step:** Long-running analyses (like a full security audit) can block your workflow. Background execution with `Ctrl+B` lets you keep working while the agent runs. You will use this pattern whenever an agent's work is not blocking your next step.
 
-While Claude is running a subagent, press `Ctrl+B` to send it to the background. You can continue working and Claude will notify you when it finishes.
+While Claude is running a subagent, press `Ctrl+B` to send it to the background. You can continue working and Claude will notify you when it finishes. To kill background agents, press `Ctrl+F` (press twice to confirm).
 
 > "Run the security-agent in the background to audit the full codebase. I'll keep working on the rate limiter."
 

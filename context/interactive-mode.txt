@@ -29,6 +29,8 @@ Esc + Esc	Rewind the code/conversation	Restore the code and/or conversation to a
 Shift+Tab or Alt+M (some configurations)	Toggle permission modes	Switch between Auto-Accept Mode, Plan Mode, and normal mode
 Option+P (macOS) or Alt+P (Windows/Linux)	Switch model	Switch models without clearing your prompt
 Option+T (macOS) or Alt+T (Windows/Linux)	Toggle extended thinking	Enable or disable extended thinking mode. Run /terminal-setup first to enable this shortcut
+Ctrl+F	Kill background agents	Press twice to confirm. Available since v2.1.49
+Shift+Down	Navigate to teammate output	Navigate to teammate output in agent team sessions. Available since v2.1.47
 ​
 Text editing
 Shortcut	Description	Context
@@ -51,6 +53,7 @@ macOS default	Option+Enter	Default on macOS
 Shift+Enter	Shift+Enter	Works out of the box in iTerm2, WezTerm, Ghostty, Kitty
 Control sequence	Ctrl+J	Line feed character for multiline
 Paste mode	Paste directly	For code blocks, logs
+chat:newline	Configurable keybinding action	Configurable keybinding action for multi-line input. Bind to your preferred key combo in keybindings.json. Available since v2.1.47
 Shift+Enter works without configuration in iTerm2, WezTerm, Ghostty, and Kitty. For other terminals (VS Code, Alacritty, Zed, Warp), run /terminal-setup to install the binding.
 ​
 Quick commands
@@ -63,10 +66,12 @@ Built-in commands
 Built-in commands are shortcuts for common actions. The table below covers commonly used commands but not all available options. Type / in Claude Code to see the full list, or type / followed by any letters to filter.
 To create your own commands you can invoke with /, see skills.
 Command	Purpose
+/batch	Run commands in batch mode. Bundled command available since v2.1.63
 /clear	Clear conversation history
 /compact [instructions]	Compact conversation with optional focus instructions
 /config	Open the Settings interface (Config tab)
 /context	Visualize current context usage as a colored grid
+/copy	Interactive picker to select and copy specific code blocks from the conversation. Updated in v2.1.59
 /cost	Show token usage statistics. See cost tracking guide for subscription-specific details.
 /doctor	Checks the health of your Claude Code installation
 /exit	Exit the REPL
@@ -74,17 +79,17 @@ Command	Purpose
 /help	Get usage help
 /init	Initialize project with CLAUDE.md guide
 /mcp	Manage MCP server connections and OAuth authentication
-/memory	Edit CLAUDE.md memory files
+/memory	View and manage auto-memory entries (what Claude has saved across sessions). Also edits CLAUDE.md memory files. Updated in v2.1.59
 /model	Select or change the AI model
 /permissions	View or update permissions
 /plan	Enter plan mode directly from the prompt
 /rename <name>	Rename the current session for easier identification
 /resume [session]	Resume a conversation by ID or name, or open the session picker
 /rewind	Rewind the conversation and/or code
+/simplify	Simplify complex code or explanations. Bundled command available since v2.1.63
 /stats	Visualize daily usage, session history, streaks, and model preferences
 /status	Open the Settings interface (Status tab) showing version, model, account, and connectivity
 /statusline	Set up Claude Code’s status line UI
-/copy	Copy the last assistant response to clipboard
 /tasks	List and manage background tasks
 /teleport	Resume a remote session from claude.ai (subscribers only)
 /theme	Change the color theme

@@ -35,6 +35,7 @@ Features range from always-on context that Claude sees every session, to on-dema
 | Feature                            | What it does                                               | When to use it                                                                  | Example                                                                          |
 | ---------------------------------- | ---------------------------------------------------------- | ------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
 | **CLAUDE.md**                      | Persistent context loaded every conversation               | Project conventions, "always do X" rules                                        | "Use pnpm, not npm. Run tests before committing."                                |
+| **Auto-memory**                    | Automatically saves useful context across sessions         | Session-learned patterns and preferences; complements CLAUDE.md and CLAUDE.local.md | Use `/memory` to view and manage; captures insights too granular for CLAUDE.md   |
 | **Skill**                          | Instructions, knowledge, and workflows Claude can use      | Reusable content, reference docs, repeatable tasks                              | `/review` runs your code review checklist; API docs skill with endpoint patterns |
 | **Subagent**                       | Isolated execution context that returns summarized results | Context isolation, parallel tasks, specialized workers                          | Research task that reads many files but returns only key findings                |
 | **[Agent teams](/en/agent-teams)** | Coordinate multiple independent Claude Code sessions       | Parallel research, new feature development, debugging with competing hypotheses | Spawn reviewers to check security, performance, and tests simultaneously         |
@@ -65,6 +66,8 @@ Some features can seem similar. Here's how to tell them apart.
     **Use a subagent** when you need context isolation or when your context window is getting full. The subagent might read dozens of files or run extensive searches, but your main conversation only receives a summary. Since subagent work doesn't consume your main context, this is also useful when you don't need the intermediate work to remain visible. Custom subagents can have their own instructions and can preload skills.
 
     **They can combine.** A subagent can preload specific skills (`skills:` field). A skill can run in isolated context using `context: fork`. See [Skills](/en/skills) for details.
+
+    **Recent additions:** Subagents now support `background: true` in frontmatter for long-running tasks that shouldn't block the main conversation, and `isolation: worktree` to run the agent in an isolated git worktree so its changes don't affect the main working tree.
   </Tab>
 
   <Tab title="CLAUDE.md vs Skill">
@@ -105,7 +108,7 @@ Some features can seem similar. Here's how to tell them apart.
     **Transition point:** If you're running parallel subagents but hitting context limits, or if your subagents need to communicate with each other, agent teams are the natural next step.
 
     <Note>
-      Agent teams are experimental and disabled by default. See [agent teams](/en/agent-teams) for setup and current limitations.
+      Agent teams are experimental and disabled by default. See [agent teams](/en/agent-teams) for setup and current limitations. Agent teams now work on Bedrock, Vertex, and Foundry API providers in addition to direct Anthropic API.
     </Note>
   </Tab>
 

@@ -217,6 +217,8 @@ The following fields can be used in the YAML frontmatter. Only `name` and `descr
 | `mcpServers`      | No       | [MCP servers](/en/mcp) available to this subagent. Each entry is either a server name referencing an already-configured server (e.g., `"slack"`) or an inline definition with the server name as key and a full [MCP server config](/en/mcp#configure-mcp-servers) as value |
 | `hooks`           | No       | [Lifecycle hooks](#define-hooks-for-subagents) scoped to this subagent                                                                                                                                                                                                      |
 | `memory`          | No       | [Persistent memory scope](#enable-persistent-memory): `user`, `project`, or `local`. Enables cross-session learning                                                                                                                                                         |
+| `isolation`       | No       | Set to `worktree` to run the agent in an isolated git worktree. Changes made by the agent are isolated from the main working tree. Available since v2.1.49-50                                                                                                                |
+| `background`      | No       | Set to `true` to always run the agent in the background. Useful for long-running tasks that shouldn't block the main conversation. Available since v2.1.49                                                                                                                   |
 
 ### Choose a model
 
@@ -808,3 +810,13 @@ Now that you understand subagents, explore these related features:
 * [Distribute subagents with plugins](/en/plugins) to share subagents across teams or projects
 * [Run Claude Code programmatically](/en/headless) with the Agent SDK for CI/CD and automation
 * [Use MCP servers](/en/mcp) to give subagents access to external tools and data
+
+## Recent additions
+
+### CLI agent listing
+
+`claude agents` — Lists all configured agents from the command line, including agents from `.claude/agents/` and any plugin-provided agents. Available since v2.1.50.
+
+### Background agent management
+
+`Ctrl+F` — Kill background agents. Press twice to confirm. Available since v2.1.49.
