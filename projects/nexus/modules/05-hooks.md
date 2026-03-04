@@ -30,6 +30,11 @@ Test it: exit Claude Code and relaunch. The gateway status appears in context au
 
 > **STOP -- What you just did:** You created your first hook and wired it into `.claude/settings.json`. The key insight: anything a SessionStart hook prints to stdout becomes part of Claude's context automatically. Claude now knows the gateway's status without you saying a word. You will use this pattern whenever there is information Claude should have at the start of every session.
 
+> **Engineering value:**
+> - *Entry-level:* Hooks automate the checks you'd forget to do manually — like a spell-checker that runs every time you save.
+> - *Mid-level:* SessionStart hooks inject environment context so Claude always knows the current state of your project. No more 'Claude, remember we're using Postgres now' at the start of every session.
+> - *Senior+:* Hooks are event-driven middleware for your AI workflow — the same pattern as git hooks, CI/CD pipelines, and Lambda triggers. You're building an automated quality pipeline that runs on every interaction.
+
 Want to build a PostToolUse hook for config validation?
 
 ### Step 3: PostToolUse Hook -- Auto-Lint Config Files
@@ -51,6 +56,11 @@ Claude will create the validation script and add a PostToolUse entry to `.claude
 ### Step 4: Stop Hook -- Run Tests Before Stopping
 
 > **Why this step:** A Stop hook acts as a quality gate -- it runs when Claude finishes a response and can *block* Claude from stopping if something is wrong (exit code 2). This prevents Claude from declaring "done" while tests are failing.
+
+> **Engineering value:**
+> - *Entry-level:* A blocking Stop hook means Claude can't finish until the check passes — like a teacher who won't let you submit until you've spell-checked.
+> - *Mid-level:* In team repos, Stop hooks enforce quality gates that individual developers can't skip. Broken links, failing tests, lint errors — they get caught before the code leaves Claude's hands.
+> - *Senior+:* This is shift-left testing in its most extreme form. Instead of catching issues in CI (minutes later) or code review (hours later), hooks catch them in the same second the code is written.
 
 A Stop hook fires when Claude finishes a response. Exit code 2 blocks Claude from stopping. Ask Claude to create one that runs your tests before allowing completion.
 

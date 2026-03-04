@@ -40,6 +40,11 @@ Create a format conversion agent. Describe the formats you want it to handle and
 
 > **STOP -- What you just did:** You created two subagents with different models and tool sets. The search-agent uses Haiku (fast, cheap) because search is a focused task that does not require complex reasoning. The format-agent also uses Haiku because format conversion is mechanical. By choosing the right model for each agent, you control both cost and speed. You will use this pattern whenever a task is well-defined enough that a smaller model can handle it.
 
+> **Engineering value:**
+> - *Entry-level:* Subagents are specialists — instead of one generalist trying to do everything, you have focused experts that each do one thing well.
+> - *Mid-level:* Model selection matters for cost. A haiku-powered lint agent costs ~10x less than opus. Running 50 accessibility scans a day with haiku vs opus is the difference between $5/month and $50/month.
+> - *Senior+:* This is the microservices pattern applied to AI: decompose a monolithic conversation into specialized, independently scalable agents with defined interfaces and resource constraints.
+
 Shall we create a review agent with read-only permissions?
 
 ## 8.5 Create: review-agent
@@ -123,6 +128,10 @@ Both agents work simultaneously. To kill background agents, press `Ctrl+F` (pres
 Claude resumes the previous agent with its full context preserved.
 
 > **STOP -- What you just did:** You practiced three subagent patterns: chaining (output of one feeds into the next), parallel (multiple agents working simultaneously via `Ctrl+B`), and resuming (continuing a completed agent's work). These patterns compose -- you can chain two agents, background both, and resume whichever finishes first. In real projects, you will use chaining for pipelines (search then format), parallel for independent tasks (review notes while exporting bookmarks), and resuming for iterative refinement.
+
+> **Engineering value:**
+> - *Entry-level:* Running agents in parallel means a full code review (accessibility + design + content) takes the same time as one scan, not three.
+> - *Mid-level:* Chaining agents creates automated review pipelines: find issues → suggest fixes → verify fixes. This is the same find-fix-verify pattern used in CI/CD.
 
 ## Checkpoint
 

@@ -10,6 +10,11 @@ In this module you learn how to give Claude structured, persistent instructions 
 
 > **Why this step:** Path-scoped rules let you give Claude different instructions for different parts of your codebase. Instead of one giant instruction file, you can say "when working on analyzers, follow these conventions" and "when working on tests, follow these conventions." Claude automatically loads only the rules relevant to the files it is touching.
 
+> **Engineering value:**
+> - *Entry-level:* Rules are like linting configs but for Claude's behavior — they enforce your team's conventions automatically.
+> - *Mid-level:* Path-scoped rules mean your test files get different AI guidance than your production code. A rule in `tests/` can enforce test patterns without affecting `src/`.
+> - *Senior+:* This is the same configuration-as-code pattern used by .gitattributes (path-scoped git behavior) and CODEOWNERS (path-scoped review). Modular, composable, version-controlled.
+
 Create the `.claude/rules/` directory in your sentinel project. Ask Claude to set up path-scoped rule files -- one for analyzer modules, one for reporters, and one for tests. Describe the conventions you want each rule file to enforce.
 
 For example, you might want analyzer rules to say that every analyzer must be stateless and return structured Issue objects. Reporter rules might require streaming support for large codebases. Test rules might require fixture files with known issues rather than testing against live code.
@@ -53,6 +58,10 @@ Ask Claude to create documentation files that CLAUDE.md will import. You want a 
 > "Create docs/rule-format.md describing how to define custom rules, and docs/architecture.md with an architecture overview. Then update CLAUDE.md to import both using @-syntax, like `See @docs/rule-format.md for the rule definition format.`"
 
 After Claude creates the files, open CLAUDE.md and verify the `@imports` are there. These references let Claude load the full docs on demand without cluttering CLAUDE.md itself.
+
+> **Engineering value:**
+> - *Entry-level:* Large projects have too much code for Claude to read at once. @imports let you point Claude at exactly the files it needs — like giving a new teammate the right docs before they start.
+> - *Mid-level:* /compact reclaims context space during long sessions. Without it, Claude loses track of earlier conversation — with it, you can run marathon refactoring sessions.
 
 > **Quick check before continuing:**
 > - [ ] `.claude/rules/` has at least 3 path-scoped rule files with frontmatter

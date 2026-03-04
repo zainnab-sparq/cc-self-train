@@ -1,4 +1,4 @@
-# Learn Claude Code by Doing &nbsp; [![v2.0.0](https://img.shields.io/badge/version-2.0.0-blue)](CHANGELOG.md)
+# Learn Claude Code by Doing &nbsp; [![v2.5.0](https://img.shields.io/badge/version-2.5.0-blue)](CHANGELOG.md)
 
 The best way to learn Claude Code is to build something real with it. Pick a project, pick your language, and work through 10 hands-on modules that teach you every major [Claude Code](https://docs.anthropic.com/en/docs/claude-code) feature — not by reading about them, but by using them to ship actual code.
 
@@ -189,6 +189,7 @@ The `context/` folder contains detailed reference documentation for every CC fea
 | `context/sl-guide.txt` | Real-world CC patterns from daily use and hackathon experience |
 | `context/changelog-cc.txt` | Claude Code changelog (v2.0.0 — v2.1.68) |
 | `context/auto-memory.txt` | Auto-memory system reference |
+| `context/ide-integration.txt` | VS Code/Cursor extension, IDE setup, CLI vs extension features |
 
 ## Design Principles
 

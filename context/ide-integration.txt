@@ -1,0 +1,117 @@
+# IDE Integration — VS Code, Cursor, and JetBrains
+
+Claude Code works as both a standalone CLI and an IDE extension. This reference
+covers installation, features, and when to use each mode.
+
+## Installation
+
+### VS Code / Cursor
+
+1. Open Extensions (`Ctrl+Shift+X` / `Cmd+Shift+X`)
+2. Search "Claude Code"
+3. Click Install
+
+The extension installs the CLI automatically. You do not need a separate
+`npm install -g @anthropic-ai/claude-code` if you use the extension.
+
+### JetBrains (IntelliJ, PyCharm, WebStorm, etc.)
+
+1. Open Settings → Plugins → Marketplace
+2. Search "Claude Code"
+3. Click Install and restart the IDE
+
+JetBrains support is available but less mature than VS Code/Cursor. The CLI
+must be installed separately (`npm install -g @anthropic-ai/claude-code`).
+
+## Extension Features
+
+The VS Code/Cursor extension provides:
+
+- **Graphical chat panel** — sidebar or tab-based conversation UI
+- **Inline diffs** — see proposed changes highlighted in your editor
+- **@-mentions** — reference files and line ranges with autocomplete
+- **Checkpoints** — rewind code to any previous state in the conversation
+- **Multiple tabs** — run side-by-side conversations
+- **File tree integration** — new files appear in the explorer as Claude creates them
+- **Permission controls** — approve/deny tool use from the UI
+
+## CLI vs Extension Feature Comparison
+
+| Feature | CLI | VS Code Extension |
+|---------|:---:|:-----------------:|
+| Chat with Claude | ✓ | ✓ |
+| Read/write files | ✓ | ✓ |
+| Run bash commands | ✓ | ✓ |
+| CLAUDE.md, rules, memory | ✓ | ✓ |
+| Inline diffs in editor | — | ✓ |
+| Graphical chat panel | — | ✓ |
+| File tree integration | — | ✓ |
+| Slash commands (/init, /memory, etc.) | ✓ | Via integrated terminal |
+| `!` bash shortcut | ✓ | Via integrated terminal |
+| Tab completion | ✓ | Via integrated terminal |
+| MCP server configuration | ✓ | Via integrated terminal |
+| `claude --resume` picker | ✓ | Via integrated terminal |
+| Vim mode | ✓ | — |
+| Headless/batch mode | ✓ | — |
+
+Key takeaway: the extension covers most daily workflows. For slash commands,
+MCP configuration, and advanced CLI features, use the integrated terminal
+inside VS Code — you get both UIs in one window.
+
+## Key Shortcuts (VS Code Extension)
+
+| Shortcut | What It Does |
+|----------|-------------|
+| `Ctrl+Esc` / `Cmd+Esc` | Toggle focus between editor and Claude panel |
+| `Alt+K` / `Option+K` | @-mention a file or selection |
+| `Ctrl+Shift+Esc` / `Cmd+Shift+Esc` | Open Claude in a new tab |
+
+## Permission Modes in VS Code
+
+The extension supports the same permission modes as the CLI:
+
+- **Default** — Claude asks before each tool use
+- **Plan mode** — Claude plans but does not execute (Shift+Tab to toggle)
+- **Auto-accept** — Claude executes without asking (use with caution)
+- **Bypass permissions** — no prompts at all (CI/automation only)
+
+Toggle modes from the extension settings or the status bar.
+
+## Multiple Conversations
+
+### Side-by-Side Tabs
+
+Command Palette (`Ctrl+Shift+P`) → "Claude Code: Open in New Tab"
+
+Each tab is an independent conversation with its own context. Useful for:
+- Main task in one tab, quick questions in another
+- Parallel development on different features
+- Keeping a long-running session while starting fresh ones
+
+### Split Terminal Sessions
+
+Open the integrated terminal (`` Ctrl+` ``) and split it (`Ctrl+Shift+5`).
+Run `claude` in each pane for independent CLI sessions. Useful for:
+- Running tests in one pane while Claude codes in another
+- Monitoring logs while working with Claude
+- Module 10 worktree workflows
+
+## Best Practices
+
+- **Use the sidebar for your main session.** Keep the Claude panel docked to
+  the side for your primary conversation. Open tabs for side tasks.
+- **Use the integrated terminal for CLI-only features.** Slash commands, MCP
+  setup, and `claude --resume` all work in the VS Code terminal.
+- **Share conversation history.** The extension and CLI share the same session
+  storage. Start in the extension, continue in the terminal, or vice versa.
+- **Cursor users.** The same extension works in Cursor. Install it the same
+  way — Cursor's extension marketplace is VS Code-compatible.
+
+## Troubleshooting
+
+- **Extension not connecting:** Check that Node.js 18+ is installed. The
+  extension needs Node to run the Claude Code backend.
+- **Slash commands not working in chat panel:** Slash commands are CLI-only.
+  Open the integrated terminal and run `claude` there.
+- **MCP servers not showing:** MCP configuration happens via the CLI. Run
+  `claude mcp add` in the integrated terminal, then restart the extension.

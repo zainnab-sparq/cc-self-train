@@ -25,6 +25,18 @@ claude
 
 Claude Code starts in interactive mode. You are now inside a session.
 
+## 1.2b Terminal or IDE? Choose Your Setup
+
+Claude Code works in two modes. You can use either — or both at the same time.
+
+**VS Code / Cursor extension (recommended for beginners).** Install the Claude Code extension from the marketplace (`Ctrl+Shift+X` → search "Claude Code" → Install). You get a graphical chat panel, inline diffs, and you can see files appear in your editor's file tree as Claude creates them. The extension includes a built-in terminal, so you still have CLI access.
+
+**Terminal (full power).** Some features are CLI-only: all slash commands (`/init`, `/memory`, `/resume`), the `!` bash shortcut, tab completion, and MCP server configuration. If you installed the extension, these work in the VS Code integrated terminal too.
+
+**Best of both worlds.** Run the VS Code extension for the graphical experience and open the integrated terminal (`` Ctrl+` ``) when you need CLI-only features. This curriculum works in either mode — we will note when a feature requires the terminal.
+
+You do not have to choose one forever. The extension and CLI share the same conversation history and project configuration.
+
 ## 1.3 Run /init
 
 Type this into Claude Code:
@@ -44,6 +56,11 @@ Read through the generated `CLAUDE.md`. It should contain:
 - Code style conventions
 
 If it is sparse, that is fine. You will build it up throughout this project.
+
+> **Engineering value:**
+> - *Entry-level:* A CLAUDE.md is like onboarding docs for your AI pair programmer — it remembers your project so you don't re-explain it every session.
+> - *Mid-level:* On teams, CLAUDE.md ensures every developer's Claude session follows the same conventions — consistent code style, correct build commands, shared architecture decisions.
+> - *Senior+:* CLAUDE.md is declarative project configuration for AI tooling — the same pattern as .editorconfig, .eslintrc, or Makefile, but for your AI assistant. It scales across repos.
 
 ## 1.4 Tour of CLAUDE.md
 
@@ -89,6 +106,10 @@ Try these now:
 3. Press `Shift+Tab` twice to cycle through modes -- notice the mode indicator
 4. Type a long prompt using `Shift+Enter` for multiple lines
 5. Press `Ctrl+L` to clear the screen
+
+> **Engineering value:**
+> - *Entry-level:* These shortcuts aren't just convenience — they're how you stay in flow. Switching between Claude and your terminal without reaching for the mouse keeps you productive.
+> - *Mid-level:* Plan mode (Shift+Tab) is critical for code review workflows — you can have Claude analyze and propose changes without executing them, which is how you safely use AI on production code.
 
 ## 1.5b Slash Commands
 
@@ -146,10 +167,17 @@ You can exit Claude Code at any time with `Ctrl+D` or `/exit`. To pick up where 
 - **`claude -c`** — continues your most recent session in this directory. This is the fastest way to resume.
 - **`/resume`** — opens a session picker so you can choose which session to continue. Use this if you have multiple sessions.
 - **`/rename my-session-name`** — names your current session before you leave, so you can find it easily with `/resume` later.
+- **`claude --resume`** — opens an interactive picker (like `/resume`) from the command line. Useful when you have multiple named sessions and want to choose which one to continue.
 
 Your CLAUDE.md, rules, and project files persist between sessions. Conversation history is restored when you resume, but you may need to re-approve permission prompts.
 
 > **Tip:** Before exiting a long session, run `/memory` to save any important context. Claude reads CLAUDE.md at the start of every session, so anything saved there carries forward automatically.
+
+> **Pro tip: Multiple Claude sessions in your IDE.** In VS Code, you can open multiple Claude conversations: use the Command Palette (`Ctrl+Shift+P`) → "Claude Code: Open in New Tab" to run side-by-side conversations. In the terminal, split your terminal pane (`Ctrl+Shift+5` in VS Code) and run `claude` in each. This becomes especially useful in Module 10 when you work with git worktrees and parallel development.
+
+> **Engineering value:**
+> - *Entry-level:* Session persistence means you can work on a problem across days without losing context — like saving your game.
+> - *Mid-level:* Named sessions (`/rename`) let you maintain separate contexts for different workstreams — bug investigation in one, feature work in another.
 
 ## Checkpoint
 

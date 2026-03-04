@@ -31,6 +31,11 @@ Now create a search skill. Describe how you want search to work -- query parsing
 
 > **STOP -- What you just did:** You created two skills with different specialties: one for data entry with validation, one for intelligent search with query parsing. Each skill has its own SKILL.md with frontmatter that controls its name, description, and which tools it can use. The `allowed-tools` field is important -- it restricts what Claude can do when running the skill, which prevents unexpected side effects. You will use this pattern whenever you want a repeatable, constrained workflow.
 
+> **Engineering value:**
+> - *Entry-level:* Skills turn multi-step prompts into one-word commands. Instead of explaining 'create a new page with the nav and footer and...' every time, you type `/new-page faq`.
+> - *Mid-level:* Skills are how you enforce team consistency. A `/new-component` skill ensures every component follows the same structure, naming, and testing pattern — no matter who creates it.
+> - *Senior+:* Skills are essentially codified workflows — the same concept as project templates, Yeoman generators, or `rails generate`, but defined in natural language and version-controlled with your project.
+
 Shall we create a manual-only skill next?
 
 ## 4.4 Create the "daily-summary" Skill
@@ -43,6 +48,10 @@ Notice `disable-model-invocation: true` -- this skill can only be triggered
 by you typing `/daily-summary`. Claude will not invoke it automatically.
 
 > **STOP -- What you just did:** You created a skill with `disable-model-invocation: true`. This is a critical distinction: most skills can be triggered both by you (typing `/daily-summary`) and by Claude (when it decides the skill is relevant). Setting `disable-model-invocation: true` means *only you* can trigger it. Use this for skills that should never run automatically -- summaries, reports, destructive operations, anything where you want explicit human intent.
+
+> **Engineering value:**
+> - *Entry-level:* `disable-model-invocation` is your safety switch — it means this skill only runs when YOU ask for it, never automatically.
+> - *Mid-level:* In production repos, you'll want destructive or expensive operations (database resets, deployment scripts, full test suites) as manual-only skills. This prevents accidental execution during normal conversation.
 
 > **Quick check before continuing:**
 > - [ ] Three skill directories exist under `.claude/skills/`

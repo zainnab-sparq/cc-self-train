@@ -24,6 +24,11 @@ Test it:
 
 > **STOP -- What you just did:** You created your first custom skill and tested it with a path argument. The `$ARGUMENTS` placeholder captured everything after `/analyze`, so `/analyze src/` passed `src/` to the skill. This is the foundation -- you will build several more skills that become your daily shortcuts for working with Sentinel.
 
+> **Engineering value:**
+> - *Entry-level:* Skills turn multi-step prompts into one-word commands. Instead of explaining 'create a new page with the nav and footer and...' every time, you type `/new-page faq`.
+> - *Mid-level:* Skills are how you enforce team consistency. A `/new-component` skill ensures every component follows the same structure, naming, and testing pattern — no matter who creates it.
+> - *Senior+:* Skills are essentially codified workflows — the same concept as project templates, Yeoman generators, or `rails generate`, but defined in natural language and version-controlled with your project.
+
 Ready to create the generate-tests skill?
 
 ### Step 2: Create the "generate-tests" skill
@@ -51,6 +56,10 @@ Ask Claude to create a `/quality-report` skill. This one should run a full scan,
 Notice `disable-model-invocation: true` -- this skill only runs when you explicitly type `/quality-report`. Claude will not trigger it automatically.
 
 > **STOP -- What you just did:** You created three skills with different behaviors: `/analyze` runs in your main conversation, `/generate-tests` forks into a subagent, and `/quality-report` uses `disable-model-invocation: true` so it only runs when you explicitly call it. These three patterns cover most skill use cases you will encounter.
+
+> **Engineering value:**
+> - *Entry-level:* `disable-model-invocation` is your safety switch — it means this skill only runs when YOU ask for it, never automatically.
+> - *Mid-level:* In production repos, you'll want destructive or expensive operations (database resets, deployment scripts, full test suites) as manual-only skills. This prevents accidental execution during normal conversation.
 
 > **Quick check before continuing:**
 > - [ ] `/analyze src/` runs and produces output

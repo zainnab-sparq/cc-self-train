@@ -24,6 +24,11 @@ Ask Claude to create a specialized analyzer agent. Describe its role -- deep cod
 
 > **STOP -- What you just did:** You created a specialized analyzer agent with limited tool access (Read, Grep, Glob, Bash -- no Write or Edit). This is intentional: the analyzer agent should *find* issues, not *fix* them. Restricting tools prevents subagents from doing things outside their role. The `model: sonnet` setting means this agent uses a cheaper model -- since analysis does not require the most powerful model, this saves tokens.
 
+> **Engineering value:**
+> - *Entry-level:* Subagents are specialists — instead of one generalist trying to do everything, you have focused experts that each do one thing well.
+> - *Mid-level:* Model selection matters for cost. A haiku-powered lint agent costs ~10x less than opus. Running 50 accessibility scans a day with haiku vs opus is the difference between $5/month and $50/month.
+> - *Senior+:* This is the microservices pattern applied to AI: decompose a monolithic conversation into specialized, independently scalable agents with defined interfaces and resource constraints.
+
 Shall we create the test writer agent next?
 
 ### Step 3: Create the test writer agent
@@ -78,6 +83,10 @@ Ask Claude to fan out analysis across multiple directories using parallel subage
 Press `Ctrl+B` if Claude starts a foreground agent and you want to move it to the background. Press `Ctrl+F` to kill background agents (press twice to confirm). Use `/tasks` to see running background tasks.
 
 > **STOP -- What you just did:** You ran three subagents in parallel, each analyzing a different directory simultaneously. This is the key advantage of subagents for large codebases -- instead of analyzing directories one by one, you fan out the work. Background mode (`Ctrl+B`) lets you continue working in your main conversation while agents crunch away. You will use this pattern whenever you have independent tasks that can run concurrently.
+
+> **Engineering value:**
+> - *Entry-level:* Running agents in parallel means a full code review (accessibility + design + content) takes the same time as one scan, not three.
+> - *Mid-level:* Chaining agents creates automated review pipelines: find issues → suggest fixes → verify fixes. This is the same find-fix-verify pattern used in CI/CD.
 
 How about we try resuming a completed subagent?
 

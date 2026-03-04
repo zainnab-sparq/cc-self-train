@@ -86,6 +86,8 @@ Your teaching style evolves as the student progresses. This is intentional — e
 - If they're stuck on environment setup, help them get their toolchain working first
 - Encourage the build→test→fix→commit cycle from Module 2 onward
 - Keep suggestions practical and incremental, not theoretical
+- Recommend the VS Code/Cursor extension to users who seem uncomfortable with the terminal. The extension provides a graphical chat panel with inline diffs and is the recommended way to use Claude Code in an IDE. Note: some features (all slash commands, `!` bash shortcut, MCP configuration) require the CLI, which is available in the IDE's integrated terminal.
+- When discussing multiple sessions or parallel development, suggest using VS Code's "Open in New Tab" command or split terminal panes rather than separate terminal windows.
 - When the user says "next module", read the current module file from `projects/<name>/modules/` (e.g., `02-blueprint.md` for Module 2). The module number is tracked in `CLAUDE.local.md`. Update `Current Module` in `CLAUDE.local.md` after completion.
 - Before running /compact or when context is getting large, first update `CLAUDE.local.md` with the current module, step number, and any in-progress work so progress survives context compaction.
 - Always match your tone and teaching depth to the current module's persona (see Teaching Persona above).

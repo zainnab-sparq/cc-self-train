@@ -41,6 +41,11 @@ the stats injected on startup.
 
 > **STOP -- What you just did:** You created your first hook -- a SessionStart hook that runs a Python script every time Claude Code launches. The script counts your site's pages and injects a summary into Claude's context. This means Claude always knows the current state of your site without you having to explain it. SessionStart hooks are perfect for injecting project status, environment info, or reminders.
 
+> **Engineering value:**
+> - *Entry-level:* Hooks automate the checks you'd forget to do manually — like a spell-checker that runs every time you save.
+> - *Mid-level:* SessionStart hooks inject environment context so Claude always knows the current state of your project. No more 'Claude, remember we're using Postgres now' at the start of every session.
+> - *Senior+:* Hooks are event-driven middleware for your AI workflow — the same pattern as git hooks, CI/CD pipelines, and Lambda triggers. You're building an automated quality pipeline that runs on every interaction.
+
 Ready to build a PostToolUse hook for HTML validation?
 
 ### 5.3 Create a PostToolUse Hook
@@ -67,6 +72,11 @@ This hook checks all internal links before Claude stops to catch broken links. D
 The key difference from PostToolUse: a Stop hook with exit code 2 is *blocking* -- it forces Claude to address the issue before moving on.
 
 > **Why this step:** Stop hooks are different from PostToolUse hooks -- they run once when Claude finishes its entire response, not after each individual tool call. A Stop hook with exit code 2 is *blocking*: it forces Claude to address the issue before moving on. This makes Stop hooks ideal for final validation checks like broken link detection.
+
+> **Engineering value:**
+> - *Entry-level:* A blocking Stop hook means Claude can't finish until the check passes — like a teacher who won't let you submit until you've spell-checked.
+> - *Mid-level:* In team repos, Stop hooks enforce quality gates that individual developers can't skip. Broken links, failing tests, lint errors — they get caught before the code leaves Claude's hands.
+> - *Senior+:* This is shift-left testing in its most extreme form. Instead of catching issues in CI (minutes later) or code review (hours later), hooks catch them in the same second the code is written.
 
 Want to learn about matchers and hook scripting?
 

@@ -9,6 +9,11 @@
 
 > **Why this step:** Rules are how you teach Claude your project's standards permanently. Instead of repeating "use semantic HTML" every session, you write it once in a rule file and Claude follows it automatically. Path-scoped rules only activate when Claude works on matching files, keeping context lean.
 
+> **Engineering value:**
+> - *Entry-level:* Rules are like linting configs but for Claude's behavior — they enforce your team's conventions automatically.
+> - *Mid-level:* Path-scoped rules mean your test files get different AI guidance than your production code. A rule in `tests/` can enforce test patterns without affecting `src/`.
+> - *Senior+:* This is the same configuration-as-code pattern used by .gitattributes (path-scoped git behavior) and CODEOWNERS (path-scoped review). Modular, composable, version-controlled.
+
 Create the rules directory in your project:
 
 ```
@@ -81,6 +86,10 @@ The `@path` syntax tells Claude Code to load those files as additional context
 when needed. Both relative and absolute paths work.
 
 > **Why this step:** As your CLAUDE.md grows, it eats into your available context window. The `@import` pattern keeps CLAUDE.md concise while making detailed documentation available on demand. Think of it like splitting a large function into smaller helpers -- same information, better organized.
+
+> **Engineering value:**
+> - *Entry-level:* Large projects have too much code for Claude to read at once. @imports let you point Claude at exactly the files it needs — like giving a new teammate the right docs before they start.
+> - *Mid-level:* /compact reclaims context space during long sessions. Without it, Claude loses track of earlier conversation — with it, you can run marathon refactoring sessions.
 
 ### 3.6 /context Deep Dive
 

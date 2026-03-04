@@ -45,6 +45,11 @@ Claude may ask about column types, indexes, or how to handle the migration. Answ
 
 > **STOP -- What you just did:** You connected an external tool to Claude Code using MCP. Claude can now create tables, insert data, and run queries on a SQLite database -- all through natural language. You also migrated your existing JSON data into SQLite, which means your forge toolkit now has a proper database backend. The `/mcp` command is your dashboard for checking which servers are connected and healthy.
 
+> **Engineering value:**
+> - *Entry-level:* MCP servers are like USB ports for Claude — they let you plug in new capabilities without changing Claude itself.
+> - *Mid-level:* In real engineering workflows, MCP connects Claude to your actual tools — Jira for ticket tracking, Figma for designs, Sentry for error monitoring. Claude stops being a code-only tool and becomes a full engineering assistant.
+> - *Senior+:* MCP is a standardized integration protocol — like LSP (Language Server Protocol) but for AI tool access. Building on open standards means your MCP configurations work across any AI tool that supports the protocol, not just Claude.
+
 Shall we add a filesystem MCP server too?
 
 ## 6.3 Add a Filesystem MCP Server
@@ -113,6 +118,10 @@ Commit this file so teammates get the same MCP setup.
 
 > **STOP -- What you just did:** You learned the three MCP scopes and how they control visibility. Local scope is for personal experimentation, project scope is for team sharing, and user scope is for tools you want everywhere. Understanding scopes prevents the common mistake of adding MCP servers that only work on your machine while your teammates get errors.
 
+> **Engineering value:**
+> - *Entry-level:* Committing `.mcp.json` means anyone who clones your repo gets the same MCP servers — no setup instructions to follow.
+> - *Mid-level:* Project-scoped MCP config is infrastructure-as-code for AI tooling. New team members clone, run `claude`, and everything just works.
+
 How about we combine skills with MCP servers?
 
 ## 6.7 Create a Skill That Orchestrates MCP Tools
@@ -129,15 +138,16 @@ Test it: `/backup`
 
 ## 6.8 Connect a Tool You Actually Use
 
-The MCP servers you added above are local utilities -- SQLite and filesystem. But MCP also connects to cloud tools you already use. If you have a Notion workspace, track issues in Linear, or coordinate on Slack, you can connect those directly to Claude Code.
+The MCP servers you added above are local utilities -- SQLite and filesystem. But MCP also connects to cloud tools you already use.
 
-What productivity tools do you use day-to-day? Pick one from this table (or browse `context/mcp.txt` for the full list of available servers):
+**What tools do you use day-to-day?** Think about your project management (Jira, Linear), notes and docs (Notion, Confluence), and communication (Slack). Many of these have MCP servers you can connect to Claude Code. Pick one from the table below, or browse `context/mcp.txt` for the full list:
 
 | Tool | What it gives you | Command |
 |------|------------------|---------|
 | Notion | Search and update notes from inside Claude | `claude mcp add --transport http notion https://mcp.notion.com/mcp` |
 | Linear | Manage issues for your toolkit | `claude mcp add --transport http linear https://mcp.linear.app/mcp` |
 | Slack | Send messages and fetch channel data | `claude mcp add slack --transport http https://mcp.slack.com/mcp` |
+| Jira / Confluence | Track issues, search docs from inside Claude | `claude mcp add --transport sse atlassian https://mcp.atlassian.com/v1/sse` |
 
 Notice the `--transport http` flag -- that is how you connect to remote cloud servers (as opposed to `--transport stdio` for local servers like SQLite).
 

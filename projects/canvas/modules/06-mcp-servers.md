@@ -38,6 +38,11 @@ You should see `canvas-fs` listed and connected.
 
 > **STOP -- What you just did:** You connected your first MCP server and verified it with `/mcp`. The filesystem MCP server gives Claude enhanced file operations beyond the built-in Read/Write tools. The key command pattern is `claude mcp add --transport stdio <name> -- <command>`. You will use this same pattern to add any MCP server.
 
+> **Engineering value:**
+> - *Entry-level:* MCP servers are like USB ports for Claude — they let you plug in new capabilities without changing Claude itself.
+> - *Mid-level:* In real engineering workflows, MCP connects Claude to your actual tools — Jira for ticket tracking, Figma for designs, Sentry for error monitoring. Claude stops being a code-only tool and becomes a full engineering assistant.
+> - *Senior+:* MCP is a standardized integration protocol — like LSP (Language Server Protocol) but for AI tool access. Building on open standards means your MCP configurations work across any AI tool that supports the protocol, not just Claude.
+
 Shall we add a Fetch server to pull in real web content?
 
 ### 6.3 Add a Fetch MCP Server
@@ -115,6 +120,10 @@ Commit this file so teammates get the same MCP setup.
 
 > **Why this step:** The three scopes (local, project, user) control who sees an MCP configuration. The `project` scope creates `.mcp.json` which gets committed to git -- every teammate who clones the repo gets the same MCP servers automatically. This is how you standardize a team's tool setup.
 
+> **Engineering value:**
+> - *Entry-level:* Committing `.mcp.json` means anyone who clones your repo gets the same MCP servers — no setup instructions to follow.
+> - *Mid-level:* Project-scoped MCP config is infrastructure-as-code for AI tooling. New team members clone, run `claude`, and everything just works.
+
 ### 6.7 Create a Skill That Orchestrates MCP Tools
 
 Create a "publish" skill that combines MCP tools with built-in tools to validate and package your site for deployment. Describe the workflow to Claude:
@@ -129,15 +138,16 @@ Test it: `/publish`
 
 ### 6.8 Connect a Tool You Actually Use
 
-The MCP servers you added above are local utilities -- filesystem and fetch. But MCP also connects to cloud tools you already use. If you have a Figma account, a Canva workspace, or deploy to Netlify, you can connect those directly to Claude Code.
+The MCP servers you added above are local utilities -- filesystem and fetch. But MCP also connects to cloud tools you already use.
 
-What tools do you use for design or deployment? Pick one from this table (or browse `context/mcp.txt` for the full list of available servers):
+**What tools do you use day-to-day?** Think about your design tools (Figma, Canva), deployment platforms (Netlify, Cloudflare), and project management (Jira, Linear). Many of these have MCP servers you can connect to Claude Code. Pick one from the table below, or browse `context/mcp.txt` for the full list:
 
 | Tool | What it gives you | Command |
 |------|------------------|---------|
 | Figma | Read design files, extract colors and specs | `claude mcp add --transport http figma-remote-mcp https://mcp.figma.com/mcp` |
 | Canva | Search and export Canva designs | `claude mcp add --transport http canva https://mcp.canva.com/mcp` |
 | Netlify | Deploy and manage your site from Claude | `claude mcp add --transport http netlify https://netlify-mcp.netlify.app/mcp` |
+| Jira / Confluence | Track issues, search docs from inside Claude | `claude mcp add --transport sse atlassian https://mcp.atlassian.com/v1/sse` |
 
 Notice the `--transport http` flag -- that is how you connect to remote cloud servers (as opposed to `--transport stdio` for local servers like the filesystem MCP).
 

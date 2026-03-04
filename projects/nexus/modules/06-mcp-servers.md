@@ -36,6 +36,11 @@ claude mcp add --transport stdio filesystem -- cmd /c npx -y @anthropic-ai/mcp-f
 
 > **STOP -- What you just did:** You connected two MCP servers that give Claude new capabilities: direct SQLite database access and filesystem operations. The `claude mcp add` command registered them, and now Claude can use their tools alongside its built-in tools. Think of MCP servers as "plugins for Claude's toolbox" -- each one adds new abilities.
 
+> **Engineering value:**
+> - *Entry-level:* MCP servers are like USB ports for Claude — they let you plug in new capabilities without changing Claude itself.
+> - *Mid-level:* In real engineering workflows, MCP connects Claude to your actual tools — Jira for ticket tracking, Figma for designs, Sentry for error monitoring. Claude stops being a code-only tool and becomes a full engineering assistant.
+> - *Senior+:* MCP is a standardized integration protocol — like LSP (Language Server Protocol) but for AI tool access. Building on open standards means your MCP configurations work across any AI tool that supports the protocol, not just Claude.
+
 Ready to verify your MCP connections?
 
 ### Step 4: Verify MCP Connections
@@ -75,6 +80,10 @@ Or use: `claude mcp add --scope project sqlite-cache -- npx -y @anthropic-ai/mcp
 > - [ ] `.mcp.json` exists at the project root
 > - [ ] You can explain the difference between local, project, and user scopes
 
+> **Engineering value:**
+> - *Entry-level:* Committing `.mcp.json` means anyone who clones your repo gets the same MCP servers — no setup instructions to follow.
+> - *Mid-level:* Project-scoped MCP config is infrastructure-as-code for AI tooling. New team members clone, run `claude`, and everything just works.
+
 ### Step 7: Build the Caching Layer with MCP
 
 Now use the SQLite MCP server to build the caching layer. Describe the caching behavior you want and let Claude design the schema and implementation. Tell Claude to use MCP to inspect the database as it builds.
@@ -103,9 +112,9 @@ This demonstrates the skills+MCP pattern: the skill provides the workflow logic 
 
 ### Step 9: Connect a Tool You Actually Use
 
-The MCP servers you added above are local utilities -- SQLite and filesystem. But MCP also connects to cloud tools you already use. If you monitor errors with Sentry, manage infrastructure on Cloudflare, or track issues on GitHub, you can connect those directly to Claude Code.
+The MCP servers you added above are local utilities -- SQLite and filesystem. But MCP also connects to cloud tools you already use.
 
-What monitoring or dev tools do you use? Pick one from this table (or browse `context/mcp.txt` for the full list of available servers):
+**What tools do you use day-to-day?** Think about your monitoring (Sentry, Honeycomb), infrastructure (Cloudflare), project management (Jira, Linear), and code hosting (GitHub). Many of these have MCP servers you can connect to Claude Code. Pick one from the table below, or browse `context/mcp.txt` for the full list:
 
 | Tool | What it gives you | Command |
 |------|------------------|---------|
@@ -113,6 +122,7 @@ What monitoring or dev tools do you use? Pick one from this table (or browse `co
 | Honeycomb | Query observability data and SLOs | `claude mcp add --transport http honeycomb https://mcp.honeycomb.io/mcp` |
 | GitHub | Manage issues for the gateway project | `claude mcp add --transport http github https://api.githubcopilot.com/mcp/` |
 | Cloudflare | Inspect deployed app state | `claude mcp add --transport http cloudflare https://bindings.mcp.cloudflare.com/mcp` |
+| Jira / Confluence | Track issues, search docs from inside Claude | `claude mcp add --transport sse atlassian https://mcp.atlassian.com/v1/sse` |
 
 Notice the `--transport http` flag -- that is how you connect to remote cloud servers (as opposed to `--transport stdio` for local servers like SQLite).
 
