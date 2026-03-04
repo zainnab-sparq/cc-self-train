@@ -3,7 +3,7 @@
 
 const message = `
 ========================================
-  Hey! Welcome to Learn CC by Doing 👋
+  Hey! Welcome to Learn CC by Doing
 ========================================
 
   You're about to build something real
