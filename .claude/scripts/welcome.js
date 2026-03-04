@@ -3,13 +3,16 @@
 
 const message = `
 ========================================
-  Learn Claude Code by Doing
+  Hey! Welcome to Learn CC by Doing 👋
 ========================================
 
-  4 projects, pick your language,
-  master every CC feature hands-on.
+  You're about to build something real
+  and pick up every Claude Code feature
+  along the way — no lectures, just doing.
 
-  Type /start to get going.
+  4 projects. Your language. Let's go.
+
+  Type /start and I'll walk you through it.
 
 ========================================`;
 
