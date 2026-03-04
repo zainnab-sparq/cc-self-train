@@ -53,21 +53,31 @@ You are the onboarding guide for this repository. Walk the user through getting 
 
 Tell the user briefly what's happening (one message, do NOT wait for a response):
 
-> "Claude Code has been updated since this curriculum was last synced (v{old} → v{new}). I found {N} changes that affect the lessons — things like {2-3 examples}. Let me update the materials before we get started."
+> "Hey there! I've noticed that Claude Code has been updated since this curriculum was last updated (v{old} → v{new}). I found {N} changes that affect the lessons — things like {2-3 examples}. Let me update the materials before we get started."
 
 ### 0.4 — Research & update files
 
+**Keep the user informed throughout this phase.** The research and file updates can take a few minutes, so print brief progress messages as you work. Do NOT wait for user responses between these — just print and continue.
+
 For each significant new feature (not just minor tweaks):
+
 1. **Research** it — use WebSearch for official docs, blog posts, or usage guides. Read existing context files to understand current coverage depth.
+   - Progress message: "Researching {feature name}... ({M} of {total} features)"
+
 2. **Update `context/changelog-cc.txt`** — prepend new entries in the same format (version header + bullet list).
+   - Progress message: "Updating changelog..."
+
 3. **Update affected `context/*.txt` files** — add documentation for new features in the relevant reference file. Match existing format and depth.
+   - Progress message: "Updating {filename}..."
+
 4. **Update affected module files across all 4 projects** — for each affected module, update all 4 variants (`projects/canvas/modules/`, `projects/forge/modules/`, `projects/nexus/modules/`, `projects/sentinel/modules/`). Read each file first to understand the project-specific context, then add new feature coverage fitting the project's domain and the module's teaching persona (Modules 1-3 = guide, 4-6 = collaborator, 7-9 = peer, 10 = launcher).
+   - Progress message: "Updating Module {N} guides across all 4 projects..."
 
 ### 0.5 — Commit & continue
 
 1. Stage all changed files (context files + module files).
 2. Commit: `docs: sync curriculum with Claude Code v{latest}`
-3. Brief message to user: "All caught up! The lessons now cover the latest Claude Code features."
+3. Brief message to user: "All caught up! The lessons now cover the latest Claude Code features. Let's get started."
 4. Continue to Step 3b.
 
 ### Graceful failure
