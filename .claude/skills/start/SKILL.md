@@ -11,6 +11,72 @@ You are the onboarding guide for this repository. Walk the user through getting 
 
 **PACING RULE (applies to this entire skill):** Never dump multiple steps into one message. Each numbered step should be its own conversational turn. After completing a step, STOP and wait for the user to respond before continuing. Use AskUserQuestion for choices, and pause naturally between actions. The user should never feel overwhelmed by a wall of text.
 
+## Step 0: Curriculum Sync (silent, automatic)
+
+**This step does NOT count as a pacing turn.** Run it silently before anything else — the user should not be prompted or paused. If it succeeds, briefly inform the user what was updated. If it fails at any point, skip silently and continue to Step 3b.
+
+### 0.1 — Check if curriculum is outdated
+
+1. Read the first version number from `context/changelog-cc.txt` (the top-most `## vX.Y.Z` heading). This is the **local version**.
+2. Fetch the latest Claude Code version from the GitHub API using Bash:
+   ```bash
+   curl -sf https://api.github.com/repos/anthropics/claude-code/releases/latest | grep -o '"tag_name":"[^"]*"' | head -1 | grep -o '[0-9][0-9.]*'
+   ```
+3. If the fetch fails (network error, rate limit) or the versions match → **skip the rest of Step 0 silently**. Continue to Step 3b.
+
+### 0.2 — Fetch & triage changelog
+
+1. Fetch the raw CHANGELOG from GitHub:
+   ```bash
+   curl -sf https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md
+   ```
+2. Extract all entries between the latest version and the local version.
+3. Triage each entry. **Skip**: bug fixes, IDE-specific changes, platform-specific tweaks, performance improvements, cosmetic changes. **Keep**: new features, new tools, changed behaviors, new commands, new hook events, new APIs.
+4. Map each relevant entry to the affected module and context file:
+
+   | Feature Category | Module | Context File(s) |
+   |---|---|---|
+   | CLAUDE.md, /init, memory, keyboard shortcuts | 01 | `claudemd.txt`, `interactive-mode.txt` |
+   | Plan mode, git integration | 02 | `common-workflows.txt` |
+   | Rules, CLAUDE.local.md, @imports, /compact | 03 | `claudemd.txt` |
+   | Skills, SKILL.md, frontmatter, commands | 04 | `skillsmd.txt` |
+   | Hooks (PostToolUse, Stop, SessionStart) | 05 | `hooks.txt`, `configure-hooks.txt` |
+   | MCP servers, .mcp.json | 06 | `mcp.txt`, `skills-plus-mcp.txt` |
+   | Guard rails, PreToolUse, hook decisions | 07 | `hooks.txt` |
+   | Subagents, .claude/agents/, agent teams | 08 | `subagents.txt`, `agent-teams.txt` |
+   | Tasks, TDD, dependencies | 09 | `tasks.txt` |
+   | Worktrees, plugins, eval, parallel dev | 10 | `plugins.txt` |
+
+5. If zero entries are curriculum-relevant → skip the rest of Step 0 silently.
+
+### 0.3 — Inform the user
+
+Tell the user briefly what's happening (one message, do NOT wait for a response):
+
+> "Claude Code has been updated since this curriculum was last synced (v{old} → v{new}). I found {N} changes that affect the lessons — things like {2-3 examples}. Let me update the materials before we get started."
+
+### 0.4 — Research & update files
+
+For each significant new feature (not just minor tweaks):
+1. **Research** it — use WebSearch for official docs, blog posts, or usage guides. Read existing context files to understand current coverage depth.
+2. **Update `context/changelog-cc.txt`** — prepend new entries in the same format (version header + bullet list).
+3. **Update affected `context/*.txt` files** — add documentation for new features in the relevant reference file. Match existing format and depth.
+4. **Update affected module files across all 4 projects** — for each affected module, update all 4 variants (`projects/canvas/modules/`, `projects/forge/modules/`, `projects/nexus/modules/`, `projects/sentinel/modules/`). Read each file first to understand the project-specific context, then add new feature coverage fitting the project's domain and the module's teaching persona (Modules 1-3 = guide, 4-6 = collaborator, 7-9 = peer, 10 = launcher).
+
+### 0.5 — Commit & continue
+
+1. Stage all changed files (context files + module files).
+2. Commit: `docs: sync curriculum with Claude Code v{latest}`
+3. Brief message to user: "All caught up! The lessons now cover the latest Claude Code features."
+4. Continue to Step 3b.
+
+### Graceful failure
+
+If ANY phase fails (network error, API rate limit, parse error, etc.):
+- Tell the user: "Couldn't check for curriculum updates — continuing with the current version."
+- Continue to Step 3b normally.
+- **Never block onboarding because of an update failure.**
+
 ## Step 1: Pick a Project
 
 If the user passed a project number as $0, use that. Otherwise, ask them to pick one using AskUserQuestion with these options:

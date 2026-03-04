@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.2.0
+
+- Add self-updating curriculum sync (Step 0 in `/start`) — detects when Claude Code has shipped new features since the curriculum was last synced, researches them, and updates context files + module guides across all 4 projects before onboarding begins
+- Graceful offline fallback — curriculum sync skips silently if GitHub is unreachable
+- Block GitHub fetch URLs in smoke test so curriculum sync doesn't interfere with headless testing
+
 ## v1.1.0
 
 - Auto-detect package manager and batch-install missing tools in `/start` Step 4 (supports pip, npm, brew, apt, conda, Docker)
