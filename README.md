@@ -185,6 +185,8 @@ The `context/` folder contains detailed reference documentation for every CC fea
 | `context/common-workflows.txt` | Common workflows and patterns |
 | `context/when-to-use-features.txt` | Feature comparison and selection guide |
 | `context/boris-workflow.txt` | Real-world patterns, parallel Claude workflows |
+| `context/anthropic-basics.txt` | How Claude Code works (agentic loop, models, tools) |
+| `context/sl-guide.txt` | Real-world CC patterns from daily use and hackathon experience |
 | `context/changelog-cc.txt` | Claude Code changelog (v2.0.0 — v2.1.68) |
 | `context/auto-memory.txt` | Auto-memory system reference |
 
