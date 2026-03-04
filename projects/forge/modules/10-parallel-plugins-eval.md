@@ -260,3 +260,4 @@ Here are paths forward:
 - **Try another project.** Canvas, Nexus, and Sentinel cover the same features through different domains — and you'll move through them faster this time.
 - **Share your plugin.** If your knowledge-base plugin is useful, distribute it to your team or the community.
 - **Build something new.** Take a project idea you've been putting off and build it with Claude Code. You have the full toolkit now — go use it.
+- **Come back for updates.** This curriculum is actively maintained — `git pull` to get updated modules, new feature coverage, and refined exercises. Check the [changelog](../../../CHANGELOG.md) to see what's new.

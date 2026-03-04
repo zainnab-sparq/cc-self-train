@@ -199,6 +199,12 @@ The `context/` folder contains detailed reference documentation for every CC fea
 - **Same curriculum, different domains.** All 4 projects teach the same features in the same order. Pick based on interest.
 - **Real tools, not toys.** Every project produces something genuinely useful that you can keep using after you finish.
 
+## Staying Current
+
+This curriculum is actively maintained. As Claude Code adds new features, we update existing modules and add coverage so the course stays current. If you've already finished, `git pull` and check the [changelog](CHANGELOG.md) — you may find new content in modules you've completed.
+
+Star or watch this repo to get notified when updates land.
+
 ## Companion Resources
 
 - [everything-claude-code](https://github.com/affaan-m/everything-claude-code) — Reference docs, agents, skills, and commands for Claude Code

@@ -186,3 +186,19 @@ You made it. A working code analyzer with plugins, evaluation, and a continuous 
 - [ ] Evaluation framework exists with fixtures, expected output, and scoring
 - [ ] PermissionRequest hook auto-approves safe operations
 - [ ] Continuous learning loop logs misclassifications and feeds them back
+
+---
+
+## What Is Next
+
+Take a second to appreciate what you just did. You built a code analyzer and test generator from scratch — static analysis rules, automatic test generation, coverage tracking, a quality dashboard — and along the way, you mastered every major Claude Code feature: CLAUDE.md, plan mode, rules, skills, hooks, MCP servers, guard rails, subagents, tasks, worktrees, plugins, and evaluation. That's not a tutorial you followed. That's a real tool you built.
+
+You're not a beginner anymore. You know how to make Claude Code work for you.
+
+Here are paths forward:
+
+- **Keep extending Sentinel.** Add more analysis rules, support additional languages, build IDE integration, add trend tracking to the quality dashboard. The analyzer is yours now.
+- **Try another project.** Canvas, Forge, and Nexus cover the same features through different domains — and you'll move through them faster this time.
+- **Share your plugin.** If your quality-tools plugin is useful, distribute it to your team or the community.
+- **Build something new.** Take a project idea you've been putting off and build it with Claude Code. You have the full toolkit now — go use it.
+- **Come back for updates.** This curriculum is actively maintained — `git pull` to get updated modules, new feature coverage, and refined exercises. Check the [changelog](../../../CHANGELOG.md) to see what's new.

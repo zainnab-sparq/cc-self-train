@@ -573,6 +573,8 @@ Recap what they learned (concepts, not steps):
 > - **Git integration** — commits are save points, and `Esc Esc` is your undo button
 >
 > When you're ready, say **"next module"** or **"let's do Module 2"**. Next up: **Plan Mode** — you'll design your first real feature and learn how Claude helps you think before you code.
+>
+> **Tip:** This curriculum is actively maintained. Run `git pull` in the cc-self-train directory periodically to get updated content.
 
 ## Important
 
