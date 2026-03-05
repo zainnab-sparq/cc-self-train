@@ -1,5 +1,11 @@
 # Changelog
 
+## v2.7.5 (2026-03-05)
+
+- Run curriculum sync as a background agent — Steps 0.2–0.5 now execute in a background agent instead of blocking onboarding, so users start making choices immediately while the update runs
+- Add checkpoint (Step 0.6) before project scaffolding to guarantee sync completion before Module 1 delivery
+- Early teaching moment: users see a real background agent in action before Module 8 covers them formally
+
 ## v2.7.4 (2026-03-05)
 
 - Add suggested next actions to onboarding step endings — each pause point in `/start` now ends with a bold suggested response (e.g., "let's go", "looks good", "ready") so beginners aren't left at a blank prompt
