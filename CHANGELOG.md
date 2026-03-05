@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.7.10 (2026-03-05)
+
+- Fix Windows file-open command — replace `start` (CMD built-in) with `powershell.exe -Command "Start-Process"` which works from bash
+
 ## v2.7.9 (2026-03-05)
 
 - Remove blocking checkpoint (Step 0.6) from onboarding — curriculum sync runs fully in the background and finishes well before Module 2
