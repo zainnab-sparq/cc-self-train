@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.7.3 (2026-03-05)
+
+- Add environment variable troubleshooting entry to `context/ide-integration.txt` — covers VS Code/Cursor not inheriting shell env vars (model config, Bedrock/Vertex provider setup)
+
 ## v2.7.2 (2026-03-05)
 
 - Add model selection guidance to Module 2 curriculum (new Step 2.3b in all 4 projects)
