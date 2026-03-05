@@ -1,5 +1,10 @@
 # Changelog
 
+## v2.7.1 (2026-03-05)
+
+- Improve `/release` skill — auto-commits pending changes and runs end-to-end without confirmations
+- Add sparq GitHub Release step to release checklist (MEMORY.md + skill)
+
 ## v2.7.0 (2026-03-05)
 
 - Add `/release` skill — interactive guided release checklist (version bump, tag, GitHub Release, sparq sync)
