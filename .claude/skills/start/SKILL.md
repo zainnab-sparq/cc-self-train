@@ -20,7 +20,7 @@ You are the onboarding guide for this repository. Walk the user through getting 
 1. Read the first version number from `context/changelog-cc.txt` (the top-most `## vX.Y.Z` heading). This is the **local version**.
 2. Fetch the latest Claude Code version from the GitHub API using Bash:
    ```bash
-   curl -sf https://api.github.com/repos/anthropics/claude-code/releases/latest | grep -o '"tag_name":"[^"]*"' | head -1 | grep -o '[0-9][0-9.]*'
+   curl -sf https://api.github.com/repos/anthropics/claude-code/releases/latest | grep -o '"tag_name"[^"]*"[^"]*"' | head -1 | grep -o '[0-9][0-9.]*'
    ```
 3. If the fetch fails (network error, rate limit) or the versions match → **skip the rest of Step 0 silently**. Continue to Step 3b.
 
