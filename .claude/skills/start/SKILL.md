@@ -154,7 +154,7 @@ uname -s 2>/dev/null || echo "Windows"
 
 Or use the platform info already available in your system context. Classify into one of three:
 
-- **Windows** — uses `cmd` or PowerShell, backslash paths, `start` to open files, `.venv\Scripts\activate` for venv
+- **Windows** — uses bash shell (not cmd), backslash paths, `powershell.exe -Command "Start-Process <file>"` to open files, `.venv\Scripts\activate` for venv
 - **macOS** — uses zsh/bash, forward-slash paths, `open` to open files, `source .venv/bin/activate` for venv
 - **Linux** — uses bash, forward-slash paths, `xdg-open` to open files, `source .venv/bin/activate` for venv
 
@@ -350,7 +350,7 @@ Suggested directory names by project:
 
 That's all Canvas needs. No package.json, no build config, no dependencies. Open the site in their browser — actually run the OS-appropriate command, don't just tell them about it:
 - **macOS:** `open index.html`
-- **Windows:** `start index.html`
+- **Windows:** `powershell.exe -Command "Start-Process index.html"`
 - **Linux:** `xdg-open index.html`
 
 Only run the command for their detected OS. If the command fails (e.g., headless server, WSL without GUI access), fall back gracefully: "I couldn't open the browser automatically — navigate to the project folder and double-click `index.html` to open it."
@@ -615,7 +615,7 @@ Recap what they learned (concepts, not steps):
 
 - Build the project in `workspace/<name>/` inside this repo. The `workspace/` directory is gitignored by cc-self-train.
 - Ask what language they want — never assume (except Canvas, which is always HTML/CSS/JS).
-- **OS-aware commands:** Always use the detected OS from Step 1b. Never show commands for all three operating systems — only show the one that matches the user's system. This includes paths (forward vs backslash), file-opening commands (`open`/`start`/`xdg-open`), shell syntax, activation scripts, and the Python executable name (`python` vs `python3`).
+- **OS-aware commands:** Always use the detected OS from Step 1b. Never show commands for all three operating systems — only show the one that matches the user's system. This includes paths (forward vs backslash), file-opening commands (`open`/`powershell.exe Start-Process`/`xdg-open`), shell syntax, activation scripts, and the Python executable name (`python` vs `python3`).
 - Be encouraging. This is their first time with Claude Code for many users.
 - If they already have a project in mind that doesn't match the 4 listed, that's fine — help them pick the project guide that teaches the CC features most relevant to what they want to build.
 - **Module completion pattern:** Every module delivery (not just Module 1) must end with a "next module" prompt and a progress update. When delivering Modules 2-10 from `projects/<name>/modules/`, always append after the checkpoint:
