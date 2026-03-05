@@ -49,7 +49,7 @@ Then say something like: "Ready? Here comes your first prompt —" and run the c
 
    a. **Explain background agents briefly** (2-3 sentences, conversational). Something like: "There's a curriculum update available (v{local} → v{latest}). Rather than make you wait while I update the lesson materials, I'm going to hand this off to a **background agent** — think of it as a separate AI worker that handles the update in the background while we keep talking. You'll learn all about background agents in Module 8, but let's see one in action right now."
 
-      **Do NOT explain how to view or manage the agent here.** Keep the spawn message short — the viewing instructions belong in Step 0.6 if the agent is still running when we get there. The user doesn't need to know about ↓, Esc, or Ctrl+F yet.
+      It'll finish on its own while we work through the setup — you don't need to wait or watch it. **Do NOT explain how to view or manage the agent here.** The user doesn't need to know about ↓, Esc, or Ctrl+F yet — those are taught in Module 8.
 
    b. **Spawn a background agent** using the Agent tool with `subagent_type: "general-purpose"` and `run_in_background: true`. Pass it the full curriculum sync task as its prompt (the complete instructions from the "Background Agent Task" section below). Include the local version, latest version, and the working directory path in the prompt so the agent has everything it needs.
 
@@ -116,22 +116,6 @@ For each significant change (not just minor tweaks):
 3. Report back what you updated (list of files changed and a brief summary).
 
 ---
-
-### 0.6 — Checkpoint (before scaffolding)
-
-**Insert this check between Step 4 (environment verification) and Step 5 (scaffold).** Before scaffolding the project, check if a background curriculum sync agent was spawned earlier:
-
-- If no background agent was spawned (versions matched or fetch failed in 0.1) → skip this step entirely.
-- If the background agent **has finished successfully** → brief message: "By the way — the curriculum update finished while we were setting up. All lessons are current with Claude Code v{latest}."
-- If the background agent **is still running** → this is the teaching moment for agent viewing. Walk them through it conversationally:
-    1. Point out the status bar: "The curriculum update is still working. See the status bar at the bottom? It shows you have a background agent running."
-    2. Teach viewing: "Here's a cool trick — press **↓** (down arrow) to open the agent manager. You can select the running agent and watch it work in real time — reading files, searching the web, updating lessons. Press **Esc** to come back to our conversation."
-    3. Mention the kill switch: "If you ever need to stop a background agent, press **Ctrl+F** twice to kill it."
-    4. Frame it: "You'll learn all about background agents in Module 8 — for now, just know they let Claude do two things at once. Go ahead and try pressing **↓** while we wait!"
-    5. **BLOCK here — do NOT continue until the agent finishes.** Use `TaskOutput` with `block: true` to wait for the agent to complete. Do NOT use `block: false` — that returns immediately and lets you continue before the sync is done. The curriculum must be up to date before Module 1 begins, because Module 1 reads from the files the agent is updating. When it finishes, say: "Done! Lessons are up to date. Let's keep going."
-- If the background agent **failed** → graceful fallback: "The curriculum update ran into an issue — no worries, we'll use the current materials. Everything still works fine."
-
-**After the checkpoint (regardless of outcome), continue to Step 5.**
 
 ### Graceful failure
 
@@ -341,8 +325,6 @@ If anything is missing, install each one. For each missing tool:
 - **`nodejs` vs `node`:** On some Linux distros (Debian/Ubuntu), the binary may be `nodejs`. Check both and use whichever works.
 
 **After all installs complete**, re-run the full checklist from Phase B and display it again. Do NOT proceed to Step 5 until every required tool shows ✓.
-
-**IMPORTANT: Before moving to Step 5, run Step 0.6 (Checkpoint) now.** If a background curriculum sync agent was spawned in Step 0.1, you MUST check on it and wait for it to finish before scaffolding. The curriculum must be up to date before Module 1 begins. See the Step 0.6 section above for the full instructions.
 
 ## Step 5: Scaffold the Project
 
@@ -608,6 +590,13 @@ End with something like: "That's the core workflow — edit, check, commit. Say 
 ---
 
 ### 6.8 Module 1 Complete
+
+**Before the recap**, if a background curriculum sync agent was spawned in Step 0.1, do a **non-blocking** status check using `TaskOutput` with `block: false`:
+- If the agent **finished successfully** → add a brief note in your recap: "By the way, that curriculum update from earlier finished — all lessons are current with v{latest}."
+- If the agent is **still running** (unlikely after 15+ minutes) → don't mention it. It'll finish before they reach Module 2.
+- If the agent **failed** → brief note: "The curriculum update ran into an issue — no worries, the current materials work fine."
+
+This check is **informational only** — never block on it.
 
 Recap what they learned (concepts, not steps):
 
