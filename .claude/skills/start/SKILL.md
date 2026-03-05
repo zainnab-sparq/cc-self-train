@@ -47,7 +47,7 @@ Then say something like: "Ready? Here comes your first prompt —" and run the c
 3. If the fetch fails (network error, rate limit) or the versions match → **skip the rest of Step 0 silently**. Continue to Step 3b.
 4. If the versions differ → an update is needed. **Do NOT run the update inline.** Instead:
 
-   a. **Explain background agents briefly** (2-3 sentences, conversational). Something like: "There's a curriculum update available (v{local} → v{latest}). Rather than make you wait while I update the lesson materials, I'm going to hand this off to a **background agent** — think of it as a separate AI worker that handles the update in another tab while we keep talking here. You'll learn all about background agents in Module 8, but let's see one in action right now."
+   a. **Explain background agents briefly** (2-3 sentences, conversational). Something like: "There's a curriculum update available (v{local} → v{latest}). Rather than make you wait while I update the lesson materials, I'm going to hand this off to a **background agent** — think of it as a separate AI worker that handles the update in the background while we keep talking. You'll learn all about background agents in Module 8, but let's see one in action right now."
 
       **Do NOT explain how to view or manage the agent here.** Keep the spawn message short — the viewing instructions belong in Step 0.6 if the agent is still running when we get there. The user doesn't need to know about ↓, Esc, or Ctrl+F yet.
 
@@ -128,7 +128,7 @@ For each significant change (not just minor tweaks):
     2. Teach viewing: "Here's a cool trick — press **↓** (down arrow) to open the agent manager. You can select the running agent and watch it work in real time — reading files, searching the web, updating lessons. Press **Esc** to come back to our conversation."
     3. Mention the kill switch: "If you ever need to stop a background agent, press **Ctrl+F** twice to kill it."
     4. Frame it: "You'll learn all about background agents in Module 8 — for now, just know they let Claude do two things at once. Go ahead and try pressing **↓** while we wait!"
-    5. Wait for the agent to complete. When it finishes, say: "Done! Lessons are up to date. Let's keep going."
+    5. **BLOCK here — do NOT continue until the agent finishes.** Use `TaskOutput` with `block: true` to wait for the agent to complete. Do NOT use `block: false` — that returns immediately and lets you continue before the sync is done. The curriculum must be up to date before Module 1 begins, because Module 1 reads from the files the agent is updating. When it finishes, say: "Done! Lessons are up to date. Let's keep going."
 - If the background agent **failed** → graceful fallback: "The curriculum update ran into an issue — no worries, we'll use the current materials. Everything still works fine."
 
 **After the checkpoint (regardless of outcome), continue to Step 5.**
@@ -341,6 +341,8 @@ If anything is missing, install each one. For each missing tool:
 - **`nodejs` vs `node`:** On some Linux distros (Debian/Ubuntu), the binary may be `nodejs`. Check both and use whichever works.
 
 **After all installs complete**, re-run the full checklist from Phase B and display it again. Do NOT proceed to Step 5 until every required tool shows ✓.
+
+**IMPORTANT: Before moving to Step 5, run Step 0.6 (Checkpoint) now.** If a background curriculum sync agent was spawned in Step 0.1, you MUST check on it and wait for it to finish before scaffolding. The curriculum must be up to date before Module 1 begins. See the Step 0.6 section above for the full instructions.
 
 ## Step 5: Scaffold the Project
 
