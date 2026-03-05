@@ -1,5 +1,11 @@
 # Changelog
 
+## v2.7.0 (2026-03-05)
+
+- Add `/release` skill — interactive guided release checklist (version bump, tag, GitHub Release, sparq sync)
+- Add release checklist to MEMORY.md for persistent cross-session reference
+- Update README badge from v2.5.0 to v2.7.0
+
 ## v2.0.0
 
 - Major content update: sync curriculum to Claude Code v2.1.43–v2.1.68 (26 releases)

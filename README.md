@@ -1,4 +1,4 @@
-# Learn Claude Code by Doing &nbsp; [![v2.5.0](https://img.shields.io/badge/version-2.5.0-blue)](CHANGELOG.md)
+# Learn Claude Code by Doing &nbsp; [![v2.7.0](https://img.shields.io/badge/version-2.7.0-blue)](CHANGELOG.md)
 
 The best way to learn Claude Code is to build something real with it. Pick a project, pick your language, and work through 10 hands-on modules that teach you every major [Claude Code](https://docs.anthropic.com/en/docs/claude-code) feature — not by reading about them, but by using them to ship actual code.
 
