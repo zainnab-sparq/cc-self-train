@@ -1,5 +1,11 @@
 # Changelog
 
+## v2.7.18 (2026-03-06)
+
+- Add exit/resume teaching step to Module 4 across all 4 projects — teaches `/exit` and `claude --resume` between skill creation and testing, since new skills need a session restart to appear in autocomplete
+- Canvas/Forge: new step 4.4 with renumbered subsequent steps
+- Nexus/Sentinel: new step 3b (consistent with existing numbering)
+
 ## v2.7.17 (2026-03-05)
 
 - Add `/statusline` teaching to Module 3 usage step across all 4 projects — persistent status bar for context/cost monitoring
