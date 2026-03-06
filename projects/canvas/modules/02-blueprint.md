@@ -8,9 +8,8 @@
 
 > **Why this step:** Plan mode is one of Claude Code's most important features. It lets you think through architecture *with* Claude before any code gets written. This prevents the "just start coding" trap that leads to messy rewrites later.
 
-Press `Shift+Tab` to switch to plan mode. You will see the mode indicator
-change. In plan mode, Claude analyzes and plans without making changes. This
-is where you design before you build.
+So far, you've been talking to Claude in normal mode — you say something, Claude does it. Press `Shift+Tab` to switch to plan mode. You will see the mode indicator
+change. In plan mode, Claude analyzes and plans without making changes. **Instead of writing code, Claude thinks *with* you — it analyzes, suggests architecture, and asks clarifying questions, but doesn't touch any files.** This is where you design before you build.
 
 Alternatively, type:
 
@@ -68,7 +67,9 @@ Press `Shift+Tab` to return to normal mode. Now tell Claude to start building --
 
 Constraining scope is a key prompting skill -- it keeps Claude focused and prevents runaway file creation. Let Claude create the files, then open `index.html` in your browser to check it.
 
-> **STOP -- What you just did:** You went from plan mode to normal mode and gave Claude a focused, scoped instruction. Notice that you told Claude what to build *and* what NOT to build yet ("Do NOT build the other pages yet"). Constraining scope is a key prompting skill -- it keeps Claude focused and prevents runaway file creation.
+**Try it now — show Claude your site.** Open `index.html` in the browser, take a screenshot of the home page, and paste it into the Claude Code chat. On Windows use `Alt+V` to paste from clipboard, on macOS/Linux use `Ctrl+V`. You can also drag and drop a screenshot file directly into the chat. Tell Claude something like: "Here's what the home page looks like — what do you think?" Claude can see the image and give you feedback on layout, colors, spacing, or anything that looks off. This is one of the most useful tricks for visual work — showing is faster than describing.
+
+> **STOP -- What you just did:** You went from plan mode to normal mode and gave Claude a focused, scoped instruction. Notice that you told Claude what to build *and* what NOT to build yet ("Do NOT build the other pages yet"). Constraining scope is a key prompting skill -- it keeps Claude focused and prevents runaway file creation. You also learned that you can share screenshots with Claude — paste or drag them right into the chat so Claude can see what you see.
 
 > **Quick check before continuing:**
 > - [ ] Your site plan covers all 5 pages (home, about, projects, blog, contact)

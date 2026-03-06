@@ -6,7 +6,7 @@
 
 ### Step 1: Enter Plan Mode
 
-Press `Shift+Tab` to switch to Plan mode. The indicator in your prompt area changes to show you are in planning mode. In plan mode, Claude analyzes and designs without making changes to files.
+So far, you've been talking to Claude in normal mode — you say something, Claude does it. Press `Shift+Tab` to switch to plan mode. The indicator in your prompt area changes to show you are in planning mode. **Instead of writing code, Claude thinks *with* you — it analyzes, suggests architecture, and asks clarifying questions, but doesn't touch any files.**
 
 > **Why this step:** Plan mode lets you think through architecture *with* Claude before any code exists. This prevents the "just start coding" trap where you build the wrong thing and have to rewrite it later.
 
@@ -71,6 +71,8 @@ Press `Shift+Tab` to switch back to Act mode. Now ask Claude to create the proje
 Or ask Claude to handle the git workflow for you:
 
 > "Create a feature branch called feature/core and commit the current project structure."
+
+**Screenshot trick:** If you hit an error you can't figure out, take a screenshot and drag it directly into the Claude Code chat. Claude can see images -- so instead of copy-pasting a messy stack trace, just screenshot your terminal and drop it in. You can also paste images from clipboard with `Ctrl+V` (macOS/Linux) or `Alt+V` (Windows).
 
 > **STOP -- What you just did:** You went from an empty directory to a planned, structured project on its own feature branch -- all without leaving Claude Code. The `!` prefix for shell commands and Claude's ability to run git operations mean your entire workflow lives in one place. Notice how each prompt was focused on one concern (structure, then commit, then branch) rather than asking for everything at once.
 

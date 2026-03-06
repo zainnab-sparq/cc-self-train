@@ -8,9 +8,8 @@
 
 > **Why this step:** Plan mode is one of Claude Code's most powerful features. It lets Claude analyze, reason, and design *without* touching any files. You always want to think before you build -- plan mode enforces that discipline.
 
-Press `Shift+Tab` to switch to plan mode. You will see the mode indicator
-change. In plan mode, Claude analyzes and plans without making changes. This
-is where you design before you build.
+So far, you've been talking to Claude in normal mode — you say something, Claude does it. Press `Shift+Tab` to switch to plan mode. You will see the mode indicator
+change. **Instead of writing code, Claude thinks *with* you — it analyzes, suggests architecture, and asks clarifying questions, but doesn't touch any files.** This is where you design before you build.
 
 Alternatively, type:
 
@@ -73,6 +72,8 @@ Something like:
 > "Let's start building from the plan. Create the data models and the storage layer first -- no CLI yet. I want to review the core library before we add the interface on top."
 
 Let Claude create the files. Review what it produces -- check that the models match what you agreed on in the plan.
+
+**Screenshot trick:** If you hit an error you can't figure out, take a screenshot and drag it directly into the Claude Code chat. Claude can see images -- so instead of copy-pasting a messy stack trace, just screenshot your terminal and drop it in. You can also paste images from clipboard with `Ctrl+V` (macOS/Linux) or `Alt+V` (Windows).
 
 > **Why this step:** Feature branches keep your experiments separate from working code. If something goes wrong, you can throw away the branch without affecting main.
 

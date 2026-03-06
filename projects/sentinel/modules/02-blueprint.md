@@ -10,7 +10,7 @@ In this module you design Sentinel's architecture in plan mode, then switch to e
 
 > **Why this step:** Plan mode is Claude Code's "think before you build" feature. Instead of jumping straight into generating files, you get to explore architecture decisions with Claude while it is prevented from changing anything. This is where you catch design mistakes cheaply -- before they are baked into code.
 
-Press `Shift+Tab` until you see the mode indicator switch to **Plan Mode**. In plan mode, Claude reasons about architecture and design without making any file changes. This is read-only exploration.
+So far, you've been talking to Claude in normal mode — you say something, Claude does it. Press `Shift+Tab` until you see the mode indicator switch to **Plan Mode**. **Instead of writing code, Claude thinks *with* you — it analyzes, suggests architecture, and asks clarifying questions, but doesn't touch any files.** This is read-only exploration.
 
 Alternatively, type:
 
@@ -69,6 +69,8 @@ Something like:
 > "Let's build the skeleton we just designed. Set up the directory layout, create the entry point, and stub out each module with comments explaining its purpose. Don't implement the full logic yet -- just the structure."
 
 Claude will create files. Review each one before accepting.
+
+**Screenshot trick:** If you hit an error you can't figure out, take a screenshot and drag it directly into the Claude Code chat. Claude can see images -- so instead of copy-pasting a messy stack trace, just screenshot your terminal and drop it in. You can also paste images from clipboard with `Ctrl+V` (macOS/Linux) or `Alt+V` (Windows).
 
 > **STOP -- What you just did:** You went through the full plan-then-build cycle. Claude designed the architecture in plan mode, you asked questions to refine it, then you switched to normal mode and Claude created the project skeleton. Notice how you reviewed each file before accepting -- that review step is critical. Claude is a collaborator, not an autopilot.
 
