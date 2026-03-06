@@ -1,5 +1,12 @@
 # Changelog
 
+## v2.7.15 (2026-03-05)
+
+- Expand /compact teaching with auto-compact explanation (~95% trigger, what gets preserved vs lost, CLAUDE.md survival insight)
+- Add "When Claude Forgets" troubleshooting section to all 4 projects' Module 3
+- Add context consumption tips to /context sections (what costs context, line-range reading tip)
+- Fix Sentinel Module 3 memory hierarchy order (was incorrectly listing user memory before project memory)
+
 ## v2.7.14 (2026-03-05)
 
 - Add automated test step (2.8) to Canvas Module 2 — validation script checks broken links, titles, nav consistency, alt text
