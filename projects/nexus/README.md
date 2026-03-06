@@ -12,7 +12,7 @@ You're going to build the thing that sits between services and makes them work t
 |--------|------------|-----------------|
 | 1 | CLAUDE.md, /init, /memory, keyboard shortcuts | Project setup |
 | 2 | Plan mode, git integration, prompting | Core gateway + CLI |
-| 3 | .claude/rules/, @imports, /context, /compact, /cost | Rate limiting |
+| 3 | .claude/rules/, @imports, /context, /compact, /stats, /cost | Rate limiting |
 | 4 | Skills, SKILL.md, frontmatter, custom commands | Route management skills |
 | 5 | Hooks, SessionStart, PostToolUse, Stop | Gateway automation |
 | 6 | MCP servers, .mcp.json, scopes | SQLite caching layer |
@@ -146,7 +146,7 @@ Run `<language> --version`, `git --version`, `sqlite3 --version`, and `claude --
 |---|--------|-------|-------------|
 | 1 | [Setup & First Contact](modules/01-setup.md) | Project setup | CLAUDE.md, /init, /memory, keyboard shortcuts |
 | 2 | [Blueprint & Build](modules/02-blueprint.md) | Core gateway + CLI | Plan mode, git integration, prompting |
-| 3 | [Rules, Memory & Context](modules/03-rules-memory-context.md) | Rate limiting | .claude/rules/, @imports, /context, /compact, /cost |
+| 3 | [Rules, Memory & Context](modules/03-rules-memory-context.md) | Rate limiting | .claude/rules/, @imports, /context, /compact, /stats, /cost |
 | 4 | [Skills & Commands](modules/04-skills-commands.md) | Route management skills | SKILL.md, frontmatter, custom commands, argument substitution |
 | 5 | [Hooks](modules/05-hooks.md) | Gateway automation | SessionStart, PostToolUse, Stop hooks, matchers |
 | 6 | [MCP Servers](modules/06-mcp-servers.md) | SQLite caching layer | MCP servers, .mcp.json, scopes, skills+MCP |

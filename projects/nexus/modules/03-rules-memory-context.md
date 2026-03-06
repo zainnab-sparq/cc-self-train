@@ -1,6 +1,6 @@
 # Module 3 -- Rules, Memory & Context
 
-**CC features:** .claude/rules/, CLAUDE.local.md, @imports, /context, /compact, memory hierarchy, /cost
+**CC features:** .claude/rules/, CLAUDE.local.md, @imports, /context, /compact, /stats, /cost, memory hierarchy
 
 > **Persona — Guide:** Explain everything, define terms, celebrate small wins. "Let's try…", "Here's what that does…"
 
@@ -107,17 +107,33 @@ The argument tells Claude what to prioritize when compacting. Without it, Claude
 
 **Key takeaway:** If a decision or convention is important enough to always remember, put it in CLAUDE.md or a rules file -- not in a chat message.
 
-### Step 5c: Check Costs with /cost
+> **STOP -- What you just did:** You learned three context management tools: `/context` shows what Claude is "thinking about" (and how full its context window is), `/compact` frees up space while preserving key information, and `/stats` or `/cost` (next step) tracks your overall usage. These tools become essential in longer sessions -- you will use `/compact` regularly to keep Claude focused and responsive.
+
+### Step 5c: Check Your Usage
+
+Are you using a **Claude subscription** (Pro, Max, or Team) or an **API key**?
+
+**If you are on a subscription (Pro/Max/Team):**
+
+Run:
+
+```
+/stats
+```
+
+This shows your usage patterns -- daily activity, session history, streaks, and which models you use most. Subscribers do not pay per token, so cost tracking is not relevant. Use `/stats` to understand your usage habits and `/usage` to check your plan's rate limits.
+
+**If you are using an API key:**
+
+Run:
 
 ```
 /cost
 ```
 
-This shows your token usage statistics for the current session.
+This shows your token usage and cost in USD for the current session. API users pay per token, so checking `/cost` periodically helps you understand which operations are expensive. A single large file read can cost more than dozens of chat messages.
 
-> **Note:** On Claude subscriptions (Pro/Max/Team), `/cost` may show limited or empty output due to known issues. If you see blank results, don't worry -- your token usage is still being tracked. API key users will see detailed cost breakdowns.
-
-> **STOP -- What you just did:** You learned the three context management tools: `/context` shows what Claude is "thinking about" (and how full its context window is), `/compact` frees up space while preserving key information, and `/cost` tracks your token usage. These tools become essential in longer sessions -- you will use `/compact` regularly to keep Claude focused and responsive.
+**Note:** Both groups should use `/context` (which you already learned) to manage the context window. `/stats` and `/cost` track your overall usage; `/context` tracks what Claude is currently "thinking about."
 
 ### Step 5d: When Claude Forgets
 
@@ -143,7 +159,7 @@ Now build the rate limiting feature while actively using the context tools. Desc
 
 > "I want to add rate limiting to the gateway. Each route should have a configurable rate limit in the config file. When a client exceeds the limit, return 429 with a Retry-After header. Store the state in memory for now. What algorithm do you recommend?"
 
-Claude will implement the rate limiter and may ask about edge cases like what happens on server restart (state resets). After building, ask Claude to write tests, run them, and commit. Then run `/compact` to free context and `/cost` to see how many tokens you used.
+Claude will implement the rate limiter and may ask about edge cases like what happens on server restart (state resets). After building, ask Claude to write tests, run them, and commit. Then run `/compact` to free context.
 
 ### Checkpoint
 
@@ -154,6 +170,6 @@ You just taught Claude how your gateway works. Rules, memory, and context manage
 - [ ] CLAUDE.md uses `@imports` to reference docs/routing.md and docs/config-format.md
 - [ ] You ran `/context` and can read the context grid
 - [ ] You ran `/compact` at least once
-- [ ] You ran `/cost` to check token usage
+- [ ] You ran `/stats` or `/cost` to check your usage
 - [ ] Rate limiting is implemented with tests passing
 - [ ] Changes committed to git

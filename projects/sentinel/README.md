@@ -24,7 +24,7 @@ Sentinel is a **code quality meta-tool** -- a tool that improves other code. Whe
 |--------|------------|
 | 1. Setup & First Contact | CLAUDE.md, /init, /memory, interactive mode, keyboard shortcuts |
 | 2. Blueprint & Build | Plan mode, git integration, basic prompting |
-| 3. Rules, Memory & Context | .claude/rules/, CLAUDE.local.md, @imports, /context, /compact, /cost |
+| 3. Rules, Memory & Context | .claude/rules/, CLAUDE.local.md, @imports, /context, /compact, /stats, /cost |
 | 4. Skills & Commands | SKILL.md, frontmatter, custom slash commands, hot-reload, disable-model-invocation |
 | 5. Hooks | SessionStart, PostToolUse, Stop hooks, matchers, settings.json |
 | 6. MCP Servers | MCP servers, .mcp.json, scopes, skills+MCP, claude mcp add |
@@ -134,7 +134,7 @@ You need an [Anthropic API key](https://console.anthropic.com/) or a Claude subs
 |---|--------|-------|-------------|
 | 1 | [Setup & First Contact](modules/01-setup.md) | Project setup, first conversation | CLAUDE.md, /init, /memory, interactive mode, keyboard shortcuts |
 | 2 | [Blueprint & Build](modules/02-blueprint.md) | Architecture design, core implementation | Plan mode, git integration, basic prompting |
-| 3 | [Rules, Memory & Context](modules/03-rules-memory-context.md) | Persistent instructions, context management | .claude/rules/, CLAUDE.local.md, @imports, /context, /compact, /cost |
+| 3 | [Rules, Memory & Context](modules/03-rules-memory-context.md) | Persistent instructions, context management | .claude/rules/, CLAUDE.local.md, @imports, /context, /compact, /stats, /cost |
 | 4 | [Skills & Commands](modules/04-skills-commands.md) | Custom slash commands, reusable workflows | SKILL.md, frontmatter, hot-reload, argument substitution, disable-model-invocation |
 | 5 | [Hooks](modules/05-hooks.md) | Automated scripts at key moments | SessionStart, PostToolUse, Stop hooks, matchers, settings.json |
 | 6 | [MCP Servers](modules/06-mcp-servers.md) | External tool integration, database access | MCP servers, .mcp.json, scopes, skills+MCP, claude mcp add |
@@ -160,7 +160,7 @@ Review this checklist to confirm you have experienced every major Claude Code fe
 - [ ] Created path-scoped rules in .claude/rules/
 - [ ] Used CLAUDE.local.md for personal preferences
 - [ ] Used @imports in CLAUDE.md
-- [ ] Ran /context, /compact, and /cost
+- [ ] Ran /context, /compact, and /stats or /cost
 
 **Skills & Commands (Module 4)**
 - [ ] Created at least 3 custom skills with SKILL.md

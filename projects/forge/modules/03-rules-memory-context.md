@@ -1,7 +1,7 @@
 # Module 3 -- Rules, Memory, and Context
 
 **CC features:** `.claude/rules/`, `CLAUDE.local.md`, `@imports`, `/context`,
-`/compact`, memory hierarchy, `/cost`
+`/compact`, `/stats`, `/cost`, memory hierarchy
 
 > **Persona — Guide:** Explain everything, define terms, celebrate small wins. "Let's try…", "Here's what that does…"
 
@@ -141,9 +141,21 @@ Claude uses its own judgment.
 
 > **STOP -- What you just did:** You used `/context` to see how your session's context is distributed, then `/compact` to reclaim space. Context management is a real skill -- long sessions accumulate history, and eventually Claude "forgets" earlier details. Using `/compact` with a focus argument lets you control what survives the compression. Auto-compact handles this for you at ~95% capacity, but manual compacting with a focus argument gives you more control over what is preserved.
 
-Shall we check your token usage with /cost?
+## 3.8 Check Your Usage
 
-## 3.8 /cost Tracking
+Are you using a **Claude subscription** (Pro, Max, or Team) or an **API key**?
+
+**If you are on a subscription (Pro/Max/Team):**
+
+Run:
+
+```
+/stats
+```
+
+This shows your usage patterns -- daily activity, session history, streaks, and which models you use most. Subscribers do not pay per token, so cost tracking is not relevant. Use `/stats` to understand your usage habits and `/usage` to check your plan's rate limits.
+
+**If you are using an API key:**
 
 Run:
 
@@ -151,10 +163,9 @@ Run:
 /cost
 ```
 
-This shows your token usage for the current session. Check it periodically to
-understand how much context different operations consume.
+This shows your token usage and cost in USD for the current session. API users pay per token, so checking `/cost` periodically helps you understand which operations are expensive. A single large file read can cost more than dozens of chat messages.
 
-> **Note:** On Claude subscriptions (Pro/Max/Team), `/cost` may show limited or empty output due to known issues. If you see blank results, don't worry -- your token usage is still being tracked. API key users will see detailed cost breakdowns.
+**Note:** Both groups should use `/context` (which you already learned) to manage the context window. `/stats` and `/cost` track your overall usage; `/context` tracks what Claude is currently "thinking about."
 
 ## 3.9 When Claude Forgets
 
@@ -191,6 +202,6 @@ You just taught Claude how your toolkit works. Rules enforce your conventions au
 - [ ] `CLAUDE.md` contains `@imports` referencing the docs
 - [ ] You ran `/context` and understand the context grid
 - [ ] You ran `/compact` with a focus argument
-- [ ] You ran `/cost` and checked token usage
+- [ ] You ran `/stats` or `/cost` to check your usage
 - [ ] Template rendering feature works with tests passing
 - [ ] Changes committed on a feature branch and merged

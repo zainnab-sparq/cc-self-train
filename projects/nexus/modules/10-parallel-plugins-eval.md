@@ -153,7 +153,7 @@ Go through this list to confirm you have covered every major CC feature:
 - [ ] .claude/rules/ has path-scoped rules for routing, config, and testing
 - [ ] CLAUDE.local.md exists for personal preferences
 - [ ] CLAUDE.md uses @imports for documentation files
-- [ ] You have used /context, /compact, and /cost
+- [ ] You have used /context, /compact, and /stats or /cost
 
 **Skills (Module 4)**
 - [ ] At least 4 skills in .claude/skills/

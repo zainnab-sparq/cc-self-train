@@ -128,7 +128,7 @@ Run these checks before continuing:
 |---|--------|-------|-------------|
 | 1 | [Setup & First Contact](modules/01-setup.md) | Project setup, first files, first commit | CLAUDE.md, /init, /memory, keyboard shortcuts |
 | 2 | [Blueprint & Build](modules/02-blueprint.md) | Architecture planning, building core pages | Plan mode, git branches, scoped prompting |
-| 3 | [Rules, Memory & Context](modules/03-rules-memory-context.md) | Coding standards, context management, blog page | .claude/rules/, CLAUDE.local.md, @imports, /context, /compact, /cost |
+| 3 | [Rules, Memory & Context](modules/03-rules-memory-context.md) | Coding standards, context management, blog page | .claude/rules/, CLAUDE.local.md, @imports, /context, /compact, /stats, /cost |
 | 4 | [Skills & Commands](modules/04-skills-commands.md) | Custom slash commands for page scaffolding and validation | SKILL.md, frontmatter, $ARGUMENTS, hot-reload, disable-model-invocation |
 | 5 | [Hooks](modules/05-hooks.md) | Automated quality gates and site validation | SessionStart, PostToolUse, Stop hooks, matchers, settings.json |
 | 6 | [MCP Servers](modules/06-mcp-servers.md) | External data, filesystem tools, publish workflow | MCP servers, .mcp.json, scopes, skills+MCP, claude mcp add |

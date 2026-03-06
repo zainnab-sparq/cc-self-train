@@ -71,8 +71,8 @@ Command	Purpose
 /compact [instructions]	Compact conversation with optional focus instructions
 /config	Open the Settings interface (Config tab)
 /context	Visualize current context usage as a colored grid
+/cost	Show session token usage and cost in USD (API key users)
 /copy	Interactive picker to select and copy specific code blocks from the conversation. Updated in v2.1.59
-/cost	Show token usage statistics. See cost tracking guide for subscription-specific details.
 /doctor	Checks the health of your Claude Code installation
 /exit	Exit the REPL
 /export [filename]	Export the current conversation to a file or clipboard

@@ -190,7 +190,7 @@ Confirm you have touched every major Claude Code feature across all 10 modules:
 - [ ] `.claude/rules/` -- path-scoped rules with YAML frontmatter
 - [ ] `CLAUDE.local.md` -- personal, non-committed preferences
 - [ ] `@imports` -- modular CLAUDE.md referencing external docs
-- [ ] `/context`, `/compact`, `/cost` -- context management tools
+- [ ] `/context`, `/compact`, `/stats` or `/cost` -- context and usage management
 - [ ] Custom skills -- `SKILL.md` with frontmatter, `$ARGUMENTS`, hot-reload
 - [ ] `disable-model-invocation` -- manual-only skills
 - [ ] Hooks -- SessionStart, PostToolUse, PreToolUse, Stop in `.claude/settings.json`
@@ -230,8 +230,9 @@ reference docs for every CC feature: `claudemd.txt`, `skillsmd.txt`,
 **Commit often.** Small, focused commits make it easy to revert mistakes and
 track progress.
 
-**Use `/cost` regularly.** Context management is a skill. Watch how different
-operations consume tokens and use `/compact` strategically.
+**Use `/compact` strategically.** Context management is a skill. When your
+session gets long, use `/compact` with a focus argument to preserve what matters.
+Check `/stats` or `/cost` periodically to understand your usage patterns.
 
 **Keep CLAUDE.md up to date.** Every time you discover a pattern, convention,
 or lesson, add it to your project memory. Future sessions benefit immediately.

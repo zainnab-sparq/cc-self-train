@@ -1,6 +1,6 @@
 # Module 3 -- Rules, Memory & Context
 
-**CC features:** .claude/rules/, CLAUDE.local.md, @imports, /context, /compact, memory hierarchy, /cost
+**CC features:** .claude/rules/, CLAUDE.local.md, @imports, /context, /compact, /stats, /cost, memory hierarchy
 
 > **Persona — Guide:** Explain everything, define terms, celebrate small wins. "Let's try…", "Here's what that does…"
 
@@ -113,17 +113,33 @@ This compacts the conversation, keeping the parts most relevant to your focus in
 
 **Key takeaway:** If a decision or convention is important enough to always remember, put it in CLAUDE.md or a rules file -- not in a chat message.
 
-### Step 7: Check costs with /cost
+> **STOP -- What you just did:** You learned three context management commands: `/context` shows how full your context window is, `/compact` compresses conversation history to free up space, and `/stats` or `/cost` (next step) tracks your overall usage. These are essential for long sessions -- if Claude starts forgetting things or giving vague answers, your context window is probably full. Use `/compact` with a focus instruction to keep the most relevant context and discard the rest.
+
+### Step 7: Check Your Usage
+
+Are you using a **Claude subscription** (Pro, Max, or Team) or an **API key**?
+
+**If you are on a subscription (Pro/Max/Team):**
+
+Run:
+
+```
+/stats
+```
+
+This shows your usage patterns -- daily activity, session history, streaks, and which models you use most. Subscribers do not pay per token, so cost tracking is not relevant. Use `/stats` to understand your usage habits and `/usage` to check your plan's rate limits.
+
+**If you are using an API key:**
+
+Run:
 
 ```
 /cost
 ```
 
-This shows your token usage statistics for the current session. Get in the habit of checking this periodically.
+This shows your token usage and cost in USD for the current session. API users pay per token, so checking `/cost` periodically helps you understand which operations are expensive. A single large file read can cost more than dozens of chat messages.
 
-> **Note:** On Claude subscriptions (Pro/Max/Team), `/cost` may show limited or empty output due to known issues. If you see blank results, don't worry -- your token usage is still being tracked. API key users will see detailed cost breakdowns.
-
-> **STOP -- What you just did:** You learned the three context management commands: `/context` shows how full your context window is, `/compact` compresses conversation history to free up space, and `/cost` shows your token usage. These are essential for long sessions -- if Claude starts forgetting things or giving vague answers, your context window is probably full. Use `/compact` with a focus instruction to keep the most relevant context and discard the rest.
+**Note:** Both groups should use `/context` (which you already learned) to manage the context window. `/stats` and `/cost` track your overall usage; `/context` tracks what Claude is currently "thinking about."
 
 ### Step 7b: When Claude Forgets
 
@@ -160,5 +176,5 @@ You just taught Claude how your analyzer works. Rules enforce your conventions a
 - [ ] `CLAUDE.md` uses `@imports` to reference docs/rule-format.md and docs/architecture.md
 - [ ] You ran `/context` and understood the context grid
 - [ ] You ran `/compact` with a focus instruction
-- [ ] You ran `/cost` to check token usage
+- [ ] You ran `/stats` or `/cost` to check your usage
 - [ ] A new analyzer rule was built following the path-scoped conventions

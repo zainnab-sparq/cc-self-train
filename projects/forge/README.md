@@ -130,7 +130,7 @@ Run these checks before continuing:
 |---|--------|-------|-------------|
 | 1 | [Setup & First Contact](modules/01-setup.md) | Project setup, first commit | CLAUDE.md, /init, /memory, keyboard shortcuts |
 | 2 | [Blueprint & Build](modules/02-blueprint.md) | Architecture design, core CLI | Plan mode, git integration, basic prompting |
-| 3 | [Rules, Memory & Context](modules/03-rules-memory-context.md) | Conventions, context management | .claude/rules/, CLAUDE.local.md, @imports, /context, /compact, /cost |
+| 3 | [Rules, Memory & Context](modules/03-rules-memory-context.md) | Conventions, context management | .claude/rules/, CLAUDE.local.md, @imports, /context, /compact, /stats, /cost |
 | 4 | [Skills & Commands](modules/04-skills-commands.md) | Custom slash commands | SKILL.md, frontmatter, hot-reload, $ARGUMENTS, disable-model-invocation |
 | 5 | [Hooks](modules/05-hooks.md) | Lifecycle automation | SessionStart, PostToolUse, Stop hooks, matchers, settings.json |
 | 6 | [MCP Servers](modules/06-mcp-servers.md) | External data sources | MCP servers, .mcp.json, scopes, skills+MCP, claude mcp add |
