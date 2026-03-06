@@ -55,6 +55,26 @@ Notice the difference: this skill omits `disable-model-invocation: true`, so Cla
 > - [ ] `/status-report` generates a gateway overview
 > - [ ] You understand that `disable-model-invocation: true` means "user-triggered only"
 
+### Step 3b: Exit and Resume
+
+New skills don't appear in `/` autocomplete until you restart the session. This is a perfect time to learn how to exit and pick up where you left off.
+
+Exit Claude Code:
+
+```
+/exit
+```
+
+Now resume your session:
+
+```
+claude --resume
+```
+
+Claude picks up right where you left off -- your conversation history, CLAUDE.md, and rules are all still loaded. Type `/` and you should see your new skills (`add-route`, `test-endpoint`, `status-report`) in the autocomplete list.
+
+> **STOP -- What you just did:** You learned how to exit and resume a Claude Code session. The `--resume` flag restores your full conversation context, so you never lose progress. This is essential whenever you need to restart -- whether for new skills to appear, to free up memory, or just to take a break.
+
 ### Step 4: Argument Substitution
 
 > **Why this step:** Positional arguments (`$0`, `$1`, `$ARGUMENTS`) make skills flexible. Instead of creating separate skills for each route, one skill with `$0` can look up any route you specify. This is the difference between a rigid script and a reusable tool.

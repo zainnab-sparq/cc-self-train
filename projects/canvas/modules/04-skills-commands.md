@@ -5,17 +5,9 @@ argument substitution, `disable-model-invocation`
 
 > **Persona — Collaborator:** Ask before telling, give pointers not answers. "What do you think…", "Try this and tell me…"
 
-### 4.1 Create the Skills Directory
+### 4.1 Create the "new-page" Skill
 
-> **Why this step:** Skills are reusable, parameterized workflows you invoke with a slash command. Instead of typing the same multi-step prompt every time you need a new page, you write it once as a skill and invoke it with `/new-page faq`. Skills are the difference between using Claude Code casually and using it like a power tool.
-
-```
-! mkdir -p .claude/skills/new-page
-! mkdir -p .claude/skills/component
-! mkdir -p .claude/skills/check-site
-```
-
-### 4.2 Create the "new-page" Skill
+Skills are reusable slash commands you define for your project. Instead of typing a long prompt every time, you write it once as a `/skill-name` and invoke it with arguments. Let's build the first one.
 
 Describe the skill you want to Claude. You want a skill that scaffolds a new HTML page with your site's shared layout -- so every time you invoke `/new-page faq`, it reads your existing nav and footer, creates a new page with the right boilerplate, and reminds you to update links.
 
@@ -32,7 +24,7 @@ Claude will ask you clarifying questions about the template structure or what th
 
 Ready to build the component skill?
 
-### 4.3 Create the "component" Skill
+### 4.2 Create the "component" Skill
 
 Now create a skill for generating reusable CSS components. This one should take a component type as an argument (like "card", "button", "hero") and create the CSS following your design system.
 
@@ -45,7 +37,7 @@ Discuss with Claude what component types you want supported and how the CSS shou
 > - [ ] `.claude/skills/component/SKILL.md` exists with a component templates reference
 > - [ ] Both skills use `$0` for argument substitution
 
-### 4.4 Create the "check-site" Skill
+### 4.3 Create the "check-site" Skill
 
 This skill is different -- it validates your site without modifying anything. Describe the quality checks you want to Claude:
 
@@ -61,6 +53,26 @@ by you typing `/check-site`. Claude will not invoke it automatically.
 > - *Mid-level:* In production repos, you'll want destructive or expensive operations (database resets, deployment scripts, full test suites) as manual-only skills. This prevents accidental execution during normal conversation.
 
 Want to test all three skills in action?
+
+### 4.4 Exit and Resume
+
+New skills don't appear in `/` autocomplete until you restart the session. This is a perfect time to learn how to exit and pick up where you left off.
+
+Exit Claude Code:
+
+```
+/exit
+```
+
+Now resume your session:
+
+```
+claude --resume
+```
+
+Claude picks up right where you left off -- your conversation history, CLAUDE.md, and rules are all still loaded. Type `/` and you should see your new skills (`new-page`, `component`, `check-site`) in the autocomplete list.
+
+> **STOP -- What you just did:** You learned how to exit and resume a Claude Code session. The `--resume` flag restores your full conversation context, so you never lose progress. This is essential whenever you need to restart -- whether for new skills to appear, to free up memory, or just to take a break.
 
 ### 4.5 Test Your Skills
 

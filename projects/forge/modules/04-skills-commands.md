@@ -5,17 +5,9 @@ argument substitution, `disable-model-invocation`
 
 > **Persona — Collaborator:** Ask before telling, give pointers not answers. "What do you think…", "Try this and tell me…"
 
-## 4.1 Create the Skills Directory
+## 4.1 Create the "add-item" Skill
 
-> **Why this step:** Skills are reusable, parameterized workflows you trigger with slash commands. Instead of retyping a complex prompt every time you want to add an item or search your knowledge base, you write it once as a skill and invoke it with `/add-item` or `/search`. Think of skills as saved prompts with superpowers -- they accept arguments, restrict tool access, and can reference supporting files.
-
-```
-! mkdir -p .claude/skills/add-item
-! mkdir -p .claude/skills/search
-! mkdir -p .claude/skills/daily-summary
-```
-
-## 4.2 Create the "add-item" Skill
+Skills are reusable slash commands you define for your project. Instead of typing a long prompt every time, you write it once as a `/skill-name` and invoke it with arguments. Let's build the first one.
 
 Describe to Claude what your add-item skill should do. You want a slash command that takes an item type and details, validates the input, runs the forge add command, and shows the result. Tell Claude about your validation rules -- what makes a valid note vs. a valid snippet vs. a valid bookmark.
 
@@ -23,7 +15,7 @@ Describe to Claude what your add-item skill should do. You want a slash command 
 
 Claude may ask about edge cases in your validation rules. Answer based on what makes sense for your workflow -- these are your conventions.
 
-## 4.3 Create the "search" Skill
+## 4.2 Create the "search" Skill
 
 Now create a search skill. Describe how you want search to work -- query parsing with special prefixes like `tag:` and `type:`, full-text search as the default, results displayed as a clean table, and helpful suggestions when nothing matches.
 
@@ -38,7 +30,7 @@ Now create a search skill. Describe how you want search to work -- query parsing
 
 Shall we create a manual-only skill next?
 
-## 4.4 Create the "daily-summary" Skill
+## 4.3 Create the "daily-summary" Skill
 
 Create a daily summary skill that shows what you added to forge today. This one should be manual-only -- you do not want Claude invoking it automatically during other tasks.
 
@@ -57,6 +49,26 @@ by you typing `/daily-summary`. Claude will not invoke it automatically.
 > - [ ] Three skill directories exist under `.claude/skills/`
 > - [ ] Each has a `SKILL.md` with frontmatter (name, description, allowed-tools)
 > - [ ] The daily-summary skill has `disable-model-invocation: true`
+
+## 4.4 Exit and Resume
+
+New skills don't appear in `/` autocomplete until you restart the session. This is a perfect time to learn how to exit and pick up where you left off.
+
+Exit Claude Code:
+
+```
+/exit
+```
+
+Now resume your session:
+
+```
+claude --resume
+```
+
+Claude picks up right where you left off -- your conversation history, CLAUDE.md, and rules are all still loaded. Type `/` and you should see your new skills (`add-item`, `search`, `daily-summary`) in the autocomplete list.
+
+> **STOP -- What you just did:** You learned how to exit and resume a Claude Code session. The `--resume` flag restores your full conversation context, so you never lose progress. This is essential whenever you need to restart -- whether for new skills to appear, to free up memory, or just to take a break.
 
 ## 4.5 Test Your Skills
 

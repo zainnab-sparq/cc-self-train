@@ -66,6 +66,26 @@ Notice `disable-model-invocation: true` -- this skill only runs when you explici
 > - [ ] `/generate-tests` runs in a forked context (you should see subagent output)
 > - [ ] `/quality-report` exists with disable-model-invocation: true
 
+### Step 3b: Exit and Resume
+
+New skills don't appear in `/` autocomplete until you restart the session. This is a perfect time to learn how to exit and pick up where you left off.
+
+Exit Claude Code:
+
+```
+/exit
+```
+
+Now resume your session:
+
+```
+claude --resume
+```
+
+Claude picks up right where you left off -- your conversation history, CLAUDE.md, and rules are all still loaded. Type `/` and you should see your new skills (`analyze`, `generate-tests`, `quality-report`) in the autocomplete list.
+
+> **STOP -- What you just did:** You learned how to exit and resume a Claude Code session. The `--resume` flag restores your full conversation context, so you never lose progress. This is essential whenever you need to restart -- whether for new skills to appear, to free up memory, or just to take a break.
+
 ### Step 4: Use custom slash commands with arguments
 
 Test argument substitution:
