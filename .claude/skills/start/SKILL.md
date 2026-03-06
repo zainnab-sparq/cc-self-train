@@ -19,8 +19,9 @@ Tell the user:
 
 1. **What this is:** A hands-on course where they'll build a real project from scratch while learning every major Claude Code feature across 10 progressive modules.
 2. **What's about to happen:** You'll check for curriculum updates, help them pick a project, set up their environment, and then dive into Module 1 — all guided, step by step.
+3. **This is their space:** This isn't a classroom — it's just the two of you. There are no dumb questions, no wrong answers, and no set pace. They can ask why something works, go off-script to try an idea, change the design, undo something, experiment with a feature that caught their eye, or just say "explain that differently." They're not following a video — they have a collaborator who adapts to them. If they want to skip ahead, go deeper, or take a detour, they should just say so. Claude will pick up right where they left off.
 
-Keep it to one short message (3-5 sentences). Write it as natural, conversational prose — no bulleted list. Then continue immediately to Step 0.
+Keep it to one short message (4-6 sentences). Write it as natural, conversational prose — no bulleted list. Then continue immediately to Step 0.
 
 ## Step 0: Curriculum Sync
 
@@ -237,7 +238,9 @@ If the file doesn't exist or is invalid, continue with Step 1 normally.
 
 ## Step 4: Verify and Install Their Environment
 
-Before running any checks, set the stage: "Let me check your system to make sure everything's ready. I'll run a few commands — you'll see exactly what I'm doing. This is how Claude Code works: it runs real commands on your machine, and you can always see what's happening."
+Before running any checks, print the following exactly as written:
+
+> Let me check your system to make sure everything's ready. I'll run a few commands — you'll see exactly what I'm doing. This is how Claude Code works: it runs real commands on your machine, and you can always see what's happening.
 
 ### Phase A — Detect Package Manager (silent)
 
@@ -416,13 +419,11 @@ This is the most important instruction in this skill. A wall of text overwhelms 
 
 ### 6.1 Teach: What is CLAUDE.md?
 
-Explain the concept before creating anything. Keep it to a few sentences:
+Print the following explanation exactly as written:
 
-- **What it is:** A file that Claude reads at the start of every session — like a briefing note that reminds Claude about your project.
-- **Why it matters:** Without it, every session starts from zero. Claude won't remember your project, your preferences, or what you decided last time. CLAUDE.md fixes that.
-- **What goes in it:** A description of your project, what language you're using, how to build and test things, and any preferences you have.
-
-End by saying something like: "Let's create one for your project — I'll walk you through each part. Say **"let's do it"** when you're ready."
+> CLAUDE.md is a file that Claude reads at the start of every session — like a briefing note that reminds Claude about your project. Without it, every session starts from zero. Claude won't remember your project, your preferences, or what you decided last time. CLAUDE.md fixes that.
+>
+> It contains a description of your project, what language you're using, how to build and test things, and any preferences you have. Let's create one for your project — I'll walk you through each part. Say **"let's do it"** when you're ready.
 
 **STOP. Do not continue to 6.2. Wait for the user to respond.**
 
@@ -454,16 +455,18 @@ Then ask: "Does that make sense? Any sections you'd want to change? Say **"looks
 
 ### 6.3 Teach: The Memory Hierarchy
 
-Explain that CLAUDE.md is one level in a bigger system. Keep it simple — four levels in plain language:
+Print the following explanation exactly as written (substitute the correct OS-specific path for `~` based on the detected OS):
 
-1. **CLAUDE.md** (shared) — "What we just created. Anyone who works on this project sees it. Put project conventions here."
-2. **CLAUDE.local.md** (personal) — "Just for you — gitignored, so it won't be shared. Your progress, your notes. We'll create one next."
-3. **.claude/rules/** (organized) — "For bigger projects, you can split rules into separate files. We'll use this in Module 3."
-4. **~/.claude/CLAUDE.md** (global, in your OS user profile — `~` means `C:\Users\<you>` on Windows, `/Users/<you>` on macOS, `/home/<you>` on Linux) — "Your preferences across ALL projects. Like 'I prefer concise responses.'"
-
-The key insight: "If a teammate would benefit from knowing it, put it in CLAUDE.md. If it's just your workflow or progress, put it in CLAUDE.local.md."
-
-End with something like: "Makes sense? Say **"ready"** and I'll create your CLAUDE.local.md — the personal one that tracks your progress."
+> CLAUDE.md is actually one level in a bigger system. There are four levels, and they layer on top of each other:
+>
+> 1. **CLAUDE.md** (shared) — What we just created. Anyone who works on this project sees it. Put project conventions here.
+> 2. **CLAUDE.local.md** (personal) — Just for you — it's gitignored, so it won't be shared. Your progress, your notes. We'll create one next.
+> 3. **.claude/rules/** (organized) — For bigger projects, you can split rules into separate files instead of cramming everything into one CLAUDE.md. We'll use this in Module 3.
+> 4. **~/.claude/CLAUDE.md** (global, in `<OS-specific path>`) — Your preferences across ALL projects. Like "I prefer concise responses" or "always use dark mode examples." Applies everywhere, not just this project.
+>
+> The key insight: if a teammate would benefit from knowing it, put it in CLAUDE.md. If it's just your workflow or progress, put it in CLAUDE.local.md.
+>
+> Makes sense? Say **"ready"** and I'll create your CLAUDE.local.md — the personal one that tracks your progress.
 
 **STOP. Do not continue to 6.4. Wait for the user to respond.**
 
@@ -471,7 +474,9 @@ End with something like: "Makes sense? Say **"ready"** and I'll create your CLAU
 
 ### 6.4 Create CLAUDE.local.md
 
-Explain briefly: "This tracks YOUR progress. It's personal — not shared. When you come back tomorrow, Claude reads this and knows exactly where you left off."
+Print the following explanation exactly as written:
+
+> This file tracks YOUR progress. It's personal — not shared. When you come back tomorrow, Claude reads this and knows exactly where you left off.
 
 Create `CLAUDE.local.md` in the **cc-self-train root directory** (NOT inside workspace/):
 
@@ -506,16 +511,14 @@ End with something like: "Your progress is now tracked. Say **"let's commit"** w
 
 ### 6.5 Git Integration + First Commit
 
-Explain git briefly for users who may be less familiar:
+Print the following explanation exactly as written:
 
-- "Git tracks every change you make to your files — think of it like a save system in a game."
-- "A **commit** is a save point with a description of what changed."
-- "Claude Code has built-in git support — you don't need to leave the conversation to use it."
+> Git tracks every change you make to your files — think of it like a save system in a game. A **commit** is a save point with a description of what changed. Claude Code has built-in git support, so you don't need to leave the conversation to use it.
 
 Before committing, check that git knows who the user is:
 
 - Run `git config user.name` and `git config user.email` inside `workspace/<project>/`
-- If either is empty, explain: "Git tags every commit with your name and email so you can tell who made which change. This stays local — it's not sent anywhere."
+- If either is empty, print the following exactly: "Git tags every commit with your name and email so you can tell who made which change. This stays local — it's not sent anywhere."
 - Ask the user for their name and email using AskUserQuestion (the free-text "Other" option works fine for this)
 - Run `git config user.name "Their Name"` and `git config user.email "their@email.com"` in the project directory
 
@@ -529,9 +532,11 @@ git commit -m "Initial project setup with CLAUDE.md"
 
 After committing, list the files that were tracked (e.g., for Canvas: `index.html`, `styles/main.css`, `scripts/main.js`, `.gitignore`, `CLAUDE.md`) so the user sees exactly what's in their first save point.
 
-Introduce the core workflow pattern: "What you just did — make a change, verify it works, commit — is the **edit, check, commit** loop. It's the rhythm you'll use in every module. Make a change, verify it works, save a checkpoint. That way you can always roll back if something breaks."
+Print the following exactly as written:
 
-Then mention: "If Claude ever makes a change you don't like, press `Esc` twice quickly. It rewinds the last changes — like an undo button."
+> What you just did — make a change, verify it works, commit — is the **edit, check, commit** loop. It's the rhythm you'll use in every module. Make a change, verify it works, save a checkpoint. That way you can always roll back if something breaks.
+>
+> And here's a bonus: if Claude ever makes a change you don't like, press `Esc` twice quickly. It rewinds the last changes — like an undo button.
 
 End with something like: "Your first commit is done — you've got a save point. Say **"show me"** to learn the keyboard shortcuts that make Claude Code faster."
 
@@ -541,7 +546,9 @@ End with something like: "Your first commit is done — you've got a save point.
 
 ### 6.6 Keyboard Shortcuts — Look Them Up Live
 
-Introduce shortcuts with a teaching moment: "Claude Code has keyboard shortcuts that make you faster. Instead of me listing them from memory, let me show you something useful — Claude can search the web for up-to-date information."
+Print the following exactly as written:
+
+> Claude Code has keyboard shortcuts that make you faster. Instead of me listing them from memory, let me show you something useful — Claude can search the web for up-to-date information.
 
 **Use the WebSearch tool** to search for the current Claude Code keyboard shortcuts for the user's detected OS. A good query: `"Claude Code keyboard shortcuts [macOS/Windows/Linux]"` (use their actual OS).
 
@@ -569,7 +576,9 @@ End with something like: "Don't worry about memorizing these — they'll become 
 
 ### 6.7 Practice: Customize CLAUDE.md
 
-Explain what this exercise is about before diving in: "Right now your CLAUDE.md has the basics — project description, language, build commands. But the real power comes from teaching Claude *your* preferences. When you add rules like 'keep functions short' or 'never commit without asking me,' Claude follows them in every response. Let's add one now and practice the **edit, check, commit** cycle you'll use in every module."
+Print the following explanation exactly as written:
+
+> Right now your CLAUDE.md has the basics — project description, language, build commands. But the real power comes from teaching Claude *your* preferences. When you add rules like "keep functions short" or "never commit without asking me," Claude follows them in every response. Let's add one now.
 
 Use AskUserQuestion to let the user pick one improvement:
 
