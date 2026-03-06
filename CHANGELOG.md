@@ -1,5 +1,13 @@
 # Changelog
 
+## v2.7.16 (2026-03-05)
+
+- Add account-aware usage tracking step to Module 3 (all 4 projects) — teaches `/stats` for subscribers, `/cost` for API key users
+- Update STOP blocks in Nexus/Sentinel Module 3 to reference three context management tools
+- Add `/cost` to `context/interactive-mode.txt` command reference
+- Update Module 10 final checklists and tips to include `/stats` or `/cost`
+- Update all 4 READMEs with `/stats, /cost` in Module 3 feature lists
+
 ## v2.7.15 (2026-03-05)
 
 - Expand /compact teaching with auto-compact explanation (~95% trigger, what gets preserved vs lost, CLAUDE.md survival insight)
