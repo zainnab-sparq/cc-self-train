@@ -1,5 +1,13 @@
 # Changelog
 
+## v2.9.2 (2026-03-07)
+
+- Revert bash scripts back to inline `curl` commands so the first permission prompt shows a narrow `curl` scope instead of broad `bash:*`
+- Recommend option 2 ("Yes, and don't ask again") for the safe, read-only `curl` command — auto-approving `curl` also silences later `curl` calls during curriculum sync
+- Add teaching note about `bash:*` scope in Step 1a narration for when broader bash commands appear
+- Delete `.claude/scripts/fetch-latest-cc-version.sh` and `.claude/scripts/fetch-cc-changelog.sh` (no longer needed)
+- Update test to match new plain `curl` approach (no grep pipeline)
+
 ## v2.9.1 (2026-03-07)
 
 - Extract inline `curl | grep` pipelines in SKILL.md into dedicated scripts (`.claude/scripts/fetch-latest-cc-version.sh`, `.claude/scripts/fetch-cc-changelog.sh`) to eliminate backslash-escaped-whitespace permission warnings during onboarding
