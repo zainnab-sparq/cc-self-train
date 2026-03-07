@@ -41,9 +41,9 @@ Keep it to one short message (4-6 sentences). Write it as natural, conversationa
 Then say something like: "Ready? Here comes your first prompt —" and run the command. **Wait for the user to approve it before continuing.**
 
 1. Read the first version number from `context/changelog-cc.txt` (the first line that is just a version number, e.g., `2.1.68`). This is the **local version**.
-2. Fetch the latest Claude Code version from the GitHub API using Bash:
+2. Fetch the latest Claude Code version using Bash:
    ```bash
-   curl -sf https://api.github.com/repos/anthropics/claude-code/releases/latest | grep -o '"tag_name"[^"]*"[^"]*"' | head -1 | grep -o '[0-9][0-9.]*'
+   bash .claude/scripts/fetch-latest-cc-version.sh
    ```
 3. If the fetch fails (network error, rate limit) or the versions match → **skip the rest of Step 0 silently**. Continue to Step 3b.
 4. If the versions differ → an update is needed. Silently store the local version, latest version, and the fact that an update is needed (you'll use these in Step 1a). Continue to Step 3b.
@@ -54,13 +54,15 @@ Follow these instructions to sync the curriculum. Work through each step sequent
 
 ---
 
+**Tools guidance:** Prefer Read, Write, Edit, WebFetch, and Grep tools over Bash commands during this sync. Use the provided scripts for fetching (`.claude/scripts/fetch-latest-cc-version.sh`, `.claude/scripts/fetch-cc-changelog.sh`). For blog fetching, use WebFetch. For parsing and extracting changelog sections, use Read on saved files and process the content directly — avoid complex `grep`, `sed`, or `awk` pipelines that trigger permission warnings for the student.
+
 **Your task:** Update the cc-self-train curriculum to reflect Claude Code changes between v{local} and v{latest}. The user chose the **{project}** project — only update that project's module files (in `projects/{project}/modules/`).
 
 **Step 1 — Fetch & triage changelog:**
 
 1. Fetch the raw CHANGELOG from GitHub:
    ```bash
-   curl -sf https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md
+   bash .claude/scripts/fetch-cc-changelog.sh
    ```
 2. Extract all entries between v{latest} and v{local}.
 3. **Fetch the Anthropic blog index** using WebFetch on `https://claude.com/blog`. Identify any posts published since the repo was last updated (use the release date of v{local} as the cutoff — look it up from the GitHub releases API if needed, or estimate from the CHANGELOG dates). Focus on posts in the **Claude Code** and **Agents** categories.
@@ -197,7 +199,7 @@ This also applies on resume (Step 3b): if the user is resuming from `.claude/onb
 
 Now that the user has chosen a project, run the curriculum sync — and make it a learning experience:
 
-1. **Explain what's about to happen and why** (conversational, 3-4 sentences). Something like: "Before we set up your environment, I noticed the lesson materials are a few versions behind your Claude Code install. I'm going to update them now so the exercises match the features you actually have. You'll see me fetch a changelog, check the Anthropic blog for announcements, and update lesson files — it's the same kind of 'read data, make decisions, edit files' workflow you'll be doing throughout this course. This should take about a minute."
+1. **Explain what's about to happen and why** (conversational, 3-4 sentences). Something like: "Before we set up your environment, I noticed the lesson materials are a few versions behind your Claude Code install. I'm going to update them now so the exercises match the features you actually have. You'll see me fetch a changelog, check the Anthropic blog for announcements, and update lesson files — it's the same kind of 'read data, make decisions, edit files' workflow you'll be doing throughout this course. This might take a few minutes."
 
    The goal is to **demystify what Claude is doing** — the student sees tool calls flying by and understands they're purposeful, not magic. This builds trust and sets expectations for the rest of the course.
 
