@@ -1,5 +1,14 @@
 # Changelog
 
+## v2.8.0 (2026-03-07)
+
+- Rewrite background curriculum sync to use safe append-before-checkpoint strategy — new module steps are inserted before the Checkpoint section, existing steps are never modified or renumbered
+- Add self-verification step (Step 2b) to sync agent — checks step numbering, checkpoint existence, STOP block integrity, and auto-reverts malformed files
+- Scope sync commit to verified files only — reverted files are excluded
+- Add "After sync completes" section — tells learners about new CC features they'll encounter in upcoming modules
+- Create `/sync` skill for manual maintainer-triggered curriculum sync (foreground, no auto-commit, writes `.claude/sync-report.md` with detailed report)
+- Add `.claude/sync-report.md` to `.gitignore`
+
 ## v2.7.18 (2026-03-06)
 
 - Add exit/resume teaching step to Module 4 across all 4 projects — teaches `/exit` and `claude --resume` between skill creation and testing, since new skills need a session restart to appear in autocomplete
