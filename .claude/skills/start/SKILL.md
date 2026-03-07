@@ -105,16 +105,67 @@ For each significant change (not just minor tweaks):
    - **Changed**: Find the existing documentation and update it to reflect the new behavior, syntax, or defaults. Remove outdated information — don't leave both old and new versions.
    - **Removed**: Delete documentation for the removed feature. If a module exercise uses it, replace with the recommended alternative.
 
-4. **Update affected module files across all 4 projects** — for each affected module, update all 4 variants (`projects/canvas/modules/`, `projects/forge/modules/`, `projects/nexus/modules/`, `projects/sentinel/modules/`). Read each file first to understand the project-specific context, then apply the right action:
-   - **Added**: Add new feature coverage fitting the project's domain and the module's teaching persona (Modules 1-3 = guide, 4-6 = collaborator, 7-9 = peer, 10 = launcher).
-   - **Changed**: Update existing references, examples, and exercises to use the new behavior/syntax.
-   - **Removed**: Remove references to the deprecated feature. If an exercise depends on it, rewrite it to use the recommended alternative.
+4. **Append new steps to affected module files (safe insertion strategy)** — for each new feature that maps to a module, update all 4 project variants (`projects/canvas/modules/`, `projects/forge/modules/`, `projects/nexus/modules/`, `projects/sentinel/modules/`). **Never modify or renumber existing steps.** For each file:
 
-**Step 3 — Commit:**
+   a. Read the file to understand its structure, existing steps, and the project's domain context.
 
-1. Stage all changed files (context files + module files).
+   b. Find the Checkpoint section at the bottom of the file. The heading varies by project:
+      - Canvas: `### Checkpoint`
+      - Forge: `## Checkpoint`
+      - Nexus: `### Checkpoint`
+      - Sentinel: `### Checkpoint`
+
+   c. Determine the next sequential step number by reading the last step before Checkpoint.
+
+   d. Insert a new step **immediately before** the Checkpoint heading. Match the project's heading style:
+      - Canvas uses `### X.N Title` (e.g., `### 5.8 Explore Hook Variables`)
+      - Forge uses `## X.N Title` (e.g., `## 5.8 Explore Hook Variables`)
+      - Nexus uses `### Step N: Title` or `### Step Nb: Title` (e.g., `### Step 7: Explore Hook Variables`)
+      - Sentinel uses `### Step N: Title` or `### Step Nb: Title` (e.g., `### Step 7: Explore Hook Variables`)
+
+   e. Match the module's teaching persona depth:
+      - Modules 1-3 (Guide): Explain the concept before the exercise. Define terms. Be encouraging.
+      - Modules 4-6 (Collaborator): Brief context, then point the user to try it. Ask questions.
+      - Modules 7-9 (Peer): Terse, direct. Point to docs, let them figure it out.
+      - Module 10 (Launcher): State the goal, step back.
+
+   f. Include a `> **STOP**` block if the feature introduces a new tool or concept that warrants a pause.
+
+   g. Add a checkbox to the Checkpoint list for the new feature.
+
+   h. For **Changed** features: do NOT modify existing steps. Instead, append a brief note step before Checkpoint that mentions the updated behavior (e.g., "Note: As of CC v{latest}, the `--foo` flag now defaults to `bar`.").
+
+   i. For **Removed** features: append a note step before Checkpoint explaining the removal and the recommended alternative. Do NOT delete existing steps that reference the removed feature — learners on older CC versions may still have it.
+
+**Step 2b — Self-verification:**
+
+After all file updates, verify every modified file:
+
+**For context files:**
+- Re-read each modified context file.
+- Check: no duplicated section headers, no empty sections, no truncated content (file should not end mid-sentence).
+- If malformed → revert with `git checkout -- context/<filename>` and note the revert.
+
+**For module files:**
+- Re-read each modified module file.
+- Check ALL of the following:
+  1. Step numbers are sequential with no gaps or duplicates
+  2. The Checkpoint section still exists (the heading was not accidentally deleted or modified)
+  3. No existing `> **STOP**` blocks were broken or removed
+  4. No markdown syntax errors (unclosed code blocks, broken headings)
+  5. The new step appears immediately before the Checkpoint heading, not after it or embedded inside another step
+- If any check fails → revert with `git checkout -- projects/<project>/modules/<filename>` and note the revert.
+
+Keep a list of all files that passed and all files that were reverted.
+
+**Step 3 — Commit (verified files only):**
+
+1. Stage only files that **passed** verification. Do NOT stage reverted files.
 2. Commit: `docs: sync curriculum with Claude Code v{latest}`
-3. Report back what you updated (list of files changed and a brief summary).
+3. Prepare a summary of what was updated:
+   - Context files updated (one-line summary per file)
+   - Module steps appended (which module, which step number, what feature)
+   - Any files that were reverted due to failed verification
 
 ---
 
@@ -124,6 +175,15 @@ If ANY phase fails (network error, API rate limit, parse error, background agent
 - Tell the user: "Couldn't check for curriculum updates — continuing with the current version."
 - Continue to Step 3b normally.
 - **Never block onboarding because of an update failure.**
+
+### After sync completes
+
+When the background agent finishes and the user is still in session (checked via `TaskOutput` with `block: false`):
+
+- **If curriculum-relevant changes were found:** Tell the user what new CC features were added to the curriculum. Keep it to 2-3 sentences, highlight the 2-3 most interesting new features. Frame it as a teaser — e.g., "By the way, the curriculum just synced and picked up some new Claude Code features! You'll get to learn about [feature X] in Module [N] and [feature Y] in Module [M]."
+- **If no relevant changes were found:** Say nothing.
+- **If the sync failed:** Say nothing (the graceful failure in Step 6.8 handles this).
+- **Timing:** Don't interrupt a step in progress. Deliver this message at a natural pause — between steps, after a STOP block, or after the user responds to a question. The check in Step 6.8 is the primary delivery point, but if the agent finishes earlier (e.g., during Step 4 or 5), you may mention it at the next natural pause.
 
 ## Step 1: Pick a Project
 
