@@ -1,5 +1,12 @@
 # Changelog
 
+## v2.8.4 (2026-03-07)
+
+- Add `claude.com/blog` as a supplementary curriculum sync source — background agent now fetches the Anthropic blog index and relevant articles alongside the GitHub CHANGELOG for richer feature coverage
+- Defer background agent spawn from Step 0 to new Step 1a (after project selection) so the agent knows which project's modules to update
+- Agent now only updates the chosen project's module files instead of all 4 variants
+- Consolidate step heading styles into a single reference table in the Background Agent Task
+
 ## v2.8.3 (2026-03-07)
 
 - Split onboarding welcome (Step 0a) into its own message — now waits for user acknowledgement before delivering the permissions teaching (Step 0.1), preventing a wall of text on first contact
