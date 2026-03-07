@@ -1,5 +1,13 @@
 # Changelog
 
+## v2.9.0 (2026-03-07)
+
+- Move curriculum sync from background agent to inline main flow (Step 1a) — sync now runs directly with narrated status updates, replacing the unreliable background agent approach
+- Add graceful failure handling and controlled summary delivery inline after sync completes
+- Add version mismatch check in Step 1a (moved from Step 6.8)
+- Remove all background agent references: `TaskOutput`, `run_in_background`, `block: false`, agent permissions teaching, and Step 6.8 agent status check
+- Fix UTF-8 encoding issue in `test_check_updates_parses_github_response` on Windows (cp1252 → explicit UTF-8 decode)
+
 ## v2.8.4 (2026-03-07)
 
 - Add `claude.com/blog` as a supplementary curriculum sync source — background agent now fetches the Anthropic blog index and relevant articles alongside the GitHub CHANGELOG for richer feature coverage
