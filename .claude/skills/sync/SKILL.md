@@ -11,7 +11,7 @@ You are a maintainer tool that updates the cc-self-train curriculum to match the
 
 ## Step 1: Detect Version Gap
 
-1. Read the first `## vX.Y.Z` heading from `context/changelog-cc.txt`. This is the **local version** (what the curriculum currently covers).
+1. Read the first version number from `context/changelog-cc.txt` (the first line that is just a version number, e.g., `2.1.68`). This is the **local version** (what the curriculum currently covers).
 2. Fetch the latest Claude Code version from GitHub:
    ```bash
    curl -sf https://api.github.com/repos/anthropics/claude-code/releases/latest | grep -o '"tag_name"[^"]*"[^"]*"' | head -1 | grep -o '[0-9][0-9.]*'
@@ -54,7 +54,7 @@ For each significant change (not just minor tweaks):
 
 ### 3a. Research
 
-Use WebSearch for official docs, blog posts, or usage guides. Read existing context files to understand current coverage depth.
+Use WebSearch for official docs, blog posts, or usage guides. If WebSearch is unavailable (offline, rate-limited, no results), fall back to `WebFetch` of the official Claude Code docs at `https://docs.anthropic.com/en/docs/claude-code`. If that also fails, rely on the CHANGELOG entry text alone — document the feature based on what the changelog says, and note in the sync report that research was limited. Read existing context files to understand current coverage depth.
 
 ### 3b. Update context files
 

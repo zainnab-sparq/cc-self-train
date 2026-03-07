@@ -40,7 +40,7 @@ Keep it to one short message (4-6 sentences). Write it as natural, conversationa
 
 Then say something like: "Ready? Here comes your first prompt —" and run the command. **Wait for the user to approve it before continuing.**
 
-1. Read the first version number from `context/changelog-cc.txt` (the top-most `## vX.Y.Z` heading). This is the **local version**.
+1. Read the first version number from `context/changelog-cc.txt` (the first line that is just a version number, e.g., `2.1.68`). This is the **local version**.
 2. Fetch the latest Claude Code version from the GitHub API using Bash:
    ```bash
    curl -sf https://api.github.com/repos/anthropics/claude-code/releases/latest | grep -o '"tag_name"[^"]*"[^"]*"' | head -1 | grep -o '[0-9][0-9.]*'
@@ -183,7 +183,7 @@ When the background agent finishes and the user is still in session (checked via
 - **If curriculum-relevant changes were found:** Tell the user what new CC features were added to the curriculum. Keep it to 2-3 sentences, highlight the 2-3 most interesting new features. Frame it as a teaser — e.g., "By the way, the curriculum just synced and picked up some new Claude Code features! You'll get to learn about [feature X] in Module [N] and [feature Y] in Module [M]."
 - **If no relevant changes were found:** Say nothing.
 - **If the sync failed:** Say nothing (the graceful failure in Step 6.8 handles this).
-- **Timing:** Don't interrupt a step in progress. Deliver this message at a natural pause — between steps, after a STOP block, or after the user responds to a question. The check in Step 6.8 is the primary delivery point, but if the agent finishes earlier (e.g., during Step 4 or 5), you may mention it at the next natural pause.
+- **Timing:** Don't interrupt a step in progress. Always defer to Step 6.8's check — do not mention the sync result before then, even if the agent finishes early. Step 6.8 handles all three outcomes (success, still running, failure).
 
 ## Step 1: Pick a Project
 
