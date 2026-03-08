@@ -1,5 +1,10 @@
 # Changelog
 
+## v2.9.4 (2026-03-08)
+
+- Convert ~189 blockquotes to readable formatting across all 10 Canvas module files — blockquotes render as dim italics in the CLI terminal, violating the CLAUDE.md formatting rule
+- Quoted prompts (`> "..."`) converted to code blocks with lead-in text; bold headings (`> **STOP**`, `> **Why this step:**`, etc.) converted to plain bold paragraphs
+
 ## v2.9.3 (2026-03-07)
 
 - Reduce verbose terminal output during curriculum sync by instructing sync task to use `Write` (single "Wrote file" line) instead of `Edit` (multi-line diff) for module and context file updates
