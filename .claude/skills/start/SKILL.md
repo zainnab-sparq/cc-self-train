@@ -560,7 +560,7 @@ Create `CLAUDE.local.md` in the **cc-self-train root directory** (NOT inside wor
 
 ```
 # Active Project
-Project: <project> | Language: <language> | OS: <detected-os> | Directory: workspace/<project-dir> | Current Module: 1
+Project: <project> | Language: <language> | OS: <detected-os> | Directory: workspace/<project-dir> | Current Module: 1 | Current Step: 6.4
 Experience Level: <beginner/intermediate/advanced>
 
 When the user starts a session, greet them and offer to continue where they left off.
