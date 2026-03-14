@@ -80,11 +80,7 @@ For each new feature that maps to a module, update all 5 project variants (`proj
 
 3. Determine the next sequential step number by reading the last step before Checkpoint.
 
-4. Insert a new step **immediately before** the Checkpoint heading. Match the project's heading style:
-   - Canvas uses `### X.N Title` (e.g., `### 5.8 Explore Hook Variables`)
-   - Forge uses `## X.N Title` (e.g., `## 5.8 Explore Hook Variables`)
-   - Nexus uses `### Step N: Title` or `### Step Nb: Title`
-   - Sentinel uses `### Step N: Title` or `### Step Nb: Title`
+4. Insert a new step **immediately before** the Checkpoint heading. All projects use `### X.N Title` format (e.g., `### 5.8 Explore Hook Variables`).
 
 5. Match the module's teaching persona depth:
    - Modules 1-3 (Guide): Explain the concept before the exercise. Define terms. Be encouraging.
