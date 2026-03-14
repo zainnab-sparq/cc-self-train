@@ -89,6 +89,8 @@ class TestGitignore:
         assert "settings.local.json" in content, \
             ".gitignore must exclude settings.local.json"
 
-    def test_tests_gitignored(self):
+    def test_tests_not_gitignored(self):
+        """tests/ is public since v2.13.0 — must NOT be gitignored."""
         content = (REPO_ROOT / ".gitignore").read_text(encoding="utf-8")
-        assert "tests/" in content, ".gitignore must exclude tests/"
+        assert "tests/" not in content, \
+            "tests/ should not be in .gitignore — test suite is public since v2.13.0"
