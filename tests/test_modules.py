@@ -76,7 +76,7 @@ class TestModuleNumbering:
 
 
 class TestPersonaProgression:
-    """Persona must evolve across modules as specified in CLAUDE.md."""
+    """Module files must have the default (intermediate) persona tag."""
 
     PERSONA_MAP = {
         "01": "Guide",
@@ -101,6 +101,62 @@ class TestPersonaProgression:
         assert f"Persona -- {expected_persona}" in content or \
                f"Persona — {expected_persona}" in content, \
             f"{project}/{module_file}: expected persona '{expected_persona}'"
+
+
+class TestAdaptivePersonaTable:
+    """Adaptive persona boundaries must be consistent and well-ordered."""
+
+    ADAPTIVE_MAP = {
+        "beginner":     {"Guide": range(1, 5),  "Collaborator": range(5, 8),  "Peer": range(8, 10),  "Launcher": range(10, 11)},
+        "intermediate": {"Guide": range(1, 4),  "Collaborator": range(4, 7),  "Peer": range(7, 10),  "Launcher": range(10, 11)},
+        "advanced":     {"Guide": range(1, 2),  "Collaborator": range(2, 5),  "Peer": range(5, 10),  "Launcher": range(10, 11)},
+    }
+
+    PERSONA_ORDER = ["Guide", "Collaborator", "Peer", "Launcher"]
+
+    @pytest.mark.parametrize("level", ["beginner", "intermediate", "advanced"])
+    def test_all_levels_cover_all_modules(self, level):
+        covered = set()
+        for r in self.ADAPTIVE_MAP[level].values():
+            covered.update(r)
+        assert covered == set(range(1, 11)), \
+            f"{level} doesn't cover all modules 1-10: missing {set(range(1, 11)) - covered}"
+
+    @pytest.mark.parametrize("level", ["beginner", "intermediate", "advanced"])
+    def test_module_10_always_launcher(self, level):
+        assert 10 in self.ADAPTIVE_MAP[level]["Launcher"], \
+            f"{level}: Module 10 should always be Launcher"
+
+    def test_intermediate_matches_module_file_defaults(self):
+        intermediate = self.ADAPTIVE_MAP["intermediate"]
+        for num_str, expected in TestPersonaProgression.PERSONA_MAP.items():
+            num = int(num_str)
+            assert num in intermediate[expected], \
+                f"Module {num}: intermediate map says {expected} but file default disagrees"
+
+    @pytest.mark.parametrize("level", ["beginner", "intermediate", "advanced"])
+    def test_persona_never_goes_backward(self, level):
+        mapping = self.ADAPTIVE_MAP[level]
+        for mod in range(1, 11):
+            persona = next(p for p, r in mapping.items() if mod in r)
+            idx = self.PERSONA_ORDER.index(persona)
+            if mod < 10:
+                next_persona = next(p for p, r in mapping.items() if (mod + 1) in r)
+                next_idx = self.PERSONA_ORDER.index(next_persona)
+                assert next_idx >= idx, \
+                    f"{level}: persona goes backward from {persona} (mod {mod}) to {next_persona} (mod {mod+1})"
+
+    def test_advanced_reaches_peer_earlier(self):
+        adv_peer_start = min(self.ADAPTIVE_MAP["advanced"]["Peer"])
+        int_peer_start = min(self.ADAPTIVE_MAP["intermediate"]["Peer"])
+        assert adv_peer_start < int_peer_start, \
+            "Advanced should reach Peer before intermediate"
+
+    def test_beginner_stays_guide_longer(self):
+        beg_guide_end = max(self.ADAPTIVE_MAP["beginner"]["Guide"])
+        int_guide_end = max(self.ADAPTIVE_MAP["intermediate"]["Guide"])
+        assert beg_guide_end > int_guide_end, \
+            "Beginner should stay in Guide longer than intermediate"
 
 
 class TestModuleConsistencyAcrossProjects:
