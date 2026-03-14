@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.13.1 (2026-03-13)
+
+- Fix outdated heading format docs in sync skill — all projects were normalized to `### X.N` in v2.10.0, but the skill still listed per-project variations
+
 ## v2.13.0 (2026-03-13)
 
 - Add test suite to repository (565 tests) — structural validation covering file existence, cross-references, module completeness, persona tags, CC features consistency across all 5 projects, SKILL.md structure, hooks, and smoke tests
