@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.13.2 (2026-03-13)
+
+- Fix stale test assertion — `test_tests_gitignored` was checking that `tests/` was in `.gitignore`, but the test suite became public in v2.13.0; flipped to assert `tests/` is NOT gitignored
+
 ## v2.13.1 (2026-03-13)
 
 - Fix outdated heading format docs in sync skill — all projects were normalized to `### X.N` in v2.10.0, but the skill still listed per-project variations
