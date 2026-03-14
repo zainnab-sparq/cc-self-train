@@ -1,5 +1,10 @@
 # Changelog
 
+## v2.13.0 (2026-03-13)
+
+- Add test suite to repository (565 tests) — structural validation covering file existence, cross-references, module completeness, persona tags, CC features consistency across all 5 projects, SKILL.md structure, hooks, and smoke tests
+- Tests were previously gitignored; now public for contributors and transparency
+
 ## v2.12.1 (2026-03-12)
 
 - Fix hardcoded `workspace/<project>` paths in SKILL.md Steps 6.5 and 6.7 — BYOP users whose project is at an external path would get incorrect `cd` instructions
