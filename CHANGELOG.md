@@ -1,5 +1,15 @@
 # Changelog
 
+## v2.15.0 (2026-03-20)
+
+- Sync curriculum to CC v2.1.80 (from v2.1.68) — 12 versions of changelog, 18 context files updated, 11 new module steps across all 5 projects
+- Key features added: /color, /effort, -n session naming, /branch, /loop, MCP elicitation & channels, 5 new hook events (StopFailure, PostCompact, InstructionsLoaded, Elicitation, ElicitationResult), SendMessage replacing Agent resume, effort frontmatter, plugin ecosystem updates, ExitWorktree, VS Code /remote-control
+- Revamp /sync skill with two-phase approval gate (audit → plan → approve → execute)
+- Improve /sync triage thoroughness — expanded mapping table (10→17 rows), explicit skip/keep criteria, second-pass verification, completeness checklist
+- Fix pre-existing Module 05 step gap (5.5→5.7) in canvas/forge/byop by splitting into Matchers & Timeouts + Shell Scripting
+- Normalize Forge checkpoint headings from ## to ### for cross-project consistency
+- Update README and CLAUDE.md module descriptions and feature matrix
+
 ## v2.14.0 (2026-03-14)
 
 - Add adaptive teaching persona table — persona boundaries now vary by experience level (beginner/intermediate/advanced) instead of being fixed for all students
