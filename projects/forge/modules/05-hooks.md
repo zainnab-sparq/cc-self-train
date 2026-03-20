@@ -74,6 +74,8 @@ This hook runs the test suite after Claude finishes to verify nothing is broken.
 
 Claude will ask about your test command if it is not obvious. It will also need to figure out the right way to detect re-entrancy for your setup.
 
+**Common gotcha — feedback loops:** If a Stop hook writes to stdout with exit code 0, Claude may treat that output as new input and continue responding — which triggers the Stop hook again, creating an infinite loop. To avoid this: use **stderr** (not stdout) when blocking with exit 2, and output **nothing** to stdout on success (exit 0). Pattern: silent exit 0 = Claude stops cleanly. Exit 2 with stderr = Claude sees the error and must fix it.
+
 ### 5.4b What the Stop Hook Receives
 
 One thing to notice: the Stop hook input includes a `last_assistant_message` field containing the last message Claude sent before the hook fired. Think about what you could do with that -- you could scan it for unfinished TODOs, verify that Claude actually did what it said it did, or log it for review. SubagentStop hooks get the same field.

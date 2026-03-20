@@ -8,6 +8,8 @@
 
 ### 4.1 Create the "add-route" Skill
 
+**Where do skills go?** Create all skills in the cc-self-train root `.claude/skills/` directory — NOT inside `workspace/nexus-gateway/.claude/skills/`. Since Claude runs from the cc-self-train root, it only sees skills at that level.
+
 Skills live in `.claude/skills/<skill-name>/SKILL.md`. Describe the workflow you want to Claude and ask it to create the skill file with the right frontmatter.
 
 Try something like:

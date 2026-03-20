@@ -128,6 +128,8 @@ Add a prompt-based Stop hook to .claude/settings.json. It should check if the ta
 
 The hook uses `"type": "prompt"` instead of `"type": "command"`. Claude Code sends the prompt to a fast LLM (Haiku) which returns a JSON decision.
 
+**Common gotcha — feedback loops:** If using command-based Stop hooks (instead of prompt-based), writing to stdout with exit code 0 can cause Claude to treat that output as new input and continue responding — which triggers the Stop hook again, creating an infinite loop. To avoid this: use **stderr** (not stdout) when blocking with exit 2, and output **nothing** to stdout on success (exit 0). Pattern: silent exit 0 = Claude stops cleanly. Exit 2 with stderr = Claude sees the error and must fix it.
+
 ### 5.4b What the Stop Hook Receives
 
 The Stop hook input includes a `last_assistant_message` field -- the last message Claude sent before the hook fired. Think about how you could use that in Sentinel: you could check whether Claude's response actually references the test file it claimed to update, or scan for unfinished TODOs. SubagentStop hooks get the same field.

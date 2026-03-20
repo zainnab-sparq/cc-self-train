@@ -77,6 +77,8 @@ Create a Stop hook that scans all HTML files for internal links and checks if th
 
 The key difference from PostToolUse: a Stop hook with exit code 2 is *blocking* -- it forces Claude to address the issue before moving on.
 
+**Common gotcha — feedback loops:** If a Stop hook writes to stdout with exit code 0, Claude may treat that output as new input and continue responding — which triggers the Stop hook again, creating an infinite loop. To avoid this: use **stderr** (not stdout) when blocking with exit 2, and output **nothing** to stdout on success (exit 0). Pattern: silent exit 0 = Claude stops cleanly. Exit 2 with stderr = Claude sees the error and must fix it.
+
 **Why this step:** Stop hooks are different from PostToolUse hooks -- they run once when Claude finishes its entire response, not after each individual tool call. A Stop hook with exit code 2 is *blocking*: it forces Claude to address the issue before moving on. This makes Stop hooks ideal for final validation checks like broken link detection.
 
 **Engineering value:**

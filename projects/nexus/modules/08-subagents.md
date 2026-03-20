@@ -35,6 +35,8 @@ Create a cache-agent subagent that manages the SQLite cache layer. It should be 
 - *Mid-level:* Model selection matters for cost. A haiku-powered lint agent costs ~10x less than opus. Running 50 accessibility scans a day with haiku vs opus is the difference between $5/month and $50/month.
 - *Senior+:* This is the microservices pattern applied to AI: decompose a monolithic conversation into specialized, independently scalable agents with defined interfaces and resource constraints.
 
+**No restart needed.** New agents are available immediately — just invoke them. If Claude doesn't see your agent, mention the file with `@` or run `/compact` to refresh context.
+
 Ready to create a read-only security auditor agent?
 
 ### 8.4 Create the "security-agent"

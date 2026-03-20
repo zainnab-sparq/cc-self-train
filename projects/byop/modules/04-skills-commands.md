@@ -7,6 +7,8 @@ argument substitution, `disable-model-invocation`
 
 ### 4.1 Create a Workflow Skill
 
+**Where do skills go?** Create skills in your external project's `.claude/skills/` directory — that's where Claude looks when running from your project root. If you're running Claude from the cc-self-train directory instead, use cc-self-train's `.claude/skills/` directory.
+
 Skills are reusable slash commands you define for your project. Instead of typing a long prompt every time, you write it once as a `/skill-name` and invoke it with arguments. Let's build one that automates a repetitive task in your project.
 
 Think about what you create repeatedly. New components? New endpoints? New test files? New modules or packages? Pick the most common one and describe it to Claude:

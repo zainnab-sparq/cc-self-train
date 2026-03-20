@@ -8,6 +8,8 @@ In this module you create reusable skills that extend what Claude can do in your
 
 ### 4.1 Create the "analyze" skill
 
+**Where do skills go?** Create all skills in the cc-self-train root `.claude/skills/` directory — NOT inside `workspace/sentinel-analyzer/.claude/skills/`. Since Claude runs from the cc-self-train root, it only sees skills at that level.
+
 **Why this step:** Skills turn multi-step workflows into single slash commands. Instead of typing a long prompt every time you want to analyze code, you type `/analyze src/` and Claude follows the same steps every time. Skills are reusable, shareable, and version-controlled -- they become part of your project's toolbox.
 
 Ask Claude to create an `/analyze` skill. Describe what you want it to do: run Sentinel's scan on a given path, summarize findings by severity, highlight errors first, and suggest fixes for the top issues. Tell Claude it should accept a path argument so you can run `/analyze src/` or `/analyze src/rules/`.

@@ -59,6 +59,7 @@ class TestSkillSteps:
         "### 6.6",
         "### 6.7",
         "### 6.8",
+        "### 6.9",
     ])
     def test_module1_substep_exists(self, substep):
         content = _read_skill()
@@ -75,7 +76,7 @@ class TestSkillPacing:
     def test_stop_instructions_between_substeps(self):
         """Each substep 6.1-6.7 should have a STOP instruction."""
         content = _read_skill()
-        for i in range(1, 8):  # 6.1 through 6.7
+        for i in range(1, 9):  # 6.1 through 6.8
             section_marker = f"### 6.{i}"
             next_marker = f"### 6.{i + 1}"
             start = content.index(section_marker)

@@ -43,6 +43,8 @@ Claude will create the agent file. Notice it only has read-only tools -- this ag
 - *Mid-level:* Model selection matters for cost. A haiku-powered lint agent costs ~10x less than opus. Running 50 code review scans a day with haiku vs opus is the difference between $5/month and $50/month.
 - *Senior+:* This is the microservices pattern applied to AI: decompose a monolithic conversation into specialized, independently scalable agents with defined interfaces and resource constraints.
 
+**No restart needed.** New agents are available immediately — just invoke them. If Claude doesn't see your agent, mention the file with `@` or run `/compact` to refresh context.
+
 Shall we create the test coverage agent next?
 
 ### 8.4 Create: test-coverage-agent

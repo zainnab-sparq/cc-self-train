@@ -7,6 +7,8 @@ argument substitution, `disable-model-invocation`
 
 ### 4.1 Create the "add-item" Skill
 
+**Where do skills go?** Create all skills in the cc-self-train root `.claude/skills/` directory — NOT inside `workspace/forge-toolkit/.claude/skills/`. Since Claude runs from the cc-self-train root, it only sees skills at that level.
+
 Skills are reusable slash commands you define for your project. Instead of typing a long prompt every time, you write it once as a `/skill-name` and invoke it with arguments. Let's build the first one.
 
 Describe to Claude what your add-item skill should do. You want a slash command that takes an item type and details, validates the input, runs the forge add command, and shows the result. Tell Claude about your validation rules -- what makes a valid note vs. a valid snippet vs. a valid bookmark.

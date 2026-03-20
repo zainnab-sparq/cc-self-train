@@ -665,6 +665,8 @@ The file should include:
 
 After creating the file, **display the full file contents in a code block in your message**. The Write tool only previews the first few lines, so the user can't see everything — especially the pointers at the bottom. Show the complete file so they can see all sections.
 
+**If the user is in VS Code or Cursor**, mention that they can see the new file appear in their Explorer panel on the left. Having the editor open alongside the terminal makes it easy to follow along as files are created and modified throughout the course — but it's optional, the terminal works fine on its own.
+
 Then ask: "Does that make sense? Any sections you'd want to change? Say **"looks good"** to continue, or tell me what to change."
 
 **STOP. Do not continue to 6.3. Wait for the user to respond.**
@@ -785,7 +787,26 @@ End with something like: "Your first commit is done — you've got a save point.
 
 ---
 
-### 6.6 Keyboard Shortcuts — Look Them Up Live
+### 6.6 Leaving and Coming Back
+
+Print the following explanation exactly as written (do NOT use blockquote formatting — output as normal text):
+
+You'll close this terminal eventually — maybe to take a break, maybe because your laptop restarts. Here's how to pick up where you left off:
+
+- **`claude -c`** (or `claude --continue`) — reopens your most recent conversation. This is the one you'll use most. Everything is preserved: context, files, history.
+- **`claude --resume`** — shows a list of past sessions so you can pick one. Useful when you've had multiple conversations and need a specific one.
+- **`/resume`** — does the same thing, but from inside an already-running Claude session. Handy if you started a new session and realize you meant to continue an old one.
+- **`/rename`** — gives your current session a name (like "Module 3 hooks"). Named sessions are easier to find later in the `--resume` picker.
+
+Try it now: type `/rename` and give this session a name — something like "Module 1 setup" or whatever feels right. You'll see it appear in the session picker next time you use `claude --resume`.
+
+End with something like: "Now you know how to come back. Say **"show me"** to learn the keyboard shortcuts that make Claude Code faster."
+
+**STOP. Do not continue to 6.7. Wait for the user to respond.**
+
+---
+
+### 6.7 Keyboard Shortcuts — Look Them Up Live
 
 Print the following exactly as written (do NOT use blockquote formatting — output as normal text):
 
@@ -811,11 +832,11 @@ After presenting all three groups, suggest they try a few:
 
 End with something like: "Don't worry about memorizing these — they'll become muscle memory as you use them. Say **"ready"** for one last exercise before we wrap up Module 1."
 
-**STOP. Do not continue to 6.7. Wait for the user to respond.**
+**STOP. Do not continue to 6.8. Wait for the user to respond.**
 
 ---
 
-### 6.7 Practice: Customize CLAUDE.md
+### 6.8 Practice: Customize CLAUDE.md
 
 Print the following two paragraphs exactly as written (do NOT use blockquote formatting — output as normal text), then use AskUserQuestion:
 
@@ -841,11 +862,11 @@ Point out: "This is the **edit, check, commit** loop — you'll use it in every 
 
 End with something like: "That's the core workflow — edit, check, commit. Say **"wrap it up"** and I'll summarize what you learned in Module 1."
 
-**STOP. Do not continue to 6.8. Wait for the user to respond.**
+**STOP. Do not continue to 6.9. Wait for the user to respond.**
 
 ---
 
-### 6.8 Module 1 Complete
+### 6.9 Module 1 Complete
 
 Print the following recap exactly as written (do NOT use blockquote formatting — output as normal text):
 

@@ -74,6 +74,8 @@ Create a Stop hook that runs my test suite when you finish responding. If tests 
 
 Claude will ask what your test command is (pytest, npm test, cargo test, etc.) and create the script accordingly. It will also add the Stop hook entry to `.claude/settings.json`.
 
+**Common gotcha — feedback loops:** If a Stop hook writes to stdout with exit code 0, Claude may treat that output as new input and continue responding — which triggers the Stop hook again, creating an infinite loop. To avoid this: use **stderr** (not stdout) when blocking with exit 2, and output **nothing** to stdout on success (exit 0). Pattern: silent exit 0 = Claude stops cleanly. Exit 2 with stderr = Claude sees the error and must fix it.
+
 **STOP -- What you just did:** You now have three hooks covering three different lifecycle events: SessionStart (inject context on launch), PostToolUse (validate after writes), and Stop (block completion until tests pass). Together, these form an automated safety net around your development workflow. The exit code convention (0 = success, 2 = blocking error) is the mechanism that gives hooks real power -- they are not just notifications, they can enforce rules.
 
 Want to dig into hook configuration details?
