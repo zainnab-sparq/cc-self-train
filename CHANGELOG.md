@@ -1,5 +1,14 @@
 # Changelog
 
+## v2.15.1 (2026-03-20)
+
+- Add two-layer freshness system to `/start` onboarding — Step 0 now checks repo freshness (git fetch + pull if behind) before CC version check
+- Update embedded sync engine with 17-row mapping table, expanded SKIP/KEEP/GRAY AREA triage criteria, second-pass verification, and completeness checklist
+- SessionStart hook (`check-updates.js`) now checks repo freshness alongside CC version, with independent failure handling
+- Returning users get a silent freshness check on session start with an offer to pull if behind
+- Rewrite README "Always Current" section to describe both freshness layers
+- Fix heading table in SKILL.md — all projects now consistently use `### Checkpoint` and `### X.N Title`
+
 ## v2.15.0 (2026-03-20)
 
 - Sync curriculum to CC v2.1.80 (from v2.1.68) — 12 versions of changelog, 18 context files updated, 11 new module steps across all 5 projects
