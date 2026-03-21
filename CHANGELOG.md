@@ -7,7 +7,7 @@
 
 ## v2.17.0 (2026-03-20)
 
-- Address 5 user-reported friction points from beta testing (Bill + others)
+- Address 5 user-reported friction points from beta testing
 - Teach `claude -c`, `--resume`, `/resume`, `/rename` in new SKILL.md Step 6.6 (renumber 6.6-6.8 → 6.7-6.9)
 - Add skills scoping note to Module 4 Step 4.1 (all 5 variants) — clarifies `.claude/skills/` must be at project root
 - Add Stop hook feedback loop warning to Module 5 Step 5.4 (all 5 variants) — stdout on exit 0 causes infinite loops
