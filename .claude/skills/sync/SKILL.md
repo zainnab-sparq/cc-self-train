@@ -106,8 +106,8 @@ For each significant change (not just minor tweaks):
 
 #### 3a. Research
 
-- Use WebFetch to pull the official docs page for each feature if a URL is available (e.g., `https://code.claude.com/docs/en/<feature>`).
-- If WebFetch fails or the URL is unknown, use WebSearch for official docs or usage guides.
+- For each kept changelog entry, use the Agent tool with `subagent_type: "claude-code-guide"` to research the feature. Prompt the agent with the changelog entry text and ask it to explain the feature's purpose, syntax, configuration, and any gotchas. Example prompt: "Explain the Claude Code feature: [changelog entry]. Include syntax, configuration options, and common pitfalls."
+- If the agent returns insufficient detail, fall back to WebSearch for official docs or usage guides.
 - If both fail, rely on the CHANGELOG entry text alone — note in the plan that research was limited for that item.
 - Read the affected context files (`context/*.txt`) to understand current coverage depth and format.
 - **Cross-reference all context files**: Run `ls context/` and read the first 5-10 lines of every context file. For each changelog entry, check if ANY context file (not just the ones in the mapping table) already documents related functionality. If so, that context file needs updating too. This catches features that span multiple areas.

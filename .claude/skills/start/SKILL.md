@@ -177,7 +177,11 @@ Follow these instructions to sync the curriculum. Work through each step sequent
 
 For each significant change (not just minor tweaks):
 
-1. **Research** it — use the blog context already gathered in Step 1, plus WebSearch for official docs or usage guides. Read existing context files to understand current coverage depth.
+1. **Research** it — before researching features, tell the user:
+
+   "To look up the details of each new feature, I'd like to use a specialized research agent — it's like a librarian who knows Claude Code's documentation inside and out. You'll see a permission prompt when I launch it. This is a preview of Module 8 (Subagents) — you'll build your own agents later."
+
+   Then for each significant change, use the Agent tool with `subagent_type: "claude-code-guide"` to research the feature. Prompt the agent with the changelog entry and ask for purpose, syntax, configuration, and gotchas. If the agent fails or the user declines the permission, fall back to the blog context already gathered in Step 1, plus WebSearch for official docs or usage guides. Read existing context files to understand current coverage depth.
 
 2. **Update `context/changelog-cc.txt`** — prepend new entries in the same format (version header + bullet list).
 
