@@ -1,6 +1,6 @@
 # Agentic Education:<br>Using Claude Code to Teach Claude Code
 
-[![Paper](https://img.shields.io/badge/Paper-PDF-red)](Agentic%20Education%20-%20Using%20Claude%20Code%20to%20Teach%20Claude%20Code.pdf) [![v2.17.1](https://img.shields.io/badge/version-2.17.0-blue)](CHANGELOG.md)
+[![Paper](https://img.shields.io/badge/Paper-PDF-red)](Agentic%20Education%20-%20Using%20Claude%20Code%20to%20Teach%20Claude%20Code.pdf) [![v2.17.2](https://img.shields.io/badge/version-2.17.2-blue)](CHANGELOG.md)
 
 ## TL;DR
 

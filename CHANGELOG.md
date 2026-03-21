@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.17.2 (2026-03-21)
+
+- Remove PII (proper names) from changelog
+
 ## v2.17.1 (2026-03-21)
 
 - Add research paper PDF: "Agentic Education: Using Claude Code to Teach Claude Code"
