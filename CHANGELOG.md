@@ -1,5 +1,13 @@
 # Changelog
 
+## v2.19.0 (2026-03-31)
+
+- Add adaptive learning system inspired by Chung et al. (2025) — engagement quality drives learning outcomes
+- Layer 1: Stop hook observes interaction quality (concept questions, exploration, answer-seeking) via heuristics, writes to `learner-profile.json`
+- Layer 2: SessionStart hook reads learner profile and injects engagement context into Claude's awareness
+- Layer 3: CLAUDE.md module-boundary rules adjust Effective Level (persona) based on accumulated signals
+- SKILL.md Step 6.4 scaffolds `Effective Level` and `Engagement Trend` in CLAUDE.local.md template
+
 ## v2.18.0 (2026-03-21)
 
 - Integrate `claude-code-guide` agent into `/sync` skill as primary feature research method (replaces raw WebFetch/WebSearch)
