@@ -1,5 +1,13 @@
 # Changelog
 
+## v2.20.0 (2026-04-03)
+
+- Sync curriculum to CC v2.1.91 (from v2.1.80) — 11 versions of changelog, 10 context files updated, 7 new module steps across all 5 projects
+- New steps: `paths:` frontmatter for rules (M3) and skills (M4), conditional hooks with `if` field + `CwdChanged`/`FileChanged` events (M5), `PermissionDenied` hook + `defer` decision (M7), PreToolUse `updatedInput` for AskUserQuestion (M7), agent `initialPrompt` frontmatter (M8), plugin `userConfig` with sensitive storage (M10)
+- Medium-value fold-ins: `/powerup`, `/btw`, transcript search, `Ctrl+X Ctrl+E`, Edit-without-Read, `TaskCreated` hook — added to existing steps in Modules 1, 2, 5
+- Updated README feature coverage matrix with 6 new rows
+- Updated CLAUDE.md module descriptions with new features
+
 ## v2.19.1 (2026-03-31)
 
 - Add Step 2.6 Module Health Check to `/sync` skill — flags modules that are 2x+ the size of the smallest or receiving 3+ steps in a single sync
