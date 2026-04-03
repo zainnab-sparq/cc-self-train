@@ -77,8 +77,9 @@ Practice each shortcut in the table below. Do not skip this -- muscle memory wit
 | `!` | Bash mode -- run a shell command directly | Type `! git status` |
 | `Shift+Enter` or `\` + `Enter` | Multiline input | Type a two-line message |
 | `Esc Esc` | Rewind conversation/code to a previous state | Press Escape twice |
-| `Ctrl+O` | Toggle verbose output | See detailed tool usage |
+| `Ctrl+O` | Toggle verbose output (then `/` to search transcript) | See detailed tool usage |
 | `Ctrl+R` | Reverse search command history | Search through previous inputs |
+| `Ctrl+X Ctrl+E` | Open external editor for composing long prompts | Try it with a multi-line prompt |
 
 **Engineering value:**
 - *Entry-level:* These shortcuts aren't just convenience -- they're how you stay in flow. Switching between Claude and your terminal without reaching for the mouse keeps you productive.
@@ -96,6 +97,8 @@ The `/` shortcut from the table above opens Claude Code's built-in commands. You
 | `/copy` | Interactive picker to select and copy specific code blocks from the conversation into your clipboard |
 | `/simplify` | Asks Claude to simplify complex code or explanations -- useful when a response is more detailed than you need |
 | `/batch` | Runs commands in batch mode for non-interactive automation |
+| `/powerup` | Interactive lessons teaching Claude Code features with animated demos -- a great way to learn new features |
+| `/btw` | Ask a quick side question without interrupting Claude's current work -- like raising your hand in class |
 
 Try typing `/` and pressing `Tab` to see the full list. Tab completion works here just like it does for file paths -- it is the fastest way to discover commands you did not know existed.
 

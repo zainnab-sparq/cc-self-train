@@ -18,7 +18,8 @@ Shortcut	Description	Context
 Ctrl+C	Cancel current input or generation	Standard interrupt
 Ctrl+D	Exit Claude Code session	EOF signal
 Ctrl+G	Open in default text editor	Edit your prompt or custom response in your default text editor
-Ctrl+L	Clear terminal screen	Keeps conversation history
+Ctrl+X Ctrl+E	Open in external editor	Readline-native alias for Ctrl+G. Available since v2.1.83
+Ctrl+L	Clear terminal screen and force full redraw (use Ctrl+U to clear prompt input instead)	Available since v2.1.83
 Ctrl+O	Toggle verbose output	Shows detailed tool usage and execution
 Ctrl+R	Reverse search command history	Search through previous commands interactively
 Ctrl+V or Cmd+V (iTerm2) or Alt+V (Windows)	Paste image from clipboard	Pastes an image or path to an image file
@@ -69,6 +70,7 @@ To create your own commands you can invoke with /, see skills.
 Command	Purpose
 /batch	Run commands in batch mode. Bundled command available since v2.1.63
 /branch	Branch the current conversation into a new session. Renamed from /fork in v2.1.77 (/fork still works as alias)
+/btw	Ask a side question without interrupting Claude's current work. Available since v2.1.81
 /claude-api	Bundled skill for building apps with the Claude API and Anthropic SDK. Available since v2.1.69
 /clear	Clear conversation history
 /color	Set a prompt-bar color for your session. Use /color default to reset. Available since v2.1.75
@@ -88,6 +90,7 @@ Command	Purpose
 /memory	View and manage auto-memory entries (what Claude has saved across sessions). Also edits CLAUDE.md memory files. Updated in v2.1.59
 /model	Select or change the AI model
 /permissions	View or update permissions
+/powerup	Interactive lessons teaching Claude Code features with animated demos. Available since v2.1.90
 /reload-plugins	Activate pending plugin changes without restarting. Available since v2.1.69
 /plan [description]	Enter plan mode, optionally with an immediate prompt (e.g., /plan fix the auth bug). Updated in v2.1.72
 /rename <name>	Rename the current session for easier identification
@@ -193,6 +196,9 @@ Press Ctrl+C to cancel and restore your original input
 Press Backspace on empty search to cancel
 The search displays matching commands with the search term highlighted, making it easy to find and reuse previous inputs.
 ​
+Transcript search
+Press Ctrl+O to enter transcript mode (verbose output), then press / to search through the transcript. Use n to step to the next match and N to step to the previous match. Available since v2.1.83.
+​
 Background bash commands
 Claude Code supports running bash commands in the background, allowing you to continue working while long-running processes execute.
 ​
@@ -244,3 +250,9 @@ Gray: draft
 Purple: merged
 Cmd+click (Mac) or Ctrl+click (Windows/Linux) the link to open the pull request in your browser. The status updates automatically every 60 seconds.
 PR status requires the gh CLI to be installed and authenticated (gh auth login).
+​
+PowerShell tool (Windows)
+Opt-in preview for Windows users: a native PowerShell tool with hardened security and dangerous command detection. Enable via settings. Available since v2.1.84.
+​
+Idle-return prompt
+When returning after 75+ minutes of inactivity, Claude nudges you to /clear to reduce unnecessary token re-caching. Available since v2.1.84.

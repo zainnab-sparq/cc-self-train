@@ -83,6 +83,8 @@ By giving Claude Code a persistent memory, a way to understand dependency, and t
 
 It is a technical evolution that acknowledges a simple truth: in the enterprise, the code is cheap; it is the context, the plan, and the reliability that are precious.
 
+**Deprecation notice:** The `TaskOutput` tool has been deprecated (v2.1.83). To read background task output, use the `Read` tool on the background task's output file path instead.
+
 Recent task and scheduling additions:
 
 `/loop` command (v2.1.71): Run a prompt or slash command on a recurring interval. Example: `/loop 5m check the deploy` runs every 5 minutes. Defaults to 10 minutes if no interval specified.

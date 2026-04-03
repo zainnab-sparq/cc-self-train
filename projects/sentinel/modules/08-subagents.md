@@ -146,6 +146,14 @@ Breaking change and new capabilities for subagents:
 
 Update any agents that use `resume` to use `SendMessage` instead.
 
+### 8.10 Agent Auto-Start with `initialPrompt`
+
+Agents can now declare `initialPrompt` in their frontmatter to auto-submit a first turn when spawned. Instead of the agent waiting for instructions, it starts working immediately.
+
+Try adding `initialPrompt` to one of your existing agents. For example, add `initialPrompt: "Scan all HTML files for accessibility issues and report findings"` to your accessibility agent's frontmatter. Then invoke the agent and compare: with `initialPrompt`, it starts scanning immediately without you having to type anything. Without it, it waits.
+
+When would you want this? Think about agents that always do the same thing -- linters, scanners, formatters. They do not need a prompt; they need a trigger.
+
 ### Checkpoint
 
 Three agents that decompose your analyzer's workflow. Chain them for pipelines, parallel them for speed.
@@ -157,3 +165,4 @@ Three agents that decompose your analyzer's workflow. Chain them for pipelines, 
 - [ ] You resumed a completed agent to continue its work
 - [ ] You understand when to use subagents vs the main conversation
 - [ ] Understand SendMessage replaces Agent resume parameter
+- [ ] Tested `initialPrompt` frontmatter on an agent

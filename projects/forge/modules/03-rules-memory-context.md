@@ -215,10 +215,29 @@ Try adding an HTML comment to your CLAUDE.md now -- something like `<!-- TODO: a
 
 > **STOP** -- Add an HTML comment to your project's CLAUDE.md and verify it's hidden from Claude.
 
+### 3.12 Path-Scoped Rules with `paths:` Frontmatter
+
+Rules can now accept `paths:` as a YAML list of globs in their frontmatter, restricting which files they apply to. This means you can have different rules for different parts of your project -- testing conventions for test files, source code conventions for library code, storage conventions for data handling.
+
+Try creating two rules with different scopes. Ask Claude something like:
+
+```
+Create two rule files in .claude/rules/:
+1. test-style.md with paths: [tests/**] that enforces descriptive test names and fixture usage
+2. lib-style.md with paths: [src/lib/**] that enforces single-responsibility functions and docstrings
+```
+
+After creating them, test the scoping: ask Claude to edit a test file and see if it follows the test rule, then ask it to edit a library file and verify it follows the lib rule instead.
+
+**STOP -- What you just did:** You created rules that only load when Claude works on matching files. This is powerful for larger projects where different directories have different conventions. The `paths:` field accepts standard glob patterns -- `**` matches any depth, `*` matches any file.
+
+> **STOP** -- Try editing files in both directories to verify each rule applies only to its scoped path.
+
 ### Checkpoint
 
 You just taught Claude how your toolkit works. Rules enforce your conventions automatically, and @imports keep documentation modular.
 
+- [ ] Tested `paths:` frontmatter on at least one rule
 - [ ] Added an HTML comment to CLAUDE.md and verified it's hidden
 - [ ] `.claude/rules/` directory contains `testing.md`, `source-code.md`, `storage.md`
 - [ ] Each rule file has correct path-scoped frontmatter

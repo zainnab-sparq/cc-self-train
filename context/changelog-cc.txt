@@ -1,4 +1,90 @@
 Changelog
+2.1.91
+disableSkillShellExecution setting — disable inline shell execution in skills and custom commands
+Plugins can ship executables under bin/ and invoke them as bare commands from Bash tool
+MCP tool result persistence override via _meta["anthropic/maxResultSizeChars"] annotation (up to 500K)
+Multi-line prompts in claude-cli://open?q= deep links
+Edit tool uses shorter old_string anchors, reducing output tokens
+
+2.1.90
+/powerup — interactive lessons teaching Claude Code features with animated demos
+CLAUDE_CODE_PLUGIN_KEEP_MARKETPLACE_ON_FAILURE env var for offline plugin cache
+Auto mode respects explicit user boundaries ("don't push", "wait for X before Y")
+--resume picker no longer shows sessions from claude -p or SDK invocations
+Removed Get-DnsClientCache and ipconfig /displaydns from auto-allow
+
+2.1.89
+"defer" permission decision in PreToolUse hooks — headless sessions can pause and resume
+PermissionDenied hook event — fires after auto mode classifier denials, return {retry: true} to retry
+CLAUDE_CODE_NO_FLICKER=1 environment variable for flicker-free alt-screen rendering
+Named subagents appear in @ mention typeahead suggestions
+Edit tool works on files viewed via Bash (sed -n, cat) without requiring a separate Read call first
+Hook if condition filtering now matches compound commands and env-var prefixes
+Hook output over 50K characters saved to disk with file path + preview
+TaskCreated hook event documented
+Changed thinking summaries off by default — set showThinkingSummaries: true to restore
+Autocompact thrash loop detection — stops after 3 consecutive refills
+/env now applies to PowerShell tool commands
+
+2.1.87
+Fixed messages in Cowork Dispatch not getting delivered
+
+2.1.86
+X-Claude-Code-Session-Id header for proxy session aggregation
+Read tool uses compact line-number format and deduplicates unchanged re-reads
+.jj and .sl added to VCS directory exclusion lists
+/plugin uninstall dialog: pressing n now correctly uninstalls
+
+2.1.85
+Conditional if field for hooks using permission rule syntax (e.g., Bash(git *)) to filter when they run
+CLAUDE_CODE_MCP_SERVER_NAME and CLAUDE_CODE_MCP_SERVER_URL env vars for MCP headersHelper scripts
+Timestamp markers in transcripts when scheduled tasks fire
+Rules and skills paths: frontmatter accepts a YAML list of globs
+PreToolUse hooks can satisfy AskUserQuestion by returning updatedInput alongside permissionDecision: "allow"
+MCP OAuth follows RFC 9728 Protected Resource Metadata discovery
+Plugins blocked by managed-settings.json can no longer be installed
+tool_parameters in OpenTelemetry gated behind OTEL_LOG_TOOL_DETAILS=1
+
+2.1.84
+PowerShell tool for Windows as opt-in preview
+TaskCreated hook event — fires when a task is created via TaskCreate
+WorktreeCreate hook support for type: "http"
+allowedChannelPlugins managed setting for team/enterprise admins
+Rules and skills paths: frontmatter now accepts a YAML list of globs
+Idle-return prompt nudges users returning after 75+ minutes to /clear
+Token counts >= 1M display as "1.5m" instead of "1512.6k"
+Global system-prompt caching works when ToolSearch is enabled
+ANTHROPIC_DEFAULT_{OPUS,SONNET,HAIKU}_MODEL_SUPPORTS env vars for 3p capability override
+
+2.1.83
+managed-settings.d/ drop-in directory for independent policy fragments
+CwdChanged and FileChanged hook events for reactive environment management
+sandbox.failIfUnavailable setting to exit with error when sandbox unavailable
+disableDeepLinkRegistration setting
+CLAUDE_CODE_SUBPROCESS_ENV_SCRUB=1 to strip credentials from subprocess environments
+Transcript search — press / in transcript mode (Ctrl+O) to search, n/N to step through
+Ctrl+X Ctrl+E as alias for opening external editor
+Pasted images insert [Image #N] chip at cursor for positional reference
+Agents can declare initialPrompt in frontmatter to auto-submit a first turn
+chat:killAgents and chat:fastMode rebindable via keybindings.json
+Plugin userConfig options with sensitive: true values stored in keychain/protected credentials
+Deprecated TaskOutput tool in favor of using Read on the background task output file path
+/status works while Claude is responding
+MEMORY.md index truncates at 25KB as well as 200 lines
+Ctrl+L clears screen and forces full redraw; Ctrl+U clears prompt input
+Changed stop all background agents keybinding from Ctrl+F to Ctrl+X Ctrl+K
+
+2.1.82
+--bare flag for scripted -p calls — skips hooks, LSP, plugin sync, skills; requires ANTHROPIC_API_KEY
+--channels permission relay — channel servers can forward tool approval prompts
+Plan mode hides "clear context" option by default (restore with showClearContextOnPlanAccept: true)
+MCP OAuth supports Client ID Metadata Document (CIMD / SEP-991)
+
+2.1.81
+/btw command for quick side questions without interrupting Claude's current work
+permissions.defaultMode: "auto" requires Sonnet 4.6 or newer
+CLAUDE_CODE_DISABLE_STRUCTURED_OUTPUT_CACHE option
+
 2.1.80
 rate_limits field in statusline scripts — displays Claude.ai rate limit usage (5-hour and 7-day windows with used_percentage and resets_at)
 source: 'settings' plugin marketplace source — declare plugin entries inline in settings.json

@@ -219,6 +219,7 @@ The following fields can be used in the YAML frontmatter. Only `name` and `descr
 | `memory`          | No       | [Persistent memory scope](#enable-persistent-memory): `user`, `project`, or `local`. Enables cross-session learning                                                                                                                                                         |
 | `isolation`       | No       | Set to `worktree` to run the agent in an isolated git worktree. Changes made by the agent are isolated from the main working tree. Available since v2.1.49-50                                                                                                                |
 | `background`      | No       | Set to `true` to always run the agent in the background. Useful for long-running tasks that shouldn't block the main conversation. Available since v2.1.49                                                                                                                   |
+| `initialPrompt`   | No       | Auto-submit a first turn when the agent is spawned. The agent starts working immediately without waiting for an explicit instruction. Example: `initialPrompt: "Scan the codebase for security issues"`                                                                       |
 
 ### Choose a model
 

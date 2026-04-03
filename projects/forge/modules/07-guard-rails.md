@@ -90,6 +90,24 @@ New sandbox settings to know:
 
 Check `context/hooks.txt` for the full sandbox settings reference.
 
+### 7.8 PermissionDenied Hook & Deferred Decisions
+
+Two new capabilities complete the permission lifecycle you started learning in 7.1.
+
+**`PermissionDenied` hook.** Fires after auto mode's classifier denies a command. Your hook receives the denied tool name and can return `{retry: true}` to tell the model to try a different approach. Use cases: logging denied operations for security auditing, or auto-retrying with modified parameters.
+
+**`"defer"` permission decision.** PreToolUse hooks can return `{permissionDecision: "defer"}` to pause a tool call. In headless sessions (`-p`), the session pauses and can be resumed with `-p --resume` to have the hook re-evaluate. This enables human-in-the-loop approval flows for sensitive operations.
+
+Create a `PermissionDenied` hook that logs all denied operations to a file. Check `context/hooks.txt` for the input schema.
+
+> **STOP** -- Create a PermissionDenied hook and test the defer pattern.
+
+### 7.9 Auto-Answering with PreToolUse Hooks
+
+PreToolUse hooks can now satisfy `AskUserQuestion` by returning `updatedInput` alongside `permissionDecision: "allow"`. This means hooks can answer Claude's questions programmatically -- enabling fully headless workflows where no human input is needed.
+
+Think about when this is useful: CI/CD pipelines, automated testing, or any scenario where Claude needs to ask a question but you want a predetermined answer. Wire up a PreToolUse hook for `AskUserQuestion` that auto-responds to a specific question type.
+
 ### Checkpoint
 
 Four guard patterns, all wired up. Your toolkit now prevents bad data, enforces conventions, and reviews quality -- without you asking.
@@ -101,5 +119,7 @@ Four guard patterns, all wired up. Your toolkit now prevents bad data, enforces 
 - [ ] Each guard was tested and verified working
 - [ ] You understand the difference between `permissionDecision`, `additionalContext`, and `updatedInput`
 - [ ] Reviewed new sandbox settings: `allowRead` and `enableWeakerNetworkIsolation`
+- [ ] Created a PermissionDenied hook
+- [ ] Tested PreToolUse hook with `updatedInput` for AskUserQuestion
 
 **STOP -- What you just did in this module:** You built a complete guard rail system with four distinct mechanisms: `deny` blocks bad actions, `additionalContext` injects reminders, `updatedInput` silently modifies tool inputs, and prompt-based hooks use AI judgment for nuanced checks. Together, these form a safety layer that runs automatically on every tool call. In real projects, guard rails like these prevent data corruption, enforce conventions, and catch quality issues -- all without you having to remember to check.

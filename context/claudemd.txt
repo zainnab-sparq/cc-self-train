@@ -81,6 +81,7 @@ paths:
 - Use the standard error response format
 - Include OpenAPI documentation comments
 Rules without a paths field are loaded unconditionally and apply to all files.
+The `paths:` frontmatter field also works in skills (SKILL.md), restricting when a skill loads to matching file paths. Example: `paths: [src/**, tests/**]`. Available since v2.1.85.
 ​
 Glob patterns
 The paths field supports standard glob patterns:
@@ -144,6 +145,9 @@ Organizations can deploy centrally managed CLAUDE.md files that apply to all use
 To set up organization-level memory management:
 Create the managed memory file at the Managed policy location shown in the memory types table above.
 Deploy via your configuration management system (MDM, Group Policy, Ansible, etc.) to ensure consistent distribution across all developer machines.
+​
+Drop-in policy fragments with managed-settings.d/
+Teams can deploy independent policy fragments using the `managed-settings.d/` directory alongside `managed-settings.json`. Each `.json` file in this directory is merged alphabetically with the main managed settings. This allows different teams or tools to ship their own policy files without editing a single shared config. Available since v2.1.83.
 ​
 CLAUDE.md behavior notes
 HTML comments (`<!-- ... -->`) in CLAUDE.md are now hidden from Claude when auto-injected. They remain visible when the file is read with the Read tool. Use HTML comments for internal notes that shouldn't influence Claude's behavior. Changed in v2.1.72.

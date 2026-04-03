@@ -226,6 +226,12 @@ Final batch of updates spanning worktrees and IDE integration:
 
 No hints needed — explore what's relevant to your workflow. Go build it.
 
+### 10.13 Plugin Configuration & Sensitive Storage
+
+Plugins can now define user-facing configuration schemas in their manifest using `userConfig`. When a user enables the plugin, they are prompted for configuration values. Fields marked with `sensitive: true` are stored securely -- in the macOS keychain or a protected credentials file on other platforms.
+
+If you created a plugin earlier in this module, try adding a `userConfig` section to its manifest with at least one sensitive field (like an API key or token). Enable the plugin and observe how it prompts for configuration. Check that the sensitive value is not visible in the manifest file itself.
+
 ### Checkpoint
 
 You made it. Every major Claude Code feature, learned by building something real.
@@ -243,6 +249,7 @@ You made it. Every major Claude Code feature, learned by building something real
 - [ ] PermissionRequest hook auto-approves safe operations during eval
 - [ ] CLAUDE.md and rules updated with lessons learned from the project
 - [ ] Explored plugin ecosystem updates (validate, reload, settings source)
+- [ ] Tested plugin `userConfig` with a sensitive field
 - [ ] Reviewed worktree and IDE/Remote Control additions
 
 ---

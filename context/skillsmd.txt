@@ -120,6 +120,7 @@ context	No	Set to fork to run in a forked subagent context.
 agent	No	Which subagent type to use when context: fork is set.
 hooks	No	Hooks scoped to this skill’s lifecycle. See Hooks for configuration format.
 effort	No	Override the model effort level when this skill is invoked (e.g., `effort: low`). Available since v2.1.80.
+paths	No	YAML list of globs restricting when the skill loads. Example: `paths: [src/**, tests/**]`. Only activates when working with files matching the patterns. Available since v2.1.85.
 ​
 Available string substitutions
 Skills support string substitution for dynamic values in the skill content:
@@ -496,6 +497,9 @@ Claude Code ships with `/claude-api`, a bundled skill for building apps with the
 ​
 Recent fixes
 Skill descriptions containing colons now parse correctly from SKILL.md frontmatter (fixed v2.1.69). Skills without a `description:` field now appear in Claude's available skills list (fixed v2.1.69).
+​
+Settings
+disableSkillShellExecution — set `"disableSkillShellExecution": true` in settings.json to prevent skills and custom commands from executing inline shell commands (the `!`command`` syntax). Use this for environments where skill-triggered shell execution is a security concern. Available since v2.1.91.
 ​
 Related resources
 Subagents: delegate tasks to specialized agents

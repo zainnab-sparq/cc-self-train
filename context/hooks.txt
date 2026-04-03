@@ -32,6 +32,10 @@ PostCompact	After compaction completes. Matcher: manual or auto. Available since
 Elicitation	When MCP server requests user input mid-task. Can intercept and respond programmatically. Available since v2.1.76.
 ElicitationResult	After user responds to MCP elicitation, before response sent to server. Can validate/modify. Available since v2.1.76.
 InstructionsLoaded	When CLAUDE.md or .claude/rules/*.md loaded into context. Matcher: session_start, nested_traversal, path_glob_match, include, compact. Available since v2.1.69.
+CwdChanged	When working directory changes. Use for reactive environment management (e.g., direnv-style env loading). Available since v2.1.83.
+FileChanged	When files change on disk. Use for reactive validation or auto-formatting. Available since v2.1.83.
+TaskCreated	When a task is created via TaskCreate. Use for auditing or intercepting task creation. Available since v2.1.84.
+PermissionDenied	After auto mode classifier denies a command. Return {retry: true} to tell the model it can retry. Available since v2.1.89.
 ​
 Hook event fields (new in v2.1.69+)
 
@@ -1053,3 +1057,21 @@ Which hook is running
 Command being executed
 Success/failure status
 Output or error messages
+​
+New hook events (v2.1.81–v2.1.91)
+
+CwdChanged — fires when the working directory changes. Use for reactive environment management (e.g., loading .env files per directory). Available since v2.1.83.
+
+FileChanged — fires when files change on disk. Use for reactive validation or auto-formatting. Available since v2.1.83.
+
+TaskCreated — fires when a task is created via TaskCreate. Use for auditing or intercepting task creation. Available since v2.1.84.
+
+PermissionDenied — fires after auto mode classifier denies a command. Return {retry: true} to tell the model it can retry. Available since v2.1.89.
+
+Conditional `if` field — hooks can include an `if` field using permission rule syntax (e.g., "if": "Bash(git *)") to filter when they run. This reduces process spawning overhead by only firing hooks when the condition matches. Available since v2.1.85.
+
+"defer" permission decision — PreToolUse hooks can return {permissionDecision: "defer"} to pause a tool call in headless sessions. Resume with `claude -p --resume` to have the hook re-evaluate. Available since v2.1.89.
+
+PreToolUse satisfies AskUserQuestion — PreToolUse hooks can answer user prompts by returning {updatedInput: "answer", permissionDecision: "allow"}, enabling headless/automated workflows. Available since v2.1.85.
+
+sandbox.failIfUnavailable setting — set "sandbox": {"failIfUnavailable": true} in settings.json to exit with an error when sandbox is enabled but cannot start. Available since v2.1.83.

@@ -164,21 +164,27 @@ Every major CC feature is taught in all 5 options:
 | .claude/rules/ (path-scoped) | x | x | x | x | x | 3 |
 | CLAUDE.local.md, memory hierarchy | x | x | x | x | x | 3 |
 | @imports, /context, /compact, HTML comments | x | x | x | x | x | 3 |
+| paths: frontmatter for rules | x | x | x | x | x | 3 |
 | Skills (SKILL.md, frontmatter, hot-reload) | x | x | x | x | x | 4 |
 | Custom slash commands, effort frontmatter | x | x | x | x | x | 4 |
+| paths: for skills, disableSkillShellExecution | x | x | x | x | x | 4 |
 | Hooks (SessionStart, PostToolUse, Stop) | x | x | x | x | x | 5 |
 | Hook scripting, new events (StopFailure, PostCompact, etc.) | x | x | x | x | x | 5 |
+| Hook `if` conditions, CwdChanged, FileChanged | x | x | x | x | x | 5 |
 | MCP servers (.mcp.json, scopes) | x | x | x | x | x | 6 |
 | Skills + MCP, elicitation, channels | x | x | x | x | x | 6 |
 | PreToolUse, hook decision control | x | x | x | x | x | 7 |
 | Prompt-based hooks, allowRead, sandbox settings | x | x | x | x | x | 7 |
+| PermissionDenied, defer, PreToolUse updatedInput | x | x | x | x | x | 7 |
 | Subagents (.claude/agents/) | x | x | x | x | x | 8 |
 | Subagent chaining, parallel, SendMessage | x | x | x | x | x | 8 |
+| Agent initialPrompt frontmatter | x | x | x | x | x | 8 |
 | Tasks system (dependencies, cross-session) | x | x | x | x | x | 9 |
 | TDD, /loop, cron scheduling | x | x | x | x | x | 9 |
 | Git worktrees, parallel dev, ExitWorktree | x | x | x | x | x | 10 |
 | Agent teams (experimental) | x | x | x | x | x | 10 |
 | Plugins, /remote-control, plugin ecosystem | x | x | x | x | x | 10 |
+| Plugin userConfig, sensitive storage | x | x | x | x | x | 10 |
 | Evaluation framework | x | x | x | x | x | 10 |
 | Continuous learning patterns | x | x | x | x | x | 10 |
 

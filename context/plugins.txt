@@ -264,6 +264,8 @@ Recent improvements
 * **Plugin validation (v2.1.77)**: `claude plugin validate` — now checks skill, agent, and command frontmatter plus `hooks/hooks.json`, catching YAML parse errors and schema violations.
 * **Plugin dir flag changes (v2.1.74-76)**: `--plugin-dir` now accepts one path per flag — use repeated `--plugin-dir` for multiple directories. Local dev copies override installed marketplace plugins with the same name.
 * **Multiple seed directories (v2.1.79)**: `CLAUDE_CODE_PLUGIN_SEED_DIR` now supports multiple seed directories separated by the platform path delimiter (`:` on Unix, `;` on Windows).
+* **`--bare` flag (v2.1.82)**: For scripted `-p` calls, `claude -p --bare "prompt"` skips hooks, LSP, plugin sync, and skill directory walks. Requires `ANTHROPIC_API_KEY` or an `apiKeyHelper` via `--settings`. Auto-memory is fully disabled.
+* **Plugin `userConfig` (v2.1.83)**: Plugins can define user-facing configuration in their manifest (`manifest.userConfig`). Plugins prompt for configuration at enable time. Fields with `sensitive: true` are stored in keychain (macOS) or protected credentials file (other platforms).
 
 ​
 Next steps

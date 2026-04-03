@@ -156,10 +156,23 @@ Try adding `effort: low` to one of your existing skills and invoking it -- does 
 
 > **STOP** -- Experiment with `effort` frontmatter and `${CLAUDE_SKILL_DIR}` in one of your skills.
 
+### 4.10 Skill Scoping & Shell Execution Control
+
+Two new skill features have landed that give you more control over when and how skills run.
+
+**`paths:` frontmatter for skills.** Just like rules (Module 3), skills can now accept `paths:` as a YAML list of globs. Try adding it to one of your existing skills -- for example, scope the analyze skill so it only activates when you're working in the src/rules directory.
+
+**`disableSkillShellExecution` setting.** Set `"disableSkillShellExecution": true` in settings.json to prevent skills from executing shell commands. This is a safety feature for shared environments where you want skills to generate and edit files but not run arbitrary commands.
+
+Try both: add `paths:` to an existing skill, then toggle `disableSkillShellExecution` and invoke a skill that uses Bash to see what happens.
+
+> **STOP** -- Test `paths:` scoping on a skill and observe what `disableSkillShellExecution` does.
+
 ### Checkpoint
 
 You just built your own commands. Running analysis and generating tests is now one slash command away.
 
+- [ ] Tested `paths:` on a skill and `disableSkillShellExecution`
 - [ ] `/analyze` skill exists and works with path arguments
 - [ ] `/generate-tests` skill exists, runs in a forked context, and produces tests
 - [ ] `/quality-report` skill exists with disable-model-invocation: true

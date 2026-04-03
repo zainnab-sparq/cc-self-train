@@ -270,10 +270,29 @@ Try adding an HTML comment to your CLAUDE.md now -- something like `<!-- TODO: a
 
 > **STOP** -- Add an HTML comment to your project's CLAUDE.md and verify it's hidden from Claude.
 
+### 3.12 Path-Scoped Rules with `paths:` Frontmatter
+
+Rules can now accept `paths:` as a YAML list of globs in their frontmatter, restricting which files they apply to. This means you can have different rules for different parts of your project -- one set of conventions for your source directory, another for your test directory, another for configuration files.
+
+Try creating two rules with different scopes. Ask Claude something like:
+
+```
+Create two rule files in .claude/rules/:
+1. One scoped to your source directory (e.g., paths: [src/**]) that enforces your coding conventions
+2. One scoped to your test directory (e.g., paths: [tests/**]) that enforces your testing conventions
+```
+
+Adjust the glob patterns to match your project's actual directory structure. After creating them, test the scoping: ask Claude to edit a source file and see if it follows the source rule, then ask it to edit a test file and verify it follows the test rule instead.
+
+**STOP -- What you just did:** You created rules that only load when Claude works on matching files. This is powerful for larger projects where different directories have different conventions. The `paths:` field accepts standard glob patterns -- `**` matches any depth, `*` matches any file.
+
+> **STOP** -- Try editing files in both directories to verify each rule applies only to its scoped path.
+
 ### Checkpoint
 
 You just taught Claude how your project works. Rules, memory, and imports mean Claude gets smarter about your codebase with every session.
 
+- [ ] Tested `paths:` frontmatter on at least one rule
 - [ ] Added an HTML comment to CLAUDE.md and verified it's hidden
 - [ ] `.claude/rules/` directory contains rule files for your project's languages
 - [ ] Each rule file has correct path-scoped frontmatter

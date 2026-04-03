@@ -101,8 +101,9 @@ Try each shortcut below and note what happens:
 | `!` | Bash mode -- run a shell command directly |
 | `Shift+Enter` | Multiline input (or `\` + `Enter` in any terminal) |
 | `Esc Esc` | Rewind conversation/code to a previous point |
-| `Ctrl+O` | Toggle verbose output |
+| `Ctrl+O` | Toggle verbose output (then `/` to search transcript) |
 | `Ctrl+R` | Reverse search command history |
+| `Ctrl+X Ctrl+E` | Open external editor for composing long prompts |
 | `/` | Start a command or skill |
 
 Try these now:
@@ -129,6 +130,8 @@ That `/` shortcut opens Claude Code's built-in commands. You already know `/init
 | `/copy` | Opens an interactive picker to select and copy specific code blocks from the conversation -- great for grabbing a snippet Claude generated |
 | `/simplify` | Asks Claude to simplify complex code or explanations -- helpful when a response has more detail than you need |
 | `/batch` | Runs commands in batch mode for non-interactive automation |
+| `/powerup` | Interactive lessons teaching Claude Code features with animated demos -- a great way to learn new features |
+| `/btw` | Ask a quick side question without interrupting Claude's current work -- like raising your hand in class |
 
 Try typing `/` and then pressing `Tab` to see the full list of available commands. This is worth doing -- there are more commands than the ones listed here, and Tab completion is the fastest way to discover them.
 

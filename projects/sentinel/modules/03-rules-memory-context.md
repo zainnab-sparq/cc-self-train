@@ -211,10 +211,29 @@ Try adding an HTML comment to your CLAUDE.md now -- something like `<!-- TODO: a
 
 > **STOP** -- Add an HTML comment to your project's CLAUDE.md and verify it's hidden from Claude.
 
+### 3.10 Path-Scoped Rules with `paths:` Frontmatter
+
+Rules can now accept `paths:` as a YAML list of globs in their frontmatter, restricting which files they apply to. This means you can have different rules for different parts of your project -- analyzer conventions for rule modules, reporter conventions for output formatters, test conventions for spec files.
+
+Try creating two rules with different scopes. Ask Claude something like:
+
+```
+Create two rule files in .claude/rules/:
+1. analyzer-style.md with paths: [src/analyzers/**] that enforces stateless design and structured Issue objects
+2. reporter-style.md with paths: [src/reporters/**] that enforces streaming support and configurable output formats
+```
+
+After creating them, test the scoping: ask Claude to edit an analyzer file and see if it follows the analyzer rule, then ask it to edit a reporter file and verify it follows the reporter rule instead.
+
+**STOP -- What you just did:** You created rules that only load when Claude works on matching files. This is powerful for larger projects where different directories have different conventions. The `paths:` field accepts standard glob patterns -- `**` matches any depth, `*` matches any file.
+
+> **STOP** -- Try editing files in both directories to verify each rule applies only to its scoped path.
+
 ### Checkpoint
 
 You just taught Claude how your analyzer works. Rules enforce your conventions automatically, and context management keeps sessions focused.
 
+- [ ] Tested `paths:` frontmatter on at least one rule
 - [ ] Added an HTML comment to CLAUDE.md and verified it's hidden
 - [ ] `.claude/rules/` directory exists with at least 3 path-scoped rule files
 - [ ] `CLAUDE.local.md` exists and is in .gitignore

@@ -195,10 +195,29 @@ Try adding an HTML comment to your CLAUDE.md now -- something like `<!-- TODO: a
 
 > **STOP** -- Add an HTML comment to your project's CLAUDE.md and verify it's hidden from Claude.
 
+### 3.8 Path-Scoped Rules with `paths:` Frontmatter
+
+Rules can now accept `paths:` as a YAML list of globs in their frontmatter, restricting which files they apply to. This means you can have different rules for different parts of your project -- routing conventions for handler files, config conventions for YAML/JSON files, test conventions for spec files.
+
+Try creating two rules with different scopes. Ask Claude something like:
+
+```
+Create two rule files in .claude/rules/:
+1. handler-style.md with paths: [src/handlers/**] that enforces input validation and proper status codes
+2. config-style.md with paths: [config/**] that enforces schema validation and clear error messages
+```
+
+After creating them, test the scoping: ask Claude to edit a handler file and see if it follows the handler rule, then ask it to edit a config file and verify it follows the config rule instead.
+
+**STOP -- What you just did:** You created rules that only load when Claude works on matching files. This is powerful for larger projects where different directories have different conventions. The `paths:` field accepts standard glob patterns -- `**` matches any depth, `*` matches any file.
+
+> **STOP** -- Try editing files in both directories to verify each rule applies only to its scoped path.
+
 ### Checkpoint
 
 You just taught Claude how your gateway works. Rules, memory, and context management mean Claude understands your conventions and enforces them automatically.
 
+- [ ] Tested `paths:` frontmatter on at least one rule
 - [ ] Added an HTML comment to CLAUDE.md and verified it's hidden
 - [ ] `.claude/rules/` has at least 3 rule files with path-scoped frontmatter
 - [ ] CLAUDE.local.md exists and is in .gitignore

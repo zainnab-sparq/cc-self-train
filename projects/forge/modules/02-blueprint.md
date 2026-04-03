@@ -166,6 +166,8 @@ Two workflow commands have been updated recently:
 
 **Git instruction control.** The `includeGitInstructions` setting (or `CLAUDE_CODE_DISABLE_GIT_INSTRUCTIONS` env var) lets you remove Claude's built-in commit and PR workflow instructions from the system prompt. Useful if your CLAUDE.md already has custom git rules (v2.1.69).
 
+**Edit without Read.** The Edit tool now works on files you've viewed via Bash (using `sed -n` or `cat`), without requiring a separate `Read` call first. This means fewer permission prompts when you're already looking at file content (v2.1.89).
+
 > **STOP** -- Try `/plan add a contact form to the homepage` to test the quick-plan workflow.
 
 ### Checkpoint

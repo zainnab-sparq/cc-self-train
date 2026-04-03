@@ -139,10 +139,23 @@ Try adding `effort: low` to one of your existing skills and invoking it -- does 
 
 > **STOP** -- Experiment with `effort` frontmatter and `${CLAUDE_SKILL_DIR}` in one of your skills.
 
+### 4.10 Skill Scoping & Shell Execution Control
+
+Two new skill features have landed that give you more control over when and how skills run.
+
+**`paths:` frontmatter for skills.** Just like rules (Module 3), skills can now accept `paths:` as a YAML list of globs. Try adding it to one of your existing skills -- for example, scope the search skill so it only activates when you're working in the storage directory.
+
+**`disableSkillShellExecution` setting.** Set `"disableSkillShellExecution": true` in settings.json to prevent skills from executing shell commands. This is a safety feature for shared environments where you want skills to generate and edit files but not run arbitrary commands.
+
+Try both: add `paths:` to an existing skill, then toggle `disableSkillShellExecution` and invoke a skill that uses Bash to see what happens.
+
+> **STOP** -- Test `paths:` scoping on a skill and observe what `disableSkillShellExecution` does.
+
 ### Checkpoint
 
 You just built your own commands. These skills encode your workflow -- use them every time you add or search items.
 
+- [ ] Tested `paths:` on a skill and `disableSkillShellExecution`
 - [ ] `.claude/skills/add-item/SKILL.md` exists with frontmatter and supporting files
 - [ ] `.claude/skills/search/SKILL.md` exists with argument parsing
 - [ ] `.claude/skills/daily-summary/SKILL.md` exists with `disable-model-invocation: true`

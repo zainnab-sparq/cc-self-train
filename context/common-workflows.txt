@@ -953,6 +953,8 @@ Available since v2.1.51.
 - `/fork` has been renamed to `/branch` (v2.1.77). `/fork` still works as an alias.
 - `/plan` now accepts an optional description argument: `/plan fix the auth bug` enters plan mode and starts immediately (v2.1.72).
 - Sessions are auto-named from plan content when you accept a plan (v2.1.77).
+- `Edit` tool change (v2.1.89): The `Edit` tool now works on files previously viewed via `Bash` with `sed -n` or `cat`, without requiring a separate `Read` call first.
+- `--bare` flag (v2.1.82): For scripted automation, `claude -p --bare "prompt"` skips hooks, LSP, plugin sync, and skills. Useful in CI/CD pipelines and scripted workflows.
 
 ***
 

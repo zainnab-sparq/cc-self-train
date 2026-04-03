@@ -144,14 +144,33 @@ Five new hook events have been added. Which ones would be most useful for your p
 
 Hook events now also include `agent_id` and `agent_type` fields when firing inside subagents (v2.1.69).
 
+**`TaskCreated`** (v2.1.84) -- fires when a task is created via `TaskCreate`. Use for auditing task creation or triggering workflows when new tasks appear.
+
 Try wiring up a `PostCompact` hook that logs when auto-compaction happens -- what would you put in the command?
 
 > **STOP** -- Add a hook for one of the new events and test it.
+
+### 5.9 Conditional Hooks & Reactive Events
+
+Two features that transform what hooks can do:
+
+**The `if` field.** Hooks can now include an `if` field using permission rule syntax to filter when they fire. Instead of a hook running on every Bash command, you can scope it: `"if": "Bash(git *)"` makes it fire only on git commands. This reduces overhead and makes hooks surgical.
+
+**Reactive events: `CwdChanged` and `FileChanged`.** These fire when the working directory changes or when files change on disk. Combined with `if`, you can build reactive automation -- a hook that validates CSS only when `.css` files change, or one that loads different environment variables when you move between directories.
+
+Ask Claude to create a reactive hook. Something like:
+
+```
+Create a FileChanged hook that runs a validation script only when CSS files change in the styles directory. Use the if field to scope it. Add it to .claude/settings.json.
+```
+
+> **STOP** -- Create a conditional hook using the `if` field and test a reactive event hook.
 
 ### Checkpoint
 
 Your site now has automated quality gates. Hooks catch mistakes the moment they happen -- you will never go back to checking manually.
 
+- [ ] Created a conditional hook using `if` field and a reactive event hook
 - [ ] `.claude/settings.json` exists with hook configuration
 - [ ] SessionStart hook injects site summary on session start
 - [ ] PostToolUse hook validates HTML structure after writes/edits

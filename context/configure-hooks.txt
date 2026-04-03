@@ -412,4 +412,59 @@ InstructionsLoaded — fires when CLAUDE.md or rules files load. Matcher values:
   }
 }
 
+New hook features (v2.1.83–v2.1.89)
+
+Conditional `if` field — only fire a hook when the condition matches, reducing process spawning overhead. Uses permission rule syntax:
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "if": "Bash(git *)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo 'Git command intercepted' >> ~/.claude/git-ops.log"
+          }
+        ]
+      }
+    ]
+  }
+}
+The `if` field supports the same syntax as permission rules: `Bash(git *)`, `Write(*.py)`, etc. It also matches compound commands and env-var prefixes. Available since v2.1.85.
+
+CwdChanged hook — fires when the working directory changes. Use for reactive environment management (e.g., loading directory-specific env vars):
+{
+  "hooks": {
+    "CwdChanged": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -f .env.local ]; then cat .env.local; fi"
+          }
+        ]
+      }
+    ]
+  }
+}
+Available since v2.1.83.
+
+FileChanged hook — fires when files change on disk. Use for reactive validation or auto-formatting:
+{
+  "hooks": {
+    "FileChanged": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"File changed at $(date)\" >> ~/.claude/file-changes.log"
+          }
+        ]
+      }
+    ]
+  }
+}
+Available since v2.1.83.
+
 Start using hooks to customize your Claude Code workflows today.
