@@ -1,5 +1,12 @@
 # Changelog
 
+## v2.21.0 (2026-04-10)
+
+- Add streak detection to adaptive learning (Hooshyar et al., 2026) — 3+ consecutive struggle/engagement interactions trigger immediate mid-module response
+- Add asymmetric response principle — struggle signals weighted more heavily than success signals
+- Sync curriculum to CC v2.1.100 (from v2.1.91) — 8 context files updated, Module 1 fold-ins across all 5 variants
+- Key CC changes: default effort now high, `/tag` and `/vim` removed, Monitor tool, `/agents` tabbed layout, `refreshInterval` status line setting
+
 ## v2.20.0 (2026-04-03)
 
 - Sync curriculum to CC v2.1.91 (from v2.1.80) — 11 versions of changelog, 10 context files updated, 7 new module steps across all 5 projects
