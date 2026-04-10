@@ -1,4 +1,46 @@
 Changelog
+2.1.100
+(identical to 2.1.99 — re-release)
+
+2.1.99
+Monitor tool for streaming events from background scripts
+/agents tabbed layout — Running tab shows live subagents, Library tab adds Run and View actions
+/reload-plugins picks up plugin-provided skills without restart
+Vim mode j/k in NORMAL mode navigate history and select footer pill
+refreshInterval status line setting to re-run status line command every N seconds
+workspace.git_worktree added to status line JSON input
+CLAUDE_CODE_SCRIPT_CAPS env var to limit per-session script invocations
+--exclude-dynamic-system-prompt-sections flag for print mode
+hookSpecificOutput.sessionTitle in UserPromptSubmit hooks for setting session title
+/claude-api skill updated to cover Managed Agents
+Removed /tag command
+Removed /vim command (use /config → Editor mode)
+
+2.1.97
+Focus view toggle (Ctrl+O) in NO_FLICKER mode
+refreshInterval status line setting
+workspace.git_worktree in status line JSON
+Syntax highlighting for Cedar policy files
+
+2.1.96
+Fixed Bedrock 403 regression from 2.1.94
+
+2.1.94
+Amazon Bedrock powered by Mantle support (CLAUDE_CODE_USE_MANTLE=1)
+Default effort level changed from medium to high for API-key, Bedrock/Vertex/Foundry, Team, and Enterprise users
+keep-coding-instructions frontmatter field for plugin output styles
+hookSpecificOutput.sessionTitle in UserPromptSubmit hooks
+Plugin skills use frontmatter name for invocation instead of directory basename
+--resume now resumes sessions from other worktrees directly
+Compact Slacked #channel header with clickable link for Slack MCP
+
+2.1.92
+forceRemoteSettingsRefresh policy setting — blocks startup until remote settings fetched
+Interactive Bedrock setup wizard on login screen
+Per-model and cache-hit breakdown in /cost for subscription users
+/release-notes is now an interactive version picker
+Remote Control session names use hostname as default prefix
+
 2.1.91
 disableSkillShellExecution setting — disable inline shell execution in skills and custom commands
 Plugins can ship executables under bin/ and invoke them as bare commands from Bash tool

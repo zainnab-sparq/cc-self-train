@@ -271,6 +271,10 @@ Custom Status Line
 Shows user, directory, git branch with dirty indicator, context remaining %, model, time, and todo count:
 example statusline in my Mac root directory
 Statusline scripts now have access to a `rate_limits` field that displays Claude.ai rate limit usage. It includes 5-hour and 7-day windows with `used_percentage` and `resets_at` fields. Available since v2.1.80.
+
+`refreshInterval` status line setting (v2.1.97): Re-runs the status line command every N seconds. Set this in your statusline configuration to keep the status line data fresh without manual refresh.
+
+`workspace.git_worktree` field (v2.1.97): Added to the status line JSON input. This field is set when running inside a linked git worktree, letting your statusline script display worktree-specific information.
 Rules Structure
 markdown
 ~/.claude/rules/

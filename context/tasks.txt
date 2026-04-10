@@ -92,3 +92,5 @@ Recent task and scheduling additions:
 Cron scheduling tools (v2.1.71): Create recurring prompts within a session using cron-style scheduling.
 
 `CLAUDE_CODE_DISABLE_CRON` env var (v2.1.72): Set to immediately stop scheduled cron jobs mid-session.
+
+Monitor tool (v2.1.99): Streams events from background scripts. Each stdout line from the monitored process becomes a notification. Use Monitor instead of polling with sleep loops when watching long-running background tasks.

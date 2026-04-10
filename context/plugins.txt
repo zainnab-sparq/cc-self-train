@@ -266,6 +266,8 @@ Recent improvements
 * **Multiple seed directories (v2.1.79)**: `CLAUDE_CODE_PLUGIN_SEED_DIR` now supports multiple seed directories separated by the platform path delimiter (`:` on Unix, `;` on Windows).
 * **`--bare` flag (v2.1.82)**: For scripted `-p` calls, `claude -p --bare "prompt"` skips hooks, LSP, plugin sync, and skill directory walks. Requires `ANTHROPIC_API_KEY` or an `apiKeyHelper` via `--settings`. Auto-memory is fully disabled.
 * **Plugin `userConfig` (v2.1.83)**: Plugins can define user-facing configuration in their manifest (`manifest.userConfig`). Plugins prompt for configuration at enable time. Fields with `sensitive: true` are stored in keychain (macOS) or protected credentials file (other platforms).
+* **`keep-coding-instructions` frontmatter (v2.1.94)**: Plugin output styles can use the `keep-coding-instructions` frontmatter field to preserve coding instructions in the output, preventing them from being stripped during response formatting.
+* **`--resume` cross-worktree (v2.1.94)**: `--resume` now resumes sessions from other worktrees of the same repo directly, instead of printing a `cd` command. This makes it seamless to continue work across worktrees.
 
 ​
 Next steps

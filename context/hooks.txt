@@ -1075,3 +1075,7 @@ Conditional `if` field — hooks can include an `if` field using permission rule
 PreToolUse satisfies AskUserQuestion — PreToolUse hooks can answer user prompts by returning {updatedInput: "answer", permissionDecision: "allow"}, enabling headless/automated workflows. Available since v2.1.85.
 
 sandbox.failIfUnavailable setting — set "sandbox": {"failIfUnavailable": true} in settings.json to exit with an error when sandbox is enabled but cannot start. Available since v2.1.83.
+
+hookSpecificOutput.sessionTitle in UserPromptSubmit hooks — set the session title from a hook by returning {"hookSpecificOutput": {"sessionTitle": "My Title"}} in the hook output. Available since v2.1.94.
+
+CLAUDE_CODE_SCRIPT_CAPS env var — limits per-session script invocations for subprocess sandboxing. Use to cap how many times hook scripts can be executed within a single session. Available since v2.1.99.

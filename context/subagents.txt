@@ -837,3 +837,7 @@ Plugin-shipped agents support additional frontmatter fields: `effort`, `maxTurns
 ### Background agent partial results (v2.1.76)
 
 Killing a background agent now preserves its partial results in the conversation context.
+
+### /agents tabbed layout (v2.1.99)
+
+The `/agents` command now has a tabbed layout: the **Running** tab shows live subagent instances currently executing, and the **Library** tab lists all available agents with **Run** and **View** actions for quick access.

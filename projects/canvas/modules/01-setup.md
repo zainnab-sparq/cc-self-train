@@ -226,6 +226,12 @@ Claude Code has added several ways to customize your session experience since th
 
 **Model updates.** Opus 4.6 now defaults to 1M context window (Max/Team/Enterprise) and 64k output tokens. Use `modelOverrides` in settings to map model picker entries to custom provider model IDs.
 
+**Recent changes:**
+
+- **Default effort is now high** (v2.1.94). API-key, Bedrock/Vertex, Team, and Enterprise users default to high effort. Use `/effort low` or `/effort medium` to dial it down for quick tasks.
+- **`/tag` and `/vim` removed** (v2.1.92). Use `/config` → Editor mode to toggle vim keybindings. Tags are no longer needed — use `/rename` for session naming.
+- **`/release-notes`** is now an interactive version picker (v2.1.92) — browse what changed in any CC release.
+
 > **STOP** — Try `/color` and `/effort` before continuing. Notice how the prompt bar and spinner change.
 
 ### Checkpoint

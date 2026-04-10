@@ -50,7 +50,7 @@ Effort levels control how deeply Claude thinks before responding. They are avail
 | Level | Behavior | Best For |
 |-------|----------|----------|
 | **Low** | Minimal reasoning, quick responses | Simple lookups, straightforward edits |
-| **Medium** (default) | Moderate reasoning | Standard coding tasks |
+| **Medium** | Moderate reasoning | Standard coding tasks |
 | **High** | Deep reasoning, explores alternatives | Architecture, debugging, complex logic |
 
 Configure effort level via:
@@ -59,7 +59,9 @@ Configure effort level via:
 - `/effort` command — set effort level directly from any session (v2.1.76). Since v2.1.80, also shows what "auto" currently resolves to
 - `effort` frontmatter in skills — override the model effort level when a skill is invoked. Available since v2.1.80
 
-The effort levels are low, medium (default), and high. The previous `max` level was removed in v2.1.72. Opus 4.6 still supports extended thinking via the API.
+The effort levels are low, medium, and high. The previous `max` level was removed in v2.1.72. Opus 4.6 still supports extended thinking via the API.
+
+Default effort level changed from medium to high for API-key, Bedrock/Vertex/Foundry, Team, and Enterprise users (v2.1.94). Pro/Max users were already on high.
 
 ## Prompting Strategies by Model
 
@@ -122,6 +124,7 @@ Opus 4.6 defaults to 1M context window for Max, Team, and Enterprise plans (v2.1
 
 - Bedrock, Vertex, and Microsoft Foundry default to Opus 4.6 (was Opus 4.1, changed v2.1.73)
 - Sonnet 4.5 users on Pro/Max/Team Premium are auto-migrated to Sonnet 4.6 (v2.1.69)
+- Interactive Bedrock setup wizard on the login screen (v2.1.92) — guides new Bedrock users through configuration
 
 ## Related Features
 
