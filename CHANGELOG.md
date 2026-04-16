@@ -1,5 +1,12 @@
 # Changelog
 
+## v2.22.0 (2026-04-15)
+
+- Add mid-session streak detection via UserPromptSubmit hook — streaks now surface immediately instead of waiting for next session start
+- Align README with paper: five contributions (adds adaptive learning system), sync pipeline overview mapping in /sync SKILL.md
+- Sync curriculum to CC v2.1.110 (from v2.1.100) — fold-in only sync, 10 context files + 25 module files updated
+- Key CC changes: `/tui` fullscreen, `/focus` command, `/recap` session summary, PreCompact hook blocking, `/proactive` alias, plugin background monitors, `permissions.deny` precedence fix
+
 ## v2.21.0 (2026-04-10)
 
 - Add streak detection to adaptive learning (Hooshyar et al., 2026) — 3+ consecutive struggle/engagement interactions trigger immediate mid-module response
