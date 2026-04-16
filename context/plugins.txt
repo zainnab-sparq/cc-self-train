@@ -268,6 +268,8 @@ Recent improvements
 * **Plugin `userConfig` (v2.1.83)**: Plugins can define user-facing configuration in their manifest (`manifest.userConfig`). Plugins prompt for configuration at enable time. Fields with `sensitive: true` are stored in keychain (macOS) or protected credentials file (other platforms).
 * **`keep-coding-instructions` frontmatter (v2.1.94)**: Plugin output styles can use the `keep-coding-instructions` frontmatter field to preserve coding instructions in the output, preventing them from being stripped during response formatting.
 * **`--resume` cross-worktree (v2.1.94)**: `--resume` now resumes sessions from other worktrees of the same repo directly, instead of printing a `cd` command. This makes it seamless to continue work across worktrees.
+* **Background monitors (v2.1.105)**: `monitors` manifest key in plugin.json. Accepts a string path, array of paths, or inline object. Auto-arms at session start or when a skill from the plugin is invoked. Declarative wrapper around the Monitor tool.
+* **`/plugin` Installed tab (v2.1.105)**: Press `f` to favorite a plugin; disabled items are hidden behind a fold for a cleaner view.
 
 ​
 Next steps

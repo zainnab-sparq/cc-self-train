@@ -166,6 +166,9 @@ Hook events now also include `agent_id` and `agent_type` fields when firing insi
 
 Try wiring up a `PostCompact` hook that logs when auto-compaction happens -- what would you put in the command?
 
+- **PreCompact blocking** (v2.1.105): PreCompact hooks can now block compaction by exiting with code 2 or returning `{"decision":"block"}`. Use matcher `auto` to block only automatic compaction while allowing manual `/compact`.
+- **Settings resilience** (v2.1.101): Unrecognized hook event names in `settings.json` no longer cause the entire file to be ignored -- only the unrecognized event is skipped.
+
 > **STOP** -- Add a hook for one of the new events and test it.
 
 ### 5.9 Conditional Hooks & Reactive Events

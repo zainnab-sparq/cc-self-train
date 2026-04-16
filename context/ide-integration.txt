@@ -118,6 +118,9 @@ Run `claude` in each pane for independent CLI sessions. Useful for:
 - **URI handler (v2.1.72)**: `vscode://anthropic.claude-code/open` URI handler — open a new Claude Code tab programmatically with optional `prompt` and `session` query parameters.
 - **Effort indicator (v2.1.72)**: Effort level indicator shown on the input border.
 - **Disable bypass permissions (v2.1.69)**: `permissions.disableBypassPermissionsMode` — when set to `disable` in effective settings (including managed/policy), bypass permissions mode is hidden from the picker.
+- **Push notification tool (v2.1.105)**: Claude can send mobile push notifications when Remote Control and "Push when Claude decides" config are enabled.
+- **Write tool IDE feedback (v2.1.105)**: The Write tool now informs the model when the user edits the proposed content in the IDE diff before accepting, so Claude is aware of manual adjustments.
+- **Remote Control expansion (v2.1.105)**: `/autocompact`, `/context`, `/exit`, and `/reload-plugins` now work from Remote Control (mobile/web) clients.
 
 ## Troubleshooting
 

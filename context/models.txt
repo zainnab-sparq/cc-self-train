@@ -126,6 +126,14 @@ Opus 4.6 defaults to 1M context window for Max, Team, and Enterprise plans (v2.1
 - Sonnet 4.5 users on Pro/Max/Team Premium are auto-migrated to Sonnet 4.6 (v2.1.69)
 - Interactive Bedrock setup wizard on the login screen (v2.1.92) — guides new Bedrock users through configuration
 
+## Prompt Caching
+
+`ENABLE_PROMPT_CACHING_1H` env var: opt into 1-hour prompt cache TTL on API key, Bedrock, Vertex, and Foundry. `FORCE_PROMPT_CACHING_5M` forces a 5-minute TTL. These are useful for reducing costs on long sessions with stable context.
+
+## Mid-Conversation Model Switching
+
+`/model` now warns before switching models mid-conversation, since the next response re-reads the full history uncached. This can result in higher latency and cost for the first response after switching.
+
 ## Related Features
 
 - **Extended thinking**: Enabled by default. Toggle with `Alt+T`. See thinking output with `Ctrl+O` (verbose mode).

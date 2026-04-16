@@ -501,6 +501,12 @@ Skill descriptions containing colons now parse correctly from SKILL.md frontmatt
 Settings
 disableSkillShellExecution — set `"disableSkillShellExecution": true` in settings.json to prevent skills and custom commands from executing inline shell commands (the `!`command`` syntax). Use this for environments where skill-triggered shell execution is a security concern. Available since v2.1.91.
 ​
+Skill description listing cap
+Skill description listing cap raised from 250 to 1,536 characters (v2.1.105). A startup warning is shown when descriptions are truncated beyond this limit.
+​
+Built-in slash command discovery
+The model can now discover and invoke built-in slash commands (/init, /review, /security-review) via the Skill tool (v2.1.108). This means Claude can proactively suggest and run these commands when relevant to the conversation.
+​
 Related resources
 Subagents: delegate tasks to specialized agents
 Plugins: package and distribute skills with other extensions

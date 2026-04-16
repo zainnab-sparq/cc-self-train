@@ -148,6 +148,9 @@ Two new tools for recurring automation within a session:
 
 Try `/loop` with a monitoring task that makes sense for your project.
 
+- `/proactive` is now an alias for `/loop` (v2.1.105) -- use whichever name feels more natural.
+- `--resume`/`--continue` now resurrects unexpired scheduled tasks (v2.1.110) -- scheduled work survives session restarts.
+
 ### Checkpoint
 
 Task graphs, TDD, cross-session persistence, and subagent verification. This is how real multi-session projects get coordinated.

@@ -467,4 +467,31 @@ FileChanged hook — fires when files change on disk. Use for reactive validatio
 }
 Available since v2.1.83.
 
+PreCompact blocking (v2.1.105)
+
+PreCompact hooks can now block compaction by exiting with code 2 or returning JSON with {"decision":"block","reason":"..."}. Use matcher "auto" to only block automatic compaction while allowing manual /compact. The hook can exit 2 with a stderr message, or return JSON for more control:
+
+{
+  "hooks": {
+    "PreCompact": [
+      {
+        "matcher": "auto",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/block-auto-compact.js",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}
+
+Example hook script output (JSON on stdout with exit 0):
+{"decision":"block","reason":"Critical context detected — blocking auto-compaction"}
+
+Or simply exit 2 with a message on stderr to block:
+echo "Blocking auto-compact: important context in window" >&2; exit 2
+
 Start using hooks to customize your Claude Code workflows today.

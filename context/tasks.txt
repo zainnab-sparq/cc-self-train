@@ -94,3 +94,7 @@ Cron scheduling tools (v2.1.71): Create recurring prompts within a session using
 `CLAUDE_CODE_DISABLE_CRON` env var (v2.1.72): Set to immediately stop scheduled cron jobs mid-session.
 
 Monitor tool (v2.1.99): Streams events from background scripts. Each stdout line from the monitored process becomes a notification. Use Monitor instead of polling with sleep loops when watching long-running background tasks.
+
+`/proactive` alias (v2.1.105): `/proactive` is now an alias for `/loop`.
+
+`--resume`/`--continue` scheduled tasks (v2.1.105): `--resume` and `--continue` now resurrect unexpired scheduled tasks, so recurring prompts survive session restarts.

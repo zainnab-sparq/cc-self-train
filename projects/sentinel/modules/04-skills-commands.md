@@ -152,6 +152,9 @@ A few skill authoring features have landed recently. What do you think each one 
 
 **`/claude-api` bundled skill.** Claude Code ships with a built-in skill for building apps with the Claude API. It triggers automatically when your code imports `anthropic` or `@anthropic-ai/sdk`. Try typing `/claude-api` to see what it offers (v2.1.69).
 
+- **Description cap raised to 1,536 characters** (v2.1.105). Skill descriptions used to be limited to 250 characters -- now you can write longer descriptions to help Claude understand when to trigger the skill. Descriptions exceeding 1,536 characters are truncated with a startup warning.
+- **Built-in slash commands are now discoverable via the Skill tool** (v2.1.108). The model can invoke built-in commands like `/init`, `/review`, and `/security-review` without needing a SKILL.md file -- they are registered as built-in skills.
+
 Try adding `effort: low` to one of your existing skills and invoking it -- does the response feel different?
 
 > **STOP** -- Experiment with `effort` frontmatter and `${CLAUDE_SKILL_DIR}` in one of your skills.

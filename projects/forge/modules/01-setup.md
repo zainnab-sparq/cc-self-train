@@ -101,7 +101,9 @@ Try each shortcut below and note what happens:
 | `!` | Bash mode -- run a shell command directly |
 | `Shift+Enter` | Multiline input (or `\` + `Enter` in any terminal) |
 | `Esc Esc` | Rewind conversation/code to a previous point |
-| `Ctrl+O` | Toggle verbose output (then `/` to search transcript) |
+| `Ctrl+O` | Toggle between normal and verbose transcript view (then `/` to search transcript) |
+| `/focus` | Toggle focus view -- minimal display showing only last prompt and final response |
+| `Ctrl+A` (in `/resume` picker) | Show sessions from all projects (default shows current directory only) |
 | `Ctrl+R` | Reverse search command history |
 | `Ctrl+X Ctrl+E` | Open external editor for composing long prompts |
 | `/` | Start a command or skill |
@@ -132,6 +134,11 @@ That `/` shortcut opens Claude Code's built-in commands. You already know `/init
 | `/batch` | Runs commands in batch mode for non-interactive automation |
 | `/powerup` | Interactive lessons teaching Claude Code features with animated demos -- a great way to learn new features |
 | `/btw` | Ask a quick side question without interrupting Claude's current work -- like raising your hand in class |
+| `/tui fullscreen` | Switch to flicker-free alternate-screen rendering mid-conversation |
+| `/focus` | Toggle focus view -- minimal display showing only last prompt and final response |
+| `/recap` | Get a context summary when returning to a session (auto-triggers after 75+ minutes away) |
+| `/undo` | Alias for `/rewind` -- step back to a previous point in the conversation |
+| `/team-onboarding` | Generate a teammate ramp-up guide from your local CC usage |
 
 Try typing `/` and then pressing `Tab` to see the full list of available commands. This is worth doing -- there are more commands than the ones listed here, and Tab completion is the fastest way to discover them.
 

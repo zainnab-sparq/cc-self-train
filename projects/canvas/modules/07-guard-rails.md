@@ -110,6 +110,9 @@ Two new capabilities complete the permission lifecycle you started learning in 7
 
 Create a `PermissionDenied` hook that logs all denied operations to a file. Check `context/hooks.txt` for the input schema.
 
+- **`permissions.deny` precedence** (v2.1.101): `permissions.deny` rules now correctly override a PreToolUse hook's `permissionDecision: "ask"` -- previously the hook could downgrade a deny into a prompt.
+- **`PreToolUse` reliability** (v2.1.110): `additionalContext` from PreToolUse hooks is no longer dropped when the tool call fails -- context is preserved for Claude's error handling.
+
 > **STOP** -- Create a PermissionDenied hook and test the defer pattern.
 
 ### 7.9 Auto-Answering with PreToolUse Hooks

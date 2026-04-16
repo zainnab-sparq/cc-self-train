@@ -85,7 +85,9 @@ Try each of these shortcuts now. Do not skip this -- muscle memory matters.
 | `!` | Bash mode -- run a shell command directly | Type `! git status` |
 | `Shift+Enter` or `\` + `Enter` | Multiline input | Start a multi-line prompt |
 | `Esc Esc` | Rewind conversation/code to a previous point | Double-tap Escape |
-| `Ctrl+O` | Toggle verbose output (then `/` to search transcript) | Shows detailed tool usage |
+| `Ctrl+O` | Toggle between normal and verbose transcript view (then `/` to search transcript) | Shows detailed tool usage |
+| `/focus` | Toggle focus view -- minimal display showing only last prompt and final response | Try it mid-conversation |
+| `Ctrl+A` (in `/resume` picker) | Show sessions from all projects (default shows current directory only) | Use it inside `/resume` |
 | `Ctrl+R` | Reverse search through command history | Search your previous prompts |
 | `Ctrl+X Ctrl+E` | Open external editor for composing long prompts | Try it with a multi-line prompt |
 
@@ -107,6 +109,11 @@ The `/` shortcut from the table above opens Claude Code's built-in commands. You
 | `/batch` | Runs commands in batch mode for non-interactive automation |
 | `/powerup` | Interactive lessons teaching Claude Code features with animated demos -- a great way to learn new features |
 | `/btw` | Ask a quick side question without interrupting Claude's current work -- like raising your hand in class |
+| `/tui fullscreen` | Switch to flicker-free alternate-screen rendering mid-conversation |
+| `/focus` | Toggle focus view -- minimal display showing only last prompt and final response |
+| `/recap` | Get a context summary when returning to a session (auto-triggers after 75+ minutes away) |
+| `/undo` | Alias for `/rewind` -- step back to a previous point in the conversation |
+| `/team-onboarding` | Generate a teammate ramp-up guide from your local CC usage |
 
 Try typing `/` and pressing `Tab` to see the full list of available commands. Tab completion works here the same way it works for file paths -- it is the quickest way to discover what Claude Code can do.
 

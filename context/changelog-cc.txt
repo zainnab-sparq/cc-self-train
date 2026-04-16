@@ -1,4 +1,56 @@
 Changelog
+2.1.110
+/tui command and tui setting — /tui fullscreen switches to flicker-free alternate-screen rendering mid-conversation
+Push notification tool — Claude can send mobile push notifications when Remote Control and "Push when Claude decides" are enabled
+Ctrl+O now toggles normal/verbose transcript only; focus view moved to new /focus command
+autoScrollEnabled config to disable auto-scroll in fullscreen mode
+Ctrl+G external editor can show Claude's last response as commented context (enable via /config)
+/plugin Installed tab: f to favorite, disabled items behind a fold
+/doctor warns when MCP server defined in multiple scopes with different endpoints
+--resume/--continue resurrects unexpired scheduled tasks
+/autocompact, /context, /exit, /reload-plugins now work from Remote Control clients
+Write tool informs model when user edits proposed content in IDE diff before accepting
+Bash tool enforces documented maximum timeout instead of accepting arbitrarily large values
+Session recap enabled for telemetry-disabled users (Bedrock, Vertex, Foundry); opt out via /config or CLAUDE_CODE_ENABLE_AWAY_SUMMARY=0
+PermissionRequest hooks returning updatedInput re-checked against permissions.deny rules; bypassPermissions updates respect disableBypassPermissionsMode
+PreToolUse hook additionalContext no longer dropped when tool call fails
+Fixed skills with disable-model-invocation: true failing when invoked via /skill mid-message
+
+2.1.109
+Extended-thinking indicator with rotating progress hint
+
+2.1.108
+ENABLE_PROMPT_CACHING_1H env var for 1-hour prompt cache TTL; FORCE_PROMPT_CACHING_5M forces 5-minute TTL
+/recap command — manually invoke session recap for context summary when returning to a session
+Model discovers and invokes built-in slash commands (/init, /review, /security-review) via Skill tool
+/undo alias for /rewind
+/model warns before switching models mid-conversation (next response re-reads full history uncached)
+/resume picker defaults to sessions from current directory; Ctrl+A shows all projects
+Improved error messages: rate limits distinguished from plan usage limits; 5xx/529 link to status.claude.com; unknown slash commands suggest closest match
+
+2.1.107
+Thinking hints shown sooner during long operations
+
+2.1.105
+EnterWorktree tool path parameter to switch into an existing worktree
+PreCompact hook support: hooks can block compaction by exiting with code 2 or returning {"decision":"block"}
+Background monitor support for plugins via monitors manifest key (auto-arms at session start or skill invoke)
+/proactive alias for /loop
+Skill description listing cap raised from 250 to 1,536 characters; startup warning when descriptions are truncated
+WebFetch strips <style> and <script> contents so CSS-heavy pages no longer exhaust the content budget
+/doctor layout with status icons; f to have Claude fix reported issues
+Improved stale agent worktree cleanup for squash-merged PRs
+Improved MCP large-output truncation prompt with format-specific recipes
+
+2.1.101
+/team-onboarding command to generate a teammate ramp-up guide from local CC usage
+OS CA certificate store trusted by default for enterprise TLS proxies; set CLAUDE_CODE_CERT_STORE=bundled for bundled CAs only
+/ultraplan auto-creates default cloud environment
+Improved focus mode: Claude writes more self-contained summaries knowing you only see final message
+claude -p --resume <name> accepts session titles set via /rename or --name
+Settings resilience: unrecognized hook event names in settings.json no longer cause entire file to be ignored
+permissions.deny rules now override PreToolUse hook permissionDecision: "ask"
+
 2.1.100
 (identical to 2.1.99 — re-release)
 

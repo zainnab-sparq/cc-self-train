@@ -372,7 +372,7 @@ SubagentStop
 Runs when a Claude Code subagent (Task tool call) has finished responding.
 ​
 PreCompact
-Runs before Claude Code is about to run a compact operation.
+Runs before Claude Code is about to run a compact operation. As of v2.1.105, PreCompact hooks can block compaction by exiting with code 2 or returning JSON with {"decision":"block","reason":"..."}. Use this to prevent automatic compaction while still allowing manual /compact.
 Matchers:
 manual - Invoked from /compact
 auto - Invoked from auto-compact (due to full context window)
@@ -674,7 +674,7 @@ Notification	N/A, shows stderr to user only
 UserPromptSubmit	Blocks prompt processing, erases prompt, shows stderr to user only
 Stop	Blocks stoppage, shows stderr to Claude
 SubagentStop	Blocks stoppage, shows stderr to Claude subagent
-PreCompact	N/A, shows stderr to user only
+PreCompact	Blocks compaction (v2.1.105+), shows stderr to user
 Setup	N/A, shows stderr to user only
 SessionStart	N/A, shows stderr to user only
 SessionEnd	N/A, shows stderr to user only
@@ -1079,3 +1079,9 @@ sandbox.failIfUnavailable setting — set "sandbox": {"failIfUnavailable": true}
 hookSpecificOutput.sessionTitle in UserPromptSubmit hooks — set the session title from a hook by returning {"hookSpecificOutput": {"sessionTitle": "My Title"}} in the hook output. Available since v2.1.94.
 
 CLAUDE_CODE_SCRIPT_CAPS env var — limits per-session script invocations for subprocess sandboxing. Use to cap how many times hook scripts can be executed within a single session. Available since v2.1.99.
+
+Settings resilience (v2.1.101): unrecognized hook event names in settings.json no longer cause the entire file to be ignored — only the unrecognized event is skipped, and the rest of the configuration loads normally.
+
+PreToolUse `additionalContext` fix (v2.1.110): `additionalContext` is no longer dropped when the tool call fails. Previously, additional context provided by a PreToolUse hook was discarded if the tool execution failed.
+
+PermissionRequest `updatedInput` re-check (v2.1.110): `PermissionRequest` hooks returning `updatedInput` are now re-checked against `permissions.deny` rules. This prevents hooks from inadvertently bypassing deny rules by modifying tool input.

@@ -20,7 +20,7 @@ Ctrl+D	Exit Claude Code session	EOF signal
 Ctrl+G	Open in default text editor	Edit your prompt or custom response in your default text editor
 Ctrl+X Ctrl+E	Open in external editor	Readline-native alias for Ctrl+G. Available since v2.1.83
 Ctrl+L	Clear terminal screen and force full redraw (use Ctrl+U to clear prompt input instead)	Available since v2.1.83
-Ctrl+O	Toggle verbose output	Shows detailed tool usage and execution
+Ctrl+O	Toggle verbose transcript mode	Toggles between normal and verbose transcript mode (no longer cycles through focus view — use /focus for that)
 Ctrl+R	Reverse search command history	Search through previous commands interactively
 Ctrl+V or Cmd+V (iTerm2) or Alt+V (Windows)	Paste image from clipboard	Pastes an image or path to an image file
 Ctrl+B	Background running tasks	Backgrounds bash commands and agents. Tmux users press twice
@@ -94,8 +94,9 @@ Command	Purpose
 /reload-plugins	Activate pending plugin changes without restarting. Available since v2.1.69
 /plan [description]	Enter plan mode, optionally with an immediate prompt (e.g., /plan fix the auth bug). Updated in v2.1.72
 /rename <name>	Rename the current session for easier identification
-/resume [session]	Resume a conversation by ID or name, or open the session picker
+/resume [session]	Resume a conversation by ID or name, or open the session picker. Defaults to sessions from current directory; press Ctrl+A to show all projects
 /rewind	Rewind the conversation and/or code
+/undo	Alias for /rewind
 /simplify	Simplify complex code or explanations. Bundled command available since v2.1.63
 /stats	Visualize daily usage, session history, streaks, and model preferences
 /status	Open the Settings interface (Status tab) showing version, model, account, and connectivity
@@ -104,7 +105,9 @@ Command	Purpose
 /teleport	Resume a remote session from claude.ai (subscribers only)
 /theme	Change the color theme
 /release-notes	View release notes for any version (interactive version picker). Available since v2.1.92
+/team-onboarding	Generates a teammate ramp-up guide from your local CC usage
 /todos	List current TODO items
+/proactive	Alias for /loop — run a prompt on a recurring interval
 /usage	For subscription plans only: show plan usage limits and rate limit status
 ​
 Session personalization
@@ -257,3 +260,17 @@ Opt-in preview for Windows users: a native PowerShell tool with hardened securit
 ​
 Idle-return prompt
 When returning after 75+ minutes of inactivity, Claude nudges you to /clear to reduce unnecessary token re-caching. Available since v2.1.84.
+
+Session recap
+/recap manually invokes a session recap for a context summary when returning to a session. Auto-triggers after 75+ minutes of inactivity. Configure via /config or set CLAUDE_CODE_ENABLE_AWAY_SUMMARY=0 to disable. Session recap is now enabled for telemetry-disabled users. Available since v2.1.101.
+​
+TUI fullscreen mode
+/tui fullscreen switches to flicker-free alternate-screen rendering mid-conversation. The tui setting is also available in /config. Available since v2.1.105.
+
+autoScrollEnabled config: disables auto-scroll in fullscreen mode.
+​
+Focus view
+/focus toggles focus view (minimal display — last prompt + final response). Previously part of Ctrl+O; now separated. Available since v2.1.105.
+​
+/doctor improvements
+/doctor now shows status icons in its layout. Press f to have Claude fix reported issues. Available since v2.1.105.

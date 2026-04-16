@@ -77,7 +77,9 @@ Practice each shortcut in the table below. Do not skip this -- muscle memory wit
 | `!` | Bash mode -- run a shell command directly | Type `! git status` |
 | `Shift+Enter` or `\` + `Enter` | Multiline input | Type a two-line message |
 | `Esc Esc` | Rewind conversation/code to a previous state | Press Escape twice |
-| `Ctrl+O` | Toggle verbose output (then `/` to search transcript) | See detailed tool usage |
+| `Ctrl+O` | Toggle between normal and verbose transcript view (then `/` to search transcript) | See detailed tool usage |
+| `/focus` | Toggle focus view -- minimal display showing only last prompt and final response | Try it mid-conversation |
+| `Ctrl+A` (in `/resume` picker) | Show sessions from all projects (default shows current directory only) | Use it inside `/resume` |
 | `Ctrl+R` | Reverse search command history | Search through previous inputs |
 | `Ctrl+X Ctrl+E` | Open external editor for composing long prompts | Try it with a multi-line prompt |
 
@@ -99,6 +101,11 @@ The `/` shortcut from the table above opens Claude Code's built-in commands. You
 | `/batch` | Runs commands in batch mode for non-interactive automation |
 | `/powerup` | Interactive lessons teaching Claude Code features with animated demos -- a great way to learn new features |
 | `/btw` | Ask a quick side question without interrupting Claude's current work -- like raising your hand in class |
+| `/tui fullscreen` | Switch to flicker-free alternate-screen rendering mid-conversation |
+| `/focus` | Toggle focus view -- minimal display showing only last prompt and final response |
+| `/recap` | Get a context summary when returning to a session (auto-triggers after 75+ minutes away) |
+| `/undo` | Alias for `/rewind` -- step back to a previous point in the conversation |
+| `/team-onboarding` | Generate a teammate ramp-up guide from your local CC usage |
 
 Try typing `/` and pressing `Tab` to see the full list. Tab completion works here just like it does for file paths -- it is the fastest way to discover commands you did not know existed.
 

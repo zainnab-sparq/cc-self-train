@@ -955,6 +955,10 @@ Available since v2.1.51.
 - Sessions are auto-named from plan content when you accept a plan (v2.1.77).
 - `Edit` tool change (v2.1.89): The `Edit` tool now works on files previously viewed via `Bash` with `sed -n` or `cat`, without requiring a separate `Read` call first.
 - `--bare` flag (v2.1.82): For scripted automation, `claude -p --bare "prompt"` skips hooks, LSP, plugin sync, and skills. Useful in CI/CD pipelines and scripted workflows.
+- `EnterWorktree` path parameter (v2.1.105): The `EnterWorktree` tool now has a `path` parameter to switch into an existing worktree of the current repository, instead of always creating a new one.
+- `WebFetch` content stripping (v2.1.105): `WebFetch` strips `<style>` and `<script>` contents from fetched pages so CSS-heavy pages no longer exhaust the content budget.
+- OS CA certificate store (v2.1.105): The OS CA certificate store is trusted by default for enterprise TLS proxies. Set `CLAUDE_CODE_CERT_STORE=bundled` to use bundled CAs only.
+- Bash tool timeout enforcement (v2.1.105): The Bash tool now enforces the documented maximum timeout instead of accepting arbitrarily large values.
 
 ***
 
