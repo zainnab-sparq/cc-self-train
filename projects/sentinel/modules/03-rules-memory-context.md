@@ -6,6 +6,14 @@
 
 In this module you learn how to give Claude structured, persistent instructions that apply to specific parts of your codebase.
 
+> **New terms this module uses:**
+> - **Rule file** -- a Markdown file in `.claude/rules/` that tells Claude how to write code for a specific part of your project (example: "use functional components, not classes").
+> - **Frontmatter** -- a block of settings at the top of a Markdown file, fenced by `---` lines. Written in YAML. It tells a tool how to use the file.
+> - **YAML** -- a human-readable config format with indentation and colons (`name: react`, `paths: ["*.py"]`).
+> - **Path scoping** -- telling a rule file to only apply to certain directories or file types via its frontmatter. Example: a rule with `paths: ["*.py"]` only activates on Python files.
+>
+> If these are still fuzzy after the first few steps, the [glossary](../../../GLOSSARY.md) has them written out in more detail.
+
 ### 3.1 Create Path-Scoped Rules
 
 **Why this step:** Path-scoped rules let you give Claude different instructions for different parts of your codebase. Instead of one giant instruction file, you can say "when working on analyzers, follow these conventions" and "when working on tests, follow these conventions." Claude automatically loads only the rules relevant to the files it is touching.

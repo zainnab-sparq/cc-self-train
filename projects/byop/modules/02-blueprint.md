@@ -47,26 +47,16 @@ Claude does not get defensive about its plans -- ask hard questions and it will 
 
 **STOP -- What you just did:** You used plan mode to design a real feature for your project before writing a single line of code. This is a pattern you will use constantly: plan first, then build. The back-and-forth questioning in step 2.3 is how you pressure-test a design. Claude does not get defensive about its plans -- ask hard questions and it will revise.
 
-### 2.3b Choose Your Model
+### 2.3b Models Work Automatically for Now
 
-**Why this step:** Claude Code is not one model -- it is three. Picking the right one for the task at hand saves time and money, and gets you better results.
+**Why this step:** Claude Code picks a model for you based on your subscription -- for this training, the default just works. You will learn fine-grained model control later, once the basics are solid.
 
-Type `/model` to open the model picker. You will see three tiers:
+- **Pro / API users** default to Sonnet 4.6 -- the balanced model that handles most coding tasks well.
+- **Max / Team Premium users** default to Opus 4.6 -- the most capable model for complex reasoning.
 
-- **Haiku** -- fastest and cheapest. Great for quick lookups, simple edits, and repetitive tasks.
-- **Sonnet** -- the balanced default. Handles ~90% of everyday coding: building features, fixing bugs, writing tests.
-- **Opus** -- deepest reasoning. Use it for architecture decisions, complex refactors, and security reviews.
+Either default is great for what we are doing. Module 8 (subagents) shows when and how to switch models with `/model`, tune reasoning depth with `/effort`, or speed up Opus with `/fast`.
 
-You will also see an **effort level** bar at the bottom of the picker (low / medium / high) when Opus or Sonnet is selected. Use the `<-` `->` arrow keys to adjust it. Higher effort means deeper reasoning but slower responses. Medium is the default and works for most tasks. Try low for simple edits, high for complex design decisions.
-
-You just spent time in plan mode designing a feature. That kind of open-ended design thinking is where Opus shines -- deeper reasoning means better tradeoff analysis. Now that you are about to switch to execution mode and build, Sonnet is the right choice -- the instructions are clear and scoped.
-
-**Other useful commands:**
-
-- `Alt+P` (or `Option+P` on Mac) -- switch models without clearing your prompt
-- `/fast` -- toggle fast mode for quicker responses (same model, optimized output)
-
-**STOP -- What you just did:** You learned that Claude Code is not one-size-fits-all. Planning benefits from Opus's deeper reasoning. Mechanical code generation can use Sonnet. Quick lookups can use Haiku. Matching the model to the task is a habit that saves time and money. Use Opus for design and architecture, Sonnet for building. See `context/models.txt` for the full reference.
+**STOP -- What you just did:** You learned that Claude Code picks a model automatically. Trust the default for this training; you will learn when and how to switch it in Module 8. Full reference: `context/models.txt`.
 
 ### 2.4 Exit Plan Mode and Execute
 
@@ -91,6 +81,8 @@ Constraining scope is a key prompting skill -- it keeps Claude focused and preve
 - [ ] You are back in normal mode (check the mode indicator)
 
 ### 2.5 Create a Feature Branch
+
+**New to branches?** A Git branch is a parallel copy of your code where you can experiment safely. If the experiment works, you merge it back to main. If it fails, you delete the branch and main is untouched. The command below creates a new branch called `feature/your-feature-name` and switches you to it -- you can see which branch you are on anytime with `! git branch`.
 
 **Why this step:** Feature branches keep your experiments separate from working code. If something goes wrong, you can throw away the branch without affecting main. This is also how real teams work -- every feature gets its own branch.
 
@@ -160,6 +152,8 @@ is [what should happen instead]. Fix it.
 
 **Why this step:** Committing through Claude Code (using `!` prefix for shell commands) keeps everything in one place. You do not need to switch terminals. The merge back to main means your feature branch work is now part of your stable codebase.
 
+**If something goes wrong:** The most common issue on a first merge is a *conflict* -- when Git cannot figure out how to combine changes. For this module, `main` has not moved since you branched, so conflicts are not expected. If you do see a conflict message, do not panic -- ask Claude: "I got a merge conflict. Can you help me resolve it?" and Claude will walk you through it.
+
 ```
 ! git add -A
 ! git commit -m "feat: add [your feature description]"
@@ -169,19 +163,30 @@ is [what should happen instead]. Fix it.
 
 ### 2.11 Branching & Quick Plans
 
-Two workflow commands have been updated recently:
+Two workflow tricks to try now:
 
-**`/branch` (was `/fork`).** The command to branch your conversation into a new session has been renamed from `/fork` to `/branch` (v2.1.77). The old name still works as an alias, but `/branch` is now the canonical command.
+**`/branch`** -- makes a copy of your current conversation so you can explore a tangent without losing your main thread. Useful when you want to try something risky without burning your main session.
 
-**`/plan` with a description.** You can now pass a description directly: `/plan fix the auth bug`. This enters plan mode and immediately starts planning -- no extra prompt needed (v2.1.72).
+**`/plan <description>`** -- enters plan mode and immediately starts planning on the topic you describe. Example: `/plan add a contact form to the homepage`. Faster than pressing `Shift+Tab` then typing a prompt.
 
-**Session naming from plans.** When you accept a plan, your session is automatically named based on the plan content (v2.1.77). This makes `/resume` more useful since sessions have meaningful names.
+<details>
+<summary><strong>Advanced settings you can ignore for now</strong></summary>
 
-**Git instruction control.** The `includeGitInstructions` setting (or `CLAUDE_CODE_DISABLE_GIT_INSTRUCTIONS` env var) lets you remove Claude's built-in commit and PR workflow instructions from the system prompt. Useful if your CLAUDE.md already has custom git rules (v2.1.69).
+- **Session naming from plans.** When you accept a plan, your session is automatically named from the plan content, making `/resume` more useful.
+- **Git instruction control.** The `includeGitInstructions` setting (or `CLAUDE_CODE_DISABLE_GIT_INSTRUCTIONS` env var) lets you remove Claude's built-in commit workflow from the system prompt if your CLAUDE.md already has custom git rules.
+- **Edit without Read.** The Edit tool now works on files you have viewed via Bash (`sed -n` or `cat`), without requiring a separate `Read` call first -- fewer permission prompts when you are already looking at file content.
 
-**Edit without Read.** The Edit tool now works on files you've viewed via Bash (using `sed -n` or `cat`), without requiring a separate `Read` call first. This means fewer permission prompts when you're already looking at file content (v2.1.89).
+</details>
 
 > **STOP** -- Try `/plan add a contact form to the homepage` to test the quick-plan workflow.
+
+### Heads Up -- What's Coming in Module 3
+
+Module 3 introduces **rule files** -- small Markdown files in `.claude/rules/` that tell Claude how to write code for different parts of your project. You will see files that start with `---` marks at the top, followed by lines like `name: react` or `paths: ["*.py"]`.
+
+That opening block is called **frontmatter** -- metadata about the file, written in a format called **YAML**. Think of it like a form at the top of the document telling Claude Code how to use the file. One-sentence version: frontmatter lines are the file's settings, the body is its content. You will see much more of this starting in Module 3 and throughout skills, hooks, and agents.
+
+If either term is still fuzzy, the [glossary](../../../GLOSSARY.md) has plain-English definitions.
 
 ### Checkpoint
 

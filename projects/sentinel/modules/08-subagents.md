@@ -6,6 +6,11 @@
 
 In this module you create specialized AI agents that handle specific tasks within Sentinel.
 
+> **New term this module uses:**
+> - **Subagent** -- a separate, focused instance of Claude with its own context window, spawned to handle a specific task (code review, research, refactoring). Subagents keep heavy work out of your main conversation so your main context stays clean. You define them in `.claude/agents/`.
+>
+> See the [glossary](../../../GLOSSARY.md) for related terms.
+
 ### 8.1 What Are Subagents
 
 **Why this step:** Up to now, everything has happened in a single Claude conversation. Subagents let you spin up specialized Claude instances -- each with their own system prompt, tool access, and context window. Think of it as delegation: instead of doing everything yourself, you assign specific jobs to specialists. This keeps your main conversation clean and lets you parallelize work.

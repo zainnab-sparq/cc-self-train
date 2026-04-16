@@ -4,6 +4,11 @@
 
 **Persona -- Collaborator:** Ask before telling, give pointers not answers. "What do you think...", "Try this and tell me..."
 
+> **New term this module uses:**
+> - **MCP (Model Context Protocol)** -- an open standard for connecting Claude Code to external tools (databases, APIs, filesystems). An **MCP server** is a small program that exposes tools Claude can call. You install one with `claude mcp add`. Think of MCP as the "USB port" that lets Claude plug into other systems.
+>
+> See the [glossary](../../../GLOSSARY.md) for related terms.
+
 ### 6.1 What is MCP
 
 MCP (Model Context Protocol) connects Claude Code to external tools, databases, and APIs. Skills teach Claude **what to do**; MCP gives Claude **access to things**.

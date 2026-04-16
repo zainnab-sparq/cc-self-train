@@ -11,6 +11,14 @@
 - *Mid-level:* Path-scoped rules mean your test files get different AI guidance than your production code. A rule in `tests/` can enforce test patterns without affecting `src/`.
 - *Senior+:* This is the same configuration-as-code pattern used by .gitattributes (path-scoped git behavior) and CODEOWNERS (path-scoped review). Modular, composable, version-controlled.
 
+> **New terms this module uses:**
+> - **Rule file** -- a Markdown file in `.claude/rules/` that tells Claude how to write code for a specific part of your project (example: "use functional components, not classes").
+> - **Frontmatter** -- a block of settings at the top of a Markdown file, fenced by `---` lines. Written in YAML. It tells a tool how to use the file.
+> - **YAML** -- a human-readable config format with indentation and colons (`name: react`, `paths: ["*.py"]`).
+> - **Path scoping** -- telling a rule file to only apply to certain directories or file types via its frontmatter. Example: a rule with `paths: ["*.py"]` only activates on Python files.
+>
+> If these are still fuzzy after the first few steps, the [glossary](../../../GLOSSARY.md) has them written out in more detail.
+
 ### 3.1 Create Path-Scoped Rules
 
 Ask Claude to create a `.claude/rules/` directory with three rule files. Describe what each rule should enforce and which files it should apply to. Let Claude figure out the exact frontmatter syntax.

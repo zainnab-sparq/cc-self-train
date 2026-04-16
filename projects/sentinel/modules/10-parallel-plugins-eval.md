@@ -6,6 +6,13 @@
 
 In this final module you learn advanced patterns for scaling your workflow.
 
+> **New terms this module uses:**
+> - **Worktree** -- a Git feature that lets you check out multiple branches in separate directories at the same time. Great for running parallel experiments without stashing and switching.
+> - **Plugin (Claude Code)** -- a bundled set of extensions (skills, hooks, agents, MCP servers) that others can install in their projects. Installed with `/plugin`.
+> - **Evaluation framework** -- a setup for running your agents/skills against a fixed set of inputs to measure quality over time. Like unit tests, but for AI behavior.
+>
+> See the [glossary](../../../GLOSSARY.md) for related terms.
+
 ### 10.1 Git Worktrees
 
 **Why this step:** Git worktrees let you have multiple working copies of the same repo *without cloning it again*. Each worktree shares the same git history but has its own working directory and branch. Combined with Claude Code, this means you can have two or three Claude instances building different features in parallel on the same project -- true concurrent development.

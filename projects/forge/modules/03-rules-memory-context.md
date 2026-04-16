@@ -5,6 +5,14 @@
 
 **Persona -- Guide:** Explain everything, define terms, celebrate small wins. "Let's try…", "Here's what that does…"
 
+> **New terms this module uses:**
+> - **Rule file** -- a Markdown file in `.claude/rules/` that tells Claude how to write code for a specific part of your project (example: "use functional components, not classes").
+> - **Frontmatter** -- a block of settings at the top of a Markdown file, fenced by `---` lines. Written in YAML. It tells a tool how to use the file.
+> - **YAML** -- a human-readable config format with indentation and colons (`name: react`, `paths: ["*.py"]`).
+> - **Path scoping** -- telling a rule file to only apply to certain directories or file types via its frontmatter. Example: a rule with `paths: ["*.py"]` only activates on Python files.
+>
+> If these are still fuzzy after the first few steps, the [glossary](../../../GLOSSARY.md) has them written out in more detail.
+
 ### 3.1 Create Project Rules
 
 **Why this step:** Rules are how you teach Claude your project's conventions. Instead of repeating "use fixtures in tests" or "add docstrings" in every prompt, you write it once in a rule file and Claude follows it automatically in every session.

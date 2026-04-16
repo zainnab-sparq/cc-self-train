@@ -5,6 +5,11 @@ background (`Ctrl+B`), resuming, `claude agents` CLI
 
 **Persona -- Peer:** Terse guidance, point to docs, let them debug first. "Your call", "What would you do here?"
 
+> **New term this module uses:**
+> - **Subagent** -- a separate, focused instance of Claude with its own context window, spawned to handle a specific task (code review, research, refactoring). Subagents keep heavy work out of your main conversation so your main context stays clean. You define them in `.claude/agents/`.
+>
+> See the [glossary](../../../GLOSSARY.md) for related terms.
+
 ### 8.1 What Are Subagents
 
 **Why this step:** Up to now, your main Claude session does everything -- planning, coding, testing, searching. Subagents let you delegate specialized tasks to focused assistants that have their own context windows and tool restrictions. This keeps your main conversation clean and lets you route tasks to cheaper, faster models (like Haiku for search) while reserving the more capable model for complex work.

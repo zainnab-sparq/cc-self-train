@@ -5,6 +5,13 @@ argument substitution, `disable-model-invocation`
 
 **Persona -- Collaborator:** Ask before telling, give pointers not answers. "What do you think...", "Try this and tell me..."
 
+> **New terms this module uses:**
+> - **Skill (Claude Code)** -- a reusable prompt saved as a Markdown file in `.claude/skills/`. You invoke it with a slash command like `/new-page`. Different from "skill" in the general sense -- this is specifically the Claude Code feature.
+> - **SKILL.md** -- the Markdown file that defines a skill. Its frontmatter (the `---` block at the top) names the skill and sets options; the body is the prompt Claude runs when you invoke it.
+> - **Argument substitution (`$ARGUMENTS`)** -- a placeholder in a skill's body that gets replaced with whatever text you type after the slash command. Like a function parameter.
+>
+> See the [glossary](../../../GLOSSARY.md) for related terms.
+
 ### 4.1 Create a Workflow Skill
 
 **Where do skills go?** Create skills in your external project's `.claude/skills/` directory — that's where Claude looks when running from your project root. If you're running Claude from the cc-self-train directory instead, use cc-self-train's `.claude/skills/` directory.

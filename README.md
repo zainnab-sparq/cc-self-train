@@ -4,11 +4,29 @@
 
 ## TL;DR
 
-Developers face a widening gap between the availability of powerful AI coding agents and the learning pathways needed to use them effectively. **cc-self-train** is a modular interactive curriculum for learning Claude Code through hands-on project construction. The system introduces five contributions: (1) a **persona progression model** that adapts the AI instructor's tone across four stages (Guide → Collaborator → Peer → Launcher); (2) an **adaptive learning system** that observes engagement quality through hook-based heuristics and adjusts scaffolding at two timescales — streak detection for mid-module intervention and aggregate metrics for module-boundary persona changes; (3) a **cross-domain unified curriculum** in which five distinct project domains share identical feature sequencing; (4) a **step-pacing mechanism** with explicit pause primitives to manage information overload; and (5) an **auto-updating curriculum design** in which the onboarding agent detects upstream tool changes and updates teaching materials before instruction begins. A pilot evaluation with 27 participants shows statistically significant self-efficacy gains across all 10 assessed skill areas (*p* < 0.001), with the largest effects on advanced features such as hooks and custom skills.
+Learn [Claude Code](https://docs.anthropic.com/en/docs/claude-code) by building a real project. Pick from 5 project types, work through 10 hands-on modules, and go from "what is this?" to "I can build anything with this." No prior experience with AI coding tools needed — the curriculum adapts to your level and walks you through one step at a time.
 
----
+> **First time hearing of Claude Code?** It's a tool that runs in your terminal (the text window where you type commands). You describe in plain English what you want to build, and Claude writes the code, creates files, and runs commands — but only after you approve each one. Think of it as a very skilled coding partner that lives in your terminal. See the [glossary](GLOSSARY.md) for any unfamiliar terms below.
 
-The best way to learn Claude Code is to build something real with it. Pick a project, pick your language, and work through 10 hands-on modules that teach you every major [Claude Code](https://docs.anthropic.com/en/docs/claude-code) feature — not by reading about them, but by using them to ship actual code.
+<details>
+<summary>Under the hood: the research behind this curriculum</summary>
+
+**cc-self-train** implements five research contributions: (1) a **persona progression model** that adapts the AI instructor's tone across four stages (Guide → Collaborator → Peer → Launcher); (2) an **adaptive learning system** that observes engagement quality through hook-based heuristics and adjusts scaffolding at two timescales; (3) a **cross-domain unified curriculum** in which five project domains share identical feature sequencing; (4) a **step-pacing mechanism** with explicit pause primitives to manage information overload; and (5) an **auto-updating curriculum design** in which the onboarding agent detects upstream tool changes and updates teaching materials before instruction. A pilot evaluation with 27 participants showed statistically significant self-efficacy gains across all 10 skill areas (*p* < 0.001). Full details in the [paper](Agentic%20Education%20-%20Using%20Claude%20Code%20to%20Teach%20Claude%20Code.pdf).
+
+</details>
+
+## Prerequisites
+
+You should be comfortable with:
+
+- **Opening a terminal** and typing commands (`cd`, `ls`, `mkdir`)
+- **Basic Git** — at minimum, `git add` / `git commit` / `git push`. You don't need to understand branches yet; Module 2 will teach that.
+- **Installing software** on your computer (npm, brew, winget, or apt)
+- **Reading error messages** without panicking (a little anxiety is fine — the curriculum helps with that)
+
+If any of these feel unfamiliar, spend an hour with a basic terminal tutorial before starting. You'll have a much better experience.
+
+**Jargon reference:** If a term in the modules confuses you (hooks, frontmatter, YAML, MCP, etc.), check [GLOSSARY.md](GLOSSARY.md) for plain-English definitions.
 
 ## Quick Start
 

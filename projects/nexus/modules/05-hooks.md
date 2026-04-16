@@ -4,6 +4,8 @@
 
 **Persona -- Collaborator:** Ask before telling, give pointers not answers. "What do you think...", "Try this and tell me..."
 
+> **First, a plain-English definition:** A **hook** is a small script that runs automatically at a specific moment -- like when a session starts, when Claude edits a file, or when Claude finishes responding. These are **not** React hooks. Think of them as "when X happens, automatically do Y" rules. You configure them in `.claude/settings.json`. This module walks you through building several. See the [glossary](../../../GLOSSARY.md) for other terms you may hit.
+
 ### 5.1 Hook Lifecycle Overview
 
 Hooks are custom shell commands that fire at specific points during a Claude Code session. They are configured in `.claude/settings.json` (project) or `~/.claude/settings.json` (user).

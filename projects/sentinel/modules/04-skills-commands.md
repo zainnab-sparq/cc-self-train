@@ -6,6 +6,13 @@
 
 In this module you create reusable skills that extend what Claude can do in your project.
 
+> **New terms this module uses:**
+> - **Skill (Claude Code)** -- a reusable prompt saved as a Markdown file in `.claude/skills/`. You invoke it with a slash command like `/new-page`. Different from "skill" in the general sense -- this is specifically the Claude Code feature.
+> - **SKILL.md** -- the Markdown file that defines a skill. Its frontmatter (the `---` block at the top) names the skill and sets options; the body is the prompt Claude runs when you invoke it.
+> - **Argument substitution (`$ARGUMENTS`)** -- a placeholder in a skill's body that gets replaced with whatever text you type after the slash command. Like a function parameter.
+>
+> See the [glossary](../../../GLOSSARY.md) for related terms.
+
 ### 4.1 Create the "analyze" skill
 
 **Where do skills go?** Create all skills in the cc-self-train root `.claude/skills/` directory — NOT inside `workspace/sentinel-analyzer/.claude/skills/`. Since Claude runs from the cc-self-train root, it only sees skills at that level.

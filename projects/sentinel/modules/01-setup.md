@@ -26,9 +26,13 @@ claude
 
 Claude starts in interactive mode. You are now inside the Claude Code REPL.
 
+> **If you see "command not found: claude"** -- Claude Code is not installed or not on your PATH. Run `npm install -g @anthropic-ai/claude-code` (needs Node.js 18+). If that succeeds but the error persists, close and reopen your terminal so it picks up the new PATH. Still stuck? See the [Manual Setup section of the README](../../../README.md#manual-setup-if-you-prefer).
+
 ### 1.2b Terminal or IDE? Choose Your Setup
 
 Claude Code works in two modes. You can use either — or both at the same time.
+
+> **What is an "extension"?** In VS Code and Cursor, an extension is a plugin that adds features to the editor -- like a browser extension adds features to Chrome. You install them from a marketplace inside the editor.
 
 **VS Code / Cursor extension (recommended for beginners).** Install the Claude Code extension from the marketplace (`Ctrl+Shift+X` → search "Claude Code" → Install). You get a graphical chat panel, inline diffs, and you can see files appear in your editor's file tree as Claude creates them. The extension includes a built-in terminal, so you still have CLI access.
 
@@ -61,6 +65,8 @@ Claude will scan your (empty) project and generate a `CLAUDE.md` file. Since the
 
 Open the generated CLAUDE.md and read it. This file is Claude's persistent memory for your project. Everything you put here, Claude reads at the start of every session.
 
+> **If `/init` fails or seems to hang** -- most often this is a permission prompt waiting for your response in the terminal (scroll up to check). Approve it and `/init` will continue. If you see a real error, paste it to Claude and ask "what does this mean?" -- Claude can debug its own errors.
+
 Ask Claude to explain what CLAUDE.md does:
 
 ```
@@ -73,49 +79,67 @@ Claude should explain the four memory levels: managed policy, project memory (CL
 
 ### 1.5 Keyboard Shortcuts
 
-Try each of these shortcuts now. Do not skip this -- muscle memory matters.
+Start with just these three. You will learn the rest naturally as you go:
 
-| Shortcut | What it does | Try it now |
-|----------|-------------|------------|
-| `Tab` | Accept Claude's suggestion or autocomplete | Type a partial word and press Tab |
-| `Shift+Tab` | Toggle between normal mode, plan mode, and auto-accept mode | Press it twice to cycle through modes |
-| `Ctrl+C` | Cancel current generation or input | Press while Claude is responding |
-| `Ctrl+L` | Clear terminal screen (keeps conversation) | Press it -- notice history is preserved |
-| `@` | File path mention / autocomplete | Type `@` and start typing a filename |
-| `!` | Bash mode -- run a shell command directly | Type `! git status` |
-| `Shift+Enter` or `\` + `Enter` | Multiline input | Start a multi-line prompt |
-| `Esc Esc` | Rewind conversation/code to a previous point | Double-tap Escape |
-| `Ctrl+O` | Toggle between normal and verbose transcript view (then `/` to search transcript) | Shows detailed tool usage |
-| `/focus` | Toggle focus view -- minimal display showing only last prompt and final response | Try it mid-conversation |
-| `Ctrl+A` (in `/resume` picker) | Show sessions from all projects (default shows current directory only) | Use it inside `/resume` |
-| `Ctrl+R` | Reverse search through command history | Search your previous prompts |
-| `Ctrl+X Ctrl+E` | Open external editor for composing long prompts | Try it with a multi-line prompt |
+| Shortcut | What It Does |
+|----------|-------------|
+| `Tab` | Accept suggestion or autocomplete |
+| `@` | File path mention -- trigger file autocomplete |
+| `!` | Bash mode -- run a shell command directly (e.g., `! git status`) |
 
-**Engineering value:**
-- *Entry-level:* These shortcuts aren't just convenience — they're how you stay in flow. Switching between Claude and your terminal without reaching for the mouse keeps you productive.
-- *Mid-level:* Plan mode (Shift+Tab) is critical for code review workflows — you can have Claude analyze and propose changes without executing them, which is how you safely use AI on production code.
+Try these now:
 
-**STOP -- What you just did:** You practiced the keyboard shortcuts that keep you in flow. The most important ones to internalize: `Shift+Tab` for plan mode, `@` for file mentions, and `!` for shell commands. These three will be your most-used shortcuts across every remaining module.
+1. Type `@` and browse files in your project
+2. Type `! git status` to run a shell command
+3. Type a few characters and press `Tab` to see autocomplete
+
+<details>
+<summary><strong>More shortcuts</strong> -- open this when you are comfortable with the three above</summary>
+
+| Shortcut | What It Does |
+|----------|-------------|
+| `Shift+Tab` | Toggle between normal mode, plan mode, and auto-accept mode (Module 2 uses this) |
+| `Ctrl+C` | Cancel current input or generation |
+| `Ctrl+L` | Clear terminal screen (keeps conversation history) |
+| `Shift+Enter` | Multiline input (or `\` + `Enter` in any terminal) |
+| `Esc Esc` | Rewind conversation/code to a previous point -- your "undo button" |
+| `Ctrl+O` | Toggle between normal and verbose transcript view |
+| `Ctrl+A` (in `/resume` picker) | Show sessions from all projects |
+| `Ctrl+R` | Reverse search command history |
+| `Ctrl+X Ctrl+E` | Open external editor for composing long prompts |
+| `/` | Start a command or skill |
+
+Full reference: `context/interactive-mode.txt`.
+
+</details>
 
 ### 1.5b Slash Commands
 
-The `/` shortcut from the table above opens Claude Code's built-in commands. You have already used `/init` -- here are a few more to try now:
+Slash commands are Claude Code's built-in commands -- you type `/` followed by a command name. You already know `/init`. The two most useful right now:
 
 | Command | What It Does |
 |---------|-------------|
-| `/memory` | Opens your memory files (CLAUDE.md) in your editor so you can view and manage what Claude remembers across sessions |
-| `/copy` | Interactive picker that lets you select and copy specific code blocks from the conversation -- useful when Claude generates something you want to use elsewhere |
-| `/simplify` | Asks Claude to simplify complex code or explanations -- handy when a response feels like too much at once |
-| `/batch` | Runs commands in batch mode for non-interactive automation |
-| `/powerup` | Interactive lessons teaching Claude Code features with animated demos -- a great way to learn new features |
-| `/btw` | Ask a quick side question without interrupting Claude's current work -- like raising your hand in class |
-| `/tui fullscreen` | Switch to flicker-free alternate-screen rendering mid-conversation |
-| `/focus` | Toggle focus view -- minimal display showing only last prompt and final response |
+| `/memory` | Opens your memory files (CLAUDE.md) in your editor so you can view and edit what Claude remembers |
 | `/recap` | Get a context summary when returning to a session (auto-triggers after 75+ minutes away) |
-| `/undo` | Alias for `/rewind` -- step back to a previous point in the conversation |
-| `/team-onboarding` | Generate a teammate ramp-up guide from your local CC usage |
 
-Try typing `/` and pressing `Tab` to see the full list of available commands. Tab completion works here the same way it works for file paths -- it is the quickest way to discover what Claude Code can do.
+**The discovery trick:** Type `/` and press `Tab`. You will see every available command autocomplete. Whenever you wonder "can Claude Code do X?", this is the fastest way to check.
+
+<details>
+<summary><strong>More slash commands</strong> -- open when you want to explore</summary>
+
+| Command | What It Does |
+|---------|-------------|
+| `/copy` | Pick and copy specific code blocks from the conversation |
+| `/simplify` | Ask Claude to simplify a complex response |
+| `/powerup` | Interactive lessons with animated demos of CC features |
+| `/btw` | Ask a side question without interrupting Claude's current work |
+| `/focus` | Minimal display -- only last prompt and final response |
+| `/undo` | Step back to a previous point in the conversation (alias for `/rewind`) |
+| `/team-onboarding` | Generate a teammate ramp-up guide from your usage |
+| `/batch` | Run commands non-interactively for automation |
+| `/tui fullscreen` | Flicker-free alternate-screen rendering |
+
+</details>
 
 **STOP -- What you just did:** You explored slash commands and discovered Tab completion for the `/` menu. From here on, whenever you wonder "can Claude Code do X?", your first instinct should be to type `/` and Tab to check.
 
@@ -178,25 +202,24 @@ Your CLAUDE.md, rules, and project files persist between sessions. Conversation 
 - *Entry-level:* Session persistence means you can work on a problem across days without losing context — like saving your game.
 - *Mid-level:* Named sessions (`/rename`) let you maintain separate contexts for different workstreams — bug investigation in one, feature work in another.
 
-### 1.8 Session Personalization & Effort
+### 1.8 Make the Session Your Own
 
-Claude Code has added several ways to customize your session experience since the initial release.
+Two small personalizations to try now:
 
-**Color your prompt bar.** Type `/color` and pick a color — this sets your prompt bar's accent color for the session. Try `/color blue` or just `/color` to see options. Use `/color default` to reset.
+**Color your prompt bar.** Type `/color` and pick a color -- this sets the accent color on your prompt bar for the session. Try `/color blue` or just `/color` to see options.
 
-**Name your sessions.** Start Claude Code with `-n` to name it: `claude -n "Code Analyzer"`. You can also rename mid-session with `/rename`. Named sessions are easier to find in `/resume`.
+**Name your sessions.** Launch Claude with `-n`: `claude -n "Sentinel Build"`. Named sessions are easier to find when you come back via `/resume`.
 
-**Set effort level.** Type `/effort` to see the current reasoning depth (low, medium, or high). Try `/effort low` for quick lookups or `/effort high` for deeper reasoning. The effort level shows on the logo spinner.
+<details>
+<summary><strong>More customization you can explore later</strong></summary>
 
-**Model updates.** Opus 4.6 now defaults to 1M context window (Max/Team/Enterprise) and 64k output tokens. Use `modelOverrides` in settings to map model picker entries to custom provider model IDs.
+- **Effort level.** `/effort` shows your current reasoning depth (low / medium / high). Higher = deeper thinking, slower responses. Leave it on the default until you have a reason to change it -- Module 8 covers this in depth.
+- **Model overrides.** `modelOverrides` in settings lets you point the model picker at custom provider model IDs. Ignore until Module 8.
+- **Recent release notes.** `/release-notes` opens an interactive version picker. `/tag` and `/vim` were removed -- use `/config` -> Editor mode for vim keybindings and `/rename` for session naming.
 
-**Recent changes:**
+</details>
 
-- **Default effort is now high** (v2.1.94). API-key, Bedrock/Vertex, Team, and Enterprise users default to high effort. Use `/effort low` or `/effort medium` to dial it down for quick tasks.
-- **`/tag` and `/vim` removed** (v2.1.92). Use `/config` → Editor mode to toggle vim keybindings. Tags are no longer needed — use `/rename` for session naming.
-- **`/release-notes`** is now an interactive version picker (v2.1.92) — browse what changed in any CC release.
-
-> **STOP** — Try `/color` and `/effort` before continuing. Notice how the prompt bar and spinner change.
+> **STOP** -- Try `/color` and name your session with `-n` on your next launch. These small touches make sessions easier to find and more personal.
 
 ### Checkpoint
 

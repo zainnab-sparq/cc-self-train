@@ -6,6 +6,11 @@
 
 In this module you connect Claude to external tools through the Model Context Protocol.
 
+> **New term this module uses:**
+> - **MCP (Model Context Protocol)** -- an open standard for connecting Claude Code to external tools (databases, APIs, filesystems). An **MCP server** is a small program that exposes tools Claude can call. You install one with `claude mcp add`. Think of MCP as the "USB port" that lets Claude plug into other systems.
+>
+> See the [glossary](../../../GLOSSARY.md) for related terms.
+
 ### 6.1 What Is MCP
 
 Ask Claude what MCP is and how it extends Claude Code's capabilities.

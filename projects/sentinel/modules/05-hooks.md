@@ -6,6 +6,8 @@
 
 In this module you add automation that fires at key moments during your Claude Code session.
 
+> **First, a plain-English definition:** A **hook** is a small script that runs automatically at a specific moment -- like when a session starts, when Claude edits a file, or when Claude finishes responding. These are **not** React hooks. Think of them as "when X happens, automatically do Y" rules. You configure them in `.claude/settings.json`. This module walks you through building several. See the [glossary](../../../GLOSSARY.md) for other terms you may hit.
+
 ### 5.1 Understand the Hook Lifecycle
 
 **Why this step:** Hooks are the automation layer of Claude Code. They let you run scripts at specific moments -- when a session starts, after a file is written, when Claude finishes a task. Understanding the lifecycle is essential because each hook event fires at a different moment and has different capabilities (some can block actions, others can only observe).
