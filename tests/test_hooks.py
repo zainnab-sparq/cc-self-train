@@ -129,6 +129,46 @@ class TestCheckUpdatesScript:
             "check-updates.js must exit(0) on failure (silent fail)"
 
 
+class TestLearnerStreakCheckScript:
+    """Verify learner-streak-check.js (UserPromptSubmit hook) is configured correctly."""
+
+    SCRIPT = REPO_ROOT / ".claude" / "scripts" / "learner-streak-check.js"
+
+    def test_script_is_valid_js(self):
+        result = subprocess.run(
+            ["node", "--check", str(self.SCRIPT)],
+            capture_output=True, text=True, timeout=10,
+        )
+        assert result.returncode == 0, \
+            f"learner-streak-check.js has syntax errors: {result.stderr}"
+
+    def test_user_prompt_submit_hook_configured(self):
+        """settings.json must wire the script into UserPromptSubmit."""
+        path = REPO_ROOT / ".claude" / "settings.json"
+        data = json.loads(path.read_text(encoding="utf-8"))
+        assert "UserPromptSubmit" in data["hooks"], \
+            "settings.json must have a UserPromptSubmit hook"
+        commands = [
+            h.get("command", "")
+            for block in data["hooks"]["UserPromptSubmit"]
+            for h in block.get("hooks", [])
+        ]
+        assert any("learner-streak-check.js" in c for c in commands), \
+            "UserPromptSubmit must invoke learner-streak-check.js"
+
+    def test_respects_observe_lock(self):
+        """Must check for .observe-lock to avoid racing with observe-interaction.js."""
+        content = self.SCRIPT.read_text(encoding="utf-8")
+        assert ".observe-lock" in content, \
+            "learner-streak-check.js must check for .observe-lock"
+
+    def test_fires_only_on_transitions(self):
+        """Must compare current streak against lastAnnouncedStreak to suppress repeats."""
+        content = self.SCRIPT.read_text(encoding="utf-8")
+        assert "lastAnnouncedStreak" in content, \
+            "learner-streak-check.js must track lastAnnouncedStreak"
+
+
 class TestGitHubApiIntegration:
     """Integration tests that verify GitHub API parsing works end-to-end.
 
