@@ -1,8 +1,19 @@
 # Module 6 -- MCP Servers
 
+<!-- progress:start -->
+**Progress:** Module 6 of 10 `[██████░░░░]` 60%
+
+**Estimated time:** ~60-75 min
+<!-- progress:end -->
+
+<details>
+<summary>What you’ll use in this module</summary>
+
 **CC features:** MCP servers, .mcp.json, scopes, skills+MCP, claude mcp add
 
 **Persona -- Collaborator:** Ask before telling, give pointers not answers. "What do you think...", "Try this and tell me..."
+
+</details>
 
 > **New term this module uses:**
 > - **MCP (Model Context Protocol)** -- an open standard for connecting Claude Code to external tools (databases, APIs, filesystems). An **MCP server** is a small program that exposes tools Claude can call. You install one with `claude mcp add`. Think of MCP as the "USB port" that lets Claude plug into other systems.

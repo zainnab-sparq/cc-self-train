@@ -1,9 +1,20 @@
 # Module 4 -- Skills and Commands
 
+<!-- progress:start -->
+**Progress:** Module 4 of 10 `[████░░░░░░]` 40%
+
+**Estimated time:** ~45-60 min
+<!-- progress:end -->
+
+<details>
+<summary>What you’ll use in this module</summary>
+
 **CC features:** SKILL.md, frontmatter, custom slash commands, hot-reload,
 argument substitution, `disable-model-invocation`
 
 **Persona -- Collaborator:** Ask before telling, give pointers not answers. "What do you think...", "Try this and tell me..."
+
+</details>
 
 > **New terms this module uses:**
 > - **Skill (Claude Code)** -- a reusable prompt saved as a Markdown file in `.claude/skills/`. You invoke it with a slash command like `/new-page`. Different from "skill" in the general sense -- this is specifically the Claude Code feature.

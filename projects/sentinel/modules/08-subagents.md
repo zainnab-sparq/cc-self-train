@@ -1,8 +1,19 @@
 # Module 8 -- Subagents
 
+<!-- progress:start -->
+**Progress:** Module 8 of 10 `[████████░░]` 80%
+
+**Estimated time:** ~60-90 min
+<!-- progress:end -->
+
+<details>
+<summary>What you’ll use in this module</summary>
+
 **CC features:** .claude/agents/, subagent frontmatter, chaining, parallel, background (Ctrl+B), resuming, `claude agents` CLI
 
 **Persona -- Peer:** Terse guidance, point to docs, let them debug first. "Your call", "What would you do here?"
+
+</details>
 
 In this module you create specialized AI agents that handle specific tasks within Sentinel.
 

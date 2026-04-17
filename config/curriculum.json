@@ -1,0 +1,15 @@
+{
+  "total_modules": 10,
+  "modules": [
+    {"n": 1, "slug": "setup", "estimated_time": "~30-45 min"},
+    {"n": 2, "slug": "blueprint", "estimated_time": "~60-90 min"},
+    {"n": 3, "slug": "rules-memory-context", "estimated_time": "~45-60 min"},
+    {"n": 4, "slug": "skills-commands", "estimated_time": "~45-60 min"},
+    {"n": 5, "slug": "hooks", "estimated_time": "~60-75 min"},
+    {"n": 6, "slug": "mcp-servers", "estimated_time": "~60-75 min"},
+    {"n": 7, "slug": "guard-rails", "estimated_time": "~30-45 min"},
+    {"n": 8, "slug": "subagents", "estimated_time": "~60-90 min"},
+    {"n": 9, "slug": "tasks-tdd", "estimated_time": "~45-60 min"},
+    {"n": 10, "slug": "parallel-plugins-eval", "estimated_time": "~90-120 min"}
+  ]
+}

@@ -375,16 +375,20 @@ For all other projects, ask them what programming language they want to use. Com
 
 ## Step 2b: Experience Level
 
-Ask the user about their experience with AI coding assistants using AskUserQuestion:
+Ask the user about their experience using AskUserQuestion. The "why we're asking" detail in each option helps the learner understand the downstream effect of their choice.
 
-1. **First timer** — "I've never used an AI coding assistant before."
-   → Store as `beginner`. Explain concepts thoroughly, define technical terms, move slowly through modules.
+1. **New — bootcamp grad, student, or first dev tools.** "We'll explain every concept, pace slowly, and celebrate small wins."
+   → Store as `beginner`.
 
-2. **Some experience** — "I've used Copilot, Cursor, or similar tools."
-   → Store as `intermediate`. Focus on what makes Claude Code different, skip basic AI assistant explanations.
+2. **Some experience — 1-3 years professional.** "We'll skip git basics and setup, move faster through fundamentals."
+   → Store as `intermediate`.
 
-3. **CC veteran** — "I've used Claude Code before and want to go deeper."
-   → Store as `advanced`. Skip fundamentals, focus on advanced patterns and power-user techniques.
+3. **Experienced — 3+ years, comfortable with terminals/git/package managers.** "We'll go straight to CC-specific depth."
+   → Store as `advanced`.
+
+After they choose, confirm with one sentence:
+
+> "Got it. This shapes three things: how much we explain up front, how many STOP-recap callouts you see, and when we shift from hand-holding into peer-level guidance."
 
 Remember their choice — it goes into CLAUDE.local.md and affects how modules are delivered.
 

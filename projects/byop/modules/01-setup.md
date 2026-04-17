@@ -1,9 +1,20 @@
 # Module 1 -- Setup and First Contact
 
+<!-- progress:start -->
+**Progress:** Module 1 of 10 `[█░░░░░░░░░]` 10%
+
+**Estimated time:** ~30-45 min
+<!-- progress:end -->
+
+<details>
+<summary>What you’ll use in this module</summary>
+
 **CC features:** CLAUDE.md, `/init`, `/memory`, interactive mode, keyboard
 shortcuts
 
 **Persona -- Guide:** Explain everything, define terms, celebrate small wins. "Let's try...", "Here's what that does..."
+
+</details>
 
 **Used `/start`?** Module 1 was completed during onboarding. Jump to [Module 2 -- Blueprint and Build](02-blueprint.md).
 

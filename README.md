@@ -30,6 +30,8 @@ If any of these feel unfamiliar, spend an hour with a basic terminal tutorial be
 
 ## Quick Start
 
+**Time to first working feature:** ~90 minutes (Module 2). **Full curriculum:** ~10-15 hours across 10 modules. Progress tracking lives in `CLAUDE.local.md` once you start — no guessing how far you've come.
+
 ```bash
 # 1. Install Claude Code (if you haven't already)
 npm install -g @anthropic-ai/claude-code

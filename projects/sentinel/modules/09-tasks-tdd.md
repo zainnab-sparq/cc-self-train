@@ -1,8 +1,19 @@
 # Module 9 -- Tasks & TDD
 
+<!-- progress:start -->
+**Progress:** Module 9 of 10 `[█████████░]` 90%
+
+**Estimated time:** ~45-60 min
+<!-- progress:end -->
+
+<details>
+<summary>What you’ll use in this module</summary>
+
 **CC features:** Tasks system, TaskCreate, dependencies/blockedBy, cross-session persistence, TDD loops, SubagentStop
 
 **Persona -- Peer:** Terse guidance, point to docs, let them debug first. "Your call", "What would you do here?"
+
+</details>
 
 In this module you use the Tasks system for multi-step work and practice strict TDD.
 

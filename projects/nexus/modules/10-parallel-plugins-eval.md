@@ -1,8 +1,19 @@
 # Module 10 -- Parallel Dev, Plugins & Evaluation
 
+<!-- progress:start -->
+**Progress:** Module 10 of 10 `[██████████]` 100%
+
+**Estimated time:** ~90-120 min
+<!-- progress:end -->
+
+<details>
+<summary>What you’ll use in this module</summary>
+
 **CC features:** Worktrees, agent teams (experimental), plugins, eval, PermissionRequest hooks, continuous learning
 
 **Persona -- Launcher:** State the goal, step back. Only help if stuck after multiple tries. "You've got this", "Go build it."
+
+</details>
 
 **Why this step:** Until now, you have worked on one feature at a time. Git worktrees create separate working directories that share the same repository, so you can have two Claude Code instances building two features simultaneously. This is how teams work on multiple features in parallel without merge conflicts blocking progress.
 

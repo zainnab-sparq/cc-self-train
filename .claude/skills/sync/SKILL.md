@@ -248,6 +248,16 @@ For each new feature that maps to a module, update all 5 project variants (`proj
 
 9. For **Removed** features: append a note step before Checkpoint explaining the removal and the recommended alternative. Do NOT delete existing steps.
 
+10. **Regenerate module header blocks.** After all per-project edits are complete, run the shared header generator once:
+
+    ```bash
+    node .claude/scripts/render-module-headers.js
+    ```
+
+    The generator rewrites the block between `<!-- progress:start -->` and `<!-- progress:end -->` markers in every module file from `config/curriculum.json`. If the sync added or split a module, update `config/curriculum.json` first (total_modules, estimated_time for the new entry) so the regenerated bars reflect the new count.
+
+    Expected output on an already-correct run: `{"unchanged": 50}`. Any `"updated"` count is fine if you changed `config/curriculum.json`. An `"error"` or `"skipped"` count means a module file is missing the progress markers — investigate before continuing.
+
 ### Handling Foundational Features
 
 Most new CC features fit cleanly into the existing 10-module structure. Occasionally, a feature is so foundational that appending it to an existing module would be misleading — it deserves more prominence than "Step 5.14" buried at the bottom of a module.
