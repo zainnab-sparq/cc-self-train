@@ -25,6 +25,7 @@ SCRIPTS = REPO_ROOT / ".claude" / "scripts"
 OBSERVE = SCRIPTS / "observe-interaction.js"
 STREAK_CHECK = SCRIPTS / "learner-streak-check.js"
 CONTEXT = SCRIPTS / "learner-context.js"
+MODULE_BOUNDARY = SCRIPTS / "module-boundary.js"
 
 NODE = shutil.which("node")
 
@@ -79,6 +80,29 @@ def _run_context(cwd: pathlib.Path) -> subprocess.CompletedProcess:
         text=True,
         timeout=5,
     )
+
+
+def _run_module_boundary(cwd: pathlib.Path) -> subprocess.CompletedProcess:
+    return subprocess.run(
+        [NODE, str(MODULE_BOUNDARY)],
+        cwd=cwd,
+        input="",
+        capture_output=True,
+        text=True,
+        timeout=5,
+    )
+
+
+def _seed_claude_local(cwd: pathlib.Path, experience: str = "beginner", effective: str = None) -> None:
+    effective = effective if effective is not None else experience
+    content = (
+        "# Active Project\n"
+        "Project: Canvas | Language: HTML/CSS/JS | OS: Windows | Directory: workspace/x | Current Module: 2\n"
+        f"Experience Level: {experience}\n"
+        f"Effective Level: {effective}\n"
+        "Engagement Trend: not yet measured\n"
+    )
+    (cwd / "CLAUDE.local.md").write_text(content, encoding="utf-8")
 
 
 def _profile(cwd: pathlib.Path) -> dict:
@@ -401,6 +425,197 @@ def test_context_emits_banner_before_narrative_threshold(tmp_path):
     assert result.returncode == 0
     assert "SHOW TO LEARNER" in result.stdout
     assert "LEARNER PROFILE" not in result.stdout  # narrative still gated
+
+
+# --- module-boundary.js (PR #5) -------------------------------------------
+
+
+def test_module_boundary_bumps_level_up_on_high_engagement(tmp_path):
+    _seed_claude_local(tmp_path, experience="beginner", effective="beginner")
+    _seed_profile(
+        tmp_path,
+        currentModule=2,
+        moduleAverageQuality=4.5,
+        moduleInteractions={
+            "concept_question": 4,
+            "independent_exploration": 3,
+            "debug_attempt": 1,
+            "answer_seeking": 1,
+            "passive_acceptance": 0,
+            "neutral": 0,
+        },
+    )
+
+    result = _run_module_boundary(tmp_path)
+
+    assert result.returncode == 0, result.stderr
+    summary = json.loads(result.stdout)
+    assert summary["levelChanged"] is True
+    assert summary["oldLevel"] == "beginner"
+    assert summary["newLevel"] == "intermediate"
+    claude_local = (tmp_path / "CLAUDE.local.md").read_text(encoding="utf-8")
+    assert "Effective Level: intermediate" in claude_local
+
+
+def test_module_boundary_bumps_level_down_on_low_engagement(tmp_path):
+    _seed_claude_local(tmp_path, experience="intermediate", effective="intermediate")
+    _seed_profile(
+        tmp_path,
+        currentModule=3,
+        moduleAverageQuality=1.5,
+        moduleInteractions={
+            "concept_question": 0,
+            "independent_exploration": 0,
+            "debug_attempt": 1,
+            "answer_seeking": 4,
+            "passive_acceptance": 2,
+            "neutral": 0,
+        },
+    )
+
+    result = _run_module_boundary(tmp_path)
+
+    summary = json.loads(result.stdout)
+    assert summary["levelChanged"] is True
+    assert summary["newLevel"] == "beginner"
+    assert "Effective Level: beginner" in (tmp_path / "CLAUDE.local.md").read_text(encoding="utf-8")
+
+
+def test_module_boundary_no_change_in_middle_range(tmp_path):
+    _seed_claude_local(tmp_path, experience="beginner", effective="beginner")
+    _seed_profile(
+        tmp_path,
+        currentModule=2,
+        moduleAverageQuality=3.0,
+        moduleInteractions={
+            "concept_question": 2,
+            "independent_exploration": 1,
+            "debug_attempt": 1,
+            "answer_seeking": 2,
+            "passive_acceptance": 1,
+            "neutral": 0,
+        },
+    )
+
+    result = _run_module_boundary(tmp_path)
+
+    summary = json.loads(result.stdout)
+    assert summary["levelChanged"] is False
+    assert summary["newLevel"] == "beginner"
+    profile = _profile(tmp_path)
+    assert profile.get("pendingBanners", []) == []
+
+
+def test_module_boundary_stays_at_bounds(tmp_path):
+    _seed_claude_local(tmp_path, experience="beginner", effective="beginner")
+    _seed_profile(
+        tmp_path,
+        currentModule=2,
+        moduleAverageQuality=1.0,
+        moduleInteractions={
+            "concept_question": 0,
+            "independent_exploration": 0,
+            "debug_attempt": 0,
+            "answer_seeking": 5,
+            "passive_acceptance": 0,
+            "neutral": 0,
+        },
+    )
+
+    result = _run_module_boundary(tmp_path)
+
+    summary = json.loads(result.stdout)
+    assert summary["levelChanged"] is False  # can't go below beginner
+    assert summary["newLevel"] == "beginner"
+
+
+def test_module_boundary_resets_per_module_counters_and_bumps_currentModule(tmp_path):
+    _seed_claude_local(tmp_path, experience="beginner", effective="beginner")
+    _seed_profile(
+        tmp_path,
+        currentModule=2,
+        moduleAverageQuality=3.0,
+        moduleInteractions={
+            "concept_question": 2,
+            "independent_exploration": 1,
+            "debug_attempt": 0,
+            "answer_seeking": 1,
+            "passive_acceptance": 0,
+            "neutral": 0,
+        },
+        moduleQualityScores=[5, 4, 5, 1],
+    )
+
+    _run_module_boundary(tmp_path)
+
+    profile = _profile(tmp_path)
+    assert profile["currentModule"] == 3
+    assert profile["moduleInteractions"]["concept_question"] == 0
+    assert profile["moduleInteractions"]["answer_seeking"] == 0
+    assert profile["moduleQualityScores"] == []
+    assert profile["moduleAverageQuality"] == 0
+
+
+def test_module_boundary_queues_banner_on_level_change(tmp_path):
+    _seed_claude_local(tmp_path, experience="beginner", effective="beginner")
+    _seed_profile(
+        tmp_path,
+        currentModule=2,
+        moduleAverageQuality=4.5,
+        moduleInteractions={
+            "concept_question": 5,
+            "independent_exploration": 2,
+            "debug_attempt": 0,
+            "answer_seeking": 1,
+            "passive_acceptance": 0,
+            "neutral": 0,
+        },
+    )
+
+    _run_module_boundary(tmp_path)
+
+    profile = _profile(tmp_path)
+    banners = profile["pendingBanners"]
+    assert len(banners) == 1
+    b = banners[0]
+    assert b["type"] == "module-boundary"
+    assert b["payload"]["module"] == 2
+    assert b["payload"]["oldLevel"] == "beginner"
+    assert b["payload"]["newLevel"] == "intermediate"
+    assert b["acknowledged"] is False
+
+
+def test_module_boundary_skips_when_no_profile(tmp_path):
+    _seed_claude_local(tmp_path)
+
+    result = _run_module_boundary(tmp_path)
+
+    summary = json.loads(result.stdout)
+    assert summary["status"] == "skipped"
+
+
+def test_context_emits_module_boundary_banner(tmp_path):
+    import datetime
+    now_iso = datetime.datetime.now(datetime.timezone.utc).isoformat()
+    _seed_profile(
+        tmp_path,
+        pendingBanners=[
+            {
+                "type": "module-boundary",
+                "payload": {"module": 2, "score": 4.2, "oldLevel": "beginner", "newLevel": "intermediate"},
+                "created": now_iso,
+                "acknowledged": False,
+            }
+        ],
+    )
+
+    result = _run_context(tmp_path)
+
+    assert result.returncode == 0
+    assert "SHOW TO LEARNER" in result.stdout
+    assert "Module 2" in result.stdout
+    assert "intermediate" in result.stdout
+    assert "4.2/5" in result.stdout
 
 
 def test_end_to_end_observe_then_streak_then_context(tmp_path):
