@@ -1,5 +1,38 @@
 # Changelog
 
+## v2.23.0 (2026-04-17)
+
+**Adaptive system closure + student-visible progress + /stuck + /experience.** Four merged PRs since v2.22.0, 27 new tests, 609 total passing.
+
+### Junior-persona content fixes (from PR #1)
+- Define "skills vs commands" distinction at top of Module 4 across all 5 projects — resolves Jordan's "what's the difference?" confusion
+- Introduce MCP transports (stdio / http / sse) in new §6.1b of Module 6 before first use — previously appeared as unexplained `--transport` flags
+- Add "Choose Your Battles" section to Modules 4 and 5 (all 5 projects) — addresses over-engineering risk with rule-of-thumb limits (2-3 skills, 2 hooks)
+- Replace abstract plan-mode pitch in Module 2 §2.1 with concrete before/after vignette (Dev A vs. Dev B)
+
+### Adaptive system audit + infrastructure
+- `docs/ADAPTIVE-SYSTEM-AUDIT.md` — component inventory, 5-scenario flow trace, prioritized gap list, verifiable verdict
+- `tests/test_adaptive_system.py` — 27 integration tests covering observation / streak detection / banner emission / module-boundary algorithm (no mocking, all scripts invoked via `node` subprocess)
+
+### Student-visible progress
+- `config/curriculum.json` — single source of truth for module count and per-module time estimates
+- `.claude/scripts/render-module-headers.js` — idempotent generator, wired into `/sync` Step 5.10
+- Progress bar + time estimate at the top of all 50 module files: `**Progress:** Module N of 10 [███░░░░░░░] 30%`
+- Module metadata (CC features, Persona tag) collapsed into `<details>` across all 50 files
+- Enriched `/start` Step 2b copy with "why we're asking" rationale on each experience-level option
+- README "Time to first working feature: ~90 minutes" callout above Quick Start
+
+### New skills and learner-visible adaptive signals
+- `/stuck` skill — reads Current Module + Step from CLAUDE.local.md, re-explains at a deeper tier than the learner's Experience Level; single callout in Module 1 + README
+- `/experience` skill — lets the learner change Experience Level mid-course without restarting
+- `pendingBanners` queue on `learner-profile.json` — observe-interaction.js queues events on streak transitions, learner-context.js drains and emits verbatim learner-facing banners (`SHOW TO LEARNER`), marks acknowledged so each fires once
+- Banners older than 24h silently acknowledged, not surfaced
+
+### Module-boundary enforcement (biggest audit gap closed)
+- `.claude/scripts/module-boundary.js` — runs the 3.8 / 2.0 threshold algorithm deterministically when the learner says "next module", bumps Effective Level in CLAUDE.local.md, resets per-module counters, bumps `currentModule`, queues a module-boundary banner if the level changed
+- CLAUDE.md updated to invoke the script (replacing the seven-step prose algorithm) and reversed to surface level shifts via banner rather than stay silent
+- `currentModule` drift gap closed — script now bumps it every boundary
+
 ## v2.22.0 (2026-04-15)
 
 - Add mid-session streak detection via UserPromptSubmit hook — streaks now surface immediately instead of waiting for next session start
