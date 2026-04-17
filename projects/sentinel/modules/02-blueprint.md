@@ -8,7 +8,13 @@ In this module you design Sentinel's architecture in plan mode, then switch to e
 
 ### 2.1 Enter Plan Mode
 
-**Why this step:** Plan mode is Claude Code's "think before you build" feature. Instead of jumping straight into generating files, you get to explore architecture decisions with Claude while it is prevented from changing anything. This is where you catch design mistakes cheaply -- before they are baked into code.
+**Why this actually matters -- a story:**
+
+Dev A asks Claude to "refactor the auth flow to use JWT." Claude touches 14 files, introduces a bug in the refresh logic, and Dev A spends 3 hours reverting half the changes and debugging the other half.
+
+Dev B enters plan mode first and asks the same question. Claude produces a 6-step plan, flags that the refresh logic is subtle, and asks whether the existing session-based code needs to coexist. Dev B clarifies the scope, agrees to the plan, exits plan mode -- and the refactor lands clean in 20 minutes.
+
+Same model, same task, same prompt. **The difference is plan mode.** You spend 2 minutes planning to save 3 hours untangling. Use it every time the answer might touch more than one file.
 
 So far, you've been talking to Claude in normal mode — you say something, Claude does it. Press `Shift+Tab` until you see the mode indicator switch to **Plan Mode**. **Instead of writing code, Claude thinks *with* you — it analyzes, suggests architecture, and asks clarifying questions, but doesn't touch any files.** This is read-only exploration.
 
