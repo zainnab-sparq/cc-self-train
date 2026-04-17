@@ -17,6 +17,16 @@ MCP (Model Context Protocol) is an open standard for connecting AI tools to
 external data sources and APIs. MCP servers give Claude Code access to
 databases, file systems, APIs, and more.
 
+### 6.1b MCP Transports
+
+MCP servers talk to Claude Code over a **transport**. You will see three:
+
+- **`stdio`** (default) -- the MCP server runs as a subprocess Claude spawns. The server reads requests from stdin and writes responses to stdout. Use this for local tools (filesystems, databases, local APIs). This is what 90% of `claude mcp add` commands use.
+- **`http`** -- the MCP server is a long-running HTTP service. You give Claude a URL and it makes HTTP requests to the server. Use this when the MCP server is shared across machines or already running as a web service.
+- **`sse`** (server-sent events) -- same as HTTP but the server streams events back. Use this when you want live updates (file watchers, log streams).
+
+**Rule of thumb:** Start with `stdio`. Move to `http` if you need the server to run on a different machine. Use `sse` only if you need push-style updates from the server.
+
 ### 6.2 Add an MCP Server Relevant to Your Stack
 
 Pick the MCP server that best fits your project. Here are common choices by project type:
