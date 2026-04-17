@@ -14,6 +14,7 @@ const path = require("path");
 
 const PROFILE_PATH = path.join(process.cwd(), "learner-profile.json");
 const BANNER_TTL_MS = 24 * 60 * 60 * 1000;
+const LEVELS = ["beginner", "intermediate", "advanced"];
 
 function drainBanners(profile) {
   const banners = Array.isArray(profile.pendingBanners) ? profile.pendingBanners : [];
@@ -35,6 +36,16 @@ function drainBanners(profile) {
       lines.push("\u{1F440} Noticed a run of struggle \u2014 shifting teaching style for a bit.");
     } else if (banner.type === "engagement") {
       lines.push("\u{1F4C8} Noticed a run of engagement \u2014 matching your energy with deeper content.");
+    } else if (banner.type === "module-boundary") {
+      const p = banner.payload || {};
+      const up = LEVELS.indexOf(p.newLevel) > LEVELS.indexOf(p.oldLevel);
+      const emoji = up ? "\u{1F4C8}" : "\u{1F4C9}";
+      const tail = up
+        ? `shifting pace to ${p.newLevel}.`
+        : `slowing to ${p.newLevel} for more scaffolding.`;
+      lines.push(
+        `${emoji} Module ${p.module} complete \u2014 engagement ${p.score}/5. ${tail}`,
+      );
     } else {
       // Unknown banner type -- skip but acknowledge so it doesn't re-fire.
       banner.acknowledged = true;
