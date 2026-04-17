@@ -13,6 +13,12 @@ In this module you create reusable skills that extend what Claude can do in your
 >
 > See the [glossary](../../../GLOSSARY.md) for related terms.
 
+**What's the difference between a skill and a command?**
+
+- A **command** is anything you invoke by typing `/name` in Claude Code. Built-ins like `/init`, `/memory`, `/compact` are commands.
+- A **skill** is a *user-defined command* -- a Markdown file you put in `.claude/skills/` that becomes a new `/command`. Skills let you package your own prompts, rules, and tool allowlists as first-class commands.
+- **All skills are commands; not all commands are skills.** The module title "Skills & Commands" means "the skill system, which is how you add new commands."
+
 ### 4.1 Create the "analyze" skill
 
 **Where do skills go?** Create all skills in the cc-self-train root `.claude/skills/` directory — NOT inside `workspace/sentinel-analyzer/.claude/skills/`. Since Claude runs from the cc-self-train root, it only sees skills at that level.
