@@ -126,6 +126,10 @@ function loadProfile() {
       recentCategories: [],
       struggleStreak: false,
       engagementStreak: false,
+      // Queue of {type, created, acknowledged} events written on streak
+      // transitions. learner-context.js drains this queue on SessionStart,
+      // emits one-line banners, and marks entries acknowledged.
+      pendingBanners: [],
       averageQuality: 0,
       moduleAverageQuality: 0,
       recentTrend: "not yet measured",
@@ -192,8 +196,29 @@ async function main() {
     const last3 = rc.slice(-3);
     const struggle = ["answer_seeking", "passive_acceptance"];
     const engaged = ["concept_question", "independent_exploration"];
+    const prevStruggleStreak = profile.struggleStreak === true;
+    const prevEngagementStreak = profile.engagementStreak === true;
     profile.struggleStreak = last3.length >= 3 && last3.every((c) => struggle.includes(c));
     profile.engagementStreak = last3.length >= 3 && last3.every((c) => engaged.includes(c));
+
+    // Queue a learner-visible banner on transitions INTO a streak.
+    // Transitions out (streak ending) stay silent — the banner message only
+    // makes sense while the run is active.
+    profile.pendingBanners = profile.pendingBanners || [];
+    if (!prevStruggleStreak && profile.struggleStreak) {
+      profile.pendingBanners.push({
+        type: "struggle",
+        created: new Date().toISOString(),
+        acknowledged: false,
+      });
+    }
+    if (!prevEngagementStreak && profile.engagementStreak) {
+      profile.pendingBanners.push({
+        type: "engagement",
+        created: new Date().toISOString(),
+        acknowledged: false,
+      });
+    }
 
     profile.lastUpdated = new Date().toISOString();
 

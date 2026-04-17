@@ -388,7 +388,7 @@ Ask the user about their experience using AskUserQuestion. The "why we're asking
 
 After they choose, confirm with one sentence:
 
-> "Got it. This shapes three things: how much we explain up front, how many STOP-recap callouts you see, and when we shift from hand-holding into peer-level guidance."
+> "Got it. This shapes three things: how much we explain up front, how many STOP-recap callouts you see, and when we shift from hand-holding into peer-level guidance. You can change it anytime with `/experience`."
 
 Remember their choice — it goes into CLAUDE.local.md and affects how modules are delivered.
 

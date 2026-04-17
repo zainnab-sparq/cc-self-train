@@ -1,6 +1,12 @@
 # Adaptive Persona System — Audit
 
-## Verdict
+## Verdict (updated after PR #3)
+
+**Partially works — streak-transition visibility is now closed; module-boundary enforcement still isn't.**
+
+Update: PR #3 added a `pendingBanners` queue to `learner-profile.json` that `observe-interaction.js` writes to on streak transitions and `learner-context.js` drains on SessionStart. The banner emits a learner-facing one-liner (`SHOW TO LEARNER`) distinct from the existing Claude-facing narrative, and is marked acknowledged once shown so it only fires once. This closes the "no learner-visible signal" gap for streak events. Plus new skills `/stuck` and `/experience` let learners act on what they see. Module-boundary enforcement (the 3.8/2.0 threshold algorithm in CLAUDE.md) is still prose-only and deferred.
+
+## Verdict (original)
 
 **Partially works — the core loop is real, the last mile isn't enforced.**
 
@@ -82,6 +88,11 @@ Three gaps matter most:
 - Struggle/engagement streak detection over last 3 non-neutral.
 - Streak-transition alerts via UserPromptSubmit hook.
 - Engagement narrative injection via SessionStart hook, gated at ≥5 non-neutral interactions.
+- **[PR #3]** Banner event queued in `pendingBanners` on streak transition.
+- **[PR #3]** Learner-facing banner emitted from SessionStart, marked acknowledged once shown.
+- **[PR #3]** Stale banners (>24h) silently acknowledged, not surfaced.
+- **[PR #3]** `/stuck` skill re-explains the current step at a different tier.
+- **[PR #3]** `/experience` skill updates `Experience Level` + `Effective Level` mid-course.
 
 ### Implemented but unverifiable
 

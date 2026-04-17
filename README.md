@@ -53,6 +53,8 @@ claude
 
 That's it. Claude will walk you through picking a project, checking your dev environment, and scaffolding everything. You'll need an [Anthropic API key](https://console.anthropic.com/) or a Claude subscription (Pro, Max, or Team).
 
+**Stuck on a step?** Once you're in the curriculum, type `/stuck` anytime — it reads where you are and re-explains differently. No judgment, no "try harder."
+
 > **What are those hooks?** This repo includes two small SessionStart hooks. The first shows the welcome banner above. The second pings GitHub to check if a newer version of Claude Code is available — if so, it tells you to run `claude update`. Both are read-only, open source, and visible in `.claude/scripts/`.
 
 ## Who This Is For

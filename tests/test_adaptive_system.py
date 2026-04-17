@@ -277,6 +277,132 @@ def test_context_injects_scaffolding_note_for_struggle(tmp_path):
 # --- End-to-end flow --------------------------------------------------------
 
 
+# --- Banner queueing (observe-interaction.js PR #3 addition) ---------------
+
+
+def test_observe_queues_banner_on_struggle_streak_transition(tmp_path):
+    transcript = tmp_path / "transcript.jsonl"
+    for msg in ["just do it", "just write it", "just fix it"]:
+        _write_transcript(transcript, msg)
+        assert _run_observe(tmp_path, transcript).returncode == 0
+
+    profile = _profile(tmp_path)
+    assert profile["struggleStreak"] is True
+    assert len(profile["pendingBanners"]) == 1
+    banner = profile["pendingBanners"][0]
+    assert banner["type"] == "struggle"
+    assert banner["acknowledged"] is False
+    assert "created" in banner
+
+
+def test_observe_queues_banner_on_engagement_streak_transition(tmp_path):
+    transcript = tmp_path / "transcript.jsonl"
+    for msg in [
+        "Why does this work?",
+        "I tried running it and noticed something.",
+        "Can you explain the difference?",
+    ]:
+        _write_transcript(transcript, msg)
+        assert _run_observe(tmp_path, transcript).returncode == 0
+
+    profile = _profile(tmp_path)
+    assert profile["engagementStreak"] is True
+    assert len(profile["pendingBanners"]) == 1
+    assert profile["pendingBanners"][0]["type"] == "engagement"
+
+
+def test_observe_does_not_requeue_banner_while_streak_continues(tmp_path):
+    transcript = tmp_path / "transcript.jsonl"
+    # Trigger the streak.
+    for msg in ["just do it", "just write it", "just fix it"]:
+        _write_transcript(transcript, msg)
+        assert _run_observe(tmp_path, transcript).returncode == 0
+    # One more answer_seeking -- streak is still active but no NEW transition.
+    _write_transcript(transcript, "just create it")
+    assert _run_observe(tmp_path, transcript).returncode == 0
+
+    profile = _profile(tmp_path)
+    assert profile["struggleStreak"] is True
+    assert len(profile["pendingBanners"]) == 1, "banner should fire once per entry, not per turn"
+
+
+# --- Banner emission (learner-context.js PR #3 addition) -------------------
+
+
+def _banner_profile(created_iso: str, *, acknowledged: bool = False, banner_type: str = "struggle") -> dict:
+    return {
+        "pendingBanners": [
+            {"type": banner_type, "created": created_iso, "acknowledged": acknowledged},
+        ],
+    }
+
+
+def test_context_emits_pending_banner_and_marks_acknowledged(tmp_path):
+    import datetime
+    now_iso = datetime.datetime.now(datetime.timezone.utc).isoformat()
+    _seed_profile(tmp_path, **_banner_profile(now_iso, banner_type="struggle"))
+
+    result = _run_context(tmp_path)
+
+    assert result.returncode == 0
+    assert "SHOW TO LEARNER" in result.stdout
+    assert "struggle" in result.stdout.lower()
+    profile = _profile(tmp_path)
+    assert profile["pendingBanners"][0]["acknowledged"] is True
+
+
+def test_context_skips_already_acknowledged_banner(tmp_path):
+    import datetime
+    now_iso = datetime.datetime.now(datetime.timezone.utc).isoformat()
+    _seed_profile(tmp_path, **_banner_profile(now_iso, acknowledged=True))
+
+    result = _run_context(tmp_path)
+
+    assert result.returncode == 0
+    assert "SHOW TO LEARNER" not in result.stdout
+
+
+def test_context_marks_stale_banner_acknowledged_without_emitting(tmp_path):
+    import datetime
+    two_days_ago = (
+        datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(days=2)
+    ).isoformat()
+    _seed_profile(tmp_path, **_banner_profile(two_days_ago))
+
+    result = _run_context(tmp_path)
+
+    assert result.returncode == 0
+    assert "SHOW TO LEARNER" not in result.stdout
+    profile = _profile(tmp_path)
+    assert profile["pendingBanners"][0]["acknowledged"] is True
+
+
+def test_context_emits_banner_before_narrative_threshold(tmp_path):
+    import datetime
+    now_iso = datetime.datetime.now(datetime.timezone.utc).isoformat()
+    # Only 3 non-neutral interactions -- below the 5 threshold for the
+    # narrative, but banner should still fire.
+    interactions = {
+        "concept_question": 0,
+        "independent_exploration": 0,
+        "debug_attempt": 0,
+        "answer_seeking": 3,
+        "passive_acceptance": 0,
+        "neutral": 0,
+    }
+    _seed_profile(
+        tmp_path,
+        interactions=interactions,
+        **_banner_profile(now_iso, banner_type="struggle"),
+    )
+
+    result = _run_context(tmp_path)
+
+    assert result.returncode == 0
+    assert "SHOW TO LEARNER" in result.stdout
+    assert "LEARNER PROFILE" not in result.stdout  # narrative still gated
+
+
 def test_end_to_end_observe_then_streak_then_context(tmp_path):
     """Simulate a full session: observe fires 3 times (struggle), streak-check
     emits an alert, then SessionStart context injects the narrative."""

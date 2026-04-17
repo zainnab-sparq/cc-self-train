@@ -19,6 +19,8 @@
 
 In this module you create the sentinel project, initialize it with Claude Code, and learn the fundamentals of interactive mode.
 
+**Stuck on a step anywhere in the curriculum?** Type `/stuck` — it reads where you are and re-explains differently. No judgment, no "try harder."
+
 ### 1.1 Create Your Project Directory
 
 Create the project directory inside cc-self-train under `workspace/`:

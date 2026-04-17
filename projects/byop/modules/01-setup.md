@@ -18,6 +18,8 @@ shortcuts
 
 **Used `/start`?** Module 1 was completed during onboarding. Jump to [Module 2 -- Blueprint and Build](02-blueprint.md).
 
+**Stuck on a step anywhere in the curriculum?** Type `/stuck` — it reads where you are and re-explains differently. No judgment, no "try harder."
+
 ### 1.1 Verify Your Project
 
 Before launching Claude Code, make sure your existing project is ready. Open a terminal in your project directory and run:
