@@ -1,6 +1,12 @@
 # Adaptive Persona System — Audit
 
-## Verdict (updated after PR #3)
+## Verdict (updated after module-boundary PR)
+
+**Works end-to-end for streak and module-boundary signals. The only remaining "trust the model" items are in-conversation behaviors Claude can't be unit-tested for.**
+
+Update: `.claude/scripts/module-boundary.js` now implements the 3.8/2.0 threshold algorithm that was previously prose in CLAUDE.md. Claude invokes it when the student says "next module", before reading the next module file. The script rewrites `Effective Level` in CLAUDE.local.md, resets per-module counters, bumps `currentModule`, and queues a `module-boundary` banner if the level changed. `learner-context.js` renders the banner as a learner-visible line on the next SessionStart. All of this is covered by 27 integration tests.
+
+## Verdict (after PR #3)
 
 **Partially works — streak-transition visibility is now closed; module-boundary enforcement still isn't.**
 
@@ -18,7 +24,7 @@ Three gaps matter most:
 
 1. **No profile initialization.** New learners have no `learner-profile.json` for the first ~5 responses. SessionStart context injection is silent until enough interactions accumulate, so the first module runs with no adaptive signal at all.
 2. **No code enforces the module-boundary algorithm.** The thresholds in CLAUDE.md (lines 109-116) are documented but depend entirely on Claude noticing, reading, calculating, and updating. There is no regression test against the algorithm.
-3. **`currentModule` drifts.** The profile is seeded with `currentModule: 1` and no script updates it as modules progress, so the "this module vs. all-time" distinction is structurally suspect.
+3. ~~**`currentModule` drifts.**~~ *(Closed by PR #5 — `module-boundary.js` bumps `currentModule` at each "next module" transition.)*
 
 ## Component inventory
 
@@ -93,6 +99,8 @@ Three gaps matter most:
 - **[PR #3]** Stale banners (>24h) silently acknowledged, not surfaced.
 - **[PR #3]** `/stuck` skill re-explains the current step at a different tier.
 - **[PR #3]** `/experience` skill updates `Experience Level` + `Effective Level` mid-course.
+- **[PR #5]** `module-boundary.js` runs the threshold algorithm deterministically at each "next module" boundary — rewrites Effective Level, resets per-module counters, bumps `currentModule`, queues a banner if the level changed.
+- **[PR #5]** `module-boundary` banner rendered by learner-context.js as "📈/📉 Module N complete — engagement X.X/5. shifting pace to <level>."
 
 ### Implemented but unverifiable
 
@@ -102,13 +110,11 @@ Three gaps matter most:
 
 ### Documented but not implemented
 
-- **Module-boundary adjustment algorithm** (CLAUDE.md lines 103-116). No script runs it; the thresholds sit in prose.
-- **Profile reset on module boundary.** `moduleInteractions` and `moduleQualityScores` are supposed to reset; nothing resets them.
+*(empty — module-boundary algorithm and profile reset now implemented in PR #5)*
 
 ### Implemented but disconnected
 
-- `profile.currentModule` is seeded at 1 and never updated as the learner progresses. The "per-module" metrics are effectively aggregates-with-a-stale-label.
-- `experienceLevel` collected in `/start` Step 2b ends up in `CLAUDE.local.md` and `onboarding-state.json`, but the adaptive scripts read `learner-profile.json` instead. The two state files don't cross-reference.
+- `experienceLevel` collected in `/start` Step 2b ends up in `CLAUDE.local.md` and `onboarding-state.json`, but the adaptive scripts read `learner-profile.json` instead. The two state files don't cross-reference. (The `module-boundary.js` script now reads `CLAUDE.local.md`, partially closing this — but observe-interaction.js still operates only on the profile.)
 
 ## Recommended observability additions (Stage 3 follow-ups)
 

@@ -102,18 +102,22 @@ If CLAUDE.local.md contains an `Effective Level` field, use it instead of `Exper
 
 ### Module Boundary Assessment
 
-When the student says "next module", before reading the next module file:
+When the student says "next module", **before reading the next module file**, run:
 
-1. Read `learner-profile.json` from the cc-self-train root (if it exists)
-2. Check `moduleAverageQuality` and the `moduleInteractions` breakdown
-3. Apply these rules:
-   - If moduleAverageQuality >= 3.8 AND (concept_question + independent_exploration) > 60% of non-neutral interactions → consider bumping Effective Level UP one notch
-   - If moduleAverageQuality <= 2.0 AND (answer_seeking + passive_acceptance) > 50% of non-neutral interactions → consider bumping Effective Level DOWN one notch
-   - Otherwise → keep the current Effective Level
-4. Never change more than one level per module boundary
-5. Update `Effective Level` and `Engagement Trend` in CLAUDE.local.md
-6. Reset `moduleInteractions` and `moduleQualityScores` in learner-profile.json (set to zeroes/empty)
-7. Do NOT tell the student their level changed — just adjust your teaching style silently
+```bash
+node .claude/scripts/module-boundary.js
+```
+
+The script applies the threshold algorithm deterministically, rewrites `Effective Level` in CLAUDE.local.md if it changed, resets `moduleInteractions` and `moduleQualityScores`, and bumps `currentModule` in `learner-profile.json`. If the level changed, it queues a `module-boundary` banner that the next SessionStart will surface to the student — no need to narrate the shift yourself.
+
+**What the script does** (same algorithm this file previously described in prose, for reference):
+
+- quality ≥ 3.8 AND productive ratio > 60% → UP one level
+- quality ≤ 2.0 AND unproductive ratio > 50% → DOWN one level
+- otherwise → unchanged
+- bounded at `beginner` / `advanced` (never crosses)
+
+The script's stdout is a JSON summary — useful if you want to mention the module's engagement score, but the banner handles the level-change message itself.
 
 **Streak signals:** If `learner-profile.json` shows `struggleStreak: true` (3+ consecutive answer-seeking or passive interactions), treat this as a strong signal even mid-module — offer more scaffolding immediately without waiting for the module boundary. If `engagementStreak: true` (3+ consecutive concept questions or independent exploration), the student is in flow — match their energy with deeper content.
 
@@ -126,7 +130,7 @@ When the student says "next module", before reading the next module file:
 - Keep suggestions practical and incremental, not theoretical
 - Recommend the VS Code/Cursor extension to users who seem uncomfortable with the terminal. The extension provides a graphical chat panel with inline diffs and is the recommended way to use Claude Code in an IDE. Note: some features (all slash commands, `!` bash shortcut, MCP configuration) require the CLI, which is available in the IDE's integrated terminal.
 - When discussing multiple sessions or parallel development, suggest using VS Code's "Open in New Tab" command or split terminal panes rather than separate terminal windows.
-- When the user says "next module", read the current module file from `projects/<name>/modules/` (e.g., `02-blueprint.md` for Module 2). The module number is tracked in `CLAUDE.local.md`. Update `Current Module` in `CLAUDE.local.md` after completion.
+- When the user says "next module", **first run `node .claude/scripts/module-boundary.js`** (it handles per-module counter resets, `currentModule` bump, and level adjustment). Then read the current module file from `projects/<name>/modules/` (e.g., `02-blueprint.md` for Module 2). Update `Current Module` in `CLAUDE.local.md` after completion.
 - **Formatting rule for ALL modules:** Never use blockquote formatting (`>` prefix) for content the student needs to read — it renders as dim italics in the CLI terminal, which is hard to read. For example prompts the student should type, use a plain code block (triple backticks) instead. For explanatory text, use normal paragraphs with **bold** for emphasis.
 - **Pacing rule for ALL modules:** Deliver one step at a time. Each numbered step (e.g., 2.1, 2.2, 2.3) is a separate message. After completing a step, STOP and wait for the user to respond before continuing to the next step. Never combine two steps into one message. If a step has a `> **STOP**` block, that's a hard boundary — do not continue past it under any circumstances. This is critical: a wall of text overwhelms the student. Short, focused messages with pauses feel like a conversation.
 - **Step tracking rule for ALL modules:** After completing each numbered step, update `Current Step` in `CLAUDE.local.md` (e.g., `Current Step: 2.4`). This is your breadcrumb — it survives sidetracks, debugging tangents, context compaction, and session restarts. Always check this field before deciding what to do next.
