@@ -188,6 +188,14 @@ Try both: add `paths:` to an existing skill, then toggle `disableSkillShellExecu
 
 > **STOP** -- Test `paths:` scoping on a skill and observe what `disableSkillShellExecution` does.
 
+### Choose Your Battles
+
+You've just learned how to build skills. Resist the urge to make one for every workflow you have. A new skill has a maintenance cost -- you will forget what arguments it takes, how it fails, and what state it assumes.
+
+**Rule of thumb:** Start with **2-3 skills** for workflows you do at least weekly. Add more only when a real, repeated friction appears. Delete skills you haven't invoked in a month.
+
+Look at your own project: what workflows do you repeat at least weekly? Pick two or three of those. Examples from real projects: component scaffolding, test stub generation, deployment previews, dependency audits. Your list will be different. Everything else can wait.
+
 ### Checkpoint
 
 You just built your own commands. These skills will save you real time on every feature you add from here on.

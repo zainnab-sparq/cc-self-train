@@ -179,6 +179,20 @@ Try both: add `paths:` to an existing skill, then toggle `disableSkillShellExecu
 
 > **STOP** -- Test `paths:` scoping on a skill and observe what `disableSkillShellExecution` does.
 
+### Choose Your Battles
+
+You've just learned how to build skills. Resist the urge to make one for every workflow you have. A new skill has a maintenance cost -- you will forget what arguments it takes, how it fails, and what state it assumes.
+
+**Rule of thumb:** Start with **2-3 skills** for workflows you do at least weekly. Add more only when a real, repeated friction appears. Delete skills you haven't invoked in a month.
+
+For Canvas, plausible candidates include:
+
+- `/new-page` -- scaffold a new HTML page with the shared layout
+- `/new-section` -- add a prebuilt section block to an existing page
+- `/publish-preview` -- render a local preview ready for review
+
+Pick two or three (or substitute your own). Everything else can wait.
+
 ### Checkpoint
 
 You just built your own commands. These skills will save you real time on every page you add from here on.

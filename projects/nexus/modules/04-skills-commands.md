@@ -175,6 +175,20 @@ Try both: add `paths:` to an existing skill, then toggle `disableSkillShellExecu
 
 > **STOP** -- Test `paths:` scoping on a skill and observe what `disableSkillShellExecution` does.
 
+### Choose Your Battles
+
+You've just learned how to build skills. Resist the urge to make one for every workflow you have. A new skill has a maintenance cost -- you will forget what arguments it takes, how it fails, and what state it assumes.
+
+**Rule of thumb:** Start with **2-3 skills** for workflows you do at least weekly. Add more only when a real, repeated friction appears. Delete skills you haven't invoked in a month.
+
+For Nexus, plausible candidates include:
+
+- `/add-route` -- walk through adding a new gateway route with validation
+- `/health-check` -- probe upstreams and show a status summary
+- `/reload-routes` -- hot-reload the routing config after edits
+
+Pick two or three (or substitute your own). Everything else can wait.
+
 ### Checkpoint
 
 You just built your own commands. Adding routes and testing endpoints is now one slash command away.

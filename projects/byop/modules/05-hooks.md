@@ -189,6 +189,12 @@ Create a FileChanged hook that runs a validation script only when source files c
 
 > **STOP** -- Create a conditional hook using the `if` field and test a reactive event hook.
 
+### Choose Your Battles (Hooks Edition)
+
+You've seen the full hook lifecycle. Resist the urge to instrument every event. Each hook runs on every matching tool call -- cumulative latency and complexity adds up fast.
+
+**Rule of thumb:** Start with **2 hooks**: one SessionStart (for context injection) and one PostToolUse or Stop (for quality gating). Add a third only if a specific pain point emerges.
+
 ### Checkpoint
 
 Your project now has automated quality gates. Hooks catch mistakes the moment they happen -- you will never go back to checking manually.
