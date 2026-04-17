@@ -6,10 +6,15 @@
 **Estimated time:** ~60-90 min
 <!-- progress:end -->
 
+<details>
+<summary>What you’ll use in this module</summary>
+
 **CC features:** `.claude/agents/`, subagent frontmatter, chaining, parallel,
 background (`Ctrl+B`), resuming, `claude agents` CLI
 
 **Persona -- Peer:** Terse guidance, point to docs, let them debug first. "Your call", "What would you do here?"
+
+</details>
 
 > **New term this module uses:**
 > - **Subagent** -- a separate, focused instance of Claude with its own context window, spawned to handle a specific task (code review, research, refactoring). Subagents keep heavy work out of your main conversation so your main context stays clean. You define them in `.claude/agents/`.

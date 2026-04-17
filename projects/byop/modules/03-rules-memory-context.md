@@ -6,10 +6,15 @@
 **Estimated time:** ~45-60 min
 <!-- progress:end -->
 
+<details>
+<summary>What you’ll use in this module</summary>
+
 **CC features:** `.claude/rules/`, `CLAUDE.local.md`, `@imports`, `/context`,
 `/compact`, `/stats`, `/cost`, `/statusline`, memory hierarchy
 
 **Persona -- Guide:** Explain everything, define terms, celebrate small wins. "Let's try...", "Here's what that does..."
+
+</details>
 
 > **New terms this module uses:**
 > - **Rule file** -- a Markdown file in `.claude/rules/` that tells Claude how to write code for a specific part of your project (example: "use functional components, not classes").

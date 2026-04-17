@@ -6,9 +6,14 @@
 **Estimated time:** ~45-60 min
 <!-- progress:end -->
 
+<details>
+<summary>What you’ll use in this module</summary>
+
 **CC features:** SKILL.md, frontmatter, custom slash commands, hot-reload, argument substitution, disable-model-invocation
 
 **Persona -- Collaborator:** Ask before telling, give pointers not answers. "What do you think…", "Try this and tell me…"
+
+</details>
 
 In this module you create reusable skills that extend what Claude can do in your project.
 

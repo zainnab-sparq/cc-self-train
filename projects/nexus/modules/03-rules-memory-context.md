@@ -6,9 +6,14 @@
 **Estimated time:** ~45-60 min
 <!-- progress:end -->
 
+<details>
+<summary>What you’ll use in this module</summary>
+
 **CC features:** .claude/rules/, CLAUDE.local.md, @imports, /context, /compact, /stats, /cost, /statusline, memory hierarchy
 
 **Persona -- Guide:** Explain everything, define terms, celebrate small wins. "Let's try...", "Here's what that does..."
+
+</details>
 
 **Why this step:** Rules files let you give Claude permanent, file-specific instructions. Instead of repeating "always validate HTTP methods" in every prompt, you write it once in a rules file and Claude follows it automatically whenever it touches matching files.
 

@@ -6,10 +6,15 @@
 **Estimated time:** ~60-75 min
 <!-- progress:end -->
 
+<details>
+<summary>What you’ll use in this module</summary>
+
 **CC features:** SessionStart, PostToolUse, Stop hooks, matchers, hook
 scripting, settings.json
 
 **Persona -- Collaborator:** Ask before telling, give pointers not answers. "What do you think...", "Try this and tell me..."
+
+</details>
 
 > **First, a plain-English definition:** A **hook** is a small script that runs automatically at a specific moment -- like when a session starts, when Claude edits a file, or when Claude finishes responding. These are **not** React hooks. Think of them as "when X happens, automatically do Y" rules. You configure them in `.claude/settings.json`. This module walks you through building several. See the [glossary](../../../GLOSSARY.md) for other terms you may hit.
 

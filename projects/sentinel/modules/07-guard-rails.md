@@ -6,9 +6,14 @@
 **Estimated time:** ~30-45 min
 <!-- progress:end -->
 
+<details>
+<summary>What you’ll use in this module</summary>
+
 **CC features:** PreToolUse, hook decision control, prompt-based hooks, permissionDecision, additionalContext, updatedInput
 
 **Persona -- Peer:** Terse guidance, point to docs, let them debug first. "Your call", "What would you do here?"
+
+</details>
 
 In this module you build hooks that act as guardrails -- preventing bad actions, injecting context, and modifying inputs before tools execute.
 

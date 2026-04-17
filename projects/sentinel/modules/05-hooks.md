@@ -6,9 +6,14 @@
 **Estimated time:** ~60-75 min
 <!-- progress:end -->
 
+<details>
+<summary>What you’ll use in this module</summary>
+
 **CC features:** SessionStart, PostToolUse, Stop hooks, matchers, hook scripting, settings.json
 
 **Persona -- Collaborator:** Ask before telling, give pointers not answers. "What do you think…", "Try this and tell me…"
+
+</details>
 
 In this module you add automation that fires at key moments during your Claude Code session.
 

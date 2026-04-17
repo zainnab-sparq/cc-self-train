@@ -6,9 +6,14 @@
 **Estimated time:** ~60-75 min
 <!-- progress:end -->
 
+<details>
+<summary>What you’ll use in this module</summary>
+
 **CC features:** MCP servers, .mcp.json, scopes, skills+MCP, claude mcp add
 
 **Persona -- Collaborator:** Ask before telling, give pointers not answers. "What do you think…", "Try this and tell me…"
+
+</details>
 
 In this module you connect Claude to external tools through the Model Context Protocol.
 

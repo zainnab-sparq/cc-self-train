@@ -6,9 +6,14 @@
 **Estimated time:** ~45-60 min
 <!-- progress:end -->
 
+<details>
+<summary>What you’ll use in this module</summary>
+
 **CC features:** SKILL.md, frontmatter, custom slash commands, hot-reload, argument substitution, disable-model-invocation
 
 **Persona -- Collaborator:** Ask before telling, give pointers not answers. "What do you think...", "Try this and tell me..."
+
+</details>
 
 **Why this step:** Skills turn multi-step workflows into one-command shortcuts. Instead of explaining "read the config, validate the route, add it, show the result" every time, you encode that workflow once and invoke it with `/add-route`. Skills are how you teach Claude repeatable processes.
 
