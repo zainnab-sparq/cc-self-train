@@ -31,7 +31,11 @@ argument substitution, `disable-model-invocation`
 
 ### 4.1 Create the "add-item" Skill
 
-**Where do skills go?** Create all skills in the cc-self-train root `.claude/skills/` directory — NOT inside `workspace/forge-toolkit/.claude/skills/`. Since Claude runs from the cc-self-train root, it only sees skills at that level.
+**Where do skills go?** Where Claude is running from determines which `.claude/skills/` wins — specifically, the directory Claude has as `$CLAUDE_PROJECT_DIR`. If you launch `claude` from the cc-self-train root, skills in `cc-self-train/.claude/skills/` are visible; if you launch from `workspace/forge-toolkit/`, skills in `workspace/forge-toolkit/.claude/skills/` are visible instead.
+
+**For this curriculum:** we stay at the cc-self-train root, so put skills in `cc-self-train/.claude/skills/` — NOT inside `workspace/forge-toolkit/.claude/skills/`.
+
+**For normal project use** (after you graduate from this curriculum): skills belong in your own project's `.claude/skills/`. That's where your team expects them.
 
 Skills are reusable slash commands you define for your project. Instead of typing a long prompt every time, you write it once as a `/skill-name` and invoke it with arguments. Let's build the first one.
 

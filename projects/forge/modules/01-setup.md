@@ -263,9 +263,49 @@ Module 5 (Hooks) uses **`jq`** to parse JSON from hook stdin. If you don't alrea
 
 - **macOS:** `brew install jq`
 - **Ubuntu/Debian:** `sudo apt install jq`
-- **Windows (Git Bash):** `choco install jq` or download from https://jqlang.github.io/jq/download/
+- **Windows (Git Bash):** `choco install jq` (requires [Chocolatey](https://chocolatey.org/install)) or download from https://jqlang.github.io/jq/download/. Module 5 also shows a Python fallback if you'd rather skip the install.
 
 Verify with `jq --version`.
+
+### Windows setup — one-time fixes for Git Bash / MSYS
+
+Skip this section if you're on macOS or Linux. Windows users: these four tweaks prevent friction you'll otherwise hit in Modules 2, 5, and 6.
+
+**1. Default branch.** Later modules use `main` as the branch name. Git's default on Windows is `master`:
+
+```bash
+git config --global init.defaultBranch main
+```
+
+Run this once; every new `git init` now uses `main`. If you already created a repo as `master`, rename with `git branch -m master main`.
+
+**2. Line endings.** Git will show `warning: LF will be replaced by CRLF` on every commit — this is informational, not an error. To acknowledge and stop worrying:
+
+```bash
+git config --global core.autocrlf true
+```
+
+This converts line endings on checkout (CRLF for Windows tools) and commit (LF for the repo). If your team uses LF everywhere, set `core.autocrlf input` instead.
+
+**3. `cmd /c` wrapper for npx.** Several `claude mcp add` commands in Module 6 prefix `npx` with `cmd /c`:
+
+```
+claude mcp add --transport stdio fs -- cmd /c npx -y @modelcontextprotocol/server-filesystem --root .
+```
+
+The `cmd /c` tells Git Bash to invoke `npx` through the native Windows `cmd` shell, which is how `npx` is typically installed on Windows. Without it, you may hit "command not found." macOS/Linux users drop `cmd /c`.
+
+**Stuck?** `/stuck` re-explains any of the above for your specific platform.
+
+**4. Windows path translation for hook scripts.** Git Bash sets `$CLAUDE_PROJECT_DIR` to a POSIX-style path like `/c/Users/you/project`. Native Windows tools (Python, PowerShell) expect `C:\Users\you\project`. When a hook script pipes `$CLAUDE_PROJECT_DIR` into native tools, convert with `cygpath`:
+
+```bash
+# In a hook script:
+PROJECT_DIR_WIN=$(cygpath -w "$CLAUDE_PROJECT_DIR")
+python "$PROJECT_DIR_WIN\\scripts\\check.py"
+```
+
+Module 5 revisits this at the first hook script that pipes into Python.
 
 ### Checkpoint
 

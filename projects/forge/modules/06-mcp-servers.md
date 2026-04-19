@@ -50,23 +50,30 @@ The abuse pattern: a compromised server emits an elicitation that looks routine 
 
 The principle: every MCP server is a new principal in your trust boundary. Treat it like a service account with narrow scopes, not like you gave it root. See also [docs/SAFETY-AND-TRUST.md](../../../docs/SAFETY-AND-TRUST.md) for the cross-feature threat model.
 
-### 6.2 Add a SQLite MCP Server
+**Verify the package exists before installing.** MCP scopes and names change. Before running any `claude mcp add ... -- npx -y <package>` command in this module, verify:
 
-**Why this step:** MCP servers give Claude new capabilities beyond reading and writing files. By connecting a SQLite server, Claude can run SQL queries, create tables, and manage structured data directly -- without you writing database code. This transforms your forge toolkit from flat JSON files to a real queryable database.
+```bash
+npm view <package>
+```
 
-SQLite gives your forge toolkit persistent, queryable storage. This is an
-upgrade from file-based JSON.
+If that returns 404, the package doesn't exist — ask Claude for the current equivalent and verify again. The commands below use packages confirmed real at the time of writing (`@modelcontextprotocol/server-filesystem` is Anthropic-published; `mcp-sqlite` is community-maintained). Treat community packages with the same scrutiny you'd give any npm dependency. See SAFETY-AND-TRUST.md §2 on hallucinated packages.
+
+### 6.2 Add a SQLite MCP Server (illustrative — not required)
+
+**Why this step:** MCP servers give Claude new capabilities beyond reading and writing files. A SQLite server is a convenient illustration because it's concrete — Claude can run SQL queries, create tables, and inspect a database directly. We use it to demonstrate how MCP integration works; you learn the pattern, not the persistence strategy.
+
+**You do not need to migrate your JSON storage.** Your existing file-based JSON layer is production-fine for a personal toolkit — skim this section for the MCP mechanics, then keep whichever storage fits your actual use. The command below adds a SQLite server for learning purposes; you can remove it later with `claude mcp remove forge-db` if you don't want it lingering.
 
 On Windows, use the `cmd /c` wrapper for npx-based servers:
 
 ```
-claude mcp add --transport stdio forge-db -- cmd /c npx -y @anthropic-ai/mcp-sqlite --db-path forge.db
+claude mcp add --transport stdio forge-db -- cmd /c npx -y mcp-sqlite --db-path forge.db
 ```
 
 On macOS/Linux:
 
 ```
-claude mcp add --transport stdio forge-db -- npx -y @anthropic-ai/mcp-sqlite --db-path forge.db
+claude mcp add --transport stdio forge-db -- npx -y mcp-sqlite --db-path forge.db
 ```
 
 After adding, check the status:
@@ -77,13 +84,13 @@ After adding, check the status:
 
 You should see `forge-db` listed and connected.
 
-Now ask Claude to set up the database using the MCP server. Describe what tables you need and ask it to migrate your existing data.
+Now ask Claude to set up a demo schema using the MCP server. This is where you see MCP tools in action — you're not committing to SQLite as your real storage, just exercising the pattern.
 
-"Using the forge-db MCP server, create tables for my four data types matching our existing data models. Then migrate any existing JSON data into the SQLite database."
+"Using the forge-db MCP server, create demo tables for my four data types. If you want to try populating them, copy a few rows from my JSON — but keep the JSON as my source of truth. I want to see the MCP tools work, not replace my storage."
 
-Claude may ask about column types, indexes, or how to handle the migration. Answer based on your existing data models.
+Claude may ask about column types or indexes. Answer however you like — the point is watching Claude drive the database through MCP, not landing a production schema.
 
-**STOP -- What you just did:** You connected an external tool to Claude Code using MCP. Claude can now create tables, insert data, and run queries on a SQLite database -- all through natural language. You also migrated your existing JSON data into SQLite, which means your forge toolkit now has a proper database backend. The `/mcp` command is your dashboard for checking which servers are connected and healthy.
+**STOP -- What you just did:** You connected an external tool to Claude Code using MCP. Claude can now create tables, insert data, and run queries on a SQLite database -- all through natural language. The `/mcp` command is your dashboard for checking which servers are connected and healthy. Whether you adopt SQLite as real storage is your call; this module's job is teaching MCP integration, not prescribing a persistence layer.
 
 **Engineering value:**
 - *Entry-level:* MCP servers are like USB ports for Claude — they let you plug in new capabilities without changing Claude itself.
@@ -99,13 +106,13 @@ For enhanced file operations:
 On Windows:
 
 ```
-claude mcp add --transport stdio forge-fs -- cmd /c npx -y @anthropic-ai/mcp-filesystem --root .
+claude mcp add --transport stdio forge-fs -- cmd /c npx -y @modelcontextprotocol/server-filesystem --root .
 ```
 
 On macOS/Linux:
 
 ```
-claude mcp add --transport stdio forge-fs -- npx -y @anthropic-ai/mcp-filesystem --root .
+claude mcp add --transport stdio forge-fs -- npx -y @modelcontextprotocol/server-filesystem --root .
 ```
 
 ### 6.4 Check MCP Status
@@ -120,7 +127,7 @@ should see both `forge-db` and `forge-fs`.
 **Quick check before continuing:**
 - [ ] `/mcp` shows both `forge-db` and `forge-fs` as connected
 - [ ] You can ask Claude to query the SQLite database and get results
-- [ ] Your existing data has been migrated from JSON to SQLite
+- [ ] (Optional) demo tables exist in SQLite — you can revert to JSON-only anytime
 
 ### 6.5 Create .mcp.json for Team Sharing
 
@@ -129,7 +136,7 @@ should see both `forge-db` and `forge-fs`.
 To share MCP configuration with your team, use the project scope:
 
 ```
-claude mcp add --transport stdio forge-db --scope project -- npx -y @anthropic-ai/mcp-sqlite --db-path forge.db
+claude mcp add --transport stdio forge-db --scope project -- npx -y mcp-sqlite --db-path forge.db
 ```
 
 This creates a `.mcp.json` file at your project root:
@@ -139,7 +146,7 @@ This creates a `.mcp.json` file at your project root:
   "mcpServers": {
     "forge-db": {
       "command": "npx",
-      "args": ["-y", "@anthropic-ai/mcp-sqlite", "--db-path", "forge.db"],
+      "args": ["-y", "mcp-sqlite", "--db-path", "forge.db"],
       "env": {}
     }
   }
@@ -233,6 +240,6 @@ Your toolkit just got a real database. MCP servers let Claude reach beyond local
 - [ ] `.mcp.json` exists for team sharing
 - [ ] You understand the three MCP scopes (local, project, user)
 - [ ] Backup skill orchestrates MCP tools to export and archive data
-- [ ] Data has been migrated from JSON files to SQLite
+- [ ] (Optional) SQLite demo schema exists; JSON storage can remain your source of truth
 - [ ] Understand MCP elicitation and channels
 - [ ] (Optional) You connected an MCP server for a tool you actually use

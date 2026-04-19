@@ -33,9 +33,9 @@ switching. Each worktree is a separate directory pointing to the same repo.
 Create two worktrees for parallel feature development. You can use the manual approach or the `--worktree` (`-w`) shortcut:
 
 ```
-# Manual approach:
-! git worktree add ../forge-api feature/api
-! git worktree add ../forge-export feature/export
+# Manual approach -- `-b` creates the branch at the same time as the worktree:
+! git worktree add -b feature/api ../forge-api
+! git worktree add -b feature/export ../forge-export
 
 # Or the shortcut -- launches Claude in a new worktree automatically:
 claude -w

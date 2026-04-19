@@ -101,6 +101,8 @@ Claude will create the validation script and add a PostToolUse entry to `.claude
 - [ ] Both hooks are registered in `.claude/settings.json`
 - [ ] You understand that matchers (`"Write|Edit"`) control which tool calls trigger the hook
 
+**Stuck?** Hook returning 200 but not blocking? Exit codes confusing? `/stuck` walks you through isolating what your hook actually returns vs. what Claude Code expects. Common Stop-hook bug: stdout on exit 0 gets fed back to Claude, triggering the hook again — infinite loop. `/stuck` has the full failure-mode checklist.
+
 ### 5.4 Stop Hook -- Run Tests Before Stopping
 
 **Why this step:** A Stop hook acts as a quality gate -- it runs when Claude finishes a response and can *block* Claude from stopping if something is wrong (exit code 2). This prevents Claude from declaring "done" while tests are failing.
@@ -151,10 +153,17 @@ Verify your hooks are registered:
 
 Hooks receive JSON via stdin with fields like `session_id`, `hook_event_name`, `tool_name`, `tool_input`, and `tool_response`. Extract values with `jq` (installed in Module 1 — `jq --version` should work; if not, circle back and install before continuing):
 
-```
+```bash
 INPUT=$(cat)
+
+# With jq (installed in Module 1):
 FILE_PATH=$(echo "$INPUT" | jq -r '.tool_input.file_path')
+
+# Cross-platform fallback using Python (no extra install needed):
+# FILE_PATH=$(echo "$INPUT" | python -c 'import json,sys; print(json.load(sys.stdin)["tool_input"]["file_path"])')
 ```
+
+**Windows note:** if your hook script pipes `$CLAUDE_PROJECT_DIR` into native-Windows Python from Git Bash, convert the path first: `PROJECT_DIR_WIN=$(cygpath -w "$CLAUDE_PROJECT_DIR")`. Module 1's Windows setup section has more on this.
 
 Ask Claude to show you the full input schema for each hook type you configured.
 

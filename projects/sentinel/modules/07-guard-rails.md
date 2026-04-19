@@ -146,6 +146,26 @@ PreToolUse hooks can now satisfy `AskUserQuestion` by returning `updatedInput` a
 
 Think about when this is useful: CI/CD pipelines, automated testing, or any scenario where Claude needs to ask a question but you want a predetermined answer. Wire up a PreToolUse hook for `AskUserQuestion` that auto-responds to a specific question type.
 
+### Verify your guard denies as well as allows
+
+**Security footgun:** a PreToolUse guard that accidentally always returns `{"permissionDecision": "allow"}` looks identical to a working guard at the exit-code level. If you only test the allow case, a silently-broken guard reads as green. Module 7's guards must be tested on **both** paths before you trust them.
+
+Run each guard script against one input it should allow and one it should deny:
+
+```bash
+# Case 1: should allow -- exit 0, empty stdout (or explicit allow)
+echo '{"tool_input":{"file_path":"src/rules/complexity.py"}}' | .claude/scripts/guard.sh
+echo "exit: $?"
+
+# Case 2: should deny -- non-zero exit or explicit deny on stderr
+echo '{"tool_input":{"file_path":"../../etc/passwd"}}' | .claude/scripts/guard.sh
+echo "exit: $?"
+```
+
+**Both outputs must differ.** If the two cases produce identical exit codes and identical stdout, your guard is silently allowing everything — it's not enforcing anything. Common cause: a `read` heredoc or input-consumption bug that makes the guard's logic branch unreachable.
+
+**Stuck?** `/stuck` walks you through isolating the bug — compare what Claude's seeing vs. what your script is actually evaluating.
+
 ### Checkpoint
 
 Guard rails locked in. Schema validation, context injection, metadata stamps, and AI-reviewed test quality -- all automatic.

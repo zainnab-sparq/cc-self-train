@@ -111,6 +111,8 @@ Claude will ask you about the specifics of the validation or handle them based o
 - [ ] `.claude/hooks/` contains `site-summary.py` and `validate-html.py`
 - [ ] You restarted Claude Code and saw the site summary on startup
 
+**Stuck?** Hook returning 200 but not blocking? Exit codes confusing? `/stuck` walks you through isolating what your hook actually returns vs. what Claude Code expects. Common Stop-hook bug: stdout on exit 0 gets fed back to Claude, triggering the hook again — infinite loop. `/stuck` has the full failure-mode checklist.
+
 ### 5.4 Create a Stop Hook
 
 This hook checks all internal links before Claude stops to catch broken links. Describe the behavior you want:
@@ -157,10 +159,17 @@ timeout. Matchers prevent hooks from firing on every tool call (which would slow
 
 Hooks receive JSON via stdin with fields like `session_id`, `hook_event_name`, `tool_name`, `tool_input`, and `tool_response`. Every hook script uses exit codes to communicate (0 = success, 2 = blocking error) and can access `$CLAUDE_PROJECT_DIR` for the project root. Extract values with `jq` (installed in Module 1 — `jq --version` should work; if not, circle back and install before continuing):
 
-```
+```bash
 INPUT=$(cat)
+
+# With jq (installed in Module 1):
 FILE_PATH=$(echo "$INPUT" | jq -r '.tool_input.file_path')
+
+# Cross-platform fallback using Python (no extra install needed):
+# FILE_PATH=$(echo "$INPUT" | python -c 'import json,sys; print(json.load(sys.stdin)["tool_input"]["file_path"])')
 ```
+
+**Windows note:** if your hook script pipes `$CLAUDE_PROJECT_DIR` into native-Windows Python from Git Bash, convert the path first: `PROJECT_DIR_WIN=$(cygpath -w "$CLAUDE_PROJECT_DIR")`. Module 1's Windows setup section has more on this.
 
 Ask Claude to show you the full input schema for each hook type you configured.
 

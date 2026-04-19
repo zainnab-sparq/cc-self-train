@@ -33,9 +33,10 @@ switching. Each worktree is a separate directory pointing to the same repo.
 Pick two features you want to build for your project. Create worktrees for each:
 
 ```
-# Manual approach (replace with your project and feature names):
-! git worktree add ../my-project-feature-a feature/feature-a
-! git worktree add ../my-project-feature-b feature/feature-b
+# Manual approach -- `-b` creates the branch alongside the worktree.
+# Replace with your project and feature names:
+! git worktree add -b feature/feature-a ../my-project-feature-a
+! git worktree add -b feature/feature-b ../my-project-feature-b
 
 # Or the shortcut -- launches Claude in a new worktree automatically:
 claude -w

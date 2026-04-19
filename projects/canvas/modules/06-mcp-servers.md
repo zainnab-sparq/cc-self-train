@@ -52,6 +52,14 @@ The abuse pattern: a compromised server emits an elicitation that looks routine 
 
 The principle: every MCP server is a new principal in your trust boundary. Treat it like a service account with narrow scopes, not like you gave it root. See also [docs/SAFETY-AND-TRUST.md](../../../docs/SAFETY-AND-TRUST.md) for the cross-feature threat model.
 
+**Verify the package exists before installing.** MCP scopes and names change. Before running any `claude mcp add ... -- npx -y <package>` command in this module, verify:
+
+```bash
+npm view <package>
+```
+
+If that returns 404, the package doesn't exist — ask Claude for the current equivalent and verify again. The commands below use packages confirmed real at the time of writing (`@modelcontextprotocol/server-filesystem` is Anthropic-published; `mcp-sqlite` and `mcp-fetch-server` are community-maintained). Treat community packages with the same scrutiny you'd give any npm dependency. See SAFETY-AND-TRUST.md §2 on hallucinated packages.
+
 ### 6.2 Add a Filesystem MCP Server
 
 For enhanced file operations on your site files:
@@ -59,13 +67,13 @@ For enhanced file operations on your site files:
 On Windows:
 
 ```
-claude mcp add --transport stdio canvas-fs -- cmd /c npx -y @anthropic-ai/mcp-filesystem --root .
+claude mcp add --transport stdio canvas-fs -- cmd /c npx -y @modelcontextprotocol/server-filesystem --root .
 ```
 
 On macOS/Linux:
 
 ```
-claude mcp add --transport stdio canvas-fs -- npx -y @anthropic-ai/mcp-filesystem --root .
+claude mcp add --transport stdio canvas-fs -- npx -y @modelcontextprotocol/server-filesystem --root .
 ```
 
 After adding, check the status:
@@ -93,13 +101,13 @@ for populating your portfolio with real data.
 On Windows:
 
 ```
-claude mcp add --transport stdio canvas-fetch -- cmd /c npx -y @anthropic-ai/mcp-fetch
+claude mcp add --transport stdio canvas-fetch -- cmd /c npx -y mcp-fetch-server
 ```
 
 On macOS/Linux:
 
 ```
-claude mcp add --transport stdio canvas-fetch -- npx -y @anthropic-ai/mcp-fetch
+claude mcp add --transport stdio canvas-fetch -- npx -y mcp-fetch-server
 ```
 
 Now try it out. Ask Claude to use the Fetch server to pull in real content for your portfolio. For example:
@@ -135,7 +143,7 @@ should see both `canvas-fs` and `canvas-fetch`.
 To share MCP configuration with your team, use the project scope:
 
 ```
-claude mcp add --transport stdio canvas-fs --scope project -- npx -y @anthropic-ai/mcp-filesystem --root .
+claude mcp add --transport stdio canvas-fs --scope project -- npx -y @modelcontextprotocol/server-filesystem --root .
 ```
 
 This creates a `.mcp.json` file at your project root:
@@ -145,7 +153,7 @@ This creates a `.mcp.json` file at your project root:
   "mcpServers": {
     "canvas-fs": {
       "command": "npx",
-      "args": ["-y", "@anthropic-ai/mcp-filesystem", "--root", "."],
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "--root", "."],
       "env": {}
     }
   }

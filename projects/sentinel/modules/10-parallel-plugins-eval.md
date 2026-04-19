@@ -31,9 +31,9 @@ In this final module you learn advanced patterns for scaling your workflow.
 Git worktrees let you have multiple working copies of the same repo. Each worktree can have its own Claude Code session working on a different feature simultaneously. Use the manual approach or the `--worktree` (`-w`) shortcut:
 
 ```
-# Manual approach:
-! git worktree add ../sentinel-coverage-html feature/coverage-html
-! git worktree add ../sentinel-rule-import feature/rule-import
+# Manual approach -- `-b` creates the branch at the same time as the worktree:
+! git worktree add -b feature/coverage-html ../sentinel-coverage-html
+! git worktree add -b feature/rule-import ../sentinel-rule-import
 
 # Or the shortcut -- launches Claude in a new worktree automatically:
 claude -w

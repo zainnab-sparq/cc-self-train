@@ -58,6 +58,14 @@ The abuse pattern: a compromised server emits an elicitation that looks routine 
 
 The principle: every MCP server is a new principal in your trust boundary. Treat it like a service account with narrow scopes, not like you gave it root. See also [docs/SAFETY-AND-TRUST.md](../../../docs/SAFETY-AND-TRUST.md) for the cross-feature threat model.
 
+**Verify the package exists before installing.** MCP scopes and names change. Before running any `claude mcp add ... -- npx -y <package>` command in this module, verify:
+
+```bash
+npm view <package>
+```
+
+If that returns 404, the package doesn't exist — ask Claude for the current equivalent and verify again. The commands below use packages confirmed real at the time of writing (`@modelcontextprotocol/server-filesystem` is Anthropic-published; `mcp-sqlite` is community-maintained). Treat community packages with the same scrutiny you'd give any npm dependency. See SAFETY-AND-TRUST.md §2 on hallucinated packages.
+
 ### 6.2 Add a SQLite MCP Server
 
 **Why this step:** MCP servers give Claude new capabilities it does not have built in. By adding a SQLite server, Claude can directly query and modify a database -- no need to write scripts that Claude then runs via Bash. This is a cleaner, more reliable way to work with structured data.
@@ -65,25 +73,25 @@ The principle: every MCP server is a new principal in your trust boundary. Treat
 You will use SQLite to store analysis results, coverage history, and trend data. Add the SQLite MCP server:
 
 ```
-claude mcp add --transport stdio sentinel-db -- npx -y @anthropic-ai/mcp-server-sqlite --db-path ./sentinel.db
+claude mcp add --transport stdio sentinel-db -- npx -y mcp-sqlite --db-path ./sentinel.db
 ```
 
 On Windows, you may need:
 
 ```
-claude mcp add --transport stdio sentinel-db -- cmd /c npx -y @anthropic-ai/mcp-server-sqlite --db-path ./sentinel.db
+claude mcp add --transport stdio sentinel-db -- cmd /c npx -y mcp-sqlite --db-path ./sentinel.db
 ```
 
 ### 6.3 Add a Filesystem MCP Server
 
 ```
-claude mcp add --transport stdio sentinel-fs -- npx -y @anthropic-ai/mcp-server-filesystem ./
+claude mcp add --transport stdio sentinel-fs -- npx -y @modelcontextprotocol/server-filesystem ./
 ```
 
 On Windows:
 
 ```
-claude mcp add --transport stdio sentinel-fs -- cmd /c npx -y @anthropic-ai/mcp-server-filesystem ./
+claude mcp add --transport stdio sentinel-fs -- cmd /c npx -y @modelcontextprotocol/server-filesystem ./
 ```
 
 **STOP -- What you just did:** You added two MCP servers using `claude mcp add`. Each server runs as a separate process that Claude communicates with through the Model Context Protocol. The SQLite server gives Claude direct database access, and the filesystem server gives it structured file operations. Notice that `claude mcp add` registered these servers locally -- they are stored in your user config, not in the project yet. You will fix that in Step 6.

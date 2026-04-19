@@ -33,13 +33,15 @@ switching. Each worktree is a separate directory pointing to the same repo.
 Create two worktrees for parallel feature development. You can use the manual approach or the `--worktree` (`-w`) shortcut that launches Claude Code directly in an isolated worktree:
 
 ```
-# Manual approach:
-! git worktree add ../canvas-dark feature/dark-mode
-! git worktree add ../canvas-blog feature/blog-engine
+# Manual approach -- `-b` creates the branch at the same time as the worktree:
+! git worktree add -b feature/dark-mode ../canvas-dark
+! git worktree add -b feature/blog-engine ../canvas-blog
 
 # Or the shortcut -- launches Claude in a new worktree automatically:
 claude -w
 ```
+
+**Why `-b`?** Without `-b`, `git worktree add ../path feature/X` fails with `pathspec 'feature/X' did not match` unless the branch already exists. The `-b` flag creates the branch alongside the worktree in one command — simpler and hard to get wrong.
 
 You can hook into worktree lifecycle with `WorktreeCreate` and `WorktreeRemove` hook events -- use them to automate setup (installing deps, copying env files) and teardown (cleaning up temp files).
 

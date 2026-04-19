@@ -153,6 +153,8 @@ The settings.json entry:
 - [ ] `.claude/settings.json` has both SessionStart and PostToolUse hooks configured
 - [ ] You restarted Claude Code and saw the session summary appear
 
+**Stuck?** Hook returning 200 but not blocking? Exit codes confusing? `/stuck` walks you through isolating what your hook actually returns vs. what Claude Code expects. Common Stop-hook bug: stdout on exit 0 gets fed back to Claude, triggering the hook again — infinite loop. `/stuck` has the full failure-mode checklist.
+
 ### 5.4 Create a Stop Hook
 
 **Why this step:** Stop hooks fire when Claude finishes responding. They act as a final quality gate -- you can check whether Claude did what it should have (like updating tests when it changed code) before the task is considered "done." If the hook returns failure, Claude gets the feedback and can continue working.

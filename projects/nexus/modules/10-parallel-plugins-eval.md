@@ -29,9 +29,9 @@
 Git worktrees give you multiple working directories for the same repo, enabling two Claude Code instances on different features simultaneously. Create two worktrees manually or use the `--worktree` (`-w`) shortcut:
 
 ```
-# Manual approach:
-! git worktree add ../nexus-gateway-metrics feature/metrics
-! git worktree add ../nexus-gateway-websocket feature/websocket
+# Manual approach -- `-b` creates the branch at the same time as the worktree:
+! git worktree add -b feature/metrics ../nexus-gateway-metrics
+! git worktree add -b feature/websocket ../nexus-gateway-websocket
 
 # Or the shortcut -- launches Claude in a new worktree automatically:
 claude -w

@@ -97,6 +97,16 @@ Constraining scope is a key prompting skill -- it keeps Claude focused and preve
 - [ ] You verified the changes work (browser, tests, or manual check)
 - [ ] You are back in normal mode (check the mode indicator)
 
+### 2.4a Spotting hallucinations
+
+Claude just wrote real code. Before you trust it, run a three-check pass on every significant diff:
+
+1. **Does this import exist?** Grep the file or search npm / PyPI / crates.io for any package name Claude suggested. Plausible-sounding names (`react-smart-forms`, `pyutil-validate`) that don't exist in the real registry are the classic slopsquatting attack surface.
+2. **Is this API current?** If Claude used a library method or framework API, verify it against the official docs dated within the last year. LLMs sometimes regenerate APIs from old versions they trained on.
+3. **Does this match the observed behavior?** Run the code. Read what actually happened in the terminal / browser / tests. Claude's description of what the code *should* do is not the same as what it *does* do.
+
+This three-check loop is the habit to build now. Apply it on every Claude-written diff from Module 2 onward — it's the difference between shipping code you understand and shipping code that *looks* right. See [docs/SAFETY-AND-TRUST.md](../../../docs/SAFETY-AND-TRUST.md) §2 (hallucinated packages) and §5 (reviewing what Claude wrote) for the deeper treatment.
+
 ### 2.5 Create a Feature Branch
 
 **New to branches?** A Git branch is a parallel copy of your code where you can experiment safely. If the experiment works, you merge it back to main. If it fails, you delete the branch and main is untouched. The command below creates a new branch called `feature/your-feature-name` and switches you to it -- you can see which branch you are on anytime with `! git branch`.

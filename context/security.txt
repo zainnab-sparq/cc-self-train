@@ -1,0 +1,107 @@
+Security reference index — cc-self-train curriculum
+====================================================
+
+Last synced: 2026-04-19
+
+This file maps common AI-assisted-development security concerns to
+the curriculum sections that address them. Scannable when you hit a
+concrete threat and need to find "where do I look this up?"
+
+If you want the narrative treatment of these topics, read
+docs/SAFETY-AND-TRUST.md (appendix). This file is the lookup index.
+
+If you want an automated audit of your current project's Claude Code
+configuration against known footguns, run the /security-review skill.
+
+
+Threat → curriculum section
+---------------------------
+
+Prompt injection (hostile content in files Claude reads)
+    docs/SAFETY-AND-TRUST.md §1
+    projects/*/modules/03-rules-memory-context.md §3.7 (HTML-comment asymmetry)
+
+Hallucinated packages / slopsquatting
+    docs/SAFETY-AND-TRUST.md §2
+    projects/*/modules/02-blueprint.md §2.4a (spot-checking habit)
+    projects/*/modules/06-mcp-servers.md §6.1c (verify with `npm view`)
+
+Secrets in context (what Anthropic sees)
+    docs/SAFETY-AND-TRUST.md §3
+    projects/*/modules/07-guard-rails.md (permissions.deny on .env, secrets/)
+
+Agent destructive operations (Claude can rm -rf, git push --force, etc.)
+    docs/SAFETY-AND-TRUST.md §4
+    projects/*/modules/07-guard-rails.md (PreToolUse guards)
+
+Code review of agent output (as a skill, not a formality)
+    docs/SAFETY-AND-TRUST.md §5
+    projects/*/modules/02-blueprint.md §2.4a (three-check loop)
+
+Cognitive debt / when NOT to use Claude Code
+    docs/SAFETY-AND-TRUST.md §6
+    (Self-regulation habit, no module-specific treatment by design.)
+
+Hook trust model (settings.json from a cloned repo is code execution)
+    projects/*/modules/05-hooks.md §5.1b (full treatment)
+    docs/SAFETY-AND-TRUST.md §4 (cross-ref)
+
+Hook HTTP exfiltration ("type": "http" hooks POSTing payload to URLs)
+    projects/*/modules/05-hooks.md §5.1b
+    Concrete malicious example shipped inline.
+
+Skill shell execution (hostile SKILL.md running arbitrary shell)
+    projects/*/modules/04-skills-commands.md
+    disableSkillShellExecution framed as a trust boundary, not a preference.
+
+HTML comment injection in CLAUDE.md (auto-load hides; Read reveals)
+    projects/*/modules/03-rules-memory-context.md §3.7 (Security caveat)
+
+MCP supply chain (.mcp.json from cloned repos ships server definitions)
+    projects/*/modules/06-mcp-servers.md (.mcp.json step)
+    projects/*/modules/06-mcp-servers.md §6.1c (broader MCP security)
+
+MCP untrusted servers (stdio, http, sse — three trust surfaces)
+    projects/*/modules/06-mcp-servers.md §6.1c
+
+MCP elicitation abuse (compromised server slips parameter changes into
+prompts that look routine)
+    projects/*/modules/06-mcp-servers.md §6.1c
+
+Permission over-approval ("Yes, and don't ask again" overgeneralization
+from safe commands to dangerous ones)
+    docs/SAFETY-AND-TRUST.md §4 (graduated approve-policy)
+
+
+Verification and audit surfaces
+-------------------------------
+
+Test both paths for PreToolUse guards (silent-allow bug)
+    projects/*/modules/07-guard-rails.md ("Verify your guard denies
+    as well as allows")
+
+Audit current session config for known footguns
+    .claude/skills/security-review/SKILL.md
+    Invoke: /security-review
+
+
+Pointers to upstream references
+-------------------------------
+
+Anthropic's own Claude Code permissions and sandbox docs:
+    https://code.claude.com/docs/  — see permissions, sandbox mode,
+    managed policy
+
+Full hook event and configuration reference:
+    context/hooks.txt
+
+MCP registry verification (when verifying package names):
+    https://registry.npmjs.org/-/v1/search?text=%40modelcontextprotocol
+
+
+When in doubt
+-------------
+
+The cross-cutting principle is in SAFETY-AND-TRUST.md: slow down. A
+permission prompt you read is a dozen times safer than one you
+approved.

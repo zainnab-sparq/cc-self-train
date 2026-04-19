@@ -31,7 +31,9 @@ argument substitution, `disable-model-invocation`
 
 ### 4.1 Create a Workflow Skill
 
-**Where do skills go?** Create skills in your external project's `.claude/skills/` directory — that's where Claude looks when running from your project root. If you're running Claude from the cc-self-train directory instead, use cc-self-train's `.claude/skills/` directory.
+**Where do skills go?** Where Claude is running from determines which `.claude/skills/` wins — specifically, the directory Claude has as `$CLAUDE_PROJECT_DIR`. Since BYOP uses your own external project, skills typically belong in your project's `.claude/skills/`. If you launch `claude` from the cc-self-train directory instead, skills there become the active set.
+
+The rule of thumb: put skills where your team will expect them, not where the curriculum happens to run. For your own project, that's your project's `.claude/`. For this course's cross-project examples, that's cc-self-train's `.claude/`.
 
 Skills are reusable slash commands you define for your project. Instead of typing a long prompt every time, you write it once as a `/skill-name` and invoke it with arguments. Let's build one that automates a repetitive task in your project.
 
