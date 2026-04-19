@@ -208,9 +208,12 @@ Review Claude's suggestions. Apply at least one of them by editing `CLAUDE.md`.
 ### 1.8 First Commit
 
 ```
-! git add -A
+! git status                # see what you're about to stage
+! git add CLAUDE.md <other explicit paths>   # name what you actually want
 ! git commit -m "Initial project setup with CLAUDE.md"
 ```
+
+Replace `<other explicit paths>` with the specific files your project has so far. Avoid `git add -A` — it stages everything including stray files, `.env`, and IDE configs. Module 2 Step 2.10 has more on this.
 
 **STOP -- What you just did:** You made your first commit. From Module 2 onward, you will commit after every significant step. Building a clean commit history is a professional habit -- it lets you rewind, review, and understand your project's evolution.
 

@@ -270,7 +270,8 @@ created in .claude/rules/. I want to see the rules in action.
 After building, run `/context` again to see how context changed during the session. Then commit and merge:
 
 ```
-! git add -A
+! git status                # see what you're about to stage
+! git add <files or dirs>   # name what you actually want
 ! git commit -m "feat: add [your feature description]"
 ! git checkout main
 ! git merge feature/your-next-feature
