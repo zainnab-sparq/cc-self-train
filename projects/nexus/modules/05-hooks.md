@@ -29,7 +29,9 @@ Key hook events you will use in this module:
 | PostToolUse | After a tool succeeds | Auto-lint config after writes |
 | Stop | Claude finishes responding | Run tests before stopping |
 
+<!-- guide-only -->
 **Why this step:** A SessionStart hook runs every time you launch Claude Code, automatically injecting information into context. Instead of manually telling Claude "the gateway is running on port 3000 with 5 routes," the hook does it for you. This is how you eliminate repetitive setup at the start of every session.
+<!-- /guide-only -->
 
 ### 5.1b Hook Trust Model
 
@@ -85,7 +87,9 @@ Want to build a PostToolUse hook for config validation?
 
 ### 5.3 PostToolUse Hook -- Auto-Lint Config Files
 
+<!-- guide-only -->
 **Why this step:** PostToolUse hooks fire after Claude successfully uses a tool. By validating config files right after Claude writes them, you catch errors immediately -- before they cause a confusing runtime failure minutes later. This is "shift left" validation: catch problems at write time, not at run time.
+<!-- /guide-only -->
 
 Ask Claude to create a PostToolUse hook that validates config files after they are written or edited. Describe the behavior -- it should check if the file is a config file (YAML, JSON, TOML), validate it, and report errors.
 
@@ -105,7 +109,9 @@ Claude will create the validation script and add a PostToolUse entry to `.claude
 
 ### 5.4 Stop Hook -- Run Tests Before Stopping
 
+<!-- guide-only -->
 **Why this step:** A Stop hook acts as a quality gate -- it runs when Claude finishes a response and can *block* Claude from stopping if something is wrong (exit code 2). This prevents Claude from declaring "done" while tests are failing.
+<!-- /guide-only -->
 
 **Engineering value:**
 - *Entry-level:* A blocking Stop hook means Claude can't finish until the check passes -- like a teacher who won't let you submit until you've spell-checked.

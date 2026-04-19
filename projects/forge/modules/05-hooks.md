@@ -20,7 +20,9 @@ scripting, settings.json
 
 ### 5.1 Hook Lifecycle Overview
 
+<!-- guide-only -->
 **Why this step:** Hooks let you automate actions at key moments in Claude Code's lifecycle -- when a session starts, after a file is written, before Claude stops responding. They are the foundation of quality automation: auto-formatting, auto-testing, injecting context, and blocking dangerous operations. Understanding the hook lifecycle is essential before you start writing hooks.
+<!-- /guide-only -->
 
 Hooks fire at specific points during a Claude Code session:
 
@@ -107,7 +109,9 @@ This hook auto-formats files after Claude writes or edits them. Tell Claude whic
 
 ### 5.4 Create a Stop Hook
 
+<!-- guide-only -->
 **Why this step:** A Stop hook runs after Claude finishes responding but before it hands control back to you. By running the test suite at this point, you catch breakage *immediately* -- Claude broke something and you know before you even type your next prompt. If the tests fail, the hook can block and feed the failures back to Claude for automatic fixing.
+<!-- /guide-only -->
 
 **Engineering value:**
 - *Entry-level:* A blocking Stop hook means Claude can't finish until the check passes — like a teacher who won't let you submit until you've spell-checked.

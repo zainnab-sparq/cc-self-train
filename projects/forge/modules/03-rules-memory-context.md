@@ -26,7 +26,9 @@
 
 ### 3.1 Create Project Rules
 
+<!-- guide-only -->
 **Why this step:** Rules are how you teach Claude your project's conventions. Instead of repeating "use fixtures in tests" or "add docstrings" in every prompt, you write it once in a rule file and Claude follows it automatically in every session.
+<!-- /guide-only -->
 
 **Engineering value:**
 - *Entry-level:* Rules are like linting configs but for Claude's behavior — they enforce your team's conventions automatically.
@@ -44,7 +46,9 @@ They use markdown files with optional YAML frontmatter for path scoping.
 
 ### 3.2 Create Path-Scoped Rules
 
+<!-- guide-only -->
 **Why this step:** Path-scoped rules only activate when Claude works on matching files. Your testing rules apply in test files, your source code rules apply in source files. This keeps context lean -- Claude does not load storage rules when editing a test, and vice versa.
+<!-- /guide-only -->
 
 Ask Claude to create three rule files for you: one for testing conventions, one for source code style, and one for storage operations. Describe the conventions you care about for each area, and tell Claude to scope them to the right file paths using YAML frontmatter.
 
@@ -58,7 +62,9 @@ Ready to create your CLAUDE.local.md?
 
 ### 3.3 Create CLAUDE.local.md
 
+<!-- guide-only -->
 **Why this step:** CLAUDE.local.md is your *personal* preferences file. It gets added to `.gitignore`, which means git will never track or commit it -- your preferences stay on your machine and do not get pushed to the shared repository where they would affect other contributors. This is the split between team standards (CLAUDE.md, rules) and personal workflow (CLAUDE.local.md).
+<!-- /guide-only -->
 
 Create a personal, non-committed preferences file. Tell Claude about your individual workflow preferences -- things like how you like test output formatted, your commit message style, and your language of choice. These are *your* preferences, not team rules.
 
@@ -105,7 +111,9 @@ As your project grows, CLAUDE.md can become a wall of text. Ask Claude to extrac
 The `@path` syntax tells Claude Code to load those files as additional context
 when needed. Both relative and absolute paths work.
 
+<!-- guide-only -->
 **Why this step:** As your project grows, `CLAUDE.md` can become a wall of text. `@imports` let you keep CLAUDE.md concise while linking to detailed docs that Claude loads on demand. Think of it like a table of contents that points to full chapters.
+<!-- /guide-only -->
 
 **Engineering value:**
 - *Entry-level:* Large projects have too much code for Claude to read at once. @imports let you point Claude at exactly the files it needs — like giving a new teammate the right docs before they start.
@@ -117,7 +125,9 @@ Want to explore the /context and /compact commands?
 
 ### 3.6 /context Deep Dive
 
+<!-- guide-only -->
 **Why this step:** Claude has a finite context window -- think of it as Claude's working memory. Everything Claude needs to respond (your conversation history, CLAUDE.md, rules files, file contents it has read, tool outputs) has to fit in this window. When it fills up, Claude starts forgetting earlier parts of your conversation. The `/context` command shows you exactly what is using that space so you can manage it.
+<!-- /guide-only -->
 
 Run:
 
@@ -140,7 +150,9 @@ The percentage tells you how full the window is. Early in a session it will be l
 
 ### 3.7 /compact with Focus Argument
 
+<!-- guide-only -->
 **Why this step:** Every Claude Code session has a finite context window. As your conversation grows, you will eventually run out of room. `/compact` reclaims space by summarizing older parts of the conversation while preserving what matters most. The focus argument is your steering wheel -- it tells Claude what to keep in detail.
+<!-- /guide-only -->
 
 When context gets large, use `/compact` to summarize the conversation:
 

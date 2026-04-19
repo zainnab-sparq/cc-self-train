@@ -25,7 +25,9 @@ background (`Ctrl+B`), resuming, `claude agents` CLI
 
 ### 8.1 What Are Subagents
 
+<!-- guide-only -->
 **Why this step:** Up to now, your main Claude session does everything -- planning, coding, testing, searching. Subagents let you delegate specialized tasks to focused assistants that have their own context windows and tool restrictions. This keeps your main conversation clean and lets you route tasks to cheaper, faster models (like Haiku for search) while reserving the more capable model for complex work.
+<!-- /guide-only -->
 
 Subagents are specialized AI assistants with their own context windows, system
 prompts, tool access, and permissions. When Claude encounters a task matching
@@ -121,7 +123,9 @@ Automatic delegation -- just describe what you want and see if Claude routes it:
 
 Claude may route this to the search-agent on its own, based on the agent's description.
 
+<!-- guide-only -->
 **Why this step:** Subagents can be invoked explicitly ("Use the search-agent to...") or automatically by Claude when the task matches the agent's description. Automatic delegation is powerful but requires good descriptions in your agent frontmatter -- Claude uses the description to decide when to delegate.
+<!-- /guide-only -->
 
 Want to learn how to chain and parallelize agents?
 

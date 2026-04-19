@@ -22,7 +22,9 @@
 
 ### 6.1 What Is MCP
 
+<!-- guide-only -->
 **Why this step:** Until now, Claude Code has only worked with local files and shell commands. MCP (Model Context Protocol) servers extend Claude's reach to external systems -- file servers, web APIs, databases, and more. This is what turns Claude Code from a code assistant into an integration platform.
+<!-- /guide-only -->
 
 MCP (Model Context Protocol) is an open standard for connecting AI tools to
 external data sources and APIs. MCP servers give Claude Code access to
@@ -184,7 +186,9 @@ Treat `.mcp.json` diffs in PRs with the same review bar as CI config changes or 
 | **project** | `.mcp.json` in project root | Everyone (via version control) |
 | **user** | `~/.claude.json` | Only you, all projects |
 
+<!-- guide-only -->
 **Why this step:** The three scopes (local, project, user) control who sees an MCP configuration. The `project` scope creates `.mcp.json` which gets committed to git -- every teammate who clones the repo gets the same MCP servers automatically. This is how you standardize a team's tool setup.
+<!-- /guide-only -->
 
 **Engineering value:**
 - *Entry-level:* Committing `.mcp.json` means anyone who clones your repo gets the same MCP servers -- no setup instructions to follow.

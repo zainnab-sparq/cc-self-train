@@ -19,7 +19,9 @@
 
 Tasks replace the old "Todos" system. Key differences: dependency graphs (DAG structure where tasks can block other tasks), filesystem persistence (`~/.claude/tasks`), cross-session sharing (multiple Claude instances on one task list), and broadcast updates.
 
+<!-- guide-only -->
 **Why this step:** Up to now, each conversation with Claude has been self-contained. Tasks persist across sessions and even across multiple Claude instances. This means you can start building a feature, close your laptop, come back tomorrow, and Claude picks up exactly where you left off -- with the same task list, the same dependency graph, the same progress.
+<!-- /guide-only -->
 
 ### 9.2 Cross-Session Persistence
 
@@ -57,7 +59,9 @@ After completing each task, Claude automatically marks it done and moves to the 
 
 ### 9.4 TDD -- Build Request Validation Middleware
 
+<!-- guide-only -->
 **Why this step:** TDD (Test-Driven Development) flips the normal workflow: you write the test first, watch it fail, then write the minimum code to make it pass. This might feel backwards, but it guarantees every feature has a test and prevents over-engineering. Claude is particularly good at this cycle because it can write a precise failing test, then implement exactly what is needed.
+<!-- /guide-only -->
 
 Use strict Test-Driven Development to build one more middleware. Tell Claude you want to follow the red-green-refactor cycle and describe the middleware you are building.
 
@@ -105,7 +109,9 @@ Run tests: still green. That's a complete red-green-refactor cycle on one named 
 
 ### 9.5 Stop and SubagentStop Hooks for Quality
 
+<!-- guide-only -->
 **Why this step:** Tasks and TDD work best when there is a quality gate preventing premature completion. The Stop hook checks whether Claude's current task is truly done (tests pass, requirements met). The SubagentStop hook does the same for subagent output. Together, they prevent Claude from marking work as "done" when it is merely "started."
+<!-- /guide-only -->
 
 Add hooks that enforce quality during task execution.
 

@@ -25,7 +25,9 @@ background (`Ctrl+B`), resuming, `claude agents` CLI
 
 ### 8.1 What Are Subagents
 
+<!-- guide-only -->
 **Why this step:** Until now, everything has happened in your main Claude Code conversation. Subagents are separate AI assistants that work in their own context windows. This is important because your main conversation has limited context space -- heavy analysis (like scanning every file for issues) fills it up fast. Subagents do the heavy lifting in their own space and return just the results.
+<!-- /guide-only -->
 
 Subagents are specialized AI assistants with their own context windows, system
 prompts, tool access, and permissions. When Claude encounters a task matching
@@ -129,7 +131,9 @@ Check my codebase for test coverage gaps.
 
 Claude reads the agent's `description` field and matches it to your request. Try both approaches and notice whether Claude delegates automatically or handles it directly.
 
+<!-- guide-only -->
 **Why this step:** You can invoke subagents explicitly ("Use the code-review-agent") or let Claude auto-delegate based on the task description. Auto-delegation works because Claude reads the agent's `description` field and matches it to your request. Writing clear, specific descriptions in your agent frontmatter makes auto-delegation more reliable.
+<!-- /guide-only -->
 
 ### 8.8 Patterns: Chain, Parallel, Resume
 

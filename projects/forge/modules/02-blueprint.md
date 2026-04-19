@@ -62,7 +62,9 @@ Ready to exit plan mode and start building? First, let's make sure you are using
 
 ### 2.3b Models Work Automatically for Now
 
+<!-- guide-only -->
 **Why this step:** Claude Code picks a model for you based on your subscription -- for this training, the default just works. You will learn fine-grained model control later, once the basics are solid.
+<!-- /guide-only -->
 
 - **Pro / API users** default to Sonnet 4.6 -- the balanced model that handles most coding tasks well.
 - **Max / Team Premium users** default to Opus 4.6 -- the most capable model for complex reasoning.
@@ -83,7 +85,9 @@ Let Claude create the files. Review what it produces -- check that the models ma
 
 **Screenshot trick:** If you hit an error you can't figure out, take a screenshot and drag it directly into the Claude Code chat. Claude can see images -- so instead of copy-pasting a messy stack trace, just screenshot your terminal and drop it in. You can also paste images from clipboard with `Ctrl+V` (macOS/Linux) or `Alt+V` (Windows).
 
+<!-- guide-only -->
 **Why this step:** Feature branches keep your experiments separate from working code. If something goes wrong, you can throw away the branch without affecting main.
+<!-- /guide-only -->
 
 ### 2.4a Spotting hallucinations
 
@@ -135,7 +139,9 @@ For example: `python -m pytest`, `npm test`, `go test ./...`, `cargo test`
 If tests fail, ask Claude to fix them. This is the build-test-fix cycle you
 will use throughout the project.
 
+<!-- guide-only -->
 **Why this step:** The build-test-fix cycle is the heartbeat of working with Claude Code. You ask Claude to build something, run tests to verify it, and fix what is broken -- all without leaving the conversation. This tight loop is much faster than writing code in an editor and debugging manually.
+<!-- /guide-only -->
 
 ### 2.8 Build the CLI Interface
 

@@ -68,12 +68,28 @@ function normalizeBlankLines(content) {
   return content.replace(/(\r?\n){3,}/g, "\n\n");
 }
 
+function stripTagLines(content, tagName) {
+  // Remove the marker comment lines themselves (both open and close) without
+  // touching their content. Used after deciding a block is shown — we want
+  // the prose visible, but the markers are implementation detail. Consumes
+  // at most one trailing newline so a line that's just the tag doesn't
+  // leave a stray empty line, but does NOT consume a subsequent blank line
+  // (that would glue previously-separated paragraphs together).
+  const pattern = new RegExp(
+    "<!--\\s*/?" + tagName + "\\s*-->[^\\S\\n]*\\n?",
+    "g"
+  );
+  return content.replace(pattern, "");
+}
+
 function render(raw, level) {
   let out = raw;
   if (level === "advanced") {
     out = stripBlocks(out, "guide-only");
+    out = stripTagLines(out, "advanced-only");
   } else {
     out = stripBlocks(out, "advanced-only");
+    out = stripTagLines(out, "guide-only");
   }
   return normalizeBlankLines(out);
 }

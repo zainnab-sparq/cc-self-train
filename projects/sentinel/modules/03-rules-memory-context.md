@@ -27,7 +27,9 @@ In this module you learn how to give Claude structured, persistent instructions 
 
 ### 3.1 Create Path-Scoped Rules
 
+<!-- guide-only -->
 **Why this step:** Path-scoped rules let you give Claude different instructions for different parts of your codebase. Instead of one giant instruction file, you can say "when working on analyzers, follow these conventions" and "when working on tests, follow these conventions." Claude automatically loads only the rules relevant to the files it is touching.
+<!-- /guide-only -->
 
 **Engineering value:**
 - *Entry-level:* Rules are like linting configs but for Claude's behavior — they enforce your team's conventions automatically.
@@ -52,7 +54,9 @@ Want to see how CLAUDE.local.md handles personal preferences?
 
 ### 3.2 Create CLAUDE.local.md
 
+<!-- guide-only -->
 **Why this step:** CLAUDE.local.md is your *personal* memory file -- it stores preferences that should not be shared with the team (like your preferred output format or local file paths). It is automatically gitignored, so it never gets committed.
+<!-- /guide-only -->
 
 Create a `CLAUDE.local.md` file in the project root. This file is for your personal preferences and is automatically added to .gitignore. Ask Claude to create it, and tell it about your personal preferences -- things like your preferred output format, where your test fixtures live, or how you like test output displayed.
 
@@ -89,7 +93,9 @@ Want to try @imports to keep CLAUDE.md concise?
 
 ### 3.4 Use @imports
 
+<!-- guide-only -->
 **Why this step:** @imports let CLAUDE.md reference other files without copying their contents inline. This keeps CLAUDE.md concise while giving Claude access to detailed documentation. When the imported file changes, Claude automatically picks up the latest version.
+<!-- /guide-only -->
 
 Ask Claude to create documentation files that CLAUDE.md will import. You want a rule format guide (how to define new rules, required fields, an example) and a brief architecture overview. Then update CLAUDE.md to reference both using `@`-syntax imports.
 
@@ -112,7 +118,9 @@ After Claude creates the files, open CLAUDE.md and verify the `@imports` are the
 
 ### 3.5 Check Context Usage With /context
 
+<!-- guide-only -->
 **Why this step:** Claude has a finite context window -- think of it as Claude's working memory. Everything Claude needs to respond (your conversation history, CLAUDE.md, rules files, file contents it has read, tool outputs) has to fit in this window. When it fills up, Claude starts forgetting earlier parts of your conversation. The `/context` command shows you exactly what is using that space so you can manage it.
+<!-- /guide-only -->
 
 Type in Claude Code:
 

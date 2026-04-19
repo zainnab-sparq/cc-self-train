@@ -19,7 +19,9 @@ In this module you build hooks that act as guardrails -- preventing bad actions,
 
 ### 7.1 Understand PreToolUse Decision Control
 
+<!-- guide-only -->
 **Why this step:** PreToolUse is the most powerful hook event because it fires *before* a tool runs, giving you three options: allow it silently, block it with a reason, or ask the user to confirm. On top of that, you can inject extra context or even modify the tool's input. This is Claude Code's programmable permission system -- you are about to build custom guardrails for Sentinel.
+<!-- /guide-only -->
 
 Ask Claude to explain how PreToolUse decision control works.
 
@@ -85,7 +87,9 @@ Create a PreToolUse hook on 'Write' that checks if the file being written is a t
 
 The output uses `updatedInput` to modify the file content before it is written, prepending a metadata header with the timestamp and source file path.
 
+<!-- guide-only -->
 **Why this step:** `updatedInput` is the third and most subtle PreToolUse capability. While `deny` blocks an action and `additionalContext` injects information, `updatedInput` silently transforms what Claude writes. The test file reaches disk with metadata already included -- Claude does not even need to remember to add it. Use this for any boilerplate that should always be present in generated files.
+<!-- /guide-only -->
 
 ### 7.5 Prompt-Based Quality Gate for Generated Tests
 

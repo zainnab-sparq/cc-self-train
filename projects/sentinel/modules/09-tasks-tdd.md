@@ -19,7 +19,9 @@ In this module you use the Tasks system for multi-step work and practice strict 
 
 ### 9.1 Tasks System Overview
 
+<!-- guide-only -->
 **Why this step:** The Tasks system solves a problem you have probably already hit: multi-step features that are too big for a single conversation. Tasks let you break work into pieces with explicit dependencies (Task B cannot start until Task A is done), persist across sessions, and share between multiple Claude instances. This is project management built into Claude Code.
+<!-- /guide-only -->
 
 Ask Claude to explain the Tasks system and how it differs from a simple to-do list.
 
@@ -61,7 +63,9 @@ Claude will update the task status and begin working. When it finishes, the task
 
 ### 9.4 Practice Strict TDD -- Build the Coverage Parser
 
+<!-- guide-only -->
 **Why this step:** Test-driven development (TDD) is the most disciplined way to build reliable code with Claude. By writing the test first, you give Claude a concrete, unambiguous specification. Claude does not have to guess what "correct" means -- the test defines it. The red-green-refactor cycle (fail, pass, clean up) produces code that is tested by definition.
+<!-- /guide-only -->
 
 For Task 2, tell Claude to use strict test-driven development. Describe the TDD cycle you want it to follow -- write one failing test, write minimum code to pass it, refactor, repeat. Give it a simple starting behavior to test first.
 
@@ -132,7 +136,9 @@ Run tests: still green. That's a complete red-green-refactor cycle on one named 
 
 ### 9.5 Complete the Remaining Tasks
 
+<!-- guide-only -->
 **Why this step:** Now you let the task system guide your workflow. Instead of deciding what to build next, you ask Claude for the next unblocked task. The dependency graph ensures you build things in the right order. As each task completes, downstream tasks become available automatically.
+<!-- /guide-only -->
 
 Work through Tasks 3-5, letting Claude update task status as each completes. Just tell it to move on:
 
@@ -152,7 +158,9 @@ Shall we add quality gates for subagent work?
 
 ### 9.6 SubagentStop Hooks for Verification
 
+<!-- guide-only -->
 **Why this step:** SubagentStop hooks are quality gates for subagent work. Just like Stop hooks check your main conversation, SubagentStop hooks check what subagents produce before they finish. This is especially important because subagents run with less oversight -- you might not see their intermediate steps.
+<!-- /guide-only -->
 
 Ask Claude to add a SubagentStop hook that acts as a quality gate for subagent work.
 
@@ -164,7 +172,9 @@ Add a prompt-based SubagentStop hook to settings.json that checks whether a suba
 
 ### 9.7 Cross-Session Collaboration
 
+<!-- guide-only -->
 **Why this step:** Cross-session task sharing is how you scale to multiple Claude instances working on the same feature. This is the foundation for the parallel development workflow you will use in Module 10.
+<!-- /guide-only -->
 
 Start a second Claude Code session that shares the same task list:
 

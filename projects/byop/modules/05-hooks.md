@@ -20,7 +20,9 @@ scripting, settings.json
 
 ### 5.1 Hook Lifecycle Overview
 
+<!-- guide-only -->
 **Why this step:** Hooks are Claude Code's automation layer. While skills require you to type a command, hooks fire automatically at specific moments -- when a session starts, after a file is written, when Claude finishes responding. This is how you build guardrails and quality gates that work without you remembering to invoke them.
+<!-- /guide-only -->
 
 Hooks fire at specific points during a Claude Code session:
 
@@ -143,7 +145,9 @@ The key difference from PostToolUse: a Stop hook with exit code 2 is *blocking* 
 
 **Common gotcha — feedback loops:** If a Stop hook writes to stdout with exit code 0, Claude may treat that output as new input and continue responding — which triggers the Stop hook again, creating an infinite loop. To avoid this: use **stderr** (not stdout) when blocking with exit 2, and output **nothing** to stdout on success (exit 0). Pattern: silent exit 0 = Claude stops cleanly. Exit 2 with stderr = Claude sees the error and must fix it.
 
+<!-- guide-only -->
 **Why this step:** Stop hooks are different from PostToolUse hooks -- they run once when Claude finishes its entire response, not after each individual tool call. A Stop hook with exit code 2 is *blocking*: it forces Claude to address the issue before moving on. This makes Stop hooks ideal for final validation checks that ensure your project stays healthy.
+<!-- /guide-only -->
 
 **Engineering value:**
 - *Entry-level:* A blocking Stop hook means Claude can't finish until the check passes -- like a teacher who won't let you submit until you've spell-checked.

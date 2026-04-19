@@ -26,7 +26,9 @@ In this final module you learn advanced patterns for scaling your workflow.
 
 ### 10.1 Git Worktrees
 
+<!-- guide-only -->
 **Why this step:** Git worktrees let you have multiple working copies of the same repo *without cloning it again*. Each worktree shares the same git history but has its own working directory and branch. Combined with Claude Code, this means you can have two or three Claude instances building different features in parallel on the same project -- true concurrent development.
+<!-- /guide-only -->
 
 Git worktrees let you have multiple working copies of the same repo. Each worktree can have its own Claude Code session working on a different feature simultaneously. Use the manual approach or the `--worktree` (`-w`) shortcut:
 
@@ -52,7 +54,9 @@ Ready to spin up parallel Claude Code sessions?
 
 ### 10.2 Multiple Claude Code Instances With Shared Tasks
 
+<!-- guide-only -->
 **Why this step:** This is where everything comes together -- worktrees for isolation, shared task lists for coordination, and multiple Claude instances for speed. Each instance picks up a different task and works on it independently. This is how you multiply your throughput on large features.
+<!-- /guide-only -->
 
 Open separate terminal windows and start Claude Code in each worktree:
 
@@ -130,7 +134,9 @@ quality-tools/
   .mcp.json                     # SQLite MCP server
 ```
 
+<!-- guide-only -->
 **Why this step:** Plugins are how you distribute Claude Code customizations. Everything you built in Modules 4-8 -- skills, agents, hooks, MCP configs -- gets bundled into a single directory that anyone can load with `--plugin-dir`. This is how you share your work with teammates or the community.
+<!-- /guide-only -->
 
 ### 10.5 Test the Plugin
 
@@ -150,7 +156,9 @@ Want to build an evaluation framework for Sentinel?
 
 ### 10.6 Build an Evaluation Framework
 
+<!-- guide-only -->
 **Why this step:** Evaluation measures how well Sentinel actually works. Without it, you are guessing whether your analyzer catches real issues or produces false positives. By creating fixtures with planted bugs and comparing Sentinel's output to expected results, you get concrete accuracy metrics. This is the same approach used to evaluate AI models -- ground truth comparison.
+<!-- /guide-only -->
 
 Ask Claude to build an evaluation framework for Sentinel. Describe what you need -- fixture files with planted bugs, expected outputs, a runner that scores accuracy, and a summary report.
 
@@ -188,7 +196,9 @@ The hook matches on "Bash" and runs your approval script. The script outputs JSO
 
 ### 10.8 Continuous Learning
 
+<!-- guide-only -->
 **Why this step:** This is the capstone pattern -- a feedback loop where Sentinel improves itself over time. Misclassifications from the eval are logged, loaded into Claude's context at session start, and used to guide future fixes. After each fix, the eval runs again to confirm the fix worked and check for regressions. This is how production ML systems improve, and you are applying the same principle to your code analyzer.
+<!-- /guide-only -->
 
 Ask Claude to build a feedback loop where eval results drive improvements. Describe the cycle you want -- log misclassifications, load them at session start, fix them, re-run eval, and record lessons learned.
 

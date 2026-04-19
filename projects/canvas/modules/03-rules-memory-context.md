@@ -26,7 +26,9 @@
 
 ### 3.1 Create Project Rules
 
+<!-- guide-only -->
 **Why this step:** Rules are how you teach Claude your project's standards permanently. Instead of repeating "use semantic HTML" every session, you write it once in a rule file and Claude follows it automatically. Path-scoped rules only activate when Claude works on matching files, keeping context lean.
+<!-- /guide-only -->
 
 **Engineering value:**
 - *Entry-level:* Rules are like linting configs but for Claude's behavior — they enforce your team's conventions automatically.
@@ -60,7 +62,9 @@ Ready to create your CLAUDE.local.md for personal preferences?
 
 ### 3.3 Create CLAUDE.local.md
 
+<!-- guide-only -->
 **Why this step:** CLAUDE.local.md is your *personal* preferences file. It gets added to `.gitignore`, which means git will never track or commit it -- your preferences stay on your machine and do not get pushed to the shared repository where they would affect other contributors. This is the split between team standards (CLAUDE.md, rules) and personal workflow (CLAUDE.local.md).
+<!-- /guide-only -->
 
 Create a personal preferences file that will not be committed to git. Ask Claude to create `CLAUDE.local.md` and tell it about your personal workflow preferences -- your design taste, how you like commit messages, which browser you test in, anything that is about *you* rather than the project.
 
@@ -115,7 +119,9 @@ Create a docs/style-guide.md that documents our visual design system -- the colo
 The `@path` syntax tells Claude Code to load those files as additional context
 when needed. Both relative and absolute paths work.
 
+<!-- guide-only -->
 **Why this step:** As your CLAUDE.md grows, it eats into your available context window. The `@import` pattern keeps CLAUDE.md concise while making detailed documentation available on demand. Think of it like splitting a large function into smaller helpers -- same information, better organized.
+<!-- /guide-only -->
 
 **Engineering value:**
 - *Entry-level:* Large projects have too much code for Claude to read at once. @imports let you point Claude at exactly the files it needs — like giving a new teammate the right docs before they start.
@@ -123,7 +129,9 @@ when needed. Both relative and absolute paths work.
 
 ### 3.6 /context Deep Dive
 
+<!-- guide-only -->
 **Why this step:** Claude has a finite context window -- think of it as Claude's working memory. Everything Claude needs to respond (your conversation history, CLAUDE.md, rules files, file contents it has read, tool outputs) has to fit in this window. When it fills up, Claude starts forgetting earlier parts of your conversation. The `/context` command shows you exactly what is using that space so you can manage it.
+<!-- /guide-only -->
 
 Run:
 

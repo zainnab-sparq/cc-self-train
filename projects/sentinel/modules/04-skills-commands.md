@@ -38,7 +38,9 @@ In this module you create reusable skills that extend what Claude can do in your
 
 **For normal project use** (after you graduate from this curriculum): skills belong in your own project's `.claude/skills/`. That's where your team expects them.
 
+<!-- guide-only -->
 **Why this step:** Skills turn multi-step workflows into single slash commands. Instead of typing a long prompt every time you want to analyze code, you type `/analyze src/` and Claude follows the same steps every time. Skills are reusable, shareable, and version-controlled -- they become part of your project's toolbox.
+<!-- /guide-only -->
 
 Ask Claude to create an `/analyze` skill. Describe what you want it to do: run Sentinel's scan on a given path, summarize findings by severity, highlight errors first, and suggest fixes for the top issues. Tell Claude it should accept a path argument so you can run `/analyze src/` or `/analyze src/rules/`.
 
@@ -75,7 +77,9 @@ Try something like:
 Create a skill at .claude/skills/generate-tests/SKILL.md. It should take a source file path, find all public functions, generate tests for happy paths, edge cases, and error cases, then run them. Use `context: fork` in the frontmatter so it runs in a subagent.
 ```
 
+<!-- guide-only -->
 **Why this step:** Notice `context: fork` in the frontmatter -- this skill runs in a separate subagent so test generation output does not clutter your main conversation. Forked context is ideal for verbose operations where you want the result but not the noise.
+<!-- /guide-only -->
 
 Test it by pointing it at one of your rule modules:
 
@@ -148,7 +152,9 @@ The `$ARGUMENTS` placeholder captures everything after the skill name. You can a
 
 ### 4.5 Hot-Reload Skills
 
+<!-- guide-only -->
 **Why this step:** Hot-reload means you can iterate on skills without restarting Claude Code. This makes skill development fast -- edit, test, edit, test -- just like editing code with a live-reloading server.
+<!-- /guide-only -->
 
 Edit one of your SKILL.md files (add a new step or change the description). You do not need to restart Claude Code -- skills are reloaded when invoked. Test by modifying the analyze skill and running `/analyze src/` again.
 

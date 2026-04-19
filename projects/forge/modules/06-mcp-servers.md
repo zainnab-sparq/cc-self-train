@@ -60,7 +60,9 @@ If that returns 404, the package doesn't exist — ask Claude for the current eq
 
 ### 6.2 Add a SQLite MCP Server (illustrative — not required)
 
+<!-- guide-only -->
 **Why this step:** MCP servers give Claude new capabilities beyond reading and writing files. A SQLite server is a convenient illustration because it's concrete — Claude can run SQL queries, create tables, and inspect a database directly. We use it to demonstrate how MCP integration works; you learn the pattern, not the persistence strategy.
+<!-- /guide-only -->
 
 **You do not need to migrate your JSON storage.** Your existing file-based JSON layer is production-fine for a personal toolkit — skim this section for the MCP mechanics, then keep whichever storage fits your actual use. The command below adds a SQLite server for learning purposes; you can remove it later with `claude mcp remove forge-db` if you don't want it lingering.
 
@@ -131,7 +133,9 @@ should see both `forge-db` and `forge-fs`.
 
 ### 6.5 Create .mcp.json for Team Sharing
 
+<!-- guide-only -->
 **Why this step:** MCP servers you add with `claude mcp add` are stored locally by default -- only you can see them. By using the `--scope project` flag, the configuration goes into `.mcp.json` at your project root, which you can commit to version control. This means any teammate who clones your repo gets the same MCP setup automatically.
+<!-- /guide-only -->
 
 To share MCP configuration with your team, use the project scope:
 

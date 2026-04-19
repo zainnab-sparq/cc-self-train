@@ -15,7 +15,9 @@
 
 </details>
 
+<!-- guide-only -->
 **Why this step:** In Module 5 you built hooks that react *after* things happen (PostToolUse, Stop). PreToolUse hooks are different -- they fire *before* a tool runs, giving you the power to block, modify, or annotate tool calls before they execute. This is how you build guardrails that prevent mistakes rather than just catching them.
+<!-- /guide-only -->
 
 ### 7.1 PreToolUse with Decision Control
 
@@ -45,7 +47,9 @@ Want to try softer guardrails with context injection?
 
 ### 7.3 Guard -- Add Context to Route Handler Reads
 
+<!-- guide-only -->
 **Why this step:** Not all guardrails block actions. `additionalContext` is a softer approach: it injects helpful information into Claude's context before a tool runs, nudging Claude toward better behavior without forcing it. Think of it as whispering a reminder rather than slamming a door.
+<!-- /guide-only -->
 
 Ask Claude to create a PreToolUse hook that injects helpful context whenever Claude reads a route handler file. The context should remind Claude about method validation, proper status codes, and rate limit checks.
 
@@ -75,7 +79,9 @@ Using `additionalContext` to remind Claude is more reliable than forcibly rewrit
 
 ### 7.5 Prompt-Based Hook -- Security Gate
 
+<!-- guide-only -->
 **Why this step:** Shell script hooks are great for pattern matching (does this file contain "path"?), but some decisions require judgment. Prompt-based hooks send the context to a fast LLM (Haiku) that can evaluate nuanced questions like "is this route config a security risk?" This is how you build guardrails for things that cannot be checked with a regex.
+<!-- /guide-only -->
 
 Prompt-based hooks use an LLM (Haiku) to evaluate decisions. Create a Stop hook that checks whether route configs are secure:
 

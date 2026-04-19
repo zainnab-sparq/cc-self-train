@@ -18,7 +18,9 @@ cross-session persistence, TDD loops, SubagentStop
 
 ### 9.1 Tasks System Overview
 
+<!-- guide-only -->
 **Why this step:** Up to now, you have been giving Claude one instruction at a time. Tasks let you define a *plan of work* with dependencies -- "do A, then B (which needs A), then C (which needs B)." Claude tracks progress, respects the dependency order, and persists the task list across sessions. This is how you manage multi-step work that spans hours or days.
+<!-- /guide-only -->
 
 Tasks replace the old TODO system. They provide:
 - Dependency graphs (task A blocks task B)
@@ -30,7 +32,9 @@ Press `Ctrl+T` to toggle the task list view at any time.
 
 ### 9.2 Cross-Session Persistence
 
+<!-- guide-only -->
 **Why this step:** By default, tasks live only in the current session. But real projects span multiple sessions -- you might define tasks today and work through them tomorrow. Cross-session persistence solves this. It also enables a powerful pattern: multiple Claude instances sharing the same task list, coordinating work across parallel sessions.
+<!-- /guide-only -->
 
 To share a task list across sessions, set the environment variable:
 
@@ -64,7 +68,9 @@ Then tell Claude to execute the pipeline:
 
 ### 9.4 TDD Workflow: Build with Tests First
 
+<!-- guide-only -->
 **Why this step:** Test-driven development (TDD) flips the usual order: you write the test *first*, watch it fail, then write just enough code to make it pass. With Claude Code, TDD is especially effective because Claude can see the failing test, understand what is expected, and write precisely the code needed. This prevents over-engineering and gives you a comprehensive test suite as a side effect.
+<!-- /guide-only -->
 
 Use strict test-driven development to build a new feature -- fuzzy search. Explain the TDD workflow to Claude and describe the search behavior you want. Be clear about the discipline: test first, then code, never the other way around.
 

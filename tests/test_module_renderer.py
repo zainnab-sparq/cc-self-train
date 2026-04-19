@@ -213,6 +213,28 @@ def test_unknown_level_value_defaults_to_intermediate(tmp_path):
     assert "full event table" not in result.stdout
 
 
+def test_markers_never_leak_to_output(tmp_path):
+    """Marker comments are implementation detail; they should never appear in
+    any rendered output regardless of level."""
+    module = _write_module(tmp_path, SAMPLE)
+    for level in ("beginner", "intermediate", "advanced"):
+        _write_local(tmp_path, f"Effective Level: {level}\n")
+        result = _run(module, tmp_path)
+        assert result.returncode == 0, result.stderr
+        assert "<!-- guide-only -->" not in result.stdout, (
+            f"guide-only open marker leaked at level={level}"
+        )
+        assert "<!-- /guide-only -->" not in result.stdout, (
+            f"guide-only close marker leaked at level={level}"
+        )
+        assert "<!-- advanced-only -->" not in result.stdout, (
+            f"advanced-only open marker leaked at level={level}"
+        )
+        assert "<!-- /advanced-only -->" not in result.stdout, (
+            f"advanced-only close marker leaked at level={level}"
+        )
+
+
 def test_output_collapses_triple_blank_lines(tmp_path):
     module = _write_module(tmp_path, SAMPLE)
     _write_local(tmp_path, "Effective Level: advanced\n")

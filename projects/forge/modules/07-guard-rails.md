@@ -18,7 +18,9 @@
 
 ### 7.1 PreToolUse Hooks with Decision Control
 
+<!-- guide-only -->
 **Why this step:** In Module 5 you built hooks that *observe* (SessionStart, PostToolUse, Stop). Now you are building hooks that *control* -- they intercept tool calls and decide whether to allow, deny, or modify them. This is the guard rail pattern: automated safety checks that prevent mistakes before they happen, without slowing you down.
+<!-- /guide-only -->
 
 PreToolUse hooks intercept tool calls before they execute. They can:
 - **Allow:** bypass the permission system entirely
@@ -76,7 +78,9 @@ Now try a different kind of hook -- one powered by an LLM instead of a script. A
 Prompt-based hooks use a fast LLM (Haiku) to evaluate context and return a
 structured decision. They are powerful for nuanced, context-aware checks that would be impractical to write as regex or shell scripts.
 
+<!-- guide-only -->
 **Why this step:** Some quality checks cannot be expressed as simple scripts. "Are there leftover debug statements?" requires understanding code context. Prompt-based hooks delegate this judgment to a fast LLM (Haiku), combining the automation of hooks with the reasoning ability of an AI. This is one of the most advanced hook patterns -- use it for nuanced checks that would be impractical to write as regex or shell scripts.
+<!-- /guide-only -->
 
 ### 7.6 Test Each Guard
 

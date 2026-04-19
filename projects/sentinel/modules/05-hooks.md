@@ -21,7 +21,9 @@ In this module you add automation that fires at key moments during your Claude C
 
 ### 5.1 Understand the Hook Lifecycle
 
+<!-- guide-only -->
 **Why this step:** Hooks are the automation layer of Claude Code. They let you run scripts at specific moments -- when a session starts, after a file is written, when Claude finishes a task. Understanding the lifecycle is essential because each hook event fires at a different moment and has different capabilities (some can block actions, others can only observe).
+<!-- /guide-only -->
 
 Ask Claude to walk you through the hook lifecycle. You want to understand what hooks are available, when each one fires, and how they communicate back to Claude Code.
 
@@ -157,7 +159,9 @@ The settings.json entry:
 
 ### 5.4 Create a Stop Hook
 
+<!-- guide-only -->
 **Why this step:** Stop hooks fire when Claude finishes responding. They act as a final quality gate -- you can check whether Claude did what it should have (like updating tests when it changed code) before the task is considered "done." If the hook returns failure, Claude gets the feedback and can continue working.
+<!-- /guide-only -->
 
 **Engineering value:**
 - *Entry-level:* A blocking Stop hook means Claude can't finish until the check passes — like a teacher who won't let you submit until you've spell-checked.

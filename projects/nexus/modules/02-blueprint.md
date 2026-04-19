@@ -55,7 +55,9 @@ If something in the design feels off, say so. Claude will revise. Iterate until 
 
 ### 2.3b Models Work Automatically for Now
 
+<!-- guide-only -->
 **Why this step:** Claude Code picks a model for you based on your subscription -- for this training, the default just works. You will learn fine-grained model control later, once the basics are solid.
+<!-- /guide-only -->
 
 - **Pro / API users** default to Sonnet 4.6 -- the balanced model that handles most coding tasks well.
 - **Max / Team Premium users** default to Opus 4.6 -- the most capable model for complex reasoning.
@@ -74,7 +76,9 @@ Try something like:
 Let's build out the project structure from our plan. Create the directories, placeholder files, and a config file with two example routes -- one for /api/users and one for /api/products.
 ```
 
+<!-- guide-only -->
 **Why this step:** Feature branches keep your experiments separate from working code. If something goes wrong, you can throw away the branch without affecting main. This is standard practice in professional development and Claude Code's git integration makes it seamless.
+<!-- /guide-only -->
 
 ### 2.4a Spotting hallucinations
 
@@ -113,7 +117,9 @@ Ready to start building the core gateway?
 
 ### 2.6 Implement the Core Gateway
 
+<!-- guide-only -->
 **Why this step:** Breaking implementation into separate, focused prompts (server, routing, forwarding) gives Claude better results than one giant "build everything" prompt. Each prompt is specific enough that Claude can implement it completely before moving on.
+<!-- /guide-only -->
 
 Work with Claude to build the core components one at a time. Start by asking for the HTTP server -- tell Claude it should read the port from config, listen for requests, pass them to the route matcher, and return 404 when nothing matches.
 

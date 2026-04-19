@@ -62,7 +62,9 @@ Claude does not get defensive about its plans -- ask hard questions and it will 
 
 ### 2.3b Models Work Automatically for Now
 
+<!-- guide-only -->
 **Why this step:** Claude Code picks a model for you based on your subscription — for this training, the default just works. You will learn fine-grained model control later, once the basics are solid.
+<!-- /guide-only -->
 
 - **Pro / API users** default to Sonnet 4.6 — the balanced model that handles most coding tasks well.
 - **Max / Team Premium users** default to Opus 4.6 — the most capable model for complex reasoning.
@@ -105,7 +107,9 @@ This three-check loop is the habit to build now. Apply it on every Claude-writte
 
 **New to branches?** A Git branch is a parallel copy of your code where you can experiment safely. If the experiment works, you merge it back to main. If it fails, you delete the branch and main is untouched. The command below creates a new branch called `feature/core-pages` and switches you to it — you can see which branch you are on anytime with `! git branch`.
 
+<!-- guide-only -->
 **Why this step:** Feature branches keep your experiments separate from working code. If something goes wrong, you can throw away the branch without affecting main. This is also how real teams work -- every feature gets its own branch.
+<!-- /guide-only -->
 
 ```
 ! git checkout -b feature/core-pages
@@ -135,7 +139,9 @@ Open each page in your browser. Test the navigation links between pages.
 
 ### 2.8 Write and Run Tests
 
+<!-- guide-only -->
 **Why this step:** Even static sites can have automated tests. Claude can write a validation script that checks for broken internal links, missing files, valid HTML structure, and consistent navigation -- catching issues that are easy to miss by eye. This is the same build-test-fix cycle you would use on any project.
+<!-- /guide-only -->
 
 Ask Claude to write a test script for your site. Try a prompt like this:
 
@@ -153,7 +159,9 @@ Test your site by opening each page in the browser. Click through the navigation
 
 ### 2.10 Commit and Merge
 
+<!-- guide-only -->
 **Why this step:** Committing through Claude Code (using `!` prefix for shell commands) keeps everything in one place. You do not need to switch terminals. The merge back to main means your feature branch work is now part of your stable codebase.
+<!-- /guide-only -->
 
 **If something goes wrong:** The most common issue on a first merge is a *conflict* — when Git cannot figure out how to combine changes. For this module, `main` has not moved since you branched, so conflicts are not expected. If you do see a conflict message, do not panic — ask Claude: "I got a merge conflict. Can you help me resolve it?" and Claude will walk you through it.
 

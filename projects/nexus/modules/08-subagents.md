@@ -26,7 +26,9 @@
 
 Subagents are specialized AI assistants running in their own context window with custom system prompts, specific tool access, and independent permissions. Benefits: preserve main conversation context, enforce tool constraints, specialize behavior, control costs by routing to faster models.
 
+<!-- guide-only -->
 **Why this step:** Your main Claude session handles everything -- routing, caching, security, testing. Subagents let you split that into specialists. A routing expert agent does not need write access or knowledge of caching. A security agent does not need to edit files. By restricting each agent's tools and focus, you get better results and preserve your main conversation's context window.
+<!-- /guide-only -->
 
 ### 8.2 Create the "router-agent"
 
@@ -125,7 +127,9 @@ In parallel, have the router-agent analyze route performance and the cache-agent
 
 **Background** (non-blocking):
 
+<!-- guide-only -->
 **Why this step:** Long-running analyses (like a full security audit) can block your workflow. Background execution with `Ctrl+B` lets you keep working while the agent runs. You will use this pattern whenever an agent's work is not blocking your next step.
+<!-- /guide-only -->
 
 While Claude is running a subagent, press `Ctrl+B` to send it to the background. You can continue working and Claude will notify you when it finishes. To kill background agents, press `Ctrl+F` (press twice to confirm).
 

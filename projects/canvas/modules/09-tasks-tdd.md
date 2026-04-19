@@ -18,7 +18,9 @@ cross-session persistence, TDD loops, SubagentStop
 
 ### 9.1 Tasks System Overview
 
+<!-- guide-only -->
 **Why this step:** Tasks give Claude Code a built-in project management system. Instead of keeping a mental checklist of what needs to happen, you define tasks with explicit dependencies -- task B cannot start until task A finishes. This prevents Claude from jumping ahead or working on things out of order, which is especially important for multi-step features like building a contact form.
+<!-- /guide-only -->
 
 Tasks replace the old TODO system. They provide:
 - Dependency graphs (task A blocks task B)
@@ -39,7 +41,9 @@ CLAUDE_CODE_TASK_LIST_ID=canvas-contact claude
 Any session started with this ID shares the same task list. This enables
 multiple Claude instances to coordinate work.
 
+<!-- guide-only -->
 **Why this step:** Cross-session persistence means you can close Claude Code, come back tomorrow, and your task list is still there. It also means multiple Claude instances can share the same task list -- you will use this in Module 10 for parallel development with git worktrees.
+<!-- /guide-only -->
 
 ### 9.3 Build a Multi-Step Pipeline
 

@@ -25,7 +25,9 @@ PermissionRequest hooks, continuous learning
 
 ### 10.1 Git Worktrees for Parallel Development
 
+<!-- guide-only -->
 **Why this step:** Until now, you have worked on one feature at a time: create a branch, build, merge, repeat. Git worktrees let you work on multiple features *simultaneously* in separate directories, each with its own Claude Code session. This is parallel development -- two features being built at the same time by two Claude instances, coordinating through a shared task list.
+<!-- /guide-only -->
 
 Git worktrees let you work on multiple branches simultaneously without
 switching. Each worktree is a separate directory pointing to the same repo.
@@ -76,7 +78,9 @@ Both sessions see all tasks. When one completes a task, the other is notified.
 
 ### 10.3 Agent Teams
 
+<!-- guide-only -->
 **Why this step:** You just coordinated two Claude instances manually -- separate terminals, shared task list, you switching between them. Agent teams automate this: Claude spawns teammates, assigns tasks, and they message each other directly. Same coordination pattern, but Claude manages it instead of you.
+<!-- /guide-only -->
 
 Agent teams are experimental. Enable them:
 
@@ -98,7 +102,9 @@ Agent Teams also works on Bedrock, Vertex, and Foundry API providers -- not just
 
 ### 10.4 Plugin Creation
 
+<!-- guide-only -->
 **Why this step:** Everything you have built -- skills, agents, hooks -- lives inside your project. A plugin packages these components into a portable, reusable bundle that can be shared with other projects or other people. Think of it as turning your project-specific customizations into a distributable tool.
+<!-- /guide-only -->
 
 Package everything you have built into a reusable plugin. Describe to Claude what you want to include and let it figure out the plugin structure.
 
@@ -138,7 +144,9 @@ Ready to build an evaluation suite for your skills and agents?
 
 ### 10.6 Evaluation
 
+<!-- guide-only -->
 **Why this step:** How do you know your skills and agents actually work well? Evaluation gives you a systematic way to test them with defined inputs, expected outputs, and scoring criteria. This is not the same as unit testing your code -- it is testing your *Claude Code configuration*: do skills produce the right output? Do agents make good decisions?
+<!-- /guide-only -->
 
 Describe to Claude the test cases you want for each skill and agent. Think about what "correct behavior" looks like for each one -- both the happy path and the failure cases.
 
@@ -152,7 +160,9 @@ Shall we set up auto-approval hooks for eval runs?
 
 ### 10.7 PermissionRequest Hooks for Eval Automation
 
+<!-- guide-only -->
 **Why this step:** Running evaluations means invoking many tool calls in rapid succession. Without auto-approval, you would have to manually confirm every Read, Grep, and Bash command -- dozens of permission prompts that slow everything down. PermissionRequest hooks let you auto-approve safe operations during eval while keeping the safety prompts during normal development.
+<!-- /guide-only -->
 
 During evaluation, auto-approve safe operations to avoid prompt fatigue. Ask Claude to set up the auto-approval hook in your local settings (not the shared project settings).
 
@@ -168,7 +178,9 @@ During evaluation, auto-approve safe operations to avoid prompt fatigue. Ask Cla
 
 ### 10.8 Continuous Learning
 
+<!-- guide-only -->
 **Why this step:** This is the most important habit you can build. Claude Code's effectiveness comes from its configuration -- CLAUDE.md, rules, skills, agents, hooks. Every time you discover a pattern that works or a mistake to avoid, capturing it in your configuration makes every future session better. This is compound learning: each session builds on everything that came before.
+<!-- /guide-only -->
 
 Reflect on the full project and have a conversation with Claude about what you have learned. Ask it to review your configuration and suggest improvements based on how things actually worked.
 

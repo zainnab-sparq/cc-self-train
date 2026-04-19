@@ -25,7 +25,9 @@ PermissionRequest hooks, continuous learning
 
 ### 10.1 Git Worktrees for Parallel Development
 
+<!-- guide-only -->
 **Why this step:** Until now, you have worked on one feature at a time. Git worktrees let you have multiple branches checked out simultaneously in different directories -- each with its own Claude Code session. This is how you do true parallel development: two features being built at the same time by two Claude instances that can even share a task list.
+<!-- /guide-only -->
 
 Git worktrees let you work on multiple branches simultaneously without
 switching. Each worktree is a separate directory pointing to the same repo.
@@ -100,7 +102,9 @@ Both sessions see all tasks. When one completes a task, the other is notified.
 
 ### 10.5 Agent Teams
 
+<!-- guide-only -->
 **Why this step:** You just coordinated two Claude instances manually -- separate terminals, shared task list, you managing both. Agent teams automate this: Claude spawns teammates, assigns tasks, and they message each other directly. It is the difference between you being the coordinator and Claude being the coordinator.
+<!-- /guide-only -->
 
 Agent teams are an experimental feature. Enable them first:
 
@@ -126,7 +130,9 @@ Ready to package everything into a reusable plugin?
 
 ### 10.6 Plugin Creation
 
+<!-- guide-only -->
 **Why this step:** Plugins let you package everything you have built -- skills, agents, hooks -- into a single distributable unit. Instead of every new project needing to recreate these tools from scratch, you bundle them once and reuse them anywhere. This is how you go from "project-specific tooling" to "reusable toolkit."
+<!-- /guide-only -->
 
 Package everything you have built into a reusable plugin. Tell Claude what you want to bundle:
 
@@ -174,7 +180,9 @@ prevent conflicts.
 
 ### 10.8 Evaluation
 
+<!-- guide-only -->
 **Why this step:** Building skills and agents is only half the job -- you need to verify they work correctly across different inputs. Evaluation suites test your tools systematically: does the `new-page` skill handle an empty name gracefully? Does the accessibility agent catch a missing alt attribute? This is how you catch regressions and build confidence in your toolkit.
+<!-- /guide-only -->
 
 Ask Claude to help you build an evaluation suite for your toolkit. Describe the kinds of test cases you want:
 

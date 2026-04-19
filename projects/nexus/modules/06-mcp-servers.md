@@ -24,7 +24,9 @@
 
 MCP (Model Context Protocol) connects Claude Code to external tools, databases, and APIs. Skills teach Claude **what to do**; MCP gives Claude **access to things**.
 
+<!-- guide-only -->
 **Why this step:** Without MCP, Claude can only interact with your database through your application code. With an MCP server connected, Claude can directly query, inspect, and manage the database -- like giving it a database client. This is the difference between "Claude can read your code" and "Claude can read your data."
+<!-- /guide-only -->
 
 ### 6.1b MCP Transports
 
@@ -95,7 +97,9 @@ Ready to verify your MCP connections?
 
 Inside Claude Code, run `/mcp` to see both servers with their status. Also verify with `claude mcp list`.
 
+<!-- guide-only -->
 **Why this step:** The `claude mcp add` command you just used stored the server config locally (just for you). A `.mcp.json` file at the project root makes the config shareable -- anyone who clones the repo gets the same MCP servers automatically. This is the difference between "works on my machine" and "works for the team."
+<!-- /guide-only -->
 
 ### 6.5 Create .mcp.json for the Project
 
@@ -160,7 +164,9 @@ Want to see how skills and MCP work together?
 
 ### 6.8 Create a Skill That Uses MCP
 
+<!-- guide-only -->
 **Why this step:** This step combines two features you have already learned -- skills (Module 4) and MCP (this module). The skill provides the *workflow* ("check stats, find expired entries, format a table"), while MCP provides the *capability* ("query SQLite"). This skills+MCP pattern is how you build sophisticated developer tools inside Claude Code.
+<!-- /guide-only -->
 
 Ask Claude to create a skill that orchestrates MCP tools for cache inspection. Describe the kind of report you want -- totals, hit rates, top keys, expired entries.
 

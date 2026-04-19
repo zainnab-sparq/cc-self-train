@@ -26,7 +26,9 @@ In this module you create specialized AI agents that handle specific tasks withi
 
 ### 8.1 What Are Subagents
 
+<!-- guide-only -->
 **Why this step:** Up to now, everything has happened in a single Claude conversation. Subagents let you spin up specialized Claude instances -- each with their own system prompt, tool access, and context window. Think of it as delegation: instead of doing everything yourself, you assign specific jobs to specialists. This keeps your main conversation clean and lets you parallelize work.
+<!-- /guide-only -->
 
 Ask Claude what subagents are and when you should use them instead of the main conversation.
 
@@ -102,7 +104,9 @@ Two additional frontmatter fields worth knowing: `isolation: worktree` runs the 
 
 ### 8.6 Chain Agents
 
+<!-- guide-only -->
 **Why this step:** Chaining is when the output of one agent feeds into the input of the next. This is a pipeline pattern -- the analyzer finds problems, then the test writer generates tests for exactly those problems. Neither agent needs to know about the other; Claude orchestrates the handoff in your main conversation.
+<!-- /guide-only -->
 
 Ask Claude to chain the two agents -- have the analyzer find issues first, then pass those findings to the test writer to generate targeted tests.
 

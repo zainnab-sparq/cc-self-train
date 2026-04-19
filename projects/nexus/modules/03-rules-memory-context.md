@@ -15,7 +15,9 @@
 
 </details>
 
+<!-- guide-only -->
 **Why this step:** Rules files let you give Claude permanent, file-specific instructions. Instead of repeating "always validate HTTP methods" in every prompt, you write it once in a rules file and Claude follows it automatically whenever it touches matching files.
+<!-- /guide-only -->
 
 **Engineering value:**
 - *Entry-level:* Rules are like linting configs but for Claude's behavior -- they enforce your team's conventions automatically.
@@ -46,7 +48,9 @@ Want to set up CLAUDE.local.md for your personal preferences?
 
 ### 3.2 Create CLAUDE.local.md
 
+<!-- guide-only -->
 **Why this step:** CLAUDE.local.md is your *personal* memory file -- it stores preferences that should not be shared with the team (like your preferred output format, local ports, or testing shortcuts). It gets added to `.gitignore`, which means git will never track or commit it. That way your personal preferences stay on your machine and do not get pushed to the shared repository where they would affect other contributors.
+<!-- /guide-only -->
 
 Ask Claude to create a CLAUDE.local.md with your personal development preferences. Think about what matters to you locally -- maybe you like verbose logging, your test upstream runs on a specific port, or you want a shorthand for running quick tests.
 
@@ -77,7 +81,9 @@ The hierarchy (highest to lowest on conflicts): Managed policy > CLAUDE.local.md
 
 ### 3.4 Modularize CLAUDE.md with @imports
 
+<!-- guide-only -->
 **Why this step:** As your project grows, CLAUDE.md gets bloated with documentation. The `@import` syntax lets you keep CLAUDE.md concise (a table of contents) while giving Claude access to detailed docs on demand. This is how you scale Claude's knowledge without wasting context window on every session.
+<!-- /guide-only -->
 
 Ask Claude to create documentation files for the route matching algorithm and the configuration format, then reference them from CLAUDE.md using `@imports`.
 
@@ -93,7 +99,9 @@ The `@path` syntax in CLAUDE.md imports the referenced file into Claude's contex
 
 ### 3.5 Check Context Usage with /context
 
+<!-- guide-only -->
 **Why this step:** Claude has a finite context window -- think of it as Claude's working memory. Everything Claude needs to respond (your conversation history, CLAUDE.md, rules files, file contents it has read, tool outputs) has to fit in this window. When it fills up, Claude starts forgetting earlier parts of your conversation. The `/context` command shows you exactly what is using that space so you can manage it.
+<!-- /guide-only -->
 
 Run:
 

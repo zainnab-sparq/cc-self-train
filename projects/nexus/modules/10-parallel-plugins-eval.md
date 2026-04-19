@@ -15,7 +15,9 @@
 
 </details>
 
+<!-- guide-only -->
 **Why this step:** Until now, you have worked on one feature at a time. Git worktrees create separate working directories that share the same repository, so you can have two Claude Code instances building two features simultaneously. This is how teams work on multiple features in parallel without merge conflicts blocking progress.
+<!-- /guide-only -->
 
 > **New terms this module uses:**
 > - **Worktree** -- a Git feature that lets you check out multiple branches in separate directories at the same time. Great for running parallel experiments without stashing and switching.
@@ -91,7 +93,9 @@ Agent Teams also works on Bedrock, Vertex, and Foundry API providers -- not just
 
 ### 10.4 Create a Plugin -- "gateway-plugin"
 
+<!-- guide-only -->
 **Why this step:** Everything you have built -- skills, agents, hooks -- lives inside your project's `.claude/` directory. A plugin packages all of that into a portable bundle that can be shared, versioned, and reused across projects. If you build another gateway next month, you bring the plugin instead of recreating everything from scratch.
+<!-- /guide-only -->
 
 Ask Claude to bundle your skills, agents, and hooks into a distributable plugin. Describe what you want packaged.
 
@@ -109,7 +113,9 @@ Ready to build an evaluation and scoring system?
 
 ### 10.5 Evaluation -- Test Specs and Scoring
 
+<!-- guide-only -->
 **Why this step:** Evaluation is how you measure Claude's work against objective criteria. Instead of manually checking "does the gateway work?", you define test specs with pass/fail criteria and a scoring system. This pattern is essential for CI/CD pipelines where Claude runs headlessly via `claude -p` and you need automated quality assessment.
+<!-- /guide-only -->
 
 Describe the evaluation criteria you want for your gateway and ask Claude to build a scoring script. Think about what matters -- health checks, route matching, rate limiting, caching, middleware, and error handling.
 
@@ -128,7 +134,9 @@ Claude will build the evaluation script and run it. This is a basic evaluation f
 
 ### 10.6 PermissionRequest Hooks
 
+<!-- guide-only -->
 **Why this step:** PermissionRequest hooks control the permission dialogs Claude shows you. Instead of clicking "allow" every time Claude wants to run tests, you auto-approve known-safe commands. And instead of trusting yourself to remember "do not edit the database directly," you auto-deny dangerous patterns. This is the final layer of automation: even the permission system is programmable.
+<!-- /guide-only -->
 
 PermissionRequest hooks fire when Claude would show a permission dialog. Add to `.claude/settings.json`:
 
@@ -143,7 +151,9 @@ Shall we capture what you learned in your project knowledge layer?
 
 ### 10.7 Continuous Learning
 
+<!-- guide-only -->
 **Why this step:** This is not just a cleanup step -- it is the most important habit you will take from this course. Every project improves Claude's effectiveness by capturing what you learned: architecture decisions in CLAUDE.md, coding patterns in rules files, workflows in skills, specialized analysis in agents. The project you just built is not just a gateway -- it is a knowledge base that makes your next project faster.
+<!-- /guide-only -->
 
 Update CLAUDE.md with architecture decisions, common commands, known issues, coding conventions, and performance characteristics. Also update `.claude/rules/` with new rules from your work.
 

@@ -141,7 +141,9 @@ Skills support these substitution variables:
 
 ### 4.7 Hot-Reload
 
+<!-- guide-only -->
 **Why this step:** Hot-reload means you can iterate on your skills without restarting Claude Code. This makes skill development fast -- edit, save, test, repeat. No restart cycle.
+<!-- /guide-only -->
 
 With Claude Code still running, open `.claude/skills/check-site/SKILL.md` in a
 separate editor and add a line to the checks:

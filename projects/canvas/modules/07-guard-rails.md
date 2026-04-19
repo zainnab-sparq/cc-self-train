@@ -18,7 +18,9 @@
 
 ### 7.1 PreToolUse Hooks with Decision Control
 
+<!-- guide-only -->
 **Why this step:** In Module 5 you built hooks that observe and report. PreToolUse hooks are fundamentally different -- they can *intercept and change* what Claude does before it happens. This is the most powerful hook type because it lets you enforce rules at the tool level, not just detect violations after the fact.
+<!-- /guide-only -->
 
 PreToolUse hooks intercept tool calls before they execute. They can:
 - **Allow:** bypass the permission system entirely
@@ -84,7 +86,9 @@ Add a prompt-based Stop hook to settings.json. Use type 'prompt' with a timeout 
 Prompt-based hooks use a fast LLM (Haiku) to evaluate context and return a
 structured decision. They are powerful for nuanced, context-aware checks that would be hard to write as a script.
 
+<!-- guide-only -->
 **Why this step:** Prompt-based hooks are a leap beyond script-based hooks. A Python script can check for a missing `alt` attribute with string matching, but it cannot evaluate whether an `alt` attribute is *descriptive enough*. A prompt-based hook uses an LLM to make nuanced judgments -- exactly the kind of check that is hard to write as code.
+<!-- /guide-only -->
 
 ### 7.6 Test Each Guard
 

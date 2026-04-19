@@ -15,7 +15,9 @@
 
 </details>
 
+<!-- guide-only -->
 **Why this step:** Skills turn multi-step workflows into one-command shortcuts. Instead of explaining "read the config, validate the route, add it, show the result" every time, you encode that workflow once and invoke it with `/add-route`. Skills are how you teach Claude repeatable processes.
+<!-- /guide-only -->
 
 > **New terms this module uses:**
 > - **Skill (Claude Code)** -- a reusable prompt saved as a Markdown file in `.claude/skills/`. You invoke it with a slash command like `/new-page`. Different from "skill" in the general sense -- this is specifically the Claude Code feature.
@@ -115,7 +117,9 @@ Claude picks up right where you left off -- your conversation history, CLAUDE.md
 
 ### 4.4 Argument Substitution
 
+<!-- guide-only -->
 **Why this step:** Positional arguments (`$0`, `$1`, `$ARGUMENTS`) make skills flexible. Instead of creating separate skills for each route, one skill with `$0` can look up any route you specify. This is the difference between a rigid script and a reusable tool.
+<!-- /guide-only -->
 
 Skills support positional arguments. In the test-endpoint skill above, `$ARGUMENTS` captures everything after the skill name. You can also use:
 

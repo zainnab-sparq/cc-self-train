@@ -61,7 +61,9 @@ This is a conversation -- challenge the design, ask "why not X instead?", and le
 
 ### 2.3b Models Work Automatically for Now
 
+<!-- guide-only -->
 **Why this step:** Claude Code picks a model for you based on your subscription -- for this training, the default just works. You will learn fine-grained model control later, once the basics are solid.
+<!-- /guide-only -->
 
 - **Pro / API users** default to Sonnet 4.6 -- the balanced model that handles most coding tasks well.
 - **Max / Team Premium users** default to Opus 4.6 -- the most capable model for complex reasoning.
@@ -72,7 +74,9 @@ Either default is great for what we are doing. Module 8 (subagents) shows when a
 
 ### 2.4 Exit Plan Mode and Execute
 
+<!-- guide-only -->
 **Why this step:** Switching from plan mode to normal mode is the moment you go from "thinking" to "doing." Claude will now create real files based on the architecture you just agreed on. Starting with stubs (empty functions with docstrings) lets you verify the structure is right before filling in logic.
+<!-- /guide-only -->
 
 Press `Shift+Tab` to switch back to normal mode. Now ask Claude to create the project skeleton based on the plan you just agreed on. Tell it you want the directory layout, the entry point, and stub modules with docstrings or comments explaining what each one does -- but not the full logic yet, just the structure.
 
@@ -121,7 +125,9 @@ Or ask Claude to do it:
 Create a feature branch called feature/core and commit the project skeleton.
 ```
 
+<!-- guide-only -->
 **Why this step:** Feature branches keep your experiments separate from working code. If something goes wrong while building the scanner or rule engine, you can throw away the branch without affecting main. Claude can handle all the git operations for you -- branching, committing, merging -- so you stay in the flow.
+<!-- /guide-only -->
 
 ### 2.6 Implement the File Scanner and Basic Rule Engine
 

@@ -68,7 +68,9 @@ If that returns 404, the package doesn't exist — ask Claude for the current eq
 
 ### 6.2 Add a SQLite MCP Server
 
+<!-- guide-only -->
 **Why this step:** MCP servers give Claude new capabilities it does not have built in. By adding a SQLite server, Claude can directly query and modify a database -- no need to write scripts that Claude then runs via Bash. This is a cleaner, more reliable way to work with structured data.
+<!-- /guide-only -->
 
 You will use SQLite to store analysis results, coverage history, and trend data. Add the SQLite MCP server:
 
@@ -150,7 +152,9 @@ Treat `.mcp.json` diffs in PRs with the same review bar as CI config changes or 
 
 ### 6.7 Understand MCP Scopes
 
+<!-- guide-only -->
 **Why this step:** MCP scopes determine who can use a server and where the config is stored. Getting this wrong means teammates cannot use your MCP setup, or you accidentally expose a local-only server in version control. Understanding scopes now saves confusion later.
+<!-- /guide-only -->
 
 Ask Claude about the different MCP scopes and when to use each one.
 
@@ -170,7 +174,9 @@ Explain MCP server scopes -- local, project, and user. When should I use each on
 
 ### 6.8 Create a Skill That Uses MCP
 
+<!-- guide-only -->
 **Why this step:** This is where skills and MCP come together. You are about to create a skill that queries your SQLite database through MCP. This pattern -- a skill that orchestrates MCP tool calls -- is one of the most powerful combinations in Claude Code. The skill provides the workflow logic, and MCP provides the data access.
+<!-- /guide-only -->
 
 Ask Claude to create a skill that queries the SQLite database for coverage trends. Describe what you want it to show -- recent coverage entries, a trend visualization, regressions, and a summary.
 
