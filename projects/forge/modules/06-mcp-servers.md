@@ -50,6 +50,14 @@ The abuse pattern: a compromised server emits an elicitation that looks routine 
 
 The principle: every MCP server is a new principal in your trust boundary. Treat it like a service account with narrow scopes, not like you gave it root. See also [docs/SAFETY-AND-TRUST.md](../../../docs/SAFETY-AND-TRUST.md) for the cross-feature threat model.
 
+**Verify the package exists before installing.** MCP scopes and names change. Before running any `claude mcp add ... -- npx -y <package>` command in this module, verify:
+
+```bash
+npm view <package>
+```
+
+If that returns 404, the package doesn't exist — ask Claude for the current equivalent and verify again. The commands below use packages confirmed real at the time of writing (`@modelcontextprotocol/server-filesystem` is Anthropic-published; `mcp-sqlite` is community-maintained). Treat community packages with the same scrutiny you'd give any npm dependency. See SAFETY-AND-TRUST.md §2 on hallucinated packages.
+
 ### 6.2 Add a SQLite MCP Server
 
 **Why this step:** MCP servers give Claude new capabilities beyond reading and writing files. By connecting a SQLite server, Claude can run SQL queries, create tables, and manage structured data directly -- without you writing database code. This transforms your forge toolkit from flat JSON files to a real queryable database.
@@ -60,13 +68,13 @@ upgrade from file-based JSON.
 On Windows, use the `cmd /c` wrapper for npx-based servers:
 
 ```
-claude mcp add --transport stdio forge-db -- cmd /c npx -y @anthropic-ai/mcp-sqlite --db-path forge.db
+claude mcp add --transport stdio forge-db -- cmd /c npx -y mcp-sqlite --db-path forge.db
 ```
 
 On macOS/Linux:
 
 ```
-claude mcp add --transport stdio forge-db -- npx -y @anthropic-ai/mcp-sqlite --db-path forge.db
+claude mcp add --transport stdio forge-db -- npx -y mcp-sqlite --db-path forge.db
 ```
 
 After adding, check the status:
@@ -99,13 +107,13 @@ For enhanced file operations:
 On Windows:
 
 ```
-claude mcp add --transport stdio forge-fs -- cmd /c npx -y @anthropic-ai/mcp-filesystem --root .
+claude mcp add --transport stdio forge-fs -- cmd /c npx -y @modelcontextprotocol/server-filesystem --root .
 ```
 
 On macOS/Linux:
 
 ```
-claude mcp add --transport stdio forge-fs -- npx -y @anthropic-ai/mcp-filesystem --root .
+claude mcp add --transport stdio forge-fs -- npx -y @modelcontextprotocol/server-filesystem --root .
 ```
 
 ### 6.4 Check MCP Status
@@ -129,7 +137,7 @@ should see both `forge-db` and `forge-fs`.
 To share MCP configuration with your team, use the project scope:
 
 ```
-claude mcp add --transport stdio forge-db --scope project -- npx -y @anthropic-ai/mcp-sqlite --db-path forge.db
+claude mcp add --transport stdio forge-db --scope project -- npx -y mcp-sqlite --db-path forge.db
 ```
 
 This creates a `.mcp.json` file at your project root:
@@ -139,7 +147,7 @@ This creates a `.mcp.json` file at your project root:
   "mcpServers": {
     "forge-db": {
       "command": "npx",
-      "args": ["-y", "@anthropic-ai/mcp-sqlite", "--db-path", "forge.db"],
+      "args": ["-y", "mcp-sqlite", "--db-path", "forge.db"],
       "env": {}
     }
   }

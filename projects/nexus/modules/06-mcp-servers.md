@@ -50,16 +50,24 @@ The abuse pattern: a compromised server emits an elicitation that looks routine 
 
 The principle: every MCP server is a new principal in your trust boundary. Treat it like a service account with narrow scopes, not like you gave it root. See also [docs/SAFETY-AND-TRUST.md](../../../docs/SAFETY-AND-TRUST.md) for the cross-feature threat model.
 
+**Verify the package exists before installing.** MCP scopes and names change. Before running any `claude mcp add ... -- npx -y <package>` command in this module, verify:
+
+```bash
+npm view <package>
+```
+
+If that returns 404, the package doesn't exist — ask Claude for the current equivalent and verify again. The commands below use packages confirmed real at the time of writing (`@modelcontextprotocol/server-filesystem` is Anthropic-published; `mcp-sqlite` is community-maintained). Treat community packages with the same scrutiny you'd give any npm dependency. See SAFETY-AND-TRUST.md §2 on hallucinated packages.
+
 ### 6.2 Add the SQLite MCP Server
 
 Connect an MCP server so Claude can directly inspect and manage the cache database:
 
 ```
 # macOS / Linux
-claude mcp add --transport stdio sqlite -- npx -y @anthropic-ai/mcp-sqlite --db-path ./cache.db
+claude mcp add --transport stdio sqlite -- npx -y mcp-sqlite --db-path ./cache.db
 
 # Windows (requires cmd /c wrapper)
-claude mcp add --transport stdio sqlite -- cmd /c npx -y @anthropic-ai/mcp-sqlite --db-path ./cache.db
+claude mcp add --transport stdio sqlite -- cmd /c npx -y mcp-sqlite --db-path ./cache.db
 ```
 
 If a SQLite MCP server is not available, ask Claude: `Help me set up an MCP server for a SQLite database at ./cache.db for my platform.`
@@ -68,10 +76,10 @@ If a SQLite MCP server is not available, ask Claude: `Help me set up an MCP serv
 
 ```
 # macOS / Linux
-claude mcp add --transport stdio filesystem -- npx -y @anthropic-ai/mcp-filesystem --root .
+claude mcp add --transport stdio filesystem -- npx -y @modelcontextprotocol/server-filesystem --root .
 
 # Windows
-claude mcp add --transport stdio filesystem -- cmd /c npx -y @anthropic-ai/mcp-filesystem --root .
+claude mcp add --transport stdio filesystem -- cmd /c npx -y @modelcontextprotocol/server-filesystem --root .
 ```
 
 **STOP -- What you just did:** You connected two MCP servers that give Claude new capabilities: direct SQLite database access and filesystem operations. The `claude mcp add` command registered them, and now Claude can use their tools alongside its built-in tools. Think of MCP servers as "plugins for Claude's toolbox" -- each one adds new abilities.
@@ -98,14 +106,14 @@ For team sharing, create a project-scoped `.mcp.json` at the project root:
   "mcpServers": {
     "sqlite": {
       "command": "npx",
-      "args": ["-y", "@anthropic-ai/mcp-sqlite", "--db-path", "./cache.db"],
+      "args": ["-y", "mcp-sqlite", "--db-path", "./cache.db"],
       "env": {}
     }
   }
 }
 ```
 
-Or use: `claude mcp add --scope project sqlite-cache -- npx -y @anthropic-ai/mcp-sqlite --db-path ./cache.db`
+Or use: `claude mcp add --scope project sqlite-cache -- npx -y mcp-sqlite --db-path ./cache.db`
 
 **`.mcp.json` is shipped with your repo.**
 

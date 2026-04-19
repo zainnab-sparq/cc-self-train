@@ -52,6 +52,14 @@ The abuse pattern: a compromised server emits an elicitation that looks routine 
 
 The principle: every MCP server is a new principal in your trust boundary. Treat it like a service account with narrow scopes, not like you gave it root. See also [docs/SAFETY-AND-TRUST.md](../../../docs/SAFETY-AND-TRUST.md) for the cross-feature threat model.
 
+**Verify the package exists before installing.** MCP scopes and names change. Before running any `claude mcp add ... -- npx -y <package>` command in this module, verify:
+
+```bash
+npm view <package>
+```
+
+If that returns 404, the package doesn't exist — ask Claude for the current equivalent and verify again. The commands below use packages confirmed real at the time of writing (`@modelcontextprotocol/server-filesystem` is Anthropic-published; `mcp-fetch-server` is community-maintained). Treat community packages with the same scrutiny you'd give any npm dependency. See SAFETY-AND-TRUST.md §2 on hallucinated packages.
+
 ### 6.2 Add an MCP Server Relevant to Your Stack
 
 Pick the MCP server that best fits your project. Here are common choices by project type:
@@ -69,13 +77,13 @@ Add the one that fits your project best. For filesystem (works for any project):
 On Windows:
 
 ```
-claude mcp add --transport stdio project-fs -- cmd /c npx -y @anthropic-ai/mcp-filesystem --root .
+claude mcp add --transport stdio project-fs -- cmd /c npx -y @modelcontextprotocol/server-filesystem --root .
 ```
 
 On macOS/Linux:
 
 ```
-claude mcp add --transport stdio project-fs -- npx -y @anthropic-ai/mcp-filesystem --root .
+claude mcp add --transport stdio project-fs -- npx -y @modelcontextprotocol/server-filesystem --root .
 ```
 
 For Fetch (web projects, API projects):
@@ -83,13 +91,13 @@ For Fetch (web projects, API projects):
 On Windows:
 
 ```
-claude mcp add --transport stdio project-fetch -- cmd /c npx -y @anthropic-ai/mcp-fetch
+claude mcp add --transport stdio project-fetch -- cmd /c npx -y mcp-fetch-server
 ```
 
 On macOS/Linux:
 
 ```
-claude mcp add --transport stdio project-fetch -- npx -y @anthropic-ai/mcp-fetch
+claude mcp add --transport stdio project-fetch -- npx -y mcp-fetch-server
 ```
 
 If your project uses a database, check `context/mcp.txt` for database-specific MCP servers (Postgres, SQLite, etc.).
@@ -143,7 +151,7 @@ This shows all connected servers, their status, and available tools. You should 
 To share MCP configuration with your team (or your future self on another machine), use the project scope:
 
 ```
-claude mcp add --transport stdio project-fs --scope project -- npx -y @anthropic-ai/mcp-filesystem --root .
+claude mcp add --transport stdio project-fs --scope project -- npx -y @modelcontextprotocol/server-filesystem --root .
 ```
 
 This creates a `.mcp.json` file at your project root:
@@ -153,7 +161,7 @@ This creates a `.mcp.json` file at your project root:
   "mcpServers": {
     "project-fs": {
       "command": "npx",
-      "args": ["-y", "@anthropic-ai/mcp-filesystem", "--root", "."],
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "--root", "."],
       "env": {}
     }
   }
