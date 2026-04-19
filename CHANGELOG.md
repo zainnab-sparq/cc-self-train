@@ -1,5 +1,38 @@
 # Changelog
 
+## v2.25.0 (2026-04-19)
+
+**Consolidated-signals fixes — Windows polish, MCP package fix, classifier honesty, security index.** Three merged PRs (plus one polish) closing the still-open items from an 8-run agent evaluation synthesis (4 personas × text critique + hands-on walkthrough). Research paper also updated. 621 tests, 0 skipped.
+
+### Real bugs closed
+- **MCP package names were 404 across all 5 projects.** `@anthropic-ai/mcp-*` doesn't exist on npm. Replaced with real packages: `@modelcontextprotocol/server-filesystem` (Anthropic-published) for filesystem, `mcp-sqlite` and `mcp-fetch-server` (community-maintained) for SQLite and fetch. 28 replacements across 5 Module 6 files. Plus a new "Verify the package exists before installing" paragraph teaching `npm view` as the durable pattern — hardcoding replacement names would defer the same bug.
+- **Module 7 didn't require testing both guard paths.** A PreToolUse guard that silently allows everything looks identical to a working guard at the exit-code level. Added a new section before the Checkpoint showing an explicit allow/deny test matrix with a "both outputs must differ" callout. 5 projects.
+
+### Windows polish
+- New "Windows setup — one-time fixes for Git Bash / MSYS" section in Module 1 covering `git init` default branch, `core.autocrlf`, `cmd /c npx` wrapper, and `cygpath -w` for hook scripts. Skip-if-not-Windows framing.
+- Module 5 hook scripts now show a Python one-liner fallback alongside `jq` — cross-platform, no extra install. Plus a Windows note about `cygpath -w $CLAUDE_PROJECT_DIR` when piping into native Python.
+- Module 10 `git worktree add` commands now use `-b` flag so the branch is created alongside the worktree — fixes a hard error when the branch doesn't pre-exist.
+- Nexus Module 2 forwarder step now acknowledges Host-header stripping and upstream timeouts as out-of-scope-but-worth-knowing (gateway-101 hygiene).
+
+### Learner UX
+- `/stuck` now surfaces at three friction points — Module 1 Windows setup, Module 5 first Stop-hook debugging step, Module 7 PreToolUse verification — not just at module entries. Addresses the "0 invocations across 5 agent runs" finding.
+- Module 4.1 skills-location guidance rewritten to explain `$CLAUDE_PROJECT_DIR` determines which `.claude/` wins, not prescribe a location.
+- Forge Module 6 SQLite step reframed as illustration, not storage migration — "your JSON layer is production-fine" framing.
+- Module 2 §2.4a "Spotting hallucinations" sub-step with a three-check loop (imports exist? API current? matches observed behavior?) applied at the first moment Claude has written code.
+
+### Security surfacing
+- New `context/security.txt` — threat-to-section lookup index across 13 threat categories.
+- New `.claude/skills/security-review/SKILL.md` — automated audit skill that inspects `.claude/settings.json` / `skills/` / `.mcp.json` / `CLAUDE.md` for known footguns and reports CRITICAL/HIGH/MEDIUM/LOW findings with specific file references and concrete remediations.
+
+### Adaptive-system honesty
+- **Classifier ack allowlist.** `ship it`, `lgtm`, `ok`, `next`, `thanks`, `done`, `perfect`, `sgtm`, etc. now classify as `neutral`, not `passive_acceptance`. Senior engineers replying "ship it" to a good plan should not get demoted.
+- **Long-message engagement bias.** Messages >200 chars with conceptual markers (`why`/`how`/`what`/`walk me through`) → `concept_question`; with first-person verbs (`i'm trying`/`thinking`/`wondering`) → `independent_exploration`. Catches terse-engineer phrasing that doesn't hit the short keyword patterns.
+- **Banner dedup.** `learner-context.js drainBanners()` now resolves struggle + engagement contradictions by keeping the later-created banner; older conflicting type silently acknowledged.
+- **`module-boundary.js` self-heals missing Effective Level.** If CLAUDE.local.md has Experience Level but no Effective Level, the script inserts one on first run and proceeds. Reports `effectiveLevelInitialized: true` in the JSON summary.
+
+### Research paper
+- Updated with the author's latest findings from the ongoing 8-agent evaluation series.
+
 ## v2.24.0 (2026-04-18)
 
 **Senior-eval-driven fixes — real bugs, security content, Module 2 polish.** One merged PR with 12 commits closing every still-open item from Morgan's senior-persona evaluation (8 years professional experience). All 8 verification checks confirmed open before editing; A3 in particular surfaced a genuine documentation bug.
