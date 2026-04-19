@@ -97,10 +97,13 @@ Want to set up a feature branch and start building?
 **New to branches?** A Git branch is a parallel copy of your code where you can experiment safely. If the experiment works, you merge it back to main. If it fails, you delete the branch and main is untouched. The command below creates a new branch called `feature/core` and switches you to it -- you can see which branch you are on anytime with `! git branch`.
 
 ```
-! git add -A
+! git status                # inspect what's about to be staged
+! git add <files or dirs you want to commit>   # name them explicitly
 ! git commit -m "Initial project skeleton"
 ! git checkout -b feature/core
 ```
+
+**Heads up:** `git add -A` is tempting, but it will stage `.env` files, IDE configs, and build artifacts you may not have meant to commit. Run `git status` first, then `git add` the specific paths you actually want. The first time someone commits a `.env` is a very bad day.
 
 Or ask Claude to do it:
 

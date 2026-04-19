@@ -148,11 +148,14 @@ Test your site by opening each page in the browser. Click through the navigation
 **If something goes wrong:** The most common issue on a first merge is a *conflict* — when Git cannot figure out how to combine changes. For this module, `main` has not moved since you branched, so conflicts are not expected. If you do see a conflict message, do not panic — ask Claude: "I got a merge conflict. Can you help me resolve it?" and Claude will walk you through it.
 
 ```
-! git add -A
+! git status                # inspect what's about to be staged
+! git add <files or dirs you want to commit>   # name them explicitly
 ! git commit -m "feat: home, about, and projects pages with CSS design system"
 ! git checkout main
 ! git merge feature/core-pages
 ```
+
+**Heads up:** `git add -A` is tempting, but it will stage `.env` files, IDE configs, and build artifacts you may not have meant to commit. Run `git status` first, then `git add` the specific paths you actually want. The first time someone commits a `.env` is a very bad day.
 
 ### 2.11 Branching & Quick Plans
 
