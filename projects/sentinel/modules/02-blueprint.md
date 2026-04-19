@@ -180,6 +180,8 @@ Try something like:
 Commit all changes on feature/core with a good commit message, then merge back to main.
 ```
 
+**Note:** Real teams open a pull request and get a review here — we're fast-forwarding for solo learning. Module 10 covers the full PR + review workflow.
+
 ### 2.11 Branching & Quick Plans
 
 Two workflow tricks to try now:
