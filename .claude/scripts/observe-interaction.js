@@ -28,6 +28,15 @@ const QUALITY = {
 function classify(userMsg, assistantMsgLength) {
   if (!userMsg || userMsg.trim().length === 0) return "neutral";
   const msg = userMsg.toLowerCase();
+  const trimmed = msg.trim();
+
+  // Acknowledgment allowlist: short affirmatives after a good answer
+  // are engagement, not disengagement. A senior engineer replying
+  // "ship it" to a solid plan should NOT get classified as
+  // passive_acceptance. Must come BEFORE the length-based heuristic
+  // below so these bypass the short-reply demotion.
+  const ackPattern = /^(ship it|lgtm|sgtm|ok|okay|k|next|go|thanks|thx|done|perfect|yep|yes|cool|great|sounds good)[.!?]?$/i;
+  if (ackPattern.test(trimmed)) return "neutral";
 
   // Answer-seeking patterns
   const answerPatterns = [
@@ -62,8 +71,23 @@ function classify(userMsg, assistantMsgLength) {
   ];
   if (debugPatterns.some((p) => msg.includes(p))) return "debug_attempt";
 
-  // Passive acceptance (short reply to long assistant message)
-  if (msg.trim().length < 15 && assistantMsgLength > 500) return "passive_acceptance";
+  // Long-message engagement bias: a message that didn't hit any
+  // short-keyword pattern above is still likely engagement if it's
+  // long AND contains conceptual markers OR first-person verbs.
+  // Without this, long well-phrased questions from terse engineers
+  // fall through to neutral and misread as disengagement.
+  if (trimmed.length > 200) {
+    const longConceptMarkers = /\b(why|how|what|walk me through|tell me about|could you explain)\b/i;
+    const longFirstPerson = /\b(i(?:'m| am)? (?:tried|trying|noticed|thinking|wondering|working on|seeing|looking at))\b/i;
+    if (longConceptMarkers.test(trimmed)) return "concept_question";
+    if (longFirstPerson.test(trimmed)) return "independent_exploration";
+  }
+
+  // Passive acceptance (short reply to long assistant message).
+  // Note: the ack allowlist above has already short-circuited
+  // "ok" / "next" / "ship it" style acks, so this catches only
+  // genuinely empty / non-acknowledging short replies.
+  if (trimmed.length < 15 && assistantMsgLength > 500) return "passive_acceptance";
 
   return "neutral";
 }

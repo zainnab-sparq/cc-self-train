@@ -124,6 +124,108 @@ def test_observe_classifies_concept_question(tmp_path):
     assert profile["qualityScores"] == [5]
 
 
+# --- classifier honesty improvements (consolidated-signals T3.2) ----------
+
+
+def _write_transcript_with_long_assistant(path: pathlib.Path, user_msg: str) -> None:
+    """Variant that puts a long assistant message first so the 'short reply
+    to long assistant' heuristic (passive_acceptance) is live. Used to prove
+    the ack allowlist bypasses passive_acceptance for real acks."""
+    long_assistant = "Here's the plan. " * 60  # ~1000 chars, well over the 500 threshold
+    lines = [
+        json.dumps({"type": "assistant", "message": long_assistant}),
+        json.dumps({"type": "human", "message": user_msg}),
+    ]
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+def test_observe_ack_allowlist_bypasses_passive_acceptance(tmp_path):
+    """Short ack ('ship it') after a long assistant message should classify
+    as neutral, not passive_acceptance. Reeves v2 quantified this as a
+    major misclassification source for senior engineers."""
+    transcript = tmp_path / "transcript.jsonl"
+    _write_transcript_with_long_assistant(transcript, "ship it")
+
+    result = _run_observe(tmp_path, transcript)
+
+    assert result.returncode == 0, result.stderr
+    profile = _profile(tmp_path)
+    assert profile["interactions"]["neutral"] == 1
+    assert profile["interactions"]["passive_acceptance"] == 0
+
+
+def test_observe_ack_allowlist_handles_common_variants(tmp_path):
+    """Multiple common ack forms all route to neutral."""
+    transcript = tmp_path / "transcript.jsonl"
+    for ack in ["lgtm", "ok", "next", "thanks.", "sgtm", "sounds good"]:
+        _write_transcript_with_long_assistant(transcript, ack)
+        assert _run_observe(tmp_path, transcript).returncode == 0
+
+    profile = _profile(tmp_path)
+    assert profile["interactions"]["neutral"] == 6
+    assert profile["interactions"]["passive_acceptance"] == 0
+
+
+def test_observe_long_conceptual_question_without_keywords(tmp_path):
+    """A long well-phrased conceptual question that doesn't hit any of
+    the short keyword patterns should still classify as concept_question,
+    not fall through to neutral. Must avoid debugPatterns words like 'bug'
+    and 'issue' which would short-circuit to debug_attempt."""
+    transcript = tmp_path / "transcript.jsonl"
+    long_msg = (
+        "Walk me through the failure mode when a PreToolUse hook returns "
+        "a permissionDecision of 'allow' but the underlying script had a "
+        "subtle implementation flaw that prevented its deny branch from "
+        "ever being reachable. I want to understand what Claude Code sees "
+        "and why this looks identical to a correctly-written allow path "
+        "from the outside."
+    )
+    _write_transcript(transcript, long_msg)
+
+    result = _run_observe(tmp_path, transcript)
+
+    assert result.returncode == 0
+    profile = _profile(tmp_path)
+    assert profile["interactions"]["concept_question"] == 1
+
+
+def test_observe_long_first_person_exploration_without_keywords(tmp_path):
+    """A long first-person exploration message that doesn't hit the short
+    'i tried' / 'i noticed' patterns should still classify as exploration.
+    Must avoid longConceptMarkers (why/how/what/walk me) which would
+    match first."""
+    transcript = tmp_path / "transcript.jsonl"
+    long_msg = (
+        "I'm thinking about the data flow between the stop hook and the "
+        "streak-check hook. My hypothesis is that the race is prevented "
+        "by the lock file but only if both hooks agree on its location. "
+        "I'm wondering whether the lock path should be per-project or "
+        "global, and whether the lastAnnouncedStreak field interacts with "
+        "the first run after the file is created."
+    )
+    _write_transcript(transcript, long_msg)
+
+    result = _run_observe(tmp_path, transcript)
+
+    assert result.returncode == 0
+    profile = _profile(tmp_path)
+    assert profile["interactions"]["independent_exploration"] == 1
+
+
+def test_observe_short_non_ack_still_passive_acceptance(tmp_path):
+    """Regression guard: the ack allowlist must not over-match. A short
+    reply that isn't in the allowlist after a long assistant message
+    should still classify as passive_acceptance."""
+    transcript = tmp_path / "transcript.jsonl"
+    _write_transcript_with_long_assistant(transcript, "hmm")
+
+    result = _run_observe(tmp_path, transcript)
+
+    assert result.returncode == 0
+    profile = _profile(tmp_path)
+    assert profile["interactions"]["passive_acceptance"] == 1
+
+
 def test_observe_classifies_answer_seeking(tmp_path):
     transcript = tmp_path / "transcript.jsonl"
     _write_transcript(transcript, "just do it for me")
