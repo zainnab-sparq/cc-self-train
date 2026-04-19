@@ -1,5 +1,32 @@
 # Changelog
 
+## v2.26.0 (2026-04-19)
+
+**Curriculum sync to Claude Code v2.1.114.** Phase 1/2 `/sync` skill run across the four-patch delta. Nine context files refreshed; five new module steps added across all five projects (25 module-file edits). No existing steps renumbered or modified. 621 tests pass.
+
+### Context refresh (v2.1.111 – v2.1.114)
+- `context/changelog-cc.txt` — prepended v2.1.111 / v2.1.112 / v2.1.113 / v2.1.114 entries
+- `context/models.txt` — `xhigh` effort level for Opus 4.7, `max` row, `/effort` interactive slider, Auto-mode behavior change (auto-selects effort based on task)
+- `context/interactive-mode.txt` — readline shortcuts (`Ctrl+U` clear buffer + `Ctrl+Y` restore, `Ctrl+A`/`Ctrl+E` start/end of line), Windows `Ctrl+Backspace` word-delete, "Auto (match terminal)" theme option, `CLAUDE_CODE_USE_POWERSHELL_TOOL` env var
+- `context/hooks.txt` — read-only bash pass-through (curated safe commands skip permission prompts), `sandbox.network.deniedDomains` precedence, Bash security-rule tightening (`find:-exec`, `/private/` as dangerous-rm target, exec-wrapper deny-matching), `dangerouslyDisableSandbox` honored in plan mode
+- `context/security.txt` — `/less-permission-prompts` bundled skill cross-ref, sandbox deny/allow precedence, Bash rule refinements
+- `context/skillsmd.txt` — `/less-permission-prompts` bundled skill entry
+- `context/subagents.txt` — 10-minute mid-stream subagent stall timeout surfaces clear error instead of silent hang
+- `context/tasks.txt` — `/loop` Esc cancellation and "Claude resuming /loop wakeup" banner
+- `context/common-workflows.txt` — `/ultrareview` cloud multi-agent review, Auto-mode expansion
+
+### Module steps added (applied to canvas, forge, nexus, sentinel, byop)
+- **Module 1 "Recent UX refinements"** (canvas 1.11 / forge 1.10 / nexus 1.9 / sentinel 1.9 / byop 1.11) — Guide persona overview of `xhigh`, auto mode, readline shortcuts, theme auto-match, PowerShell tool, `/ultrareview` preview. Module 1 checkpoint gains "try new readline shortcut" checkbox.
+- **Module 7 §7.10 "Permission-model refinements"** — Peer persona; deniedDomains precedence, read-only bash pass-through, Bash rule tightening, `dangerouslyDisableSandbox` + plan mode fix.
+- **Module 8 §8.11 "Subagent stall timeout"** — Peer persona; behavioral-change note, no action required.
+- **Module 9 "/loop cancellation and wakeup banner"** (canvas/forge/nexus/byop 9.7, sentinel 9.9) — Peer persona; Esc cancel + disambiguating wakeup banner.
+- **Module 10 §10.14 "/ultrareview cloud multi-agent review"** — Launcher persona; when-to-reach-for-it vs. when-to-skip framing.
+
+### Verification
+- `node .claude/scripts/render-module-headers.js` → `{"unchanged": 50}` (no module-count drift)
+- `pytest tests/` → 621 passed
+- Two-commit PR structure: context changes, then module steps (PR #11, squash-merged)
+
 ## v2.25.0 (2026-04-19)
 
 **Consolidated-signals fixes — Windows polish, MCP package fix, classifier honesty, security index.** Three merged PRs (plus one polish) closing the still-open items from an 8-run agent evaluation synthesis (4 personas × text critique + hands-on walkthrough). Research paper also updated. 621 tests, 0 skipped.
