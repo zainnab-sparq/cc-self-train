@@ -71,6 +71,38 @@ Claude will write a failing test, then ask you to confirm before implementing. E
 
 Ready to add quality gate hooks to the task system?
 
+### 9.4a Walkthrough: one worked TDD cycle
+
+Before Claude runs the full pipeline, walk through a single test end to end by hand. Three moves: RED, GREEN, REFACTOR.
+
+**RED — write a failing test first.**
+
+```
+Add exactly one test: assert that matchRoute({method: "GET", path: "/health"}, routes) returns the /health route config. Do NOT implement matchRoute yet.
+```
+
+Run your test runner. You should see red — "matchRoute is not defined" or the test-framework equivalent. If it passes, something is wrong.
+
+**GREEN — minimum code to pass.**
+
+```
+Write the smallest matchRoute that makes the failing test pass. Handle only exact path + method match -- no prefix matching, no path parameters, nothing else.
+```
+
+Claude writes a few lines. Run tests: green. Don't add behavior the tests don't ask for; later tests will surface prefix matching and path parameters.
+
+**REFACTOR — improve without changing behavior.**
+
+```
+Refactor matchRoute for clarity -- extract the match condition into a helper if it helps. All existing tests must still pass.
+```
+
+Run tests: still green. That's a complete red-green-refactor cycle on one named behavior.
+
+**Why this matters.** Without TDD, Claude will happily write a 50-line matcher covering every case it imagines -- path parameters, wildcards, query-string handling -- most of them subtly wrong, then claim it's done. TDD forces one test at a time. Each test names one behavior. Each implementation covers exactly what the tests require. The final function is exactly as large as your tests demand -- not larger.
+
+**STOP -- What you just did:** You saw the full red/green/refactor loop on one test case. The remaining tests (prefix match, path parameters, no-match returns null) run through the same loop -- each cycle short, each forcing you to decide "what's the next behavior?" before Claude writes code. That cadence is the discipline.
+
 ### 9.5 Stop and SubagentStop Hooks for Quality
 
 **Why this step:** Tasks and TDD work best when there is a quality gate preventing premature completion. The Stop hook checks whether Claude's current task is truly done (tests pass, requirements met). The SubagentStop hook does the same for subagent output. Together, they prevent Claude from marking work as "done" when it is merely "started."

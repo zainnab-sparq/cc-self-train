@@ -90,6 +90,38 @@ Ready to add a SubagentStop hook for verifying agent output?
 
 **Why this step (for the next section):** SubagentStop hooks verify that subagents actually completed their work properly. Without this check, a subagent could fail silently or return incomplete results, and you might not notice.
 
+### 9.4a Walkthrough: one worked TDD cycle
+
+Before Claude runs the full pipeline, walk through a single test end to end by hand. Pick one small function from your project that doesn't exist yet — something you could implement in 5 lines. Then three moves: RED, GREEN, REFACTOR.
+
+**RED — write a failing test first.** Ask Claude for a single failing test:
+
+```
+Add exactly one test: assert that <yourFunction>(<input>) returns <expected>. Do NOT implement <yourFunction> yet.
+```
+
+Run your test runner. You should see red — "not defined" or the test-framework equivalent. If it passes, something is wrong.
+
+**GREEN — minimum code to pass.**
+
+```
+Write the smallest <yourFunction> that makes the failing test pass. Handle only the case the test covers -- nothing else.
+```
+
+Claude writes a few lines. Run tests: green. Don't add behavior the tests don't ask for; later tests will surface other cases.
+
+**REFACTOR — improve without changing behavior.**
+
+```
+Refactor <yourFunction> for clarity -- extract a named helper, pull out a constant, rename a variable. All existing tests must still pass.
+```
+
+Run tests: still green. That's a complete red-green-refactor cycle on one named behavior.
+
+**Why this matters.** Without TDD, Claude will happily write a 50-line function covering every case it imagines, most of them wrong, and then claim it's done. TDD forces one test at a time. Each test names one behavior. Each implementation covers exactly what the tests require. The final function is exactly as large as your tests demand -- not larger.
+
+**STOP -- What you just did:** You saw the full red/green/refactor loop on one test case. Subsequent tests run through the same loop — each cycle short, each forcing you to decide "what's the next behavior?" before Claude writes code. That cadence is the discipline.
+
 ### 9.5 Stop and SubagentStop Hooks for Verification
 
 Add a SubagentStop hook that verifies subagent output. Describe the check to Claude:

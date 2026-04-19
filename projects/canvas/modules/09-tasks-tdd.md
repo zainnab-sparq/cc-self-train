@@ -91,6 +91,38 @@ Ready to add a SubagentStop hook for verifying agent output?
 
 **Why this step (for the next section):** SubagentStop hooks verify that subagents actually completed their work properly. Without this check, a subagent could fail silently or return incomplete results, and you might not notice.
 
+### 9.4a Walkthrough: one worked TDD cycle
+
+Before Claude runs the full pipeline, walk through a single test end to end by hand. Three moves: RED, GREEN, REFACTOR.
+
+**RED — write a failing test first.**
+
+```
+Add exactly one test to test.html: assert that validateEmail("notAnEmail") returns {valid: false, error: "Invalid email format"}. Do NOT write validateEmail yet.
+```
+
+Open `test.html`. You should see red — `ReferenceError: validateEmail is not defined`. If it passes, something is wrong.
+
+**GREEN — minimum code to pass.**
+
+```
+Write the smallest validateEmail that makes the failing test pass. Handle only the case the test covers -- nothing else.
+```
+
+Claude writes about three lines. Refresh the browser: green. Don't add behavior the tests don't ask for; later tests will surface other cases.
+
+**REFACTOR — improve without changing behavior.**
+
+```
+Refactor validateEmail for clarity -- extract the pattern to a named regex. All existing tests must still pass.
+```
+
+Refresh: still green. That's a complete red-green-refactor cycle on one named behavior.
+
+**Why this matters.** Without TDD, Claude will happily write a 50-line validator covering every case it imagines, most of them wrong, and then claim it's done. TDD forces one test at a time. Each test names one behavior. Each implementation covers exactly what the tests require. The final function is exactly as large as your tests demand -- not larger.
+
+**STOP -- What you just did:** You saw the full red/green/refactor loop on one test case. The remaining tests (required fields, XSS prevention, length limits) run through the same loop -- each cycle short, each forcing you to decide "what's the next behavior?" before Claude writes code. That cadence is the discipline.
+
 ### 9.5 Stop and SubagentStop Hooks for Verification
 
 Add a SubagentStop hook that verifies subagent output. Describe the check to Claude:

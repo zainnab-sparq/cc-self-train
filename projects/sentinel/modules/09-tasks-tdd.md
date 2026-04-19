@@ -98,6 +98,38 @@ Then edge cases:
 Now test coverage percentage calculation -- include edge cases like zero lines, 100% coverage, and empty files.
 ```
 
+### 9.4a Walkthrough: one worked TDD cycle
+
+Before Claude runs the full pipeline, walk through a single test end to end by hand. Three moves: RED, GREEN, REFACTOR.
+
+**RED — write a failing test first.**
+
+```
+Add exactly one test: assert that checkFunctionLength(["function foo() {", "  return 1;", "}"]) returns {passed: true}. Do NOT implement checkFunctionLength yet.
+```
+
+Run your test runner. You should see red — "checkFunctionLength is not defined" or the test-framework equivalent. If it passes, something is wrong.
+
+**GREEN — minimum code to pass.**
+
+```
+Write the smallest checkFunctionLength that makes the failing test pass. Handle only the short-function case -- nothing about thresholds, nothing about multiple functions.
+```
+
+Claude writes a few lines. Run tests: green. Don't add behavior the tests don't ask for; later tests will surface threshold logic and multi-function handling.
+
+**REFACTOR — improve without changing behavior.**
+
+```
+Refactor checkFunctionLength for clarity -- name the magic number if there is one. All existing tests must still pass.
+```
+
+Run tests: still green. That's a complete red-green-refactor cycle on one named behavior.
+
+**Why this matters.** Without TDD, Claude will happily write a 50-line checker covering every case it imagines -- nested functions, arrow syntax, class methods -- most of them subtly wrong, then claim it's done. TDD forces one test at a time. Each test names one behavior. Each implementation covers exactly what the tests require. The final function is exactly as large as your tests demand -- not larger.
+
+**STOP -- What you just did:** You saw the full red/green/refactor loop on one test case. The remaining tests (threshold violations, multi-function files, edge cases) run through the same loop -- each cycle short, each forcing you to decide "what's the next behavior?" before Claude writes code. That cadence is the discipline.
+
 ### 9.5 Complete the Remaining Tasks
 
 **Why this step:** Now you let the task system guide your workflow. Instead of deciding what to build next, you ask Claude for the next unblocked task. The dependency graph ensures you build things in the right order. As each task completes, downstream tasks become available automatically.

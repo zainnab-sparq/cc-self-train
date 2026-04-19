@@ -83,6 +83,38 @@ This enforces disciplined development and gives you a solid test suite.
 
 Want to add verification hooks for subagent output?
 
+### 9.4a Walkthrough: one worked TDD cycle
+
+Before Claude runs the full pipeline, walk through a single test end to end by hand. Three moves: RED, GREEN, REFACTOR.
+
+**RED — write a failing test first.**
+
+```
+Add exactly one test: assert that validateItemTitle("") returns {valid: false, error: "Title is required"}. Do NOT write validateItemTitle yet.
+```
+
+Run your test runner. You should see red — "validateItemTitle is not defined" or the test-framework equivalent. If it passes, something is wrong.
+
+**GREEN — minimum code to pass.**
+
+```
+Write the smallest validateItemTitle that makes the failing test pass. Handle only the empty-string case -- nothing else.
+```
+
+Claude writes about three lines. Run tests: green. Don't add behavior the tests don't ask for; later tests will surface other cases.
+
+**REFACTOR — improve without changing behavior.**
+
+```
+Refactor validateItemTitle for clarity -- pull the validation rule into a named constant if it helps. All existing tests must still pass.
+```
+
+Run tests: still green. That's a complete red-green-refactor cycle on one named behavior.
+
+**Why this matters.** Without TDD, Claude will happily write a 50-line validator covering every case it imagines, most of them wrong, and then claim it's done. TDD forces one test at a time. Each test names one behavior. Each implementation covers exactly what the tests require. The final function is exactly as large as your tests demand -- not larger.
+
+**STOP -- What you just did:** You saw the full red/green/refactor loop on one test case. The remaining tests (URL validation for bookmarks, tag format, length limits) run through the same loop -- each cycle short, each forcing you to decide "what's the next behavior?" before Claude writes code. That cadence is the discipline.
+
 ### 9.5 Stop and SubagentStop Hooks for Verification
 
 Add a quality gate for subagent output. Ask Claude to create a SubagentStop hook that verifies subagents actually completed their tasks before returning results.
