@@ -56,6 +56,7 @@ CONTEXT_FILES = [
     "ide-integration.txt",
     "models.txt",
     "prompt.txt",
+    "security.txt",
     "The-Complete-Guide-to-Building-Skill-for-Claude.pdf",
 ]
 
