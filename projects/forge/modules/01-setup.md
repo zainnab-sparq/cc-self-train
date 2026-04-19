@@ -208,9 +208,12 @@ Review Claude's suggestions. Apply at least one of them by editing `CLAUDE.md`.
 ### 1.8 First Commit
 
 ```
-! git add -A
+! git status                # see what you're about to stage
+! git add CLAUDE.md <other explicit paths>   # name what you actually want
 ! git commit -m "Initial project setup with CLAUDE.md"
 ```
+
+Replace `<other explicit paths>` with the specific files your project has so far. Avoid `git add -A` — it stages everything including stray files, `.env`, and IDE configs. Module 2 Step 2.10 has more on this.
 
 **STOP -- What you just did:** You made your first commit. From Module 2 onward, you will commit after every significant step. Building a clean commit history is a professional habit -- it lets you rewind, review, and understand your project's evolution.
 
@@ -251,6 +254,16 @@ Two small personalizations to try now:
 </details>
 
 > **STOP** -- Try `/color` and name your session with `-n` on your next launch. These small touches make sessions easier to find and more personal.
+
+### Shell tools you'll need later
+
+Module 5 (Hooks) uses **`jq`** to parse JSON from hook stdin. If you don't already have it, install now so you're not blocked later:
+
+- **macOS:** `brew install jq`
+- **Ubuntu/Debian:** `sudo apt install jq`
+- **Windows (Git Bash):** `choco install jq` or download from https://jqlang.github.io/jq/download/
+
+Verify with `jq --version`.
 
 ### Checkpoint
 

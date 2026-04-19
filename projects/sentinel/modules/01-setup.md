@@ -234,6 +234,16 @@ Two small personalizations to try now:
 
 > **STOP** -- Try `/color` and name your session with `-n` on your next launch. These small touches make sessions easier to find and more personal.
 
+### Shell tools you'll need later
+
+Module 5 (Hooks) uses **`jq`** to parse JSON from hook stdin. If you don't already have it, install now so you're not blocked later:
+
+- **macOS:** `brew install jq`
+- **Ubuntu/Debian:** `sudo apt install jq`
+- **Windows (Git Bash):** `choco install jq` or download from https://jqlang.github.io/jq/download/
+
+Verify with `jq --version`.
+
 ### Checkpoint
 
 You just set up a code analysis project, configured Claude Code's memory, learned the keyboard shortcuts, and had your first real conversation with Claude. That's a real foundation -- everything from here builds on it.

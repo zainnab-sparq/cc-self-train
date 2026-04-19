@@ -120,6 +120,12 @@ Try something like:
 Create a .mcp.json file in the project root with both the sentinel-db and sentinel-fs server configurations. I want this committed to version control so anyone who clones the repo gets the same MCP setup.
 ```
 
+**`.mcp.json` is shipped with your repo.**
+
+The `.mcp.json` file is a shared trust surface — everyone who clones the repo gets the same MCP servers configured. That's the whole point for team setup, but it's also the risk: a PR that adds a new MCP server to `.mcp.json` is a supply-chain event. The added server can point at any URL, any command. On first use Claude Code prompts for permission, but learners trained to approve prompts fast will approve it without reading.
+
+Treat `.mcp.json` diffs in PRs with the same review bar as CI config changes or GitHub Actions workflow changes. Ask: what command or URL is being added, who controls it, what data does it see once connected.
+
 ### 6.7 Understand MCP Scopes
 
 **Why this step:** MCP scopes determine who can use a server and where the config is stored. Getting this wrong means teammates cannot use your MCP setup, or you accidentally expose a local-only server in version control. Understanding scopes now saves confusion later.

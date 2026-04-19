@@ -81,10 +81,13 @@ Let's build out the project structure from our plan. Create the directories, pla
 **New to branches?** A Git branch is a parallel copy of your code where you can experiment safely. If the experiment works, you merge it back to main. If it fails, you delete the branch and main is untouched. The command below creates a new branch called `feature/core` and switches you to it -- you can see which branch you are on anytime with `! git branch`.
 
 ```
-! git add -A
+! git status                # inspect what's about to be staged
+! git add <files or dirs you want to commit>   # name them explicitly
 ! git commit -m "Initial project structure"
 ! git checkout -b feature/core
 ```
+
+**Heads up:** `git add -A` is tempting, but it will stage `.env` files, IDE configs, and build artifacts you may not have meant to commit. Run `git status` first, then `git add` the specific paths you actually want. The first time someone commits a `.env` is a very bad day.
 
 Or ask Claude to handle the git workflow for you:
 
@@ -166,6 +169,8 @@ Help me test the gateway manually. I need a simple echo server on port 4001 as a
 
 Claude will create the echo server, start the gateway, and give you the curl commands. Run them and verify the responses look right.
 
+**If port 4001 is in use** (common on dev machines running other services), the echo server will fail silently and curl will return confusing errors. Tell Claude to pick a different port (e.g., `4101`) and update the gateway config to match.
+
 ### 2.10 Merge to Main
 
 **If something goes wrong:** The most common issue on a first merge is a *conflict* -- when Git cannot figure out how to combine changes. For this module, `main` has not moved since you branched, so conflicts are not expected. If you do see a conflict message, do not panic -- ask Claude: "I got a merge conflict. Can you help me resolve it?" and Claude will walk you through it.
@@ -177,6 +182,8 @@ Commit everything and merge feature/core into main.
 ```
 
 **STOP -- What you just did:** You completed a full feature development cycle: plan in plan mode, branch, implement incrementally, test, and merge. This plan-branch-build-test-merge workflow is how professional teams ship software, and you just did it entirely through Claude Code. Every future module builds on this same cycle.
+
+**Note:** Real teams open a pull request and get a review here — we're fast-forwarding for solo learning. Module 10 covers the full PR + review workflow.
 
 ### 2.11 Branching & Quick Plans
 

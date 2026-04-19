@@ -140,6 +140,12 @@ This creates a `.mcp.json` file at your project root:
 
 Commit this file so teammates get the same MCP setup.
 
+**`.mcp.json` is shipped with your repo.**
+
+The `.mcp.json` file is a shared trust surface — everyone who clones the repo gets the same MCP servers configured. That's the whole point for team setup, but it's also the risk: a PR that adds a new MCP server to `.mcp.json` is a supply-chain event. The added server can point at any URL, any command. On first use Claude Code prompts for permission, but learners trained to approve prompts fast will approve it without reading.
+
+Treat `.mcp.json` diffs in PRs with the same review bar as CI config changes or GitHub Actions workflow changes. Ask: what command or URL is being added, who controls it, what data does it see once connected.
+
 ### 6.6 Understand MCP Scopes
 
 | Scope | Where Stored | Who Sees It |

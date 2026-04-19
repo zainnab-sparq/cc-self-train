@@ -172,11 +172,16 @@ is [what should happen instead]. Fix it.
 **If something goes wrong:** The most common issue on a first merge is a *conflict* -- when Git cannot figure out how to combine changes. For this module, `main` has not moved since you branched, so conflicts are not expected. If you do see a conflict message, do not panic -- ask Claude: "I got a merge conflict. Can you help me resolve it?" and Claude will walk you through it.
 
 ```
-! git add -A
+! git status                # inspect what's about to be staged
+! git add <files or dirs you want to commit>   # name them explicitly
 ! git commit -m "feat: add [your feature description]"
 ! git checkout main
 ! git merge feature/your-feature-name
 ```
+
+**Heads up:** `git add -A` is tempting, but it will stage `.env` files, IDE configs, and build artifacts you may not have meant to commit. Run `git status` first, then `git add` the specific paths you actually want. The first time someone commits a `.env` is a very bad day.
+
+**Note:** Real teams open a pull request and get a review here — we're fast-forwarding for solo learning. Module 10 covers the full PR + review workflow.
 
 ### 2.11 Branching & Quick Plans
 
