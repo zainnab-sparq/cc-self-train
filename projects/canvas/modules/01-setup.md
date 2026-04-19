@@ -20,6 +20,8 @@ shortcuts
 
 **Stuck on a step anywhere in the curriculum?** Type `/stuck` — it reads where you are and re-explains differently. No judgment, no "try harder."
 
+**Safety & trust primer:** Skim [docs/SAFETY-AND-TRUST.md](../../../docs/SAFETY-AND-TRUST.md) before Module 7. Covers prompt injection, hallucinated packages, secrets-in-context, destructive-op posture, and cognitive debt. One read now will save you from a bad day later.
+
 ### 1.1 Create Your Project
 
 Open a terminal in the cc-self-train directory and create the project:

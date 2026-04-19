@@ -21,6 +21,8 @@ In this module you create the sentinel project, initialize it with Claude Code, 
 
 **Stuck on a step anywhere in the curriculum?** Type `/stuck` — it reads where you are and re-explains differently. No judgment, no "try harder."
 
+**Safety & trust primer:** Skim [docs/SAFETY-AND-TRUST.md](../../../docs/SAFETY-AND-TRUST.md) before Module 7. Covers prompt injection, hallucinated packages, secrets-in-context, destructive-op posture, and cognitive debt. One read now will save you from a bad day later.
+
 ### 1.1 Create Your Project Directory
 
 Create the project directory inside cc-self-train under `workspace/`:

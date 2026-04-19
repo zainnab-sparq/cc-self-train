@@ -28,6 +28,8 @@ If any of these feel unfamiliar, spend an hour with a basic terminal tutorial be
 
 **Jargon reference:** If a term in the modules confuses you (hooks, frontmatter, YAML, MCP, etc.), check [GLOSSARY.md](GLOSSARY.md) for plain-English definitions.
 
+**Safety & trust:** Before running Claude against code you care about, skim [docs/SAFETY-AND-TRUST.md](docs/SAFETY-AND-TRUST.md) — covers prompt injection, hallucinated packages, what Anthropic sees in your requests, destructive-operation posture, code-review-the-agent mindset, and cognitive debt. Read it now; come back after each new feature module.
+
 ## Quick Start
 
 **Time to first working feature:** ~90 minutes (Module 2). **Full curriculum:** ~10-15 hours across 10 modules. Progress tracking lives in `CLAUDE.local.md` once you start — no guessing how far you've come.
