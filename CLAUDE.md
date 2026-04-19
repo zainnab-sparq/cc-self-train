@@ -122,6 +122,8 @@ The script applies the threshold algorithm deterministically, rewrites `Effectiv
 
 **What the script does** (same algorithm this file previously described in prose, for reference):
 
+Quality is scored per interaction on a **1-5 scale** by the Stop hook classifier (see `.claude/scripts/observe-interaction.js`): `concept_question=5`, `independent_exploration=4`, `debug_attempt=3`, `neutral=3`, `answer_seeking=1`, `passive_acceptance=1`. `moduleAverageQuality` is the mean across the module's non-neutral interactions.
+
 - quality ≥ 3.8 AND productive ratio > 60% → UP one level
 - quality ≤ 2.0 AND unproductive ratio > 50% → DOWN one level
 - otherwise → unchanged
