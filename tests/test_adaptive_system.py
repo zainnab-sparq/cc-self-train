@@ -696,6 +696,57 @@ def test_module_boundary_skips_when_no_profile(tmp_path):
     assert summary["status"] == "skipped"
 
 
+def test_context_dedups_contradictory_struggle_and_engagement_banners(tmp_path):
+    """Reeves v2 finding (consolidated-signals T3.3). If both struggle and
+    engagement banners are pending in the same session, emitting both would
+    produce contradictory lines. Dedup rule: keep the later-created one,
+    silently acknowledge the other."""
+    import datetime
+    now = datetime.datetime.now(datetime.timezone.utc)
+    older_struggle_iso = (now - datetime.timedelta(minutes=30)).isoformat()
+    newer_engagement_iso = now.isoformat()
+    _seed_profile(
+        tmp_path,
+        pendingBanners=[
+            {"type": "struggle", "created": older_struggle_iso, "acknowledged": False},
+            {"type": "engagement", "created": newer_engagement_iso, "acknowledged": False},
+        ],
+    )
+
+    result = _run_context(tmp_path)
+
+    assert result.returncode == 0
+    # Newer engagement wins; older struggle is silently acknowledged.
+    assert "engagement" in result.stdout.lower()
+    assert "struggle" not in result.stdout.lower()
+    profile = _profile(tmp_path)
+    # Both end up acknowledged — engagement because it emitted, struggle
+    # because the dedup pass silenced it.
+    assert all(b["acknowledged"] for b in profile["pendingBanners"])
+
+
+def test_context_dedup_prefers_struggle_when_newer(tmp_path):
+    """Symmetric case: if struggle is the later-created banner, it wins."""
+    import datetime
+    now = datetime.datetime.now(datetime.timezone.utc)
+    older_engagement_iso = (now - datetime.timedelta(minutes=30)).isoformat()
+    newer_struggle_iso = now.isoformat()
+    _seed_profile(
+        tmp_path,
+        pendingBanners=[
+            {"type": "engagement", "created": older_engagement_iso, "acknowledged": False},
+            {"type": "struggle", "created": newer_struggle_iso, "acknowledged": False},
+        ],
+    )
+
+    result = _run_context(tmp_path)
+
+    assert result.returncode == 0
+    assert "struggle" in result.stdout.lower()
+    # Older engagement should not surface even as text fragment.
+    assert "matching your energy" not in result.stdout.lower()
+
+
 def test_context_emits_module_boundary_banner(tmp_path):
     import datetime
     now_iso = datetime.datetime.now(datetime.timezone.utc).isoformat()

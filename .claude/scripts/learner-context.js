@@ -23,6 +23,34 @@ function drainBanners(profile) {
   const now = Date.now();
   const lines = [];
   let changed = false;
+
+  // Dedup pass: if both struggle and engagement banners are fresh and
+  // unacknowledged in the same session, emitting both produces a
+  // contradictory message pair ("shifting teaching style for a bit" +
+  // "matching your energy with deeper content"). Keep the later-created
+  // one; acknowledge the other(s) of the conflicting type silently.
+  const freshStruggle = [];
+  const freshEngagement = [];
+  for (let i = 0; i < banners.length; i++) {
+    const b = banners[i];
+    if (b.acknowledged) continue;
+    const ca = Date.parse(b.created || "");
+    if (isNaN(ca) || now - ca > BANNER_TTL_MS) continue; // TTL handled in main loop
+    if (b.type === "struggle") freshStruggle.push({ idx: i, ca });
+    else if (b.type === "engagement") freshEngagement.push({ idx: i, ca });
+  }
+  if (freshStruggle.length > 0 && freshEngagement.length > 0) {
+    const latestStruggle = freshStruggle.reduce((a, b) => (a.ca >= b.ca ? a : b));
+    const latestEngagement = freshEngagement.reduce((a, b) => (a.ca >= b.ca ? a : b));
+    const keepIdx = latestStruggle.ca >= latestEngagement.ca ? latestStruggle.idx : latestEngagement.idx;
+    for (const f of [...freshStruggle, ...freshEngagement]) {
+      if (f.idx !== keepIdx) {
+        banners[f.idx].acknowledged = true;
+        changed = true;
+      }
+    }
+  }
+
   for (const banner of banners) {
     if (banner.acknowledged) continue;
     const createdAt = Date.parse(banner.created || "");
