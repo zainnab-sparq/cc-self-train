@@ -74,15 +74,16 @@ Try something like:
 Show me the full memory hierarchy for this project -- what files get loaded, in what order, and which ones override which?
 ```
 
-The hierarchy from highest to lowest precedence:
+The hierarchy from highest to lowest precedence on conflicts:
 
-1. Managed policy (organization-wide, system directory)
-2. Project memory (`./CLAUDE.md` or `./.claude/CLAUDE.md`)
-3. Project rules (`.claude/rules/*.md`)
-4. User memory (`~/.claude/CLAUDE.md`)
-5. Project local (`./CLAUDE.local.md`)
+1. Managed policy (organization-wide, system directory — cannot be excluded)
+2. Project local (`./CLAUDE.local.md`) — read last in its directory, so it wins conflicts with project memory
+3. Project memory (`./CLAUDE.md` or `./.claude/CLAUDE.md`) and project rules (`.claude/rules/*.md`) — same launch priority, team-shared
+4. User memory (`~/.claude/CLAUDE.md`) — loaded before project files, so project wins when they disagree
 
-**STOP -- What you just did:** You explored the full memory hierarchy -- from managed policy down to local project preferences. Understanding this hierarchy matters because it determines what Claude knows and when. Managed policy overrides everything, then project memory, then project rules, then user memory, then local memory. When Claude does something unexpected, checking which memory files are loaded is the first debugging step.
+Note: Claude Code **concatenates** all these files rather than strictly overriding them. "Precedence" here means the order Claude reads them — when two files give conflicting guidance, Claude tends to follow the one it read last.
+
+**STOP -- What you just did:** You explored the full memory hierarchy. Managed policy can't be excluded (strongest). CLAUDE.local.md wins conflicts in its own directory because it's read last there. Project memory (CLAUDE.md) and project rules (.claude/rules/*.md) sit at the team-shared project level. User memory (~/.claude/CLAUDE.md) loads first, so project files win when they disagree. When Claude does something unexpected, check which file was read *last* — that's the key debugging move.
 
 Want to try @imports to keep CLAUDE.md concise?
 

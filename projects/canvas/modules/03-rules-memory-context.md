@@ -88,18 +88,19 @@ Ask Claude to explain the memory hierarchy -- where each file lives, what order 
 Explain the full Claude Code memory hierarchy. Which files take precedence over which? Which ones get shared with teammates?
 ```
 
-The hierarchy from highest to lowest precedence:
+The hierarchy from highest to lowest precedence on conflicts:
 
-1. Managed policy (organization-wide, system directory)
-2. Project memory (`./CLAUDE.md` or `./.claude/CLAUDE.md`)
-3. Project rules (`.claude/rules/*.md`)
-4. User memory (`~/.claude/CLAUDE.md`)
-5. Project local (`./CLAUDE.local.md`)
+1. Managed policy (organization-wide, system directory — cannot be excluded)
+2. Project local (`./CLAUDE.local.md`) — read last in its directory, so it wins conflicts with project memory
+3. Project memory (`./CLAUDE.md` or `./.claude/CLAUDE.md`) and project rules (`.claude/rules/*.md`) — same launch priority, team-shared
+4. User memory (`~/.claude/CLAUDE.md`) — loaded before project files, so project wins when they disagree
+
+Note: Claude Code **concatenates** all these files rather than strictly overriding them. "Precedence" here means the order Claude reads them — when two files give conflicting guidance, Claude tends to follow the one it read last.
 
 **Quick check before continuing:**
 - [ ] `.claude/rules/` contains three rule files with path-scoped frontmatter
 - [ ] `CLAUDE.local.md` exists and is listed in `.gitignore`
-- [ ] You can explain the five levels of the memory hierarchy
+- [ ] You can explain the four levels of the memory hierarchy and why CLAUDE.local.md wins conflicts with project CLAUDE.md
 
 ### 3.5 Modularize CLAUDE.md with @imports
 
