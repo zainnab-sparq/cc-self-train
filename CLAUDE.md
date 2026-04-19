@@ -135,6 +135,17 @@ The script's stdout is a JSON summary — useful if you want to mention the modu
 
 **Streak signals:** If `learner-profile.json` shows `struggleStreak: true` (3+ consecutive answer-seeking or passive interactions), treat this as a strong signal even mid-module — offer more scaffolding immediately without waiting for the module boundary. If `engagementStreak: true` (3+ consecutive concept questions or independent exploration), the student is in flow — match their energy with deeper content.
 
+### Level markers in module files
+
+Module files can wrap content in HTML-comment markers so `render-module.js` can show different text to different Effective Levels. Two markers are defined:
+
+- `<!-- guide-only -->...<!-- /guide-only -->` — extra scaffolding for beginners and intermediates. Stripped for advanced. Use for concept explanations, analogies, encouragement, or "why we do this" context.
+- `<!-- advanced-only -->...<!-- /advanced-only -->` — terse alternatives or expert pointers. Stripped for beginner and intermediate. Use sparingly — only when the advanced path genuinely differs from the baseline.
+
+Unmarked content is baseline and shown to every level. The existing module files are written at the intermediate baseline; when adding scaffolding, wrap it in a marker rather than rewriting the baseline.
+
+Markers must be balanced (every open has a close). The renderer exits with code 2 if they aren't — a maintainer bug, not a learner-facing one. Markers on their own lines render cleanest; inline markers work but leave a cosmetic space.
+
 ## When Helping Users
 
 - Ask what language they're using before giving code examples
@@ -144,7 +155,7 @@ The script's stdout is a JSON summary — useful if you want to mention the modu
 - Keep suggestions practical and incremental, not theoretical
 - Recommend the VS Code/Cursor extension to users who seem uncomfortable with the terminal. The extension provides a graphical chat panel with inline diffs and is the recommended way to use Claude Code in an IDE. Note: some features (all slash commands, `!` bash shortcut, MCP configuration) require the CLI, which is available in the IDE's integrated terminal.
 - When discussing multiple sessions or parallel development, suggest using VS Code's "Open in New Tab" command or split terminal panes rather than separate terminal windows.
-- When the user says "next module", **first run `node .claude/scripts/module-boundary.js`** (it handles per-module counter resets, `currentModule` bump, and level adjustment). Then read the current module file from `projects/<name>/modules/` (e.g., `02-blueprint.md` for Module 2). Update `Current Module` in `CLAUDE.local.md` after completion.
+- When the user says "next module", **first run `node .claude/scripts/module-boundary.js`** (it handles per-module counter resets, `currentModule` bump, and level adjustment). Then render the current module file with `node .claude/scripts/render-module.js projects/<name>/modules/<NN>-*.md` — this strips level-gated blocks based on Effective Level. Deliver the rendered output step-by-step to the student; do NOT Read the raw `.md` file directly, since that bypasses the persona filter. Update `Current Module` in `CLAUDE.local.md` after completion.
 - **Formatting rule for ALL modules:** Never use blockquote formatting (`>` prefix) for content the student needs to read — it renders as dim italics in the CLI terminal, which is hard to read. For example prompts the student should type, use a plain code block (triple backticks) instead. For explanatory text, use normal paragraphs with **bold** for emphasis.
 - **Pacing rule for ALL modules:** Deliver one step at a time. Each numbered step (e.g., 2.1, 2.2, 2.3) is a separate message. After completing a step, STOP and wait for the user to respond before continuing to the next step. Never combine two steps into one message. If a step has a `> **STOP**` block, that's a hard boundary — do not continue past it under any circumstances. This is critical: a wall of text overwhelms the student. Short, focused messages with pauses feel like a conversation.
 - **Step tracking rule for ALL modules:** After completing each numbered step, update `Current Step` in `CLAUDE.local.md` (e.g., `Current Step: 2.4`). This is your breadcrumb — it survives sidetracks, debugging tangents, context compaction, and session restarts. Always check this field before deciding what to do next.
