@@ -22,6 +22,8 @@ In this module you create specialized AI agents that handle specific tasks withi
 >
 > See the [glossary](../../../GLOSSARY.md) for related terms.
 
+**Module pacing override:** Subagents are structurally novel — the mental model (subagents report to a main conversation vs. agent teams that peer-communicate) is non-obvious even for experienced engineers. If your persona for this module would normally be Peer ("terse guidance, point to docs"), prefer Collaborator-style explanations here anyway: define each concept before using it, give one worked example per feature, and pause to verify the mental model is landing. Terseness in Module 8 is premature. Module 10 goes back to Peer/Launcher.
+
 ### 8.1 What Are Subagents
 
 **Why this step:** Up to now, everything has happened in a single Claude conversation. Subagents let you spin up specialized Claude instances -- each with their own system prompt, tool access, and context window. Think of it as delegation: instead of doing everything yourself, you assign specific jobs to specialists. This keeps your main conversation clean and lets you parallelize work.

@@ -21,6 +21,8 @@ background (`Ctrl+B`), resuming, `claude agents` CLI
 >
 > See the [glossary](../../../GLOSSARY.md) for related terms.
 
+**Module pacing override:** Subagents are structurally novel — the mental model (subagents report to a main conversation vs. agent teams that peer-communicate) is non-obvious even for experienced engineers. If your persona for this module would normally be Peer ("terse guidance, point to docs"), prefer Collaborator-style explanations here anyway: define each concept before using it, give one worked example per feature, and pause to verify the mental model is landing. Terseness in Module 8 is premature. Module 10 goes back to Peer/Launcher.
+
 ### 8.1 What Are Subagents
 
 **Why this step:** Up to now, your main Claude session does everything -- planning, coding, testing, searching. Subagents let you delegate specialized tasks to focused assistants that have their own context windows and tool restrictions. This keeps your main conversation clean and lets you route tasks to cheaper, faster models (like Haiku for search) while reserving the more capable model for complex work.

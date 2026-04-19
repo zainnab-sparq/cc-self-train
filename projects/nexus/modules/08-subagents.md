@@ -20,6 +20,8 @@
 >
 > See the [glossary](../../../GLOSSARY.md) for related terms.
 
+**Module pacing override:** Subagents are structurally novel — the mental model (subagents report to a main conversation vs. agent teams that peer-communicate) is non-obvious even for experienced engineers. If your persona for this module would normally be Peer ("terse guidance, point to docs"), prefer Collaborator-style explanations here anyway: define each concept before using it, give one worked example per feature, and pause to verify the mental model is landing. Terseness in Module 8 is premature. Module 10 goes back to Peer/Launcher.
+
 ### 8.1 What Are Subagents
 
 Subagents are specialized AI assistants running in their own context window with custom system prompts, specific tool access, and independent permissions. Benefits: preserve main conversation context, enforce tool constraints, specialize behavior, control costs by routing to faster models.
