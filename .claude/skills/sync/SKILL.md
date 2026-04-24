@@ -251,7 +251,7 @@ For each new feature that maps to a module, update all 5 project variants (`proj
 10. **Regenerate module header blocks.** After all per-project edits are complete, run the shared header generator once:
 
     ```bash
-    node .claude/scripts/render-module-headers.js
+    node "$CLAUDE_PROJECT_DIR/.claude/scripts/render-module-headers.js"
     ```
 
     The generator rewrites the block between `<!-- progress:start -->` and `<!-- progress:end -->` markers in every module file from `config/curriculum.json`. If the sync added or split a module, update `config/curriculum.json` first (total_modules, estimated_time for the new entry) so the regenerated bars reflect the new count.

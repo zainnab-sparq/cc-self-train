@@ -54,7 +54,7 @@ You are a release manager. Execute the full release process end-to-end without p
 
 ## Step 7: Sync Sparq Remote
 
-- Run: `bash .claude/scripts/sync-sparq.sh`
+- Run: `bash "$CLAUDE_PROJECT_DIR/.claude/scripts/sync-sparq.sh"`
 - If the sparq remote doesn't exist, skip this step and Step 8.
 
 ## Step 8: Create GitHub Release (sparq)
