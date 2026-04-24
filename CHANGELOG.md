@@ -1,5 +1,15 @@
 # Changelog
 
+## v2.28.0 (2026-04-24)
+
+**Curriculum sync to CC v2.1.119.** Five changelog versions (v2.1.115–v2.1.119); v2.1.115 and v2.1.118 overlapped ~100% (same-day re-release), deduped to one feature list.
+
+- **Context files (11 updated):** `changelog-cc.txt`, `interactive-mode.txt`, `models.txt`, `sl-guide.txt`, `hooks.txt`, `mcp.txt`, `subagents.txt`, `tasks.txt`, `plugins.txt`, `claudemd.txt`, `common-workflows.txt`. Highlights: `type: "mcp_tool"` new hook type, `/usage` replaces `/cost`+`/stats`, `/model` persistence + `ANTHROPIC_DEFAULT_*_MODEL_NAME` overrides, `/config` persists to `~/.claude/settings.json`, agent frontmatter `hooks:`/`mcpServers:` now fire in main-thread mode, `CLAUDE_CODE_FORK_SUBAGENT`/`CLAUDE_CODE_HIDE_CWD`/`DISABLE_UPDATES` env vars, `--from-pr` accepts GitLab/Bitbucket/GHE URLs, `cleanupPeriodDays` sweeps tasks + shell-snapshots, plugin ecosystem updates (themes via plugins, `claude plugin tag`, dep auto-install, `prUrlTemplate`).
+- **Module steps (7 bundled steps × 5 projects = 35 module-file edits):** Modules 1, 2, 5, 7, 8, 9, 10 each gained one consolidated step covering multiple related updates from the sync window. Bundled-step approach (vs spreading into ~15 one-feature steps) avoided pushing Module 1 past 17 steps; step-count ratio is 15/9 = 1.67× across modules, under the 2× bloat threshold.
+- **Verification:** 638 tests pass; `render-module-headers.js` reports `{"unchanged": 50}`; sample renders across all 5 projects on Modules 1 and 5 exit clean with no marker leakage.
+
+See `.claude/sync-report.md` for the full list of per-context-file changes and per-project step numbers.
+
 ## v2.27.2 (2026-04-24)
 
 **Hook portability — deeper fix: scripts + docs now all use `$CLAUDE_PROJECT_DIR`.** Follow-up to v2.27.1 after auditing every surface where the repo tells CC to invoke a script. The shallow `settings.json` fix shipped in v2.27.1 wasn't sufficient — even with the correct spawn command, the scripts themselves resolved their I/O through `process.cwd()`, so if a user launched CC from a subdirectory the hook would spawn but then read/write `learner-profile.json` in the wrong place.
