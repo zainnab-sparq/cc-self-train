@@ -1,4 +1,35 @@
 Changelog
+2.1.123
+Fixed OAuth authentication failing with a 401 retry loop when CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS=1 is set
+
+2.1.122
+ANTHROPIC_BEDROCK_SERVICE_TIER environment variable selects a Bedrock service tier (default, flex, or priority) via the X-Amzn-Bedrock-Service-Tier header
+Pasting a PR URL into the /resume search box now finds the session that created that PR (GitHub, GitHub Enterprise, GitLab, and Bitbucket)
+/mcp shows claude.ai connectors hidden by a manually-added server with the same URL, with a hint to remove the duplicate
+OpenTelemetry: numeric attributes on api_request/api_error log events are now emitted as numbers, not strings
+OpenTelemetry: claude_code.at_mention log event for @-mention resolution
+Voice mode: keybindings bound to Caps Lock now show an error since terminals don't deliver Caps Lock as a key event
+
+2.1.121
+alwaysLoad option to MCP server config — when true, all tools from that server skip tool-search deferral and are always available
+claude plugin prune removes orphaned auto-installed plugin dependencies; plugin uninstall --prune cascades cleanup
+Type-to-filter search box added to /skills
+PostToolUse hooks can now replace tool output for all tools via hookSpecificOutput.updatedToolOutput (previously MCP-only)
+SDK and claude -p: CLAUDE_CODE_FORK_SUBAGENT=1 now works in non-interactive sessions
+--dangerously-skip-permissions no longer prompts for writes to .claude/skills/, .claude/agents/, and .claude/commands/
+MCP servers that hit a transient error during startup auto-retry up to 3 times instead of staying disconnected
+Vertex AI: support X.509 certificate-based Workload Identity Federation (mTLS ADC)
+SDK: mcp_authenticate now supports redirectUri for custom scheme completion and claude.ai connectors
+OpenTelemetry: added stop_reason, gen_ai.response.finish_reasons, and user_system_prompt (gated behind OTEL_LOG_USER_PROMPTS) to LLM request spans
+
+2.1.120
+Windows: Git for Windows (Git Bash) no longer required — when absent, Claude Code uses PowerShell as the shell tool
+claude ultrareview [target] subcommand runs /ultrareview non-interactively from CI or scripts (--json for raw output, exits 0 on completion or 1 on failure)
+Skills can reference the current effort level with ${CLAUDE_EFFORT} in their content
+AI_AGENT environment variable set for subprocesses so gh can attribute traffic to Claude Code
+claude plugin validate accepts $schema, version, and description at the top level of marketplace.json and $schema in plugin.json
+DISABLE_TELEMETRY / CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC now suppress usage metrics telemetry for API and enterprise users
+
 2.1.119
 /config settings (theme, editor mode, verbose, etc.) now persist to ~/.claude/settings.json
 prUrlTemplate setting for custom code-review URLs

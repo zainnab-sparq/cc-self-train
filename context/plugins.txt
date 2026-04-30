@@ -305,3 +305,11 @@ MCP: external tool integration
 **Disabled MCP servers from plugins** (v2.1.119): `/status` no longer shows disabled plugin MCP servers as "failed" — the disabled/failed distinction is now respected.
 
 **`DISABLE_UPDATES` env var** (v2.1.115): stricter than `CLAUDE_CODE_DISABLE_AUTOUPDATER` — blocks `claude update`, `claude upgrade`, background checks, *and* plugin auto-updates. Appropriate for managed environments that mandate a specific CC version.
+
+### Plugin ecosystem updates (v2.1.120 – v2.1.121)
+
+**`claude ultrareview [target]`** (v2.1.120). New CLI subcommand for non-interactive multi-agent code review — runs `/ultrareview` from CI or scripts. `[target]` is optional: omit it to review the current diff against the default branch, or pass a PR number (e.g., `1234`) or a branch (e.g., `origin/main`). `--json` prints the raw findings payload instead of the formatted report. `--timeout <minutes>` overrides the default 30-minute wait. Exits 0 on completion (with or without findings), 1 on failure or timeout, 130 on Ctrl-C. Findings go to stdout, progress to stderr.
+
+**`claude plugin prune`** (v2.1.121). Removes orphaned auto-installed plugin dependencies — plugins that were pulled in only to satisfy another plugin's `dependencies` field but are no longer needed. Directly-installed plugins are never touched. Flags: `-s, --scope <user|project|local>` (default `user`), `--dry-run` to list what would be removed, `-y, --yes` to skip confirmation (required for non-TTY stdin). The companion `plugin uninstall <name> --prune` cascades — uninstalls the named plugin AND cleans up its now-orphaned dependencies in one command, whereas `plugin prune` is a standalone sweep across all plugins.
+
+**`claude plugin validate` accepts top-level metadata** (v2.1.120). The validator no longer treats `$schema`, `version`, and `description` at the top level of `marketplace.json` as errors, and `$schema` is also allowed at the top level of `plugin.json`. Useful for marketplaces that pin to a JSON Schema for IDE autocomplete.

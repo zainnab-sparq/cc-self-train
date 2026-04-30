@@ -219,6 +219,26 @@ You've just learned how to build skills. Resist the urge to make one for every w
 
 Look at your own project: what workflows do you repeat at least weekly? Pick two or three of those. Examples from real projects: component scaffolding, test stub generation, deployment previews, dependency audits. Your list will be different. Everything else can wait.
 
+### 4.11 Read the current effort level from your skill (v2.1.120)
+
+You already know `effort:` in skill frontmatter -- it sets the model effort while the skill runs. As of v2.1.120, skills can also *read* the active effort with `${CLAUDE_EFFORT}`. The substitution resolves to `low`, `medium`, `high`, `xhigh`, or `max` (depending on the model) at invocation time.
+
+The two work together: `effort:` decides the level, `${CLAUDE_EFFORT}` lets the skill content adapt to whichever level is active. Useful when a skill should produce a quick draft at low effort but exhaustive output at high effort -- without writing two skills.
+
+```yaml
+---
+name: change-review
+description: Review a code change
+---
+
+Review the change. Current effort: **${CLAUDE_EFFORT}**.
+
+- low/medium: spot obvious correctness bugs and missing tests.
+- high or higher: also check for race conditions, missed error paths, and behavioral parity with existing code.
+```
+
+> **STOP** -- Add `${CLAUDE_EFFORT}` to one of the skills you built and confirm it interpolates when you switch between effort levels via `/effort`.
+
 ### Checkpoint
 
 You just built your own commands. These skills will save you real time on every feature you add from here on.
@@ -231,3 +251,4 @@ You just built your own commands. These skills will save you real time on every 
 - [ ] Hot-reload works: edit SKILL.md while Claude runs, changes take effect
 - [ ] Planning skill outputs raw text without Claude processing
 - [ ] Tested `effort` frontmatter and `${CLAUDE_SKILL_DIR}` in a skill
+- [ ] Used `${CLAUDE_EFFORT}` in a skill and saw it interpolate at different effort levels

@@ -216,6 +216,26 @@ For Nexus, plausible candidates include:
 
 Pick two or three (or substitute your own). Everything else can wait.
 
+### 4.11 Read the current effort level from your skill (v2.1.120)
+
+You already know `effort:` in skill frontmatter -- it sets the model effort while the skill runs. As of v2.1.120, skills can also *read* the active effort with `${CLAUDE_EFFORT}`. The substitution resolves to `low`, `medium`, `high`, `xhigh`, or `max` (depending on the model) at invocation time.
+
+The two work together: `effort:` decides the level, `${CLAUDE_EFFORT}` lets the skill content adapt to whichever level is active. Useful when a skill should produce a quick draft at low effort but exhaustive output at high effort -- without writing two skills.
+
+```yaml
+---
+name: route-review
+description: Review a gateway route definition
+---
+
+Review the route. Current effort: **${CLAUDE_EFFORT}**.
+
+- low/medium: check method, path, and upstream are sane.
+- high or higher: also audit middleware order, auth headers, rate-limit defaults, and timeout values.
+```
+
+> **STOP** -- Add `${CLAUDE_EFFORT}` to one of the skills you built earlier and confirm it interpolates when you switch between effort levels via `/effort`.
+
 ### Checkpoint
 
 You just built your own commands. Adding routes and testing endpoints is now one slash command away.
@@ -229,3 +249,4 @@ You just built your own commands. Adding routes and testing endpoints is now one
 - [ ] You understand the difference between `disable-model-invocation: true` and default
 - [ ] All skills committed to git
 - [ ] Tested `effort` frontmatter and `${CLAUDE_SKILL_DIR}` in a skill
+- [ ] Used `${CLAUDE_EFFORT}` in a skill and saw it interpolate at different effort levels

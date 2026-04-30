@@ -206,6 +206,26 @@ For Forge, plausible candidates include:
 
 Pick two or three (or substitute your own). Everything else can wait.
 
+### 4.11 Read the current effort level from your skill (v2.1.120)
+
+You already know `effort:` in skill frontmatter -- it sets the model effort while the skill runs. As of v2.1.120, skills can also *read* the active effort with `${CLAUDE_EFFORT}`. The substitution resolves to `low`, `medium`, `high`, `xhigh`, or `max` (depending on the model) at invocation time.
+
+The two work together: `effort:` decides the level, `${CLAUDE_EFFORT}` lets the skill content adapt to whichever level is active. Useful when a skill should produce a quick draft at low effort but exhaustive output at high effort -- without writing two skills.
+
+```yaml
+---
+name: item-summary
+description: Summarize an item from the toolkit
+---
+
+Summarize the requested item. Current effort: **${CLAUDE_EFFORT}**.
+
+- low/medium: title + 1-line gist.
+- high or higher: full breakdown with related items, tags, and last-touched timestamps.
+```
+
+> **STOP** -- Add `${CLAUDE_EFFORT}` to one of the skills you built earlier and confirm it interpolates when you switch between effort levels via `/effort`.
+
 ### Checkpoint
 
 You just built your own commands. These skills encode your workflow -- use them every time you add or search items.
@@ -219,3 +239,4 @@ You just built your own commands. These skills encode your workflow -- use them 
 - [ ] Hot-reload works: edit SKILL.md while Claude runs, changes take effect
 - [ ] Issue template skill outputs raw text without Claude processing
 - [ ] Tested `effort` frontmatter and `${CLAUDE_SKILL_DIR}` in a skill
+- [ ] Used `${CLAUDE_EFFORT}` in a skill and saw it interpolate at different effort levels

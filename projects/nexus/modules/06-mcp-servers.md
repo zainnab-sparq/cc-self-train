@@ -220,6 +220,26 @@ What kind of MCP server would benefit most from elicitation in your workflow? Th
 
 > **STOP** — Consider how elicitation and channels could enhance your MCP setup.
 
+### 6.11 Skip tool-search deferral with `alwaysLoad` (v2.1.121)
+
+By default, MCP tools are lazy-loaded through tool-search to keep your context lean -- Claude only sees a server's tools after asking for them. As of v2.1.121, you can opt a server out of that deferral with `"alwaysLoad": true` in `.mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "sqlite": {
+      "command": "uvx",
+      "args": ["mcp-server-sqlite", "--db-path", "cache.db"],
+      "alwaysLoad": true
+    }
+  }
+}
+```
+
+Use it for small, critical servers the gateway hits constantly (the SQLite cache store, an upstream-health probe) where the lazy-load round-trip is wasted overhead. Avoid it for servers with dozens of tools -- the tool descriptions count against your context window even when unused.
+
+> **STOP** -- Pick one of your MCP servers, add `"alwaysLoad": true` to it in `.mcp.json`, restart Claude Code, and confirm via `/mcp` that its tools are loaded immediately.
+
 ### Checkpoint
 
 Your gateway now has persistent storage and Claude can query it directly. MCP servers bridge the gap between Claude and the external tools your project depends on.
@@ -235,3 +255,4 @@ Your gateway now has persistent storage and Claude can query it directly. MCP se
 - [ ] Changes committed to git
 - [ ] Understand MCP elicitation and channels
 - [ ] (Optional) You connected an MCP server for a tool you actually use
+- [ ] Set `"alwaysLoad": true` on at least one server in `.mcp.json`

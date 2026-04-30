@@ -248,6 +248,28 @@ You've seen the full hook lifecycle. Resist the urge to instrument every event. 
 
 **Rule of thumb:** Start with **2 hooks**: one SessionStart (for context injection) and one PostToolUse or Stop (for quality gating). Add a third only if a specific pain point emerges.
 
+### 5.10 PostToolUse can now rewrite any tool's output (v2.1.121)
+
+You've seen `additionalContext` in PostToolUse output. As of v2.1.121, PostToolUse hooks can also *replace* a tool's output entirely via `hookSpecificOutput.updatedToolOutput`. Previously this worked only for MCP tools; now it covers Bash, Read, Edit, Write, Glob, Grep, WebFetch, WebSearch, and Agent.
+
+The shape:
+
+```json
+{
+  "hookSpecificOutput": {
+    "hookEventName": "PostToolUse",
+    "updatedToolOutput": {
+      "type": "text",
+      "text": "Modified output for Claude"
+    }
+  }
+}
+```
+
+`updatedToolOutput` can coexist with `decision: "block"` and `additionalContext` -- the modified output is what Claude sees regardless of the decision. Common uses: redact secrets from a Read result before Claude processes it, summarize a long Bash output to keep context lean, or rewrite an error message into one Claude can act on.
+
+> **STOP** -- Wire up a PostToolUse hook on `Read` that replaces matches of `API_KEY=\w+` with `API_KEY=<redacted>` before Claude sees the file content. Verify by writing a test file with a fake key and reading it.
+
 ### Checkpoint
 
 Your gateway now has automated quality gates. Config validation, test runs, and status checks happen without you lifting a finger.
@@ -263,3 +285,4 @@ Your gateway now has automated quality gates. Config validation, test runs, and 
 - [ ] All hook scripts committed to git
 - [ ] Wired up a hook using one of the new hook events
 - [ ] Know when a `type: "mcp_tool"` hook is the right tool over a `"command"` wrapper
+- [ ] Built a PostToolUse hook that rewrites tool output via `updatedToolOutput`

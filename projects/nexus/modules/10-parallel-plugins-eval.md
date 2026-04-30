@@ -217,6 +217,16 @@ A burst of plugin-layer polish worth skimming:
 
 None of this requires action. Surface-level awareness so when you hit a weird plugin state, you know where to look.
 
+### 10.16 New CLI subcommands: `claude ultrareview` and `claude plugin prune` (v2.1.120, v2.1.121)
+
+Two non-interactive CLI subcommands worth knowing for scripted workflows.
+
+**`claude ultrareview [target]`** (v2.1.120). Runs `/ultrareview` from the shell -- useful in CI, pre-merge scripts, or wrapper tools. `[target]` defaults to the current branch's diff against the default branch; pass a PR number (`1234`) or a branch (`origin/main`) to scope the review elsewhere. `--json` prints the raw findings payload for downstream tooling. Exit codes: `0` = completed, `1` = failed or timed out, `130` = Ctrl-C.
+
+**`claude plugin prune`** (v2.1.121). Removes auto-installed plugin dependencies that no other plugin requires -- useful after uninstalling a plugin or refactoring your plugin set. Pair with `--dry-run` first to preview, then re-run to apply. The companion `plugin uninstall <name> --prune` cascades cleanup in one command instead of two.
+
+Skim the changelog for both -- you'll find them when you need them.
+
 ### Checkpoint
 
 You made it. A production-style gateway, built from scratch, using every major Claude Code feature.
@@ -292,6 +302,7 @@ Go through this list to confirm you have covered every major CC feature:
 - [ ] Evaluation script produces a score
 - [ ] PermissionRequest hooks configured
 - [ ] Skimmed the plugin-ecosystem updates (themes via plugins, `prUrlTemplate`, `DISABLE_UPDATES`, deps auto-install)
+- [ ] Know that `claude ultrareview` and `claude plugin prune` exist for scripted workflows
 
 ---
 

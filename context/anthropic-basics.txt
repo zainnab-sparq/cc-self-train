@@ -1033,6 +1033,7 @@ Use --verbose for debugging during development, and turn it off in production.
 ​
 Safe Autonomous Mode
 Use claude --dangerously-skip-permissions to bypass all permission checks and let Claude work uninterrupted. This works well for workflows like fixing lint errors or generating boilerplate code.
+As of v2.1.121, --dangerously-skip-permissions also suppresses prompts for writes to .claude/skills/, .claude/agents/, and .claude/commands/ — paths that previously still required confirmation even with the flag. This makes scripted skill/agent/command authoring smoother in sandboxed runs.
 Letting Claude run arbitrary commands is risky and can result in data loss, system corruption, or data exfiltration (e.g., via prompt injection attacks). To minimize these risks, use --dangerously-skip-permissions in a container without internet access.
 With sandboxing enabled (/sandbox), you get similar autonomy with better security. Sandbox defines upfront boundaries rather than bypassing all checks.
 ​

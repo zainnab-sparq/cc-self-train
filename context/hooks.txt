@@ -771,14 +771,20 @@ PostToolUse hooks can provide feedback to Claude after tool execution.
 "block" automatically prompts Claude with reason.
 undefined does nothing. reason is ignored.
 "hookSpecificOutput.additionalContext" adds context for Claude to consider.
+"hookSpecificOutput.updatedToolOutput" replaces the tool's output that Claude sees. Available for all tools as of v2.1.121 (previously MCP-only).
 {
   "decision": "block" | undefined,
   "reason": "Explanation for decision",
   "hookSpecificOutput": {
     "hookEventName": "PostToolUse",
-    "additionalContext": "Additional information for Claude"
+    "additionalContext": "Additional information for Claude",
+    "updatedToolOutput": {
+      "type": "text",
+      "text": "Modified tool output for Claude"
+    }
   }
 }
+updatedToolOutput and decision: "block" can coexist — Claude sees the modified output in the blocked turn. Both fields are returned through the same hookSpecificOutput object.
 ​
 UserPromptSubmit Decision Control
 UserPromptSubmit hooks can control whether a user prompt is processed and add context.

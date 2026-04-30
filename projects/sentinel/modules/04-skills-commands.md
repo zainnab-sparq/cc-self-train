@@ -227,6 +227,26 @@ For Sentinel, plausible candidates include:
 
 Pick two or three (or substitute your own). Everything else can wait.
 
+### 4.11 Read the current effort level from your skill (v2.1.120)
+
+You already know `effort:` in skill frontmatter -- it sets the model effort while the skill runs. As of v2.1.120, skills can also *read* the active effort with `${CLAUDE_EFFORT}`. The substitution resolves to `low`, `medium`, `high`, `xhigh`, or `max` (depending on the model) at invocation time.
+
+The two work together: `effort:` decides the level, `${CLAUDE_EFFORT}` lets the skill content adapt to whichever level is active. Useful when a skill should produce a quick draft at low effort but exhaustive output at high effort -- without writing two skills.
+
+```yaml
+---
+name: rule-review
+description: Review an analysis rule
+---
+
+Review the rule. Current effort: **${CLAUDE_EFFORT}**.
+
+- low/medium: confirm the matcher and severity are correct.
+- high or higher: also reason about false-positive surface, performance on large repos, and overlap with existing rules.
+```
+
+> **STOP** -- Add `${CLAUDE_EFFORT}` to one of the skills you built earlier and confirm it interpolates when you switch between effort levels via `/effort`.
+
 ### Checkpoint
 
 You just built your own commands. Running analysis and generating tests is now one slash command away.
@@ -239,3 +259,4 @@ You just built your own commands. Running analysis and generating tests is now o
 - [ ] You edited a skill and saw hot-reload work without restarting
 - [ ] `/list-rules` works as a no-AI skill
 - [ ] Tested `effort` frontmatter and `${CLAUDE_SKILL_DIR}` in a skill
+- [ ] Used `${CLAUDE_EFFORT}` in a skill and saw it interpolate at different effort levels

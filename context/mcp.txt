@@ -948,3 +948,16 @@ MCP tools from hooks (v2.1.115)
 Hooks can now invoke MCP tools directly using type: "mcp_tool". This lets you wire an MCP server's validator/classifier/notifier into the hook pipeline without writing a shell wrapper. See hooks.txt "MCP Tool Hooks" for the full configuration. Typical pattern: expose a `validate_file` tool from your MCP server, then add it as a PostToolUse hook on Write|Edit — the hook passes the tool_input to the MCP call and treats the response the same way it treats a command hook's stdout.
 
 Subagent and SDK MCP server reconfiguration connects servers in parallel as of v2.1.119 — restarting or reconfiguring an environment with many MCP servers is noticeably faster.
+
+alwaysLoad option (v2.1.121)
+Each MCP server entry in .mcp.json (or any MCP config file) accepts an alwaysLoad boolean. When set to true, every tool exposed by that server skips tool-search deferral and is always available to Claude — useful for small or critical servers whose tools should appear without the lazy-loading step. Default behavior (alwaysLoad omitted or false) defers tool registration until Claude requests them through tool-search, which keeps token usage down for large MCP toolsets.
+
+{
+  "mcpServers": {
+    "myserver": {
+      "command": "python",
+      "args": ["-m", "myserver"],
+      "alwaysLoad": true
+    }
+  }
+}

@@ -130,6 +130,7 @@ $ARGUMENTS[N]	Access a specific argument by 0-based index, such as $ARGUMENTS[0]
 $N	Shorthand for $ARGUMENTS[N], such as $0 for the first argument or $1 for the second.
 ${CLAUDE_SESSION_ID}	The current session ID. Useful for logging, creating session-specific files, or correlating skill output with sessions.
 ${CLAUDE_SKILL_DIR}	The skill's own directory path. Use in SKILL.md content to reference sibling files. Available since v2.1.69.
+${CLAUDE_EFFORT}	The current effort level (e.g., low, medium, high, xhigh, max). Lets the skill content adapt its instructions to the active effort level. Distinct from the effort: frontmatter field, which sets the effort level for the duration of the skill. Available since v2.1.120.
 Example using substitutions:
 ---
 name: session-logger

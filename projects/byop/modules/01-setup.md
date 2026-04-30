@@ -366,6 +366,16 @@ python "$PROJECT_DIR_WIN\\scripts\\check.py"
 
 Module 5 revisits this at the first hook script that pipes into Python.
 
+### 1.13 Session-craft updates (v2.1.120 - v2.1.123)
+
+A few small but useful improvements have shipped since v2.1.119:
+
+**`/resume` finds sessions by PR URL.** Paste any pull-request URL into the `/resume` search box -- GitHub, GitHub Enterprise, GitLab, or Bitbucket -- and Claude Code finds the session that produced it (v2.1.122). Useful when a teammate sends you a PR and you want the session history that built it.
+
+**Windows: PowerShell as a built-in fallback.** Git for Windows is no longer a hard requirement. When Git Bash is missing, Claude Code automatically uses PowerShell as the shell tool (v2.1.120). The curriculum still recommends Git Bash because module examples assume POSIX-style commands -- but if you land on a clean Windows machine without it, you can still get started.
+
+> **STOP** -- If you have any past PRs, try pasting one into `/resume` and confirm it finds the session. Otherwise, just run `/resume` once to see the picker.
+
 ### Checkpoint
 
 You just configured Claude Code for your existing project, taught it about your codebase, and made your first commit. That is a real foundation -- everything from here builds on it.
@@ -380,3 +390,4 @@ You just configured Claude Code for your existing project, taught it about your 
 - [ ] Tried `/color` and `/effort` to customize your session
 - [ ] Tried one of the new readline shortcuts (`Ctrl+A`, `Ctrl+E`, or `Ctrl+U`)
 - [ ] Ran `/usage` (replaces `/cost` + `/stats`) and spotted the 5-hour + weekly indicators
+- [ ] Tried `/resume` (the picker, or paste a PR URL to find the session that built it)

@@ -243,6 +243,26 @@ What kind of MCP server would benefit most from elicitation in your workflow? Th
 
 > **STOP** — Consider how elicitation and channels could enhance your MCP setup.
 
+### 6.10 Skip tool-search deferral with `alwaysLoad` (v2.1.121)
+
+By default, MCP tools are lazy-loaded through tool-search to keep your context lean -- Claude only sees a server's tools after asking for them. As of v2.1.121, you can opt a server out of that deferral with `"alwaysLoad": true` in `.mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "fs": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "--root", "."],
+      "alwaysLoad": true
+    }
+  }
+}
+```
+
+Use it for small, frequently-needed servers (a project-specific lint runner, a database connector) where the lazy-load round-trip is wasted overhead. Avoid it for servers with dozens of tools -- the tool descriptions count against your context window even when unused.
+
+> **STOP** -- Pick one of your MCP servers, add `"alwaysLoad": true` to it in `.mcp.json`, restart Claude Code, and confirm via `/mcp` that its tools are loaded immediately.
+
 ### Checkpoint
 
 Claude Code now reaches beyond your local files. MCP servers give it access to databases, APIs, and tools you already use -- that's a big expansion of what's possible.
@@ -256,3 +276,4 @@ Claude Code now reaches beyond your local files. MCP servers give it access to d
 - [ ] `dist/` directory contains a deployable version of the site
 - [ ] Understand MCP elicitation and channels
 - [ ] (Optional) You connected an MCP server for a tool you actually use
+- [ ] Set `"alwaysLoad": true` on at least one server in `.mcp.json`

@@ -218,6 +218,26 @@ For Canvas, plausible candidates include:
 
 Pick two or three (or substitute your own). Everything else can wait.
 
+### 4.11 Read the current effort level from your skill (v2.1.120)
+
+You already know `effort:` in skill frontmatter -- it sets the model effort while the skill runs. As of v2.1.120, skills can also *read* the active effort with `${CLAUDE_EFFORT}`. The substitution resolves to `low`, `medium`, `high`, `xhigh`, or `max` (depending on the model) at invocation time.
+
+The two work together: `effort:` decides the level, `${CLAUDE_EFFORT}` lets the skill content adapt to whichever level is active. Useful when a skill should produce a quick draft at low effort but exhaustive output at high effort -- without writing two skills.
+
+```yaml
+---
+name: page-review
+description: Review the current page draft
+---
+
+Review the staged page draft. Current effort: **${CLAUDE_EFFORT}**.
+
+- low/medium: flag obvious copy and accessibility issues only.
+- high or higher: also check semantic HTML, alt text, contrast, and metadata.
+```
+
+> **STOP** -- Add `${CLAUDE_EFFORT}` to one of the skills you built earlier and confirm it interpolates when you switch between effort levels via `/effort`.
+
 ### Checkpoint
 
 You just built your own commands. These skills will save you real time on every page you add from here on.
@@ -231,3 +251,4 @@ You just built your own commands. These skills will save you real time on every 
 - [ ] Hot-reload works: edit SKILL.md while Claude runs, changes take effect
 - [ ] Page brief skill outputs raw text without Claude processing
 - [ ] Tested `effort` frontmatter and `${CLAUDE_SKILL_DIR}` in a skill
+- [ ] Used `${CLAUDE_EFFORT}` in a skill and saw it interpolate at different effort levels
