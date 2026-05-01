@@ -1,6 +1,6 @@
 # Agentic Education:<br>Using Claude Code to Teach Claude Code
 
-[![Paper](https://img.shields.io/badge/Paper-PDF-red)](Agentic%20Education%20-%20Using%20Claude%20Code%20to%20Teach%20Claude%20Code.pdf) [![v2.29.0](https://img.shields.io/badge/version-2.29.0-blue)](CHANGELOG.md)
+[![arXiv](https://img.shields.io/badge/arXiv-2604.17460-b31b1b.svg)](https://arxiv.org/abs/2604.17460) [![v2.29.0](https://img.shields.io/badge/version-2.29.0-blue)](CHANGELOG.md)
 
 ## TL;DR
 
@@ -11,7 +11,7 @@ Learn [Claude Code](https://docs.anthropic.com/en/docs/claude-code) by building 
 <details>
 <summary>Under the hood: the research behind this curriculum</summary>
 
-**cc-self-train** implements five research contributions: (1) a **persona progression model** that adapts the AI instructor's tone across four stages (Guide → Collaborator → Peer → Launcher); (2) an **adaptive learning system** that observes engagement quality through hook-based heuristics and adjusts scaffolding at two timescales; (3) a **cross-domain unified curriculum** in which five project domains share identical feature sequencing; (4) a **step-pacing mechanism** with explicit pause primitives to manage information overload; and (5) an **auto-updating curriculum design** in which the onboarding agent detects upstream tool changes and updates teaching materials before instruction. A pilot evaluation with 27 participants showed statistically significant self-efficacy gains across all 10 skill areas (*p* < 0.001). Full details in the [paper](Agentic%20Education%20-%20Using%20Claude%20Code%20to%20Teach%20Claude%20Code.pdf).
+**cc-self-train** implements five research contributions: (1) a **persona progression model** that adapts the AI instructor's tone across four stages (Guide → Collaborator → Peer → Launcher); (2) an **adaptive learning system** that observes engagement quality through hook-based heuristics and adjusts scaffolding at two timescales; (3) a **cross-domain unified curriculum** in which five project domains share identical feature sequencing; (4) a **step-pacing mechanism** with explicit pause primitives to manage information overload; and (5) an **auto-updating curriculum design** in which the onboarding agent detects upstream tool changes and updates teaching materials before instruction. A pilot evaluation with 27 participants showed statistically significant self-efficacy gains across all 10 skill areas (*p* < 0.001). Full details in the [paper](https://arxiv.org/abs/2604.17460).
 
 </details>
 
