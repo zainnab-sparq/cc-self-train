@@ -1,5 +1,13 @@
 # Changelog
 
+## v2.29.1 (2026-05-01)
+
+**Docs-only patch.** Switch README from local PDF reference to arXiv link.
+
+- **README badge:** replaced `Paper-PDF` shield (linking to the in-repo PDF) with an `arXiv-2604.17460` shield linking to `arxiv.org/abs/2604.17460`.
+- **Inline paper link:** the "Full details in the paper" link in the research-contributions section now points to the arXiv abstract instead of the bundled PDF.
+- No curriculum, code, or test changes.
+
 ## v2.29.0 (2026-04-30)
 
 **Curriculum sync to CC v2.1.123.** Four changelog versions (v2.1.120–v2.1.123). 9 user-facing features kept; ~38 entries dropped as bug fixes, telemetry tweaks, or platform-specific cosmetics.

@@ -1,6 +1,6 @@
 # Agentic Education:<br>Using Claude Code to Teach Claude Code
 
-[![arXiv](https://img.shields.io/badge/arXiv-2604.17460-b31b1b.svg)](https://arxiv.org/abs/2604.17460) [![v2.29.0](https://img.shields.io/badge/version-2.29.0-blue)](CHANGELOG.md)
+[![arXiv](https://img.shields.io/badge/arXiv-2604.17460-b31b1b.svg)](https://arxiv.org/abs/2604.17460) [![v2.29.1](https://img.shields.io/badge/version-2.29.1-blue)](CHANGELOG.md)
 
 ## TL;DR
 
